@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+        <meta name="language" content="fr-FR">
+        
+        <link rel="stylesheet" href="/dist/css/font-awesome/master.min.css">
+        <link rel="stylesheet" href="/dist/css/flex-it/master.min.css">
+        <link rel="stylesheet" href="/dist/css/team/master.min.css">
+        <link rel="stylesheet" href="/dist/css/apps/master.min.css">
+        <!--[if lt IE 9]>
+            <link rel="stylesheet" href="/dist/css/ie8/master.min.css">
+        <![endif]-->
+        <title><%= team.name %> - Miit</title>
+    </head>
+    <body>
+        <div id="content">
+            <div class="sidr-left bg-blue-grey"></div>
+            <div class="page">
+                <div class="page-header"></div>
+                <div class="loading-content">
+                    <div class="loading">
+                        <img src="/img/logo-miit-outter.png" alt="Miit">
+                        <img class="inner" src="/img/logo-miit-inner.png" alt="Miit">
+                    </div><br>
+                    Chargement...
+                </div>
+            </div>
+        </div>
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="/dist/lib/excanvas.js"></script>
+            <script type="text/javascript" src="/dist/lib/es5-shim.min.js"></script>
+            <script type="text/javascript" src="/dist/lib/es5-sham.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript" src="/primus/primus.js"></script>
+        <script type="text/javascript" src="/dist/lib/react-with-addons.js"></script>
+        <script type="text/javascript" src="/dist/lib/async.js"></script>
+        <script type="text/javascript" src="/dist/lib/director.min.js"></script>
+        <script type="text/javascript" src="/dist/lib/Chart.min.js"></script>
+        <script type="text/javascript" src="/dist/lib/Flux.js"></script>
+        <script type="text/javascript" src="/dist/js/app.min.js"></script>
+        <script type="text/javascript">
+        window.onload = function(){
+            // Set default value to initialize the storage
+            var Storage = MiitApp.get('miit-storage');
+            Storage.shared.set('user', <%- JSON.stringify(user) %>);
+            Storage.shared.set('team', <%- JSON.stringify(team) %>);
+            
+            // Render the TeamApp component
+            React.render(React.createElement(MiitComponents.TeamApp,null),document.getElementById('content'));
+
+            // Initialize the Application
+            MiitApp.init();
+        };
+        </script>
+    </body>
+</html>
