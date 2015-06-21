@@ -28,3 +28,6 @@ node_modules
 
 # Bower dependencies
 bower_components
+
+# Ignore dist files
+public/dist
