@@ -1,3 +1,3 @@
-(function(React,Flux,Router){window.MiitComponents={};
+(function(){var React = window.React || {};var Flux = window.Flux || {};var Router = window.Router || {};window.MiitComponents={};
 <%= contents %>
-})(React,Flux,Router);
+})();

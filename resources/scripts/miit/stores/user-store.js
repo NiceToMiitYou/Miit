@@ -78,7 +78,7 @@
 
                 getUser: function() {
                     if(!Me) {
-                        Me = MiitStorage.shared.get('user');
+                        Me = MiitStorage.get('user');
                     }
                     return Me;
                 },

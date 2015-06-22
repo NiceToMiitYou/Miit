@@ -6,7 +6,6 @@
             return {
                 text: {
                     admin:  'Administrateur',
-                    user:   'Utilisateur',
                     remove: 'Supprimer'
                 },
                 user: {
@@ -36,19 +35,19 @@
 
         componentDidMount: function() {
             // Promote
-            TeamStore.addPromotedListener(this._onPromoted);
+            TeamStore.addPromotedListener(this._onChanged);
             TeamStore.addNotPromotedListener(this._onError);
             // Demote
-            TeamStore.addDemotedListener(this._onDemoted);
+            TeamStore.addDemotedListener(this._onChanged);
             TeamStore.addNotDemotedListener(this._onError);
         },
 
         componentWillUnmount: function() {
             // Promote
-            TeamStore.removePromotedListener(this._onPromoted);
+            TeamStore.removePromotedListener(this._onChanged);
             TeamStore.removeNotPromotedListener(this._onError);
             // Demote
-            TeamStore.removeDemotedListener(this._onDemoted);
+            TeamStore.removeDemotedListener(this._onChanged);
             TeamStore.removeNotDemotedListener(this._onError);
         },
 
@@ -60,11 +59,7 @@
             }
         },
 
-        _onPromoted: function() {
-            this._stopLoading();
-        },
-
-        _onDemoted: function() {
+        _onChanged: function() {
             this._stopLoading();
         },
 
@@ -109,7 +104,6 @@
 
             switch(action) {
                 case 'ADMIN':
-                case 'USER':
                     this.toggleRole(action);
                     break;
 
@@ -127,13 +121,7 @@
             }
 
             var userIsAdmin = UserStore.isAdmin(this.props.user);
-            var userIsUser  = UserStore.isUser(this.props.user);
             var userIsMe    = UserStore.isItMe(this.props.user);
-
-            var user_active = classNames({
-                disable: !IAmAdmin || userIsMe || userIsAdmin,
-                active:  userIsUser
-            });
 
             var admin_active = classNames({
                 disable: !IAmAdmin || userIsMe,
@@ -146,16 +134,9 @@
 
             return (
                 <span className="miit-component user-list-item-roles">
-                    <div className="checkbox-field pull-left" onClick={this.handleClick.bind(this, 'USER')} >
-                        <label>
-                            <input type="checkbox" className="option-input checkbox" checked={userIsUser} readOnly/>
-                            {this.props.text.user}
-                        </label>
-                    </div>
-
                     <div className="checkbox-field pull-left ml20" onClick={this.handleClick.bind(this, 'ADMIN')} >
                         <label>
-                            <input type="checkbox" className="option-input checkbox" checked={userIsAdmin} readOnly/>
+                            <input type="checkbox" className="option-input checkbox" checked={userIsAdmin} readOnly />
                             {this.props.text.admin}
                         </label>
                     </div>

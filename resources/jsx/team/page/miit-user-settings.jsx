@@ -67,7 +67,9 @@
         }
     });
 
-    MiitApp
-        .get('miit-page-store')
-        .registerMainPage('me', (<MiitComponents.MiitUserSettings />));
+    MiitApp.onInit(function() {
+        MiitApp
+            .get('miit-page-store')
+            .registerMainPage('me', (<MiitComponents.MiitUserSettings />));
+    });
 })();

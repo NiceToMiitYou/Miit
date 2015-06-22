@@ -22,7 +22,9 @@
         }
     });
 
-    MiitApp
-        .get('miit-page-store')
-        .registerMainPage('not-found', (<MiitComponents.MiitNotFound />));
+    MiitApp.onInit(function() {
+        MiitApp
+            .get('miit-page-store')
+            .registerMainPage('not-found', (<MiitComponents.MiitNotFound />));
+    });
 })();

@@ -1,7 +1,10 @@
 'use strict';
 
-module.exports = function UserManager() {
-    var TeamStore = miitoo.get('TeamStore');
+module.exports = function TeamManager() {
+    var TeamStore   = miitoo.get('TeamStore');
+
+    var TeamManager = miitoo.get('TeamManager');
+    var UserManager = miitoo.get('UserManager');
     
     var primus = miitoo.get('Primus');
     
@@ -31,21 +34,103 @@ module.exports = function UserManager() {
 
     // Handle update informations of team
     function onUpdateTeam(spark, team) {
+        // On update
         spark.on('team:update', function(data) {
             var name   = data.name;
-            var publix = data.publix;
+            var publix = data.public;
 
-            if(!name || (true !== publix && false !== publix)) 
-            {
-                return;
-            }
+            TeamManager.updateTeam(team, name, publix, function(err, teamToUpdate){
+                if(err || !team)
+                {
+                    if(err)
+                    {
+                        miitoo.logger.error(err);
+                    }
 
-            TeamStore.findTeam(team, function(err, teamToUpdate){
-
+                    spark.write({
+                        event: 'team:update',
+                        done:  false
+                    });
+                }
 
                 spark.write({
-                    event: 'team:update',
-                    users: users
+                    event:    'team:update',
+                    done:     true,
+                    name:     name,
+                    'public': publix
+                });
+
+                spark.request.team = teamToUpdate;
+            });
+        });
+    }
+
+    function onInvite(spark, team) {
+        function inviteNotDone(err) { 
+            if(err)
+            {
+                miitoo.logger.error(err);
+            }
+
+            spark.write({
+                event: 'team:invite',
+                done:  false
+            });
+        }
+
+        spark.on('team:invite', function(data) {
+            var email = data.email;
+
+            UserManager.findUserByEmailOrCreate(email, function(err, user) {
+                if(err) 
+                {
+                    inviteNotDone(err);
+                    return;
+                }
+
+                var roles = ['USER'];
+
+                TeamStore.addUser(team, user, roles, function(errAdd) {
+                    if(errAdd) 
+                    {
+                        inviteNotDone(err);
+                        return;
+                    }
+
+                    spark.write({
+                        event: 'team:invite',
+                        done:  true,
+                        user:  {
+                            id:     user.id,
+                            name:   user.name,
+                            email:  user.email,
+                            avatar: user.avatar,
+                            roles:  roles
+                        }
+                    });
+                });
+            });
+        });
+    }
+
+    function onRemove(spark, team) {
+        spark.on('team:remove', function(data) {
+            var userId = data.id;
+
+            TeamStore.removeUser(team, userId, function(err, user) {
+                if(err) 
+                {
+                    spark.write({
+                        event: 'team:remove',
+                        done:  false
+                    });
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:remove',
+                    done:  true,
+                    id:    userId
                 });
             });
         });
@@ -60,5 +145,14 @@ module.exports = function UserManager() {
 
         // Handle get users
         onGetUsers(spark, team);
+
+        // Handle update team
+        onUpdateTeam(spark, team);
+
+        // Handle invite in team
+        onInvite(spark, team);
+
+        // Handle remove from team
+        onRemove(spark, team);
     });
 };

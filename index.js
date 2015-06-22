@@ -8,6 +8,7 @@ Miitoo.load(__dirname + '/config');
 Miitoo.load(__dirname + '/startup');
 Miitoo.load(__dirname + '/models');
 Miitoo.load(__dirname + '/stores');
+Miitoo.load(__dirname + '/managers');
 Miitoo.load(__dirname + '/controllers');
 Miitoo.load(__dirname + '/realtime');
 

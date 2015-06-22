@@ -1,7 +1,8 @@
 (function(){
-    var MiitDispatcher = function() {
+    injector.register('miit-dispatcher', function() {
+        if(!Flux.Dispatcher) {
+            return;
+        }
         return new Flux.Dispatcher();
-    };
-
-    injector.register('miit-dispatcher', MiitDispatcher);
+    });
 })();

@@ -23,6 +23,20 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
         });
     }
 
+    function findOneAndUpdate(conditions, update, cb) {
+        Team.findOneAndUpdate(conditions, update, function(err, doc) {
+            // Log the error
+            if(err) {
+                miitoo.logger.error(err);
+            }
+
+            if(typeof cb === 'function') {
+                cb(err, doc);
+            }
+        });
+    }
+
+
     return {
         findTeam: function(team, cb) {
             Team
@@ -81,16 +95,49 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
                 }
             };
 
-            Team.findOneAndUpdate(conditions, update, function(err, doc) {
-                // Log the error
-                if(err) {
-                    miitoo.logger.error(err);
-                }
+            findOneAndUpdate(conditions, update, cb);
+        },
 
-                if(typeof cb === 'function') {
-                    cb(err, doc);
+        addRoleUser: function(team, user, roles, cb) {
+            if(!team || !user) {
+                return;
+            }
+
+            var conditions = {
+                _id: team._id || team,
+                'users.user': { $ne: user._id || user }
+            };
+
+            var update = {
+                $addToSet: {
+                    users: {
+                        user:  user._id || user,
+                        roles: roles
+                    }
                 }
-            });
+            };
+            
+            findOneAndUpdate(conditions, update, cb);
+        },
+
+        removeUser: function(team, user, cb) {
+            if(!team || !user) {
+                return;
+            }
+
+            var conditions = {
+                _id: team._id || team
+            };
+
+            var update = {
+                $pull: {
+                    users: {
+                        user: user._id || user
+                    }
+                }
+            };
+
+            findOneAndUpdate(conditions, update, cb);
         },
 
         findUser: function(team, user, cb) {

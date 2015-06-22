@@ -1,7 +1,7 @@
 (function(){
     var MiitPageStore = injector.resolve(
-        ['object-assign', 'key-mirror', 'miit-dispatcher', 'miit-storage', 'miit-router', 'miit-page-constants', 'miit-user-store', 'miit-team-store'],
-        function(ObjectAssign, KeyMirror, MiitDispatcher, MiitStorage, MiitRouter, MiitPageConstants, MiitUserStore, MiitTeamStore) {
+        ['object-assign', 'key-mirror', 'miit-dispatcher', 'miit-page-constants', 'miit-user-store', 'miit-team-store'],
+        function(ObjectAssign, KeyMirror, MiitDispatcher, MiitPageConstants, MiitUserStore, MiitTeamStore) {
             // All action types
             var ActionTypes = MiitPageConstants.ActionTypes;
 
@@ -9,7 +9,7 @@
             var CurrentMainPage, CurrentApplicationPage;
 
             // A storage for all pages
-            var PageStorage = MiitStorage.create('pages');
+            var PageStorage = new DataStore('pages');
 
             var events = KeyMirror({
                 // Events on page Change

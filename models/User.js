@@ -34,6 +34,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         }
 
         if(this.isNew || !this.avatar || this.isModified('email')) {
+            this.email  = this.email.toLowerCase();
             this.avatar = sha1(this.email);
         }
 

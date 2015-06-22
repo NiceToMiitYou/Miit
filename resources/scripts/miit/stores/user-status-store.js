@@ -39,8 +39,8 @@
     }
 
     var MiitUserStatusStore = injector.resolve(
-        ['object-assign', 'key-mirror', 'miit-utils', 'miit-dispatcher', 'miit-user-status-constants'],
-        function(ObjectAssign, KeyMirror, MiitUtils, MiitDispatcher, MiitUserStatusConstants) {
+        ['object-assign', 'key-mirror', 'miit-dispatcher', 'miit-user-status-constants'],
+        function(ObjectAssign, KeyMirror, MiitDispatcher, MiitUserStatusConstants) {
             // All action types
             var ActionTypes = MiitUserStatusConstants.ActionTypes;
 

@@ -96,7 +96,9 @@
         }
     });
 
-    MiitApp
-        .get('miit-page-store')
-        .registerMainPage('settings', (<MiitComponents.MiitTeamSettings />));
+    MiitApp.onInit(function() {
+        MiitApp
+            .get('miit-page-store')
+            .registerMainPage('settings', (<MiitComponents.MiitTeamSettings />));
+    });
 })();

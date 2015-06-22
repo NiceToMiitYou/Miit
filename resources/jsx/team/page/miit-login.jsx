@@ -23,7 +23,9 @@
         }
     });
 
-    MiitApp
-        .get('miit-page-store')
-        .registerMainPage('login', (<MiitComponents.MiitLogin />));
+    MiitApp.onInit(function() {
+        MiitApp
+            .get('miit-page-store')
+            .registerMainPage('login', (<MiitComponents.MiitLogin />));
+    });
 })();

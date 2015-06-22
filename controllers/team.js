@@ -1,7 +1,7 @@
 
 var controller = miitoo.resolve(
-    ['Lodash', 'Jwt', 'MiitConfig', 'TeamRoutes', 'TeamStore'],
-    function(_, jwt, config, app, TeamStore) {
+    ['Lodash', 'MiitConfig', 'TeamRoutes', 'TeamStore'],
+    function(_, config, app, TeamStore) {
     
     // Find the team and allow the user if exist
     app.use(function(req, res, next) {

@@ -46,8 +46,8 @@
         window.onload = function(){
             // Set default value to initialize the storage
             var Storage = MiitApp.get('miit-storage');
-            Storage.shared.set('user', <%- JSON.stringify(user) %>);
-            Storage.shared.set('team', <%- JSON.stringify(team) %>);
+            Storage.set('user', <%- JSON.stringify(user) %>);
+            Storage.set('team', <%- JSON.stringify(team) %>);
             
             // Render the TeamApp component
             React.render(React.createElement(MiitComponents.TeamApp,null),document.getElementById('content'));

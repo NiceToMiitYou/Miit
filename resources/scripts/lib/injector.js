@@ -37,7 +37,7 @@ var injector = (function() {
 
                 for(var i=0; i<deps.length; i++) {
                     var d = deps[i];
-
+                    
                     if(!instances[d] && typeof dependencies[d] === 'function') {
                         instances[d] = dependencies[d]();
                     }

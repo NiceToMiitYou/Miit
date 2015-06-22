@@ -69,8 +69,8 @@
     }
 
     var MiitTeamStore = injector.resolve(
-        ['object-assign', 'key-mirror', 'miit-storage', 'miit-dispatcher', 'miit-user-store', 'miit-team-constants'],
-        function(ObjectAssign, KeyMirror, MiitStorage, MiitDispatcher, MiitUserStore, MiitTeamConstants) {
+        ['object-assign', 'key-mirror', 'miit-storage', 'miit-dispatcher', 'miit-team-constants'],
+        function(ObjectAssign, KeyMirror, MiitStorage, MiitDispatcher, MiitTeamConstants) {
             var ActionTypes = MiitTeamConstants.ActionTypes;
 
             var events = KeyMirror({
@@ -97,7 +97,7 @@
             var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
                 getTeam: function() {
                     if(!Team) {
-                        Team = MiitStorage.shared.get('team');
+                        Team = MiitStorage.get('team');
                     }
                     return Team || {};
                 },

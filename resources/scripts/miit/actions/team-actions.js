@@ -29,18 +29,18 @@
             };
 
             // Handle remove
-            var onRemoved = function(id, data) {
+            MiitRealtime.on('team:remove', function(data) {
                 var action = {
                     type: (data.done) ? ActionTypes.REMOVE_USER_COMPLETED :
                                         ActionTypes.REMOVE_USER_ERROR,
-                    id: id
+                    id: data.id
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
+            });
 
             // Handle invite
-            var onInvited = function(data) {
+            MiitRealtime.on('team:invite', function(data) {
                 var action = {
                     type: (data.done) ? ActionTypes.INVITE_USER_COMPLETED :
                                         ActionTypes.INVITE_USER_ERROR,
@@ -48,19 +48,19 @@
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
+            });
 
             // Handle update
-            var onUpdated = function(name, publix, data) {
+            MiitRealtime.on('team:update', function(data) {
                 var action = {
                     type: (data.done) ? ActionTypes.UPDATE_TEAM_COMPLETED :
                                         ActionTypes.UPDATE_TEAM_ERROR,
-                    name:   name,
-                    public: publix
+                    name:   data.name,
+                    public: data.public
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
+            });
 
             // Handle refresh
             var onRefresh = function(data) {
@@ -80,11 +80,16 @@
                 },
 
                 update: function(name, publix) {
-                    MiitTeamRequest.update(name, publix, onUpdated.bind({}, name, publix));
+                    MiitRealtime.send('team:update', {
+                        name:     name,
+                        'public': publix
+                    });
                 },
 
                 invite: function(email) {
-                    MiitTeamRequest.invite(email, onInvited);
+                    MiitRealtime.send('team:invite', {
+                        email: email
+                    });
                 },
 
                 promote: function(id, roles) {
@@ -96,7 +101,9 @@
                 },
 
                 remove: function(id) {
-                    MiitTeamRequest.remove(id, onRemoved.bind({}, id));
+                    MiitRealtime.send('team:remove', {
+                        id: id
+                    });
                 }
             };
 
