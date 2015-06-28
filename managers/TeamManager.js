@@ -65,7 +65,6 @@ var manager = miitoo.resolve(
                     return cb(null, teamToUpdate);
                 });
             });
-
         }
     };
 });

@@ -98,28 +98,6 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             findOneAndUpdate(conditions, update, cb);
         },
 
-        addRoleUser: function(team, user, roles, cb) {
-            if(!team || !user) {
-                return;
-            }
-
-            var conditions = {
-                _id: team._id || team,
-                'users.user': { $ne: user._id || user }
-            };
-
-            var update = {
-                $addToSet: {
-                    users: {
-                        user:  user._id || user,
-                        roles: roles
-                    }
-                }
-            };
-            
-            findOneAndUpdate(conditions, update, cb);
-        },
-
         removeUser: function(team, user, cb) {
             if(!team || !user) {
                 return;
@@ -137,6 +115,44 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
                 }
             };
 
+            findOneAndUpdate(conditions, update, cb);
+        },
+
+        addRoleUser: function(team, user, roles, cb) {
+            if(!team || !user) {
+                return;
+            }
+
+            var conditions = {
+                _id: team._id || team,
+                'users.user': user._id || user
+            };
+
+            var update = {
+                $pushAll: {
+                    'users.$.roles': roles
+                }
+            };
+            
+            findOneAndUpdate(conditions, update, cb);
+        },
+
+        removeRoleUser: function(team, user, roles, cb) {
+            if(!team || !user) {
+                return;
+            }
+
+            var conditions = {
+                _id: team._id || team,
+                'users.user': user._id || user
+            };
+
+            var update = {
+                $pullAll: {
+                    'users.$.roles': roles
+                }
+            };
+            
             findOneAndUpdate(conditions, update, cb);
         },
 

@@ -1,32 +1,32 @@
 (function(){
     var TeamActions = injector.resolve(
-        ['miit-dispatcher', 'miit-team-constants', 'miit-realtime', 'miit-team-request'],
-        function(MiitDispatcher, MiitTeamConstants, MiitRealtime, MiitTeamRequest) {
+        ['miit-dispatcher', 'miit-team-constants', 'miit-realtime'],
+        function(MiitDispatcher, MiitTeamConstants, MiitRealtime) {
             var ActionTypes = MiitTeamConstants.ActionTypes;
 
             // Handle promote
-            var onPromoted = function(id, roles, data) {
+            MiitRealtime.on('team:promote', function(data) {
                 var action = {
                     type: (data.done) ? ActionTypes.PROMOTE_USER_COMPLETED :
                                         ActionTypes.PROMOTE_USER_ERROR,
-                    id: id,
-                    roles: roles
+                    id:    data.id,
+                    roles: data.roles
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
+            });
 
             // Handle demote
-            var onDemoted = function(id, roles, data) {
+            MiitRealtime.on('team:demote', function(data) {
                 var action = {
                     type: (data.done) ? ActionTypes.DEMOTE_USER_COMPLETED :
                                         ActionTypes.DEMOTE_USER_ERROR,
-                    id: id,
-                    roles: roles
+                    id:    data.id,
+                    roles: data.roles
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
+            });
 
             // Handle remove
             MiitRealtime.on('team:remove', function(data) {
@@ -63,16 +63,14 @@
             });
 
             // Handle refresh
-            var onRefresh = function(data) {
+            MiitRealtime.on('team:users', function(data) {
                 var action = {
                     type:  ActionTypes.REFRESH_USERS_COMPLETED,
                     users: data.users
                 };
 
                 MiitDispatcher.dispatch(action);
-            };
-
-            MiitRealtime.on('team:users', onRefresh);
+            });
 
             var obj = {
                 refresh: function() {
@@ -93,11 +91,17 @@
                 },
 
                 promote: function(id, roles) {
-                    MiitTeamRequest.promote(id, roles, onPromoted.bind({}, id, roles));
+                    MiitRealtime.send('team:promote', {
+                        id:    id,
+                        roles: roles
+                    });
                 },
 
                 demote: function(id, roles) {
-                    MiitTeamRequest.demote(id, roles, onDemoted.bind({}, id, roles));
+                    MiitRealtime.send('team:demote', {
+                        id:    id,
+                        roles: roles
+                    });
                 },
 
                 remove: function(id) {

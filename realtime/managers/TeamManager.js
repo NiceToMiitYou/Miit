@@ -136,6 +136,60 @@ module.exports = function TeamManager() {
         });
     }
 
+    function onPromote(spark, team) {
+        spark.on('team:promote', function(data) {
+            var userId = data.id;
+            var roles  = data.roles;
+
+            if(!userId || !roles) {
+                return;
+            }
+
+            TeamStore.addRoleUser(team, userId, roles, function(err) {
+                if(err) 
+                {
+                    spark.write({
+                        event: 'team:promote',
+                        done:  false
+                    });
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:promote',
+                    done:  true,
+                    id:    userId,
+                    roles: roles
+                });
+            });
+        });
+    }
+
+    function onDemote(spark, team) {
+        spark.on('team:demote', function(data) {
+            var userId = data.id;
+            var roles  = data.roles;
+
+            TeamStore.removeRoleUser(team, userId, roles, function(err) {
+                if(err) 
+                {
+                    spark.write({
+                        event: 'team:demote',
+                        done:  false
+                    });
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:demote',
+                    done:  true,
+                    id:    userId,
+                    roles: roles
+                });
+            });
+        });
+    }
+
     // On user connection
     primus.on('connection', function(spark) {
         var team = spark.request.team;
@@ -154,5 +208,11 @@ module.exports = function TeamManager() {
 
         // Handle remove from team
         onRemove(spark, team);
+
+        // Handle promote from team
+        onPromote(spark, team);
+
+        // Handle demote from team
+        onDemote(spark, team);
     });
 };
