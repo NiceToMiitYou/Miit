@@ -18,7 +18,6 @@
             // Get the user actions
             if(!UserActions) {
                 UserActions = MiitApp.get('miit-user-actions');
-                UserActions.check(UserStore.getToken());
             }
             // Get the page store
             if(!PageStore) {

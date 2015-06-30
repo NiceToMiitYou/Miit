@@ -1,5 +1,5 @@
 
-var realtime = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], function(primus, config, TeamStore) {
+var authorization = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], function(primus, config, TeamStore) {
 
     function extractSubdomain(host) {
         // Remove the port
@@ -29,8 +29,9 @@ var realtime = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], function(pr
                     });
                 }
 
-                req.team = team;
-                req.user = {};
+                req.team  = team;
+                req.user  = {};
+                req.roles = ['ANONYM'];
     
                 return done();
             });
@@ -41,4 +42,4 @@ var realtime = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], function(pr
     primus.authorize(authorize);
 });
 
-miitoo.once('after:start', realtime);
+miitoo.once('after:start', authorization);

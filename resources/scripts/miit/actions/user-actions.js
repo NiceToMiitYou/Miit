@@ -1,8 +1,8 @@
 (function(){
     var UserActions = injector.resolve(
-        ['miit-dispatcher', 'miit-realtime', 'miit-user-constants'],
-        function(MiitDispatcher, MiitRealtime, MiitUserConstants) {
-            var ActionTypes = MiitUserConstants.ActionTypes;
+        ['miit-dispatcher', 'miit-realtime', 'miit-user-constants', 'miit-user-store'],
+        function(MiitDispatcher, MiitRealtime, MiitUserConstants, UserStore) {
+            var ActionTypes   = MiitUserConstants.ActionTypes;
 
             // Handle login from token
             MiitRealtime.on('login:token', function(data) {
@@ -50,6 +50,27 @@
                 MiitDispatcher.dispatch(action);
             });
 
+            function check() {
+                var token = UserStore.getToken();
+
+                if(token) {
+                    // Request the server
+                    MiitRealtime.send('login:token', {
+                        token: token
+                    });
+                }
+            }
+
+            MiitRealtime.on('open', function() {
+                // Connection the user
+                check();
+            });
+
+            MiitRealtime.on('reconnected', function() {
+                // Reconnect the user
+                check();
+            });
+
             return {
                 login: function(email, password) {
                     // Request the server
@@ -67,14 +88,7 @@
                     MiitDispatcher.dispatch(action);
                 },
 
-                check: function(token) {
-                    if(token) {
-                        // Request the server
-                        MiitRealtime.send('login:token', {
-                            token: token
-                        });
-                    }
-                },
+                check: check,
 
                 changePassword: function(password_old, password_new) {
                     // Request the server

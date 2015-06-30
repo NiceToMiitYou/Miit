@@ -26,16 +26,6 @@
                 primus.write(data);
             },
 
-            sendIn: function(roomName, eventName, data) {
-                if(!data) {
-                    data = {};
-                }
-
-                data.event = eventName;
-
-                primus.in(roomName).write(data);
-            },
-
             on: function(eventName, cb) {
                 primus.on(eventName, cb);
             }

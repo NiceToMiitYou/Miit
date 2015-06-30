@@ -1,12 +1,11 @@
 'use strict';
 
 module.exports = function ConnectionManager() {
-    var StatusStore  = miitoo.get('StatusStore');
-    var UserStore    = miitoo.get('UserStore');
-    var TeamStore    = miitoo.get('TeamStore');
+    var StatusStore = miitoo.get('StatusStore');
     
-    var applications = miitoo.get('Applications');
     var primus       = miitoo.get('Primus');
+    var applications = miitoo.get('Applications');
+    var Dispatcher   = miitoo.get('RealtimeDispatcher');
 
     function initializeConnections(spark, user, team) {
         // Bind event from client
@@ -15,7 +14,7 @@ module.exports = function ConnectionManager() {
 
             if(spark.reserved(data.event)) return;
 
-            spark.emit.call(spark, data.event, data);
+            Dispatcher.dispatch(spark, data.event, data);
         });
 
         // Check statut
