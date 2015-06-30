@@ -17,11 +17,16 @@ module.exports = function UserManager() {
         });
     });
 
-    // Response on changed
-    function passwordChanged(spark, done) {
+
+    function notDone(spark, event, err) {
+        if(err)
+        {
+            miitoo.logger.error(err);
+        }
+
         spark.write({
-            event: 'user:password',
-            done:  done
+            event: event,
+            done:  false
         });
     }
 
@@ -39,6 +44,7 @@ module.exports = function UserManager() {
         UserStore.findUser(session.id, function(err, user) {
             if(err || !user)
             {
+                notDone(spark, 'user:password', err);
                 return;
             }
 
@@ -47,22 +53,22 @@ module.exports = function UserManager() {
                 if(true === result) {
                     // Save the user
                     user.password = password_new || user.password;
-                    user.save(function(err) {
-                        if(!err)
+                    user.save(function(errSave) {
+                        if(errSave)
                         {
-                            passwordChanged(spark, true);
+                            notDone(spark, 'user:password', errSave);
+                            return;
                         }
-                        else
-                        {
-                            miitoo.logger.error(err);
-                            passwordChanged(spark, false);
-                        }
+
+                        spark.write({
+                            event: 'user:password',
+                            done:  true
+                        });
                     });
                 }
                 else
                 {
-                    miitoo.logger.info('Wrong password.');
-                    passwordChanged(spark, false);
+                    notDone(spark, 'user:password', new Error('Wrong password.'));
                 }
             });
         });
@@ -81,6 +87,7 @@ module.exports = function UserManager() {
         UserStore.findUser(session.id, function(err, user) {
             if(err || !user)
             {
+                notDone(spark, 'user:update', err);
                 return;
             }
 
@@ -88,22 +95,17 @@ module.exports = function UserManager() {
             user.name = name || user.name;
 
             user.save(function(err) {
-                if(!err)
+                if(err)
                 {
-                    spark.write({
-                        event: 'user:update',
-                        done:  true,
-                        name:  user.name
-                    });
+                    notDone(spark, 'user:update', err);
+                    return;
                 }
-                else
-                {
-                    spark.write({
-                        event: 'user:update',
-                        done:  false
-                    });
-                    miitoo.logger.error(err);
-                }
+
+                spark.write({
+                    event: 'user:update',
+                    done:  true,
+                    name:  user.name
+                });
             });
         });
     });

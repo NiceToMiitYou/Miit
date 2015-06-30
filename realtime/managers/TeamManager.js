@@ -30,6 +30,18 @@ module.exports = function TeamManager() {
         });
     });
 
+    function notDone(spark, event, err) {
+        if(err)
+        {
+            miitoo.logger.error(err);
+        }
+
+        spark.write({
+            event: event,
+            done:  false
+        });
+    }
+
     // Handle update informations of team
     Dispatcher.register('team:update', 'ADMIN', function onUpdateTeam(spark, data, team) {
         var name   = data.name;
@@ -38,15 +50,7 @@ module.exports = function TeamManager() {
         TeamManager.updateTeam(team, name, publix, function(err, teamToUpdate){
             if(err || !team)
             {
-                if(err)
-                {
-                    miitoo.logger.error(err);
-                }
-
-                spark.write({
-                    event: 'team:update',
-                    done:  false
-                });
+                notDone(spark, 'team:update', err);
             }
 
             spark.write({
@@ -60,18 +64,6 @@ module.exports = function TeamManager() {
         });
     });
 
-    function inviteNotDone(spark, err) { 
-        if(err)
-        {
-            miitoo.logger.error(err);
-        }
-
-        spark.write({
-            event: 'team:invite',
-            done:  false
-        });
-    }
-
     // Handle invitation in team
     Dispatcher.register('team:invite', 'ADMIN', function onInvite(spark, data, team) {
         var email = data.email;
@@ -79,7 +71,7 @@ module.exports = function TeamManager() {
         UserManager.findUserByEmailOrCreate(email, function(err, user) {
             if(err) 
             {
-                inviteNotDone(spark, err);
+                notDone(spark, 'team:invite', err);
                 return;
             }
 
@@ -88,7 +80,7 @@ module.exports = function TeamManager() {
             TeamStore.addUser(team, user, roles, function(errAdd) {
                 if(errAdd) 
                 {
-                    inviteNotDone(spark, err);
+                    notDone(spark, 'team:invite', err);
                     return;
                 }
 
@@ -107,13 +99,6 @@ module.exports = function TeamManager() {
         });
     });
 
-    function notDone(spark, event) {
-        spark.write({
-            event: event,
-            done:  false
-        });
-    }
-
     // Handle remove user from team
     Dispatcher.register('team:remove', 'ADMIN', function onRemove(spark, data, team) {
         var userId = data.id;
@@ -126,19 +111,19 @@ module.exports = function TeamManager() {
         TeamStore.findUser(team, userId, function(err, user) {
             if(err || !user) 
             {
-                notDone(spark, 'team:remove');
+                notDone(spark, 'team:remove', err);
                 return;
             }
 
             if(user.roles.indexOf('OWNER') != -1) {
-                notDone(spark, 'team:remove');
+                notDone(spark, 'team:remove', new Error('Cannot delete the Owner of the team.'));
                 return;
             }
 
-            TeamStore.removeUser(team, userId, function(err, user) {
-                if(err) 
+            TeamStore.removeUser(team, userId, function(errRemove, user) {
+                if(errRemove) 
                 {
-                    notDone(spark, 'team:remove');
+                    notDone(spark, 'team:remove', errRemove);
                     return;
                 }
 
@@ -164,20 +149,19 @@ module.exports = function TeamManager() {
         TeamStore.findUser(team, userId, function(err, user) {
             if(err || !user) 
             {
-                notDone(spark, 'team:promote');
+                notDone(spark, 'team:promote', err);
                 return;
             }
 
             if(user.roles.indexOf('OWNER') != -1) {
-                notDone(spark, 'team:promote');
-                //console.log('IN', team, userId, user, user.roles, user.roles.indexOf('OWNER'));
+                notDone(spark, 'team:promote', new Error('Cannot promote the Owner of the team.'));
                 return;
             }
 
             TeamStore.addRoleUser(team, userId, roles, function(errAdd) {
                 if(errAdd) 
                 {
-                    notDone(spark, 'team:promote');
+                    notDone(spark, 'team:promote', errAdd);
                     return;
                 }
 
@@ -204,20 +188,20 @@ module.exports = function TeamManager() {
         TeamStore.findUser(team, userId, function(err, user) {
             if(err || !user) 
             {
-                notDone(spark, 'team:demote');
+                notDone(spark, 'team:demote', err);
                 return;
             }
 
             if(user.roles.indexOf('OWNER') != -1) {
-                notDone(spark, 'team:demote');
+                notDone(spark, 'team:demote', new Error('Cannot demote the Owner of the team.'));
                 return;
             }
 
             // Remove the user
-            TeamStore.removeRoleUser(team, userId, roles, function(errRemove) {
-                if(errRemove) 
+            TeamStore.removeRoleUser(team, userId, roles, function(errDemote) {
+                if(errDemote) 
                 {
-                    notDone(spark, 'team:demote');
+                    notDone(spark, 'team:demote', errDemote);
                     return;
                 }
 
