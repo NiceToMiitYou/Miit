@@ -11,7 +11,7 @@ module.exports = function TeamManager() {
     // Handle get informations of an user
     Dispatcher.register('team:user', 'USER', function onGetUser(spark, data, team) {
         // Find the user
-        TeamStore.findUser(team, data.id, function(err, user){
+        TeamStore.findUser(team, data.id, function(err, user) {
             spark.write({
                 event: 'team:user',
                 user: user
@@ -107,24 +107,46 @@ module.exports = function TeamManager() {
         });
     });
 
+    function notDone(spark, event) {
+        spark.write({
+            event: event,
+            done:  false
+        });
+    }
+
     // Handle remove user from team
     Dispatcher.register('team:remove', 'ADMIN', function onRemove(spark, data, team) {
         var userId = data.id;
 
-        TeamStore.removeUser(team, userId, function(err, user) {
-            if(err) 
+        if(!userId) {
+            return;
+        }
+
+        // Check if the user is not the owner
+        TeamStore.findUser(team, userId, function(err, user) {
+            if(err || !user) 
             {
-                spark.write({
-                    event: 'team:remove',
-                    done:  false
-                });
+                notDone(spark, 'team:remove');
                 return;
             }
 
-            spark.write({
-                event: 'team:remove',
-                done:  true,
-                id:    userId
+            if(user.roles.indexOf('OWNER') != -1) {
+                notDone(spark, 'team:remove');
+                return;
+            }
+
+            TeamStore.removeUser(team, userId, function(err, user) {
+                if(err) 
+                {
+                    notDone(spark, 'team:remove');
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:remove',
+                    done:  true,
+                    id:    userId
+                });
             });
         });
     });
@@ -138,21 +160,33 @@ module.exports = function TeamManager() {
             return;
         }
 
-        TeamStore.addRoleUser(team, userId, roles, function(err) {
-            if(err) 
+        // Check if the user is not the owner
+        TeamStore.findUser(team, userId, function(err, user) {
+            if(err || !user) 
             {
-                spark.write({
-                    event: 'team:promote',
-                    done:  false
-                });
+                notDone(spark, 'team:promote');
                 return;
             }
 
-            spark.write({
-                event: 'team:promote',
-                done:  true,
-                id:    userId,
-                roles: roles
+            if(user.roles.indexOf('OWNER') != -1) {
+                notDone(spark, 'team:promote');
+                //console.log('IN', team, userId, user, user.roles, user.roles.indexOf('OWNER'));
+                return;
+            }
+
+            TeamStore.addRoleUser(team, userId, roles, function(errAdd) {
+                if(errAdd) 
+                {
+                    notDone(spark, 'team:promote');
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:promote',
+                    done:  true,
+                    id:    userId,
+                    roles: roles
+                });
             });
         });
     });
@@ -162,21 +196,37 @@ module.exports = function TeamManager() {
         var userId = data.id;
         var roles  = data.roles;
 
-        TeamStore.removeRoleUser(team, userId, roles, function(err) {
-            if(err) 
+        if(!userId || !roles) {
+            return;
+        }
+
+        // Check if the user is not the owner
+        TeamStore.findUser(team, userId, function(err, user) {
+            if(err || !user) 
             {
-                spark.write({
-                    event: 'team:demote',
-                    done:  false
-                });
+                notDone(spark, 'team:demote');
                 return;
             }
 
-            spark.write({
-                event: 'team:demote',
-                done:  true,
-                id:    userId,
-                roles: roles
+            if(user.roles.indexOf('OWNER') != -1) {
+                notDone(spark, 'team:demote');
+                return;
+            }
+
+            // Remove the user
+            TeamStore.removeRoleUser(team, userId, roles, function(errRemove) {
+                if(errRemove) 
+                {
+                    notDone(spark, 'team:demote');
+                    return;
+                }
+
+                spark.write({
+                    event: 'team:demote',
+                    done:  true,
+                    id:    userId,
+                    roles: roles
+                });
             });
         });
     });

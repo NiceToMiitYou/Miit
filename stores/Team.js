@@ -3,24 +3,27 @@
 var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
 
     function mapUsers(team) {
-        return ((team || {}).users || []).map(function(userTeam) {
-            var user =  (userTeam || {}).user || {};
+        var users = ((team || {}).users || []);
 
-            user.roles = userTeam.roles;
+        return users.filter(function(userTeam) {
+                return userTeam.user !== null;
+            })
+            .map(function(userTeam) {
+                var user =  (userTeam || {}).user || {};
 
-            var obj = {
-                id:     user.id,
-                name:   user.name,
-                avatar: user.avatar,
-                roles:  userTeam.roles
-            };
+                var obj = {
+                    id:     user.id,
+                    name:   user.name,
+                    avatar: user.avatar,
+                    roles:  userTeam.roles
+                };
 
-            if(user.email) {
-                obj.email = user.email;
-            }
+                if(user.email) {
+                    obj.email = user.email;
+                }
 
-            return obj;
-        });
+                return obj;
+            });
     }
 
     function findOneAndUpdate(conditions, update, cb) {
@@ -35,7 +38,6 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             }
         });
     }
-
 
     return {
         findTeam: function(team, cb) {
@@ -82,7 +84,7 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             }
 
             var conditions = {
-                _id: team._id || team,
+                _id:          team._id || team,
                 'users.user': { $ne: user._id || user }
             };
 
@@ -124,8 +126,8 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             }
 
             var conditions = {
-                _id: team._id || team,
-                'users.user': user._id || user
+                _id:           team._id || team,
+                'users.user':  user._id || user
             };
 
             var update = {
@@ -143,8 +145,8 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             }
 
             var conditions = {
-                _id: team._id || team,
-                'users.user': user._id || user
+                _id:           team._id || team,
+                'users.user':  user._id || user
             };
 
             var update = {
