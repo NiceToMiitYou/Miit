@@ -40,6 +40,18 @@
             reconnect();
         });
 
+        // Create an async queue to deserve data
+        var queue = new AsyncQueue(function(data, next) {
+            primus.write(data);
+
+            next();
+        });
+
+        // Be sure to cut of data sending during disconnection
+        queue.setNext(function() {
+            return connected;
+        });
+
         return {
             send: function(eventName, data) {
                 if(!data) {
@@ -48,7 +60,8 @@
 
                 data.event = eventName;
 
-                primus.write(data);
+                // Push data in the queue
+                queue.push(data);
             },
 
             on: function(eventName, cb) {
