@@ -21,12 +21,19 @@ function Dispatcher() {
     }
 
     // Getter for team
-    function isAllowed(spark, role) {
+    function isAllowed(spark, team, role) {
+        var userRoles = (spark.request.roles || []);
+
         if(role === 'PUBLIC') {
             return true;
         }
 
-        return (spark.request.roles || []).indexOf(role) != -1;
+        if(role === 'USER' && true === team.public) {
+            return userRoles.indexOf('ANONYM') != -1 ||
+                   userRoles.indexOf('USER')   != -1
+        }
+
+        return userRoles.indexOf(role) != -1;
     }
 
     function getRoleForEvent(event) {
@@ -58,7 +65,7 @@ function Dispatcher() {
         miitoo.logger.debug('Needed role:', role);
 
         // Check if he has the rigth access
-        if(false === isAllowed(spark, role)) {
+        if(false === isAllowed(spark, team, role)) {
 
             miitoo.logger.debug('The user has been blocked.');
             // Replay it later

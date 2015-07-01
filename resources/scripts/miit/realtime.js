@@ -1,9 +1,10 @@
 (function(){
     var MiitRealtime = injector.resolve(function() {
         // Initiliaze primus            
-        var primus    = Primus.connect(),
-            connected = false,
-            retry     = 1;
+        var primus      = Primus.connect(),
+            initialized = false,
+            connected   = false,
+            retry       = 1;
 
         function reconnect() {
             retry *= 1.3;
@@ -29,8 +30,9 @@
 
         // Listen for connection
         primus.on('open', function() {
-            retry     = 1;
-            connected = true;
+            retry       = 1;
+            connected   = true;
+            initialized = true;
         });
 
         // Listenen for end
@@ -42,6 +44,8 @@
 
         // Create an async queue to deserve data
         var queue = new AsyncQueue(function(data, next) {
+            console.log('Send:', data);
+
             primus.write(data);
 
             next();
@@ -49,7 +53,7 @@
 
         // Be sure to cut of data sending during disconnection
         queue.setNext(function() {
-            return connected;
+            return connected || !initialized;
         });
 
         return {
