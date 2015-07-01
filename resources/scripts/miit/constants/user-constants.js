@@ -7,6 +7,8 @@
                     // Refresh user from token
                     REFRESH_USER_COMPLETED: null,
                     // Login Actions
+                    LOGIN_ANONYM_COMPLETED: null,
+                    // Login Actions
                     LOGIN_USER_COMPLETED: null,
                     LOGIN_USER_ERROR: null,
                     // Logout Actions

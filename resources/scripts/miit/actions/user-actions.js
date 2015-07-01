@@ -17,6 +17,19 @@
                 }
             });
 
+            // Handle login from token
+            MiitRealtime.on('login:anonym', function(data) {
+                if(data.user) {
+                    var action = {
+                        type:  ActionTypes.LOGIN_ANONYM_COMPLETED,
+                        token: data.token,
+                        user:  data.user
+                    };
+
+                    MiitDispatcher.dispatch(action);
+                }
+            });
+
             // Handle login
             MiitRealtime.on('login:password', function(data) {
                 var action = {
@@ -51,12 +64,18 @@
             });
 
             function check() {
-                var token = UserStore.getToken();
+                var token       = UserStore.getToken();
+                var anonymToken = UserStore.getAnonymToken();
 
                 if(token) {
                     // Request the server
                     MiitRealtime.send('login:token', {
                         token: token
+                    });
+                } else {
+                    // Request the server
+                    MiitRealtime.send('login:anonym', {
+                        token: anonymToken
                     });
                 }
             }

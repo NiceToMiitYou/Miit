@@ -45,6 +45,14 @@
         localStorage.setItem('token', Token);
     }
 
+    function _connectAnonym(token, user) {
+        Me       = user;
+        Token    = token;
+
+        // Save in the local storage
+        localStorage.setItem('anonym_token', Token);
+    }
+
     function _disconnect() {
         Me       = null;
         Token    = null;
@@ -83,6 +91,13 @@
                     return Me;
                 },
 
+                getAnonymToken: function() {
+                    if(!Token) {
+                        Token = localStorage.getItem('anonym_token');
+                    }
+                    return Token;
+                },
+
                 getToken: function() {
                     if(!Token) {
                         Token = localStorage.getItem('token');
@@ -117,6 +132,11 @@
                 switch(action.type) {
                     case ActionTypes.REFRESH_USER_COMPLETED:
                         _connect(action.token, action.user);
+                        UserStore.emitLoggedIn();
+                        break;
+
+                    case ActionTypes.LOGIN_ANONYM_COMPLETED:
+                        _connectAnonym(action.token, action.user);
                         UserStore.emitLoggedIn();
                         break;
 

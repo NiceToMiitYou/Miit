@@ -1,5 +1,29 @@
 'use strict';
 
+var crypto = require('crypto');
+
+function sha1(input) {
+    // Create ShaSum
+    var shasum = crypto.createHash('sha1');
+
+    // Add the content of shasum
+    shasum.update(input);
+
+    // Return the value
+    return shasum.digest('hex');
+}
+
+function generateId() {
+    var id = 'ANONYM_';
+
+    // Loop for password length
+    for(var i = 0; i <= 2; i++) {
+        id += Math.random().toString(36).slice(-8);
+    }
+
+    return id;
+}
+
 module.exports = function UserManager() {
     var UserStore = miitoo.get('UserStore');
     var TeamStore = miitoo.get('TeamStore');
@@ -105,5 +129,52 @@ module.exports = function UserManager() {
                 miitoo.logger.error(err);
             }
         });
+    });
+
+    function handleSession(spark, id, token) {
+        // Instanciate the session
+        var session = {
+            id:     id,
+            _id:    id,
+            avatar: sha1(id),
+            roles:  ['ANONYM']
+        };
+
+        // Store informations
+        spark.request.user  = session;
+        spark.request.roles = session.roles;
+        
+        // Send it to the user
+        spark.write({
+            event: 'login:anonym',
+            user:  session,
+            token: token
+        });
+    }
+
+    Dispatcher.register('login:anonym', 'ANONYM', function onTokenUser(spark, data, team) {
+        
+        // if there is no token
+        if(!data.token) {
+            var id = generateId();
+
+            var token = jwt.sign({
+                user: id
+            });
+
+            handleSession(spark, id, token);
+        }
+        else
+        {
+            jwt.verify(data.token, function(err, payload) {
+                if(err)
+                {
+                    miitoo.logger.error(err);
+                    return;
+                }
+                
+                handleSession(spark, payload.user, data.token);
+            });
+        }
     });
 };
