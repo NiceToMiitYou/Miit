@@ -49,7 +49,7 @@ function Dispatcher() {
     }
 
     // Dispacth an event
-    this.dispatch = function(spark, event, data)
+    this.dispatch = function(spark, event, data, replayed)
     {
         var user = getUser(spark);
         var team = getTeam(spark);
@@ -57,9 +57,18 @@ function Dispatcher() {
 
         miitoo.logger.debug('Needed role:', role);
 
+        // Check if he has the rigth access
         if(false === isAllowed(spark, role)) {
 
             miitoo.logger.debug('The user has been blocked.');
+            // Replay it later
+            if(!replayed) {
+                miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');
+
+                setTimeout(function() {
+                    this.dispatch(spark, event, data, true);
+                }.bind(this), 250);
+            }
             return;
         }
 
