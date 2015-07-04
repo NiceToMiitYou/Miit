@@ -40,15 +40,22 @@ module.exports = function UserManager() {
     }
 
     // Function if this is the rigth login
-    function rigthLogin(spark, team, user, email) {
+    function rigthLogin(spark, event, team, user, email) {
         var token = jwt.sign({
             user:  user.id,
             team:  team.id,
             email: email
         });
 
+        // Register the email
+        spark.request.user  = user;
+        spark.request.roles = user.roles;
+
+        // Add the user in the team channel
+        spark.join(team.id);
+
         spark.write({
-            event: 'login:password',
+            event: event,
             done:  true,
             token: token,
             user:  user
@@ -82,13 +89,8 @@ module.exports = function UserManager() {
                                 return wrongLogin(spark);
                             }
 
-                            // Register the email
-                            spark.request.user  = session;
-                            spark.request.roles = session.roles;
-                            spark.request.email = email;
-
                             // Send login token
-                            rigthLogin(spark, team, session, email);
+                            rigthLogin(spark, 'login:password', team, session, email);
                         });
                     }
                     else
@@ -109,14 +111,8 @@ module.exports = function UserManager() {
 
                 TeamStore.findUser(team, userId, function(errUser, session) {
                     if(!errUser && session) {
-                        spark.request.user  = session;
-                        spark.request.roles = session.roles;
-
-                        spark.write({
-                            event: 'login:token',
-                            user:  session,
-                            token: token
-                        });
+                        // Send login token
+                        rigthLogin(spark, 'login:token', team, session, session.email);
                     }
                     else
                     {
@@ -131,7 +127,7 @@ module.exports = function UserManager() {
         });
     });
 
-    function handleSession(spark, id, token) {
+    function rigthAnonymLogin(spark, id, token, team) {
         // Instanciate the session
         var session = {
             id:     id,
@@ -143,7 +139,12 @@ module.exports = function UserManager() {
         // Store informations
         spark.request.user  = session;
         spark.request.roles = session.roles;
-        
+    
+        // Add the user in the team channel
+        if(true === team.public) {
+            spark.join(team.id);
+        }
+
         // Send it to the user
         spark.write({
             event: 'login:anonym',
@@ -162,7 +163,7 @@ module.exports = function UserManager() {
                 user: id
             });
 
-            handleSession(spark, id, token);
+            rigthAnonymLogin(spark, id, token, team);
         }
         else
         {
@@ -173,7 +174,7 @@ module.exports = function UserManager() {
                     return;
                 }
                 
-                handleSession(spark, payload.user, data.token);
+                rigthAnonymLogin(spark, payload.user, data.token, team);
             });
         }
     });
