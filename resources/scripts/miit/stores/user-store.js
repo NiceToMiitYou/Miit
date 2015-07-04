@@ -50,7 +50,7 @@
         AnonymToken = token;
 
         // Save in the local storage
-        localStorage.setItem('anonym_token', Token);
+        localStorage.setItem('anonym_token', AnonymToken);
     }
 
     function _disconnect() {
