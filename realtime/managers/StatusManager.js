@@ -12,7 +12,7 @@ module.exports = function StatusManager() {
         return function(err, status, changed) {
             if(changed) {
                 primus.in(team._id).write({
-                    event:  'user:status',
+                    event:  'status:user',
                     status: status
                 });
             }
@@ -29,13 +29,13 @@ module.exports = function StatusManager() {
     });
 
     // Handle get status
-    Dispatcher.register('users:status', 'USER', function onGetStatus(spark, data, team, user) {
-        
+    Dispatcher.register('status:users', 'USER', function onGetStatus(spark, data, team, user) {
+
         miitoo.logger.debug('Status asked by User', user.id);
 
         StatusStore.getStatus(team, function(err, status) {
             spark.write({
-                event:  'users:status',
+                event:  'status:users',
                 status: status
             });
         });

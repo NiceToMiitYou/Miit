@@ -26,16 +26,16 @@
                 MiitDispatcher.dispatch(action);
             }
 
-            MiitRealtime.on('user:status', onStatusUpdate);
+            MiitRealtime.on('status:user', onStatusUpdate);
 
-            MiitRealtime.on('users:status', onStatusRefresh);
+            MiitRealtime.on('status:users', onStatusRefresh);
 
             var obj = {
                 refresh: function() {
                     if(false === sending) {
                         sending = true;
 
-                        MiitRealtime.send('users:status');
+                        MiitRealtime.send('status:users');
                     }
                 }
             };
