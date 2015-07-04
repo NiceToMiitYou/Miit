@@ -4,12 +4,12 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
 
     function updateStatus(status, user, team, cb)  {
         Status.findOneAndUpdate({
-                userId: user._id || '',
-                teamId: team._id || ''
+                userId: user._id || user.id || '',
+                teamId: team._id || team.id || ''
             }, {
                 status: status,
-                userId: user._id || '',
-                teamId: team._id || '',
+                userId: user._id || user.id || '',
+                teamId: team._id || team.id || '',
                 changed: new Date()
             }, {
                 upsert: true,
@@ -23,7 +23,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 if(typeof cb === 'function') {
                     cb(err, {
                         status: status,
-                        userId: user._id || ''
+                        userId: user._id || user.id || ''
                     }, (old || {}).status !== status);
                 }
             });
@@ -43,6 +43,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 .find({
                     teamId: team._id
                 }, {
+                    _id:    false,
                     userId: true,
                     status: true
                 })
@@ -64,6 +65,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                     teamId: team._id,
                     userId: userId
                 }, {
+                    _id:    false,
                     userId: true,
                     status: true
                 })
