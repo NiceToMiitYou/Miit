@@ -14,14 +14,14 @@ function sha1(input) {
 }
 
 function generateId() {
-    var id = 'ANONYM_';
+    var id = '';
 
     // Loop for password length
     for(var i = 0; i <= 2; i++) {
         id += Math.random().toString(36).slice(-8);
     }
 
-    return id;
+    return sha1(id);
 }
 
 module.exports = function UserManager() {
@@ -132,9 +132,9 @@ module.exports = function UserManager() {
     function rigthAnonymLogin(spark, id, token, team) {
         // Instanciate the session
         var session = {
-            id:     id,
-            _id:    id,
-            avatar: sha1(id),
+            id:     'ANONYM_' + id,
+            _id:    'ANONYM_' + id,
+            avatar: id,
             roles:  ['ANONYM']
         };
 
