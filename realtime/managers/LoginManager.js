@@ -103,9 +103,11 @@ module.exports = function UserManager() {
     });
 
     Dispatcher.register('login:token', 'ANONYM', function onTokenUser(spark, data, team) {
-        var token = data.token;
+        if(!data.token || data.token == "null") {
+            return;
+        }
 
-        jwt.verify(token, function(err, payload) {
+        jwt.verify(data.token, function(err, payload) {
             if(!err) {
                 var userId = payload.user;
 
@@ -156,7 +158,7 @@ module.exports = function UserManager() {
     Dispatcher.register('login:anonym', 'ANONYM', function onTokenUser(spark, data, team) {
         
         // if there is no token
-        if(!data.token) {
+        if(!data.token || data.token == "null") {
             var id = generateId();
 
             var token = jwt.sign({

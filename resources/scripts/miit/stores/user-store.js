@@ -1,5 +1,5 @@
 (function(){
-    var Me, Utils, Token, LoggedIn = false;
+    var Me, Utils, Token, AnonymToken, LoggedIn = false;
 
     // Generate the validator for user's role
     function _isUserGenerator(role) {
@@ -46,8 +46,8 @@
     }
 
     function _connectAnonym(token, user) {
-        Me       = user;
-        Token    = token;
+        Me          = user;
+        AnonymToken = token;
 
         // Save in the local storage
         localStorage.setItem('anonym_token', Token);
@@ -92,10 +92,10 @@
                 },
 
                 getAnonymToken: function() {
-                    if(!Token) {
-                        Token = localStorage.getItem('anonym_token');
+                    if(!AnonymToken) {
+                        AnonymToken = localStorage.getItem('anonym_token');
                     }
-                    return Token;
+                    return AnonymToken;
                 },
 
                 getToken: function() {
