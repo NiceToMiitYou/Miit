@@ -41,6 +41,9 @@ module.exports = function UserManager() {
 
     // Function if this is the rigth login
     function rigthLogin(spark, event, team, user, email) {
+        // Dispatch a disconnection event
+        Dispatcher.dispatch(spark, 'disconnection', {});
+
         var token = jwt.sign({
             user:  user.id,
             team:  team.id,
@@ -60,6 +63,9 @@ module.exports = function UserManager() {
             token: token,
             user:  user
         });
+
+        // Dispatch a ping
+        Dispatcher.dispatch(spark, 'incoming::ping', {});
     }
 
     Dispatcher.register('login:password', 'ANONYM', function onLoginUser(spark, data, team) {
@@ -130,6 +136,9 @@ module.exports = function UserManager() {
     });
 
     function rigthAnonymLogin(spark, id, token, team) {
+        // Dispatch a disconnection event
+        Dispatcher.dispatch(spark, 'disconnection', {});
+
         // Instanciate the session
         var session = {
             id:     id,
@@ -153,6 +162,9 @@ module.exports = function UserManager() {
             user:  session,
             token: token
         });
+
+        // Dispatch a ping
+        Dispatcher.dispatch(spark, 'incoming::ping', {});
     }
 
     Dispatcher.register('login:anonym', 'ANONYM', function onTokenUser(spark, data, team) {

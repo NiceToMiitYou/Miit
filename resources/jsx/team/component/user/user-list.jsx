@@ -36,7 +36,7 @@
                 UserStatusActions = MiitApp.get('miit-user-status-actions');
             }
             this.setState({
-                users: TeamStore.getUsers(this.props.filtered)
+                users: UserStatusStore.getUsers(this.props.filtered).sortBy('name')
             });
         },
 
@@ -51,6 +51,8 @@
             TeamStore.addRemovedListener(this._refresh);
             // Refresh
             TeamStore.addRefreshedListener(this._refresh);
+            // Status Changed
+            UserStatusStore.addStatusChangedListener(this._refresh);
             // Refresh the list
             TeamActions.refresh();
         },
@@ -66,12 +68,14 @@
             TeamStore.removeRemovedListener(this._refresh);
             // Refresh
             TeamStore.removeRefreshedListener(this._refresh);
+            // Status Changed
+            UserStatusStore.removeStatusChangedListener(this._refresh);
         },
 
         _refresh: function() {
             if(this.isMounted()) {
                 this.setState({
-                    users:  TeamStore.getUsers(this.props.filtered).sortBy('name'),
+                    users:  UserStatusStore.getUsers(this.props.filtered).sortBy('name'),
                     loaded: true
                 });
             }

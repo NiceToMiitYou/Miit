@@ -7,15 +7,7 @@
     }
 
     function _addUser(user) {
-        if(!user) {
-            return;
-        }
-
-        var index = Users.indexBy('id', user.id || '');
-        
-        if(index < 0) {
-            Users.push(user);
-        }
+        Users.addBy('id', user);
     }
 
     function _replaceUsers(users) {
@@ -39,6 +31,14 @@
     }
 
     function _getUserById(id) {
+        if(0 === id.indexOf('ANONYM_', 0)) {
+            return {
+                id:     id,
+                avatar: id.replace('ANONYM_', ''),
+                roles:  ['ANONYM']
+            };
+        }
+
         return Users.findBy('id', id);
     }
 
@@ -111,7 +111,7 @@
                 },
 
                 getUsers: function() {
-                    return Users;
+                    return Users;    
                 },
 
                 getUsersByRole: function(role, inverse) {

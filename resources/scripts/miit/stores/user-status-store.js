@@ -2,15 +2,11 @@
     var UserStatus = [];
 
     function _changeStatus(status) {
-        var count = UserStatus.length;
+        var item = UserStatus.findBy('userId', status.userId);
 
-        for(var i = 0; i < count; i++)
-        {
-            if(UserStatus[i].userId === status.userId)
-            {
-                UserStatus[i].status = status.status;
-                return;
-            }
+        if(item) {
+            item.status = status.status;
+            return;
         }
 
         // if not in, add it
@@ -18,29 +14,22 @@
     }
 
     function _getStatusOf(userId) {
-        var count = UserStatus.length;
+        var item = UserStatus.findBy('userId', userId);
 
-        for(var i = 0; i < count; i++)
-        {
-            if(UserStatus[i].userId === userId)
-            {
-                return UserStatus[i].status;
-            }
+        if(item) {
+            return item.status || 'OFFLINE';
         }
 
         return 'OFFLINE';
     }
 
     function _replaceStatus(status) {
-        if(Array.isArray(status))
-        {
-            UserStatus = status;
-        }
+        UserStatus = status || [];
     }
 
     var MiitUserStatusStore = injector.resolve(
-        ['object-assign', 'key-mirror', 'miit-dispatcher', 'miit-user-status-constants'],
-        function(ObjectAssign, KeyMirror, MiitDispatcher, MiitUserStatusConstants) {
+        ['object-assign', 'key-mirror', 'miit-dispatcher', 'miit-user-status-constants', 'miit-team-store'],
+        function(ObjectAssign, KeyMirror, MiitDispatcher, MiitUserStatusConstants, TeamStore) {
             // All action types
             var ActionTypes = MiitUserStatusConstants.ActionTypes;
 
@@ -50,6 +39,23 @@
 
             // The UserStatusStore Object
             var UserStatusStore = ObjectAssign({}, EventEmitter.prototype, {
+                getUsers: function(filtered) {
+                    if(true === filtered) {
+                        return TeamStore.getUsers();
+                    }
+
+                    var users = [];
+
+                    users.mergeBy('id',
+                        UserStatus.map(function(status) {
+                            return TeamStore.getUser(status.userId);
+                        })
+                    );
+                    users.mergeBy('id', TeamStore.getUsers());
+
+                    return users;
+                },
+
                 getUserStatus: function() {
                     return UserStatus;
                 },

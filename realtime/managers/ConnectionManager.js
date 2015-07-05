@@ -45,6 +45,9 @@ module.exports = function ConnectionManager() {
 
     // On user disconnection
     primus.on('disconnection', function(spark) {
+        // Dispatch the disconnection
+        Dispatcher.dispatch(spark, 'disconnection', {});
+
         miitoo.logger.info('Someone is disconnected.');
 
         var user = spark.request.user;

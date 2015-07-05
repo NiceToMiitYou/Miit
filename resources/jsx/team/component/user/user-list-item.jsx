@@ -38,7 +38,7 @@
 
         render: function() {
             var classes;
-                var name   = UserStore.getName(this.props.user);
+            var name   = UserStore.getName(this.props.user);
 
             if(this.props.status) {
                 var userId = this.props.user.id;
