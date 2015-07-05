@@ -1,15 +1,4 @@
 (function(){
-    Array.prototype.remove = function() {
-        var what, a = arguments, L = a.length, ax;
-        while (L && this.length) {
-            what = a[--L];
-            while ((ax = this.indexOf(what)) !== -1) {
-                this.splice(ax, 1);
-            }
-        }
-        return this;
-    };
-
     Array.prototype.indexBy = function(prop, value) {
         for(var index in this) {
             if(this[index] && this[index][prop] === value) {
@@ -46,6 +35,57 @@
             
             return 0;
         });
+
+        return this;
+    };
+
+    Array.prototype.addBy = function(prop, item) {
+        if(!item) {
+            return;
+        }
+
+        // Extract the value of the property
+        var value = item[prop];
+
+        // Find by index
+        var index = this.indexBy(prop, value);
+        if(index === -1) {
+            this.push(item);
+        }
+
+        return this;
+    };
+
+    Array.prototype.add = function(value) {
+        var index = this.indexOf(value);
+        if(index === -1) {
+            this.push(value);
+        }
+
+        return this;
+    };
+
+    Array.prototype.mergeBy = function(prop, values) {
+        if(!Array.isArray(values)) {
+            values = [values];
+        }
+
+        values.forEach(function(value){
+            this.addBy(prop, value);
+        }.bind(this));
+
+        return this;
+    };
+
+    Array.prototype.merge = function(values) {
+        if(!Array.isArray(values)) {
+            values = [values];
+        }
+
+        values.forEach(function(value){
+            this.add(value);
+        }.bind(this));
+
         return this;
     };
 
@@ -54,6 +94,8 @@
         for(; index >= 0; index = this.indexBy(prop, value)) {
             delete this[index];
         }
+
+        return this;
     };
 
     Array.prototype.remove = function(value) {
@@ -61,6 +103,8 @@
         for(;index >= 0;index = this.indexOf(value)) {
             delete this[index];
         }
+
+        return this;
     };
 
     Array.prototype.removeAll = function(values) {
@@ -71,17 +115,7 @@
         values.forEach(function(value) {
             this.remove(value);
         }.bind(this));
-    };
 
-    Array.prototype.merge = function(values) {
-        if(!Array.isArray(values)) {
-            values = [values];
-        }
-
-        values.forEach(function(value){
-            if(this.indexOf(value) < 0) {
-                this.push(value);
-            }
-        }.bind(this));
+        return this;
     };
 })();

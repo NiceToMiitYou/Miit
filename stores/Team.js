@@ -1,7 +1,8 @@
 
 // Define the store
-var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
+var store = miitoo.resolve(['TeamModel'], function(Team) {
 
+    // Map users from team
     function mapUsers(team) {
         var users = ((team || {}).users || []);
 
@@ -26,6 +27,7 @@ var store = miitoo.resolve(['UserModel', 'TeamModel'], function(User, Team) {
             });
     }
 
+    // Shortcut for findOneAndUpdate
     function findOneAndUpdate(conditions, update, cb) {
         Team.findOneAndUpdate(conditions, update, function(err, doc) {
             // Log the error

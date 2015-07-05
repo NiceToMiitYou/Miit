@@ -24,10 +24,10 @@ module.exports = function ConnectionManager() {
         });
 
         // Bind ping event
-        spark.on('incoming::ping', function(data) {
+        spark.on('incoming::ping', function() {
 
             // Dispatch the ping
-            Dispatcher.dispatch(spark, 'incoming::ping', data);
+            Dispatcher.dispatch(spark, 'incoming::ping', {});
         });
 
         // Initialize other components

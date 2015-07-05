@@ -62,12 +62,11 @@ function Dispatcher() {
         var team = getTeam(spark);
         var role = getRoleForEvent(event);
 
-        miitoo.logger.debug('Needed role:', role);
-
         // Check if he has the rigth access
         if(false === isAllowed(spark, team, role)) {
 
-            miitoo.logger.debug('The user has been blocked.');
+            miitoo.logger.debug('The user has been blocked. Needed role:', role);
+            
             // Replay it later
             if(!replayed) {
                 miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');

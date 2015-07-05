@@ -21,7 +21,7 @@ function generateId() {
         id += Math.random().toString(36).slice(-8);
     }
 
-    return sha1(id);
+    return 'ANONYM_' + sha1(id);
 }
 
 module.exports = function UserManager() {
@@ -132,9 +132,9 @@ module.exports = function UserManager() {
     function rigthAnonymLogin(spark, id, token, team) {
         // Instanciate the session
         var session = {
-            id:     'ANONYM_' + id,
-            _id:    'ANONYM_' + id,
-            avatar: id,
+            id:     id,
+            _id:    id,
+            avatar: id.replace('ANONYM_', ''),
             roles:  ['ANONYM']
         };
 

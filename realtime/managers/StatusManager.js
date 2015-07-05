@@ -19,7 +19,7 @@ module.exports = function StatusManager() {
         }
     }
 
-    // Handle get informations of the user
+    // Handle the status of the user
     Dispatcher.register('incoming::ping', 'USER', function onHeartBeat(spark, data, team, user) {
 
         miitoo.logger.debug('Heartbeat from', user.id);
@@ -42,7 +42,7 @@ module.exports = function StatusManager() {
     });
 
     // Handle disconnection
-    Dispatcher.register('disconnection', 'USER', function onDisconnection() {
+    Dispatcher.register('disconnection', 'USER', function onDisconnection(spark, data, team, user) {
 
         // Set the user Offline when detected
         StatusStore.setUserOffline(user, team, onStatusChanged(team));

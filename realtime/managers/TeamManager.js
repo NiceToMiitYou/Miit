@@ -22,7 +22,7 @@ module.exports = function TeamManager() {
     // Handle get informations of users
     Dispatcher.register('team:users', 'USER', function onGetUsers(spark, data, team) {
         // Find team users
-        TeamStore.findUsers(team, function(err, users){
+        TeamStore.findUsers(team, function(err, users) {
             spark.write({
                 event: 'team:users',
                 users: users
