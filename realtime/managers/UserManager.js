@@ -7,7 +7,7 @@ module.exports = function UserManager() {
     var Dispatcher = miitoo.get('RealtimeDispatcher');
     
     // Handle get informations of the user
-    Dispatcher.on('user:me', function onGetMe(spark, data, team, user) {
+    Dispatcher.register('user:me', function onGetMe(spark, data, team, user) {
         // Find me
         UserStore.findUser(user, function(err, user) {
             spark.write({
@@ -31,7 +31,7 @@ module.exports = function UserManager() {
     }
 
     // Handle update password informations of the user
-    Dispatcher.on('user:password', function onChangePasswordUser(spark, data, team, session) {
+    Dispatcher.register('user:password', function onChangePasswordUser(spark, data, team, session) {
         var password_old = data.old;
         var password_new = data.new;
 
@@ -75,7 +75,7 @@ module.exports = function UserManager() {
     });
 
     // Handle update informations of the user
-    Dispatcher.on('user:update', function onUpdateUser(spark, data, team, session) {
+    Dispatcher.register('user:update', function onUpdateUser(spark, data, team, session) {
         var name = data.name;
 
         if(!name || !session)

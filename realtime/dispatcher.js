@@ -12,23 +12,23 @@ function Dispatcher() {
 
     // Getter for user
     function getUser(spark) {
-        return spark.request.user || {};
+        return (spark.request || {}).user || {};
     }
 
     // Getter for team
     function getTeam(spark) {
-        return spark.request.team || {};
+        return (spark.request || {}).team || {};
     }
 
     // Getter for team
-    function isAllowed(spark, team, role) {
-        var userRoles = (spark.request.roles || []);
+    function isAllowed(spark, team, user, role) {
+        var userRoles = ((spark.request || {}).roles || []);
 
         if(role === 'PUBLIC') {
             return true;
         }
 
-        if(role === 'USER' && true === team.public) {
+        if(role === 'USER' && true === team.public && false === !user.id) {
             return userRoles.indexOf('ANONYM') != -1 ||
                    userRoles.indexOf('USER')   != -1
         }
@@ -63,10 +63,10 @@ function Dispatcher() {
         var role = getRoleForEvent(event);
 
         // Check if he has the rigth access
-        if(false === isAllowed(spark, team, role)) {
+        if(false === isAllowed(spark, team, user, role)) {
 
             miitoo.logger.debug('The user has been blocked. Needed role:', role);
-            
+
             // Replay it later
             if(!replayed) {
                 miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');

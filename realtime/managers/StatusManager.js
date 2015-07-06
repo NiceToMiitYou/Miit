@@ -21,7 +21,6 @@ module.exports = function StatusManager() {
 
     // Handle the status of the user
     Dispatcher.register('incoming::ping', 'USER', function onHeartBeat(spark, data, team, user) {
-
         miitoo.logger.debug('Heartbeat from', user.id);
 
         // Set the user online

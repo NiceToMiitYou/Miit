@@ -2,7 +2,7 @@
 // Define the store
 var store = miitoo.resolve(['StatusModel'], function(Status) {
 
-    function updateStatus(status, user, team, cb)  {
+    function updateStatus(status, user, team, cb) {
         Status.findOneAndUpdate({
                 userId: user._id || user.id || '',
                 teamId: team._id || team.id || ''
@@ -13,7 +13,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 changed: new Date()
             }, {
                 upsert: true,
-                "new": false
+                "new":  false
             }, function(err, old) {
                 // Log the error
                 if(err) {
@@ -21,6 +21,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 }
 
                 if(typeof cb === 'function') {
+
                     cb(err, {
                         status: status,
                         userId: user._id || user.id || ''
