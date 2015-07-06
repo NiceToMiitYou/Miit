@@ -2,6 +2,13 @@
     var UserStatus = [];
 
     function _changeStatus(status) {
+        // Remove the status if offline
+        if(status.status === 'OFFLINE') {
+            UserStatus.removeBy('userId', status.userId);
+            return;
+        }
+
+        // Find
         var item = UserStatus.findBy('userId', status.userId);
 
         if(item) {
@@ -25,6 +32,7 @@
 
     function _replaceStatus(status) {
         UserStatus = status || [];
+        UserStatus.removeBy('status', 'OFFLINE');
     }
 
     var MiitUserStatusStore = injector.resolve(
