@@ -32,14 +32,8 @@ module.exports = function ConnectionManager() {
 
         // Initialize other components
         apps.forEach(function(identifier) {
-            var app = applications[identifier];
-
             // Join the app room
             spark.join(team._id + ':' + identifier);
-
-            if(app && typeof app.onConnection === 'function') {
-                app.onConnection(spark);
-            }
         });
     });
 
@@ -49,18 +43,5 @@ module.exports = function ConnectionManager() {
         Dispatcher.dispatch(spark, 'disconnection', {});
 
         miitoo.logger.info('Someone is disconnected.');
-
-        var user = spark.request.user;
-        var team = spark.request.team;
-
-        var apps = team.apps || [];
-
-        apps.forEach(function(identifier) {
-            var app = applications[identifier];
-
-            if(typeof app.onDisconnection === 'function') {
-                app.onDisconnection(spark);
-            }
-        });
     });
 };

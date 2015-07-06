@@ -41,7 +41,8 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
         getStatus: function(team, cb) {
             Status
                 .find({
-                    teamId: team._id
+                    teamId: team._id,
+                    status: { $ne: 'OFFLINE' }
                 }, {
                     _id:    false,
                     userId: true,
