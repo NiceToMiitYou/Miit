@@ -13,11 +13,8 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             default: true
         },
         messages: [{
-            user: {
-                type: ObjectId,
-                ref:  'User'
-            },
-            text: String,
+            userId: String,
+            text:   String,
             createdAt: {
                 type:    Date,
                 default: Date.now

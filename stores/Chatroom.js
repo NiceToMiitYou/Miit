@@ -1,6 +1,6 @@
 
 // Define the store
-var store = miitoo.resolve(['ChatroomModel'], function(User) {
+var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
     return {
         create: function(team, name, cb) {
             var chatroom = new Chatroom({
@@ -19,14 +19,16 @@ var store = miitoo.resolve(['ChatroomModel'], function(User) {
             });
         },
 
-        send: function(team, user, chatroom_id, text) {
+        send: function(team, user, chatroom_id, text, cb) {
+            var userId = user._id || user.id;
+
             var condition = {
                 _id:    chatroom_id,
-                teamId: team._id
+                teamId: team._id || team.id
             };
 
             var message = {
-                user:      user.db_id,
+                user:      userId,
                 text:      text,
                 createdAt: new Date()
             };
@@ -37,15 +39,17 @@ var store = miitoo.resolve(['ChatroomModel'], function(User) {
                 }
             };
 
-            Chatroom.update(condition, update, function(err) {
+            Chatroom.findOneAndUpdate(condition, update, {
+                'new': true
+            }, function(err, doc) {
                 // Log the error
                 if(err) {
                     miitoo.logger.error(err);
                 }
 
-                if(typeof cb === 'function') {
-                    message.user = user._id;
+                console.log(doc);
 
+                if(typeof cb === 'function') {
                     cb(err, message);
                 }
             });
@@ -55,7 +59,10 @@ var store = miitoo.resolve(['ChatroomModel'], function(User) {
             Chatroom
                 .find({
                     teamId: team._id
-                }, 'name')
+                }, {
+                    name:     true,
+                    messages: false
+                })
                 .exec(function(err, chatrooms) {
                     if(err) {
                         miitoo.logger.debug(err);

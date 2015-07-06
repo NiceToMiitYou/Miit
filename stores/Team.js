@@ -27,9 +27,9 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             });
     }
 
-    // Shortcut for findOneAndUpdate
-    function findOneAndUpdate(conditions, update, cb) {
-        Team.findOneAndUpdate(conditions, update, function(err, doc) {
+    // Shortcut for update
+    function updateTeam(conditions, update, cb) {
+        Team.update(conditions, update, function(err, doc) {
             // Log the error
             if(err) {
                 miitoo.logger.error(err);
@@ -99,7 +99,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 }
             };
 
-            findOneAndUpdate(conditions, update, cb);
+            updateTeam(conditions, update, cb);
         },
 
         removeUser: function(team, user, cb) {
@@ -119,7 +119,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 }
             };
 
-            findOneAndUpdate(conditions, update, cb);
+            updateTeam(conditions, update, cb);
         },
 
         addRoleUser: function(team, user, roles, cb) {
@@ -138,7 +138,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 }
             };
             
-            findOneAndUpdate(conditions, update, cb);
+            updateTeam(conditions, update, cb);
         },
 
         removeRoleUser: function(team, user, roles, cb) {
@@ -157,7 +157,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 }
             };
             
-            findOneAndUpdate(conditions, update, cb);
+            updateTeam(conditions, update, cb);
         },
 
         findUser: function(team, user, cb) {
