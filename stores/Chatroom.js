@@ -1,6 +1,9 @@
 
 // Define the store
 var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
+    var mongoose = miitoo.get('Mongoose');
+    var ObjectId = mongoose.Types.ObjectId;
+
     return {
         create: function(team, name, cb) {
             var chatroom = new Chatroom({
@@ -20,7 +23,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         },
 
         send: function(team, user, chatroom_id, text, cb) {
-            var userId = user._id || user.id;
+            var userId = user._id || user.id || user;
 
             var condition = {
                 _id:    chatroom_id,
@@ -28,6 +31,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             };
 
             var message = {
+                _id:       new ObjectId(),
                 user:      userId,
                 text:      text,
                 createdAt: new Date()
@@ -39,7 +43,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                 }
             };
 
-            Chatroom.findOneAndUpdate(condition, update, {
+            Chatroom.update(condition, update, {
                 'new': true
             }, function(err, doc) {
                 // Log the error
@@ -47,9 +51,11 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                     miitoo.logger.error(err);
                 }
 
-                console.log(doc);
-
                 if(typeof cb === 'function') {
+                    // Swap field id
+                    message.id = message._id;
+                    delete message._id;
+
                     cb(err, message);
                 }
             });
@@ -58,9 +64,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         getChatrooms: function(team, cb) {
             Chatroom
                 .find({
-                    teamId: team._id
+                    teamId: team._id || team.id || team
                 }, {
-                    name:     true,
                     messages: false
                 })
                 .exec(function(err, chatrooms) {

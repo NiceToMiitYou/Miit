@@ -22,8 +22,8 @@
             return true;
         };
 
-        // Pop out the process
-        function pop() {
+        // Shift out the process
+        function shift() {
             // check if we can run an other process
             if( 
                 tasks.length > 0     &&
@@ -31,7 +31,7 @@
                 true === next()
             ) {
                 // Retrieve the process
-                var process = tasks.pop();
+                var process = tasks.shift();
 
                 // Execute the task
                 if(typeof process === 'function') {
@@ -54,7 +54,7 @@
                 active--;
 
                 // Pop an other process
-                pop();
+                shift();
             };
         }
 
@@ -77,7 +77,7 @@
             });
 
             // Pop an other process
-            pop();
+            shift();
         };
 
         // Handle the error
@@ -90,7 +90,7 @@
             next = n || next;
 
             // Pop an other process in case of rules change
-            pop();
+            shift();
         };
 
         // Information about AsyncQueue
