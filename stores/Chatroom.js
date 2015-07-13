@@ -84,6 +84,104 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                         cb(err, rooms);
                     }
                 });
+        },
+
+        getLastMessages: function(team, chatroom, count, cb) {
+            var count = Math.abs(count);
+            var limit = (count > 100 ) ? 100 : count;
+
+            // Get the id of the chatroom
+            var chatroomId = new ObjectId(chatroom._id || chatroom.id || chatroom);
+
+            var aggregate = [
+                {
+                    '$match': { _id: chatroomId }
+                },
+                {
+                    '$unwind': '$messages'
+                },
+                {
+                    '$project': {
+                        id:        '$messages._id',
+                        text:      '$messages.text',
+                        user:      '$messages.user',
+                        createdAt: '$messages.createdAt',
+                        _id: 0
+                    }
+                },
+                {
+                    '$sort': { id: 1 }
+                },
+                {
+                    '$limit': limit
+                }
+            ];
+
+            Chatroom
+                .aggregate(aggregate, function(err, messages) {
+                    if(err) {
+                        miitoo.logger.debug(err);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, messages);
+                    }
+                });
+
+        },
+
+        getMessages: function(team, chatroom, last, count, cb) {
+            var order    = (count > 0) ? 1 : -1;
+            var operator = (order > 0) ? '$gte' : '$lte';
+            
+            // Define the limit, block the result to 100
+            var count = Math.abs(count);
+            var limit = (count > 100 ) ? 100 : count;
+
+            // Generate the comparator of the last id
+            var comparator = {};
+                comparator[operator] = last;
+
+            // Get the id of the chatroom
+            var chatroomId = new ObjectId(chatroom._id || chatroom.id || chatroom);
+
+            var aggregate = [
+                {
+                    '$match': { _id: chatroomId }
+                },
+                {
+                    '$unwind': '$messages'
+                },
+                {
+                    '$project': {
+                        _id:       '$messages._id',
+                        text:      '$messages.text',
+                        user:      '$messages.user',
+                        createdAt: '$messages.createdAt'
+                    }
+                },
+                {
+                    '$sort': { _id: order }
+                },
+                {
+                    '$match': { _id: comparator }
+                },
+                {
+                    '$limit': limit
+                }
+            ];
+
+            Chatroom
+                .aggregate(aggregate, function(err, messages) {
+                    if(err) {
+                        miitoo.logger.debug(err);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, mesages);
+                    }
+                });
+
         }
     };
 });

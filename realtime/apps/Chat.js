@@ -4,51 +4,98 @@ module.exports = function ChatApp() {
     var app = this;
 
     var ChatroomStore = miitoo.get('ChatroomStore');
-    //var UserManager   = miit.managers.UserManager;
 
-    function onCreateChatroom(spark, user, team) {
-        spark.on('chat:room:create', function(data) {
-            ChatroomStore.create(team, data.name, function(err, chatroom) {
-                sendChatrooms(spark, user, team);
-            });
-        });
-    }
+    var primus     = miitoo.get('Primus');
+    var Dispatcher = miitoo.get('RealtimeDispatcher');
 
-    function onSendMessage(spark, user, team) {
-        spark.on('chat:message', function(data) {
-            ChatroomStore.send(team, user, data.chatroom, data.text, function(err, message) {
+    // Create a chatroom
+    Dispatcher.register('chat:create', 'ADMIN', function onCreateChatroom(spark, data, team, user) {
+        var name = data.name;
+
+        if(!name) {
+            return;
+        }
+
+        ChatroomStore.create(team, name, function(err, chatroom) {
+            // Send the list of chatrooms
+            ChatroomStore.getChatrooms(team, function(err, chatrooms) {
                 var room = team._id + ':' + app.identifier();
 
+                // Send the informations to the whole app user
                 primus.in(room).write({
-                    event: 'chat:message',
-                    chatroom: data.chatroom,
-                    message:  message
+                    event:     'chat:rooms',
+                    chatrooms: chatrooms
                 });
             });
         });
-    }
+    });
 
-    function sendChatrooms(spark, user, team) {
+    // Send a message
+    Dispatcher.register('chat:send', 'USER', function onSendMessage(spark, data, team, user) {
+        var chatroom = data.chatroom;
+        var text     = data.text;
+
+        if(!chatroom || !text) {
+            return;
+        }
+
+        ChatroomStore.send(team, user, chatroom, text, function(err, message) {
+            var room = team._id + ':' + app.identifier();
+
+            primus.in(room).write({
+                event:    'chat:message',
+                chatroom: chatroom,
+                message:  message
+            });
+        });
+    });
+
+    // Get the list of chatrooms
+    Dispatcher.register('chat:rooms', 'USER', function sendChatrooms(spark, data, team, user) {
         ChatroomStore.getChatrooms(team, function(err, chatrooms) {
             spark.write({
-                event: 'chat:rooms',
+                event:     'chat:rooms',
                 chatrooms: chatrooms
             });
         });
-    }
+    });
 
-    this.onConnection = function(spark, user, team) {
-        onSendMessage(spark, user, team);
-        sendChatrooms(spark, user, team);
+    // Get the list of last messages
+    Dispatcher.register('chat:messages:last', 'USER', function getLastMessages(spark, data, team, user) {
+        var chatroom = data.chatroom;
+        var count    = data.count || 20;
 
-        if(UserManager.isAdmin(user)) {
-            onCreateChatroom(spark, user, team);
+        if(!chatroom) {
+            return;
         }
-    };
 
-    this.onDisconnection = function(spark, user, team) {
+        ChatroomStore.getLastMessages(team, chatroom, count, function(err, messages) {
+            spark.write({
+                event:    'chat:messages',
+                chatroom: chatroom,
+                messages: messages
+            });
+        });
+    });
 
-    };
+    // Get the list of messages
+    Dispatcher.register('chat:messages', 'USER', function getMessages(spark, data, team, user) {
+        var chatroom = data.chatroom;
+        var last     = data.last;
+        var count    = data.count || 20;
+
+        if(!chatroom || !last) {
+            return;
+        }
+
+        ChatroomStore.getMessages(team, chatroom, last, count, function(err, messages) {
+            spark.write({
+                event:    'chat:messages',
+                chatroom: chatroom,
+                messages: messages
+            });
+        });
+    });
 
     this.identifier = function() {
         return 'APP_CHAT';

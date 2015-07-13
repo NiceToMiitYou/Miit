@@ -48,6 +48,8 @@ function Dispatcher() {
             role     = 'PUBLIC';
         }
 
+        console.log(event, role);
+
         // Register roles
         roles[event] = role;
 
@@ -65,7 +67,7 @@ function Dispatcher() {
         // Check if he has the rigth access
         if(false === isAllowed(spark, team, user, role)) {
 
-            miitoo.logger.debug('The user has been blocked. Needed role:', role);
+            miitoo.logger.debug('The user has been blocked. Needed role:', role, '- Action:', event);
 
             // Replay it later
             if(!replayed) {

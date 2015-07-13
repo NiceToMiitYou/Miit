@@ -1,6 +1,8 @@
 
 ;(function () {
     'use strict';
+    
+    var exports = this;
 
     // AsyncQueue class
     function AsyncQueue(worker, concurrency) {
@@ -98,5 +100,16 @@
         this.VERSION   = '0.0.0';
     }
 
-    this.AsyncQueue = AsyncQueue;
+    // Expose the class either via AMD, CommonJS or the global object
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return AsyncQueue;
+        });
+    }
+    else if (typeof module === 'object' && module.exports){
+        module.exports = AsyncQueue;
+    }
+    else {
+        exports.AsyncQueue = AsyncQueue;
+    }
 }.call(this));

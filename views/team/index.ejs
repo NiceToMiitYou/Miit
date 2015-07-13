@@ -41,17 +41,14 @@
         <script type="text/javascript" src="/dist/lib/director.min.js"></script>
         <script type="text/javascript" src="/dist/lib/Chart.min.js"></script>
         <script type="text/javascript" src="/dist/lib/Flux.js"></script>
+        <script type="text/javascript" src="/dist/js/lib.min.js"></script>
         <script type="text/javascript" src="/dist/js/app.min.js"></script>
         <script type="text/javascript">
         window.onload = function(){
             // Set default value to initialize the storage
-            var Storage = MiitApp.get('miit-storage');
-            Storage.set('user', <%- JSON.stringify(user) %>);
-            Storage.set('team', <%- JSON.stringify(team) %>);
+            MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
+            MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
             
-            // Render the TeamApp component
-            React.render(React.createElement(MiitComponents.TeamApp,null),document.getElementById('content'));
-
             // Initialize the Application
             MiitApp.init();
         };

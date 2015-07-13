@@ -1,28 +1,47 @@
-window.classNames = function() {
+
+
+;(function () {
     'use strict';
 
-    var classes = '';
+    var exports = this;
 
-    for (var i = 0; i < arguments.length; i++) {
-        var arg = arguments[i];
-        if (!arg) continue;
+    var classNames = function() {
+        var classes = '';
 
-        var argType = typeof arg;
+        for (var i = 0; i < arguments.length; i++) {
+            var arg = arguments[i];
+            if (!arg) continue;
 
-        if ('string' === argType || 'number' === argType) {
-            classes += ' ' + arg;
+            var argType = typeof arg;
 
-        } else if (Array.isArray(arg)) {
-            classes += ' ' + classNames.apply(null, arg);
+            if ('string' === argType || 'number' === argType) {
+                classes += ' ' + arg;
 
-        } else if ('object' === argType) {
-            for (var key in arg) {
-                if (arg.hasOwnProperty(key) && arg[key]) {
-                    classes += ' ' + key;
+            } else if (Array.isArray(arg)) {
+                classes += ' ' + classNames.apply(null, arg);
+
+            } else if ('object' === argType) {
+                for (var key in arg) {
+                    if (arg.hasOwnProperty(key) && arg[key]) {
+                        classes += ' ' + key;
+                    }
                 }
             }
         }
-    }
 
-    return classes.substr(1);
-};
+        return classes.substr(1);
+    };
+
+    // Expose the class either via AMD, CommonJS or the global object
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return classNames;
+        });
+    }
+    else if (typeof module === 'object' && module.exports){
+        module.exports = classNames;
+    }
+    else {
+        exports.classNames = classNames;
+    }
+}.call(this));

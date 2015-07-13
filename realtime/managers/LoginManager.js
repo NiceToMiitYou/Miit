@@ -24,7 +24,7 @@ function generateId() {
     return 'ANONYM_' + sha1(id);
 }
 
-module.exports = function UserManager() {
+module.exports = function LoginManager() {
     var UserStore = miitoo.get('UserStore');
     var TeamStore = miitoo.get('TeamStore');
     
