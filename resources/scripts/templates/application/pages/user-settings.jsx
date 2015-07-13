@@ -1,15 +1,15 @@
 
 // Include requirements
-var PageStore = require('../../../application/stores/page-store'),
-    UserStore = require('../../../application/stores/user-store');
+var PageStore = require('application/stores/page-store'),
+    UserStore = require('application/stores/user-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
 
 // Include components
 var NotFound           = require('./not-found.jsx'),
-    UserUpdate         = require('../components/user/user-update.jsx'),
-    UserChangePassword = require('../components/user/user-change-password.jsx');
+    UserUpdate         = require('templates/application/components/user/user-update.jsx'),
+    UserChangePassword = require('templates/application/components/user/user-change-password.jsx');
 
 var UserSettings = React.createClass({
     getDefaultProps: function () {

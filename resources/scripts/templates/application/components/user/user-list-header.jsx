@@ -1,9 +1,9 @@
 
 // Include requirements
-var UserStore = require('../../../../application/stores/user-store');
+var UserStore = require('application/stores/user-store');
 
 // Include common
-var If = require('../../../common/if.jsx');
+var If = require('templates/common/if.jsx');
 
 var UserListHeader = React.createClass({
     getDefaultProps: function() {

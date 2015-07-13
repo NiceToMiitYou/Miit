@@ -1,6 +1,6 @@
 
 // Load Home Request
-var HomeRequest = require('../../application/requests/home-request');
+var HomeRequest = require('application/requests/home-request');
 
 function getDomainName(hostName)
 {

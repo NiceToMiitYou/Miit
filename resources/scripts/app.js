@@ -1,7 +1,7 @@
 
 // Include requirements
-var Router  = require('./application/router.js');
-var TeamApp = require('./templates/application/team-app.jsx');
+var Router  = require('application/router.js');
+var TeamApp = require('templates/application/team-app.jsx');
 
 // The application
 var VERSION   = '0.0.0';

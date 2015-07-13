@@ -1,16 +1,16 @@
 
 // Include requirements
-var PageStore = require('../../../application/stores/page-store'),
-    UserStore = require('../../../application/stores/user-store'),
-    TeamStore = require('../../../application/stores/team-store');
+var PageStore = require('application/stores/page-store'),
+    UserStore = require('application/stores/user-store'),
+    TeamStore = require('application/stores/team-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
 
 // Include components
 var NotFound   = require('./not-found.jsx'),
-    UserList   = require('../components/user/user-list.jsx'),
-    TeamUpdate = require('../components/team/team-update.jsx');
+    UserList   = require('templates/application/components/user/user-list.jsx'),
+    TeamUpdate = require('templates/application/components/team/team-update.jsx');
 
 var TeamSettings = React.createClass({
     getDefaultProps: function () {

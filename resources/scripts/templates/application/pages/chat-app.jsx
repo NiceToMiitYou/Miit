@@ -1,14 +1,14 @@
 
 // Include requirements
-var PageStore = require('../../../application/stores/page-store');
+var PageStore = require('application/stores/page-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
 
 // Include components
-var UserList = require('../components/user/user-list.jsx');
+var UserList = require('templates/application/components/user/user-list.jsx');
 
-var Home = React.createClass({
+var ChatApp = React.createClass({
     getDefaultProps: function () {
         return {
             title: 'Welcome',
@@ -30,4 +30,4 @@ var Home = React.createClass({
     }
 });
 
-PageStore.registerMainPage('home', (<Home />));
+PageStore.registerMainPage('chat', (<ChatApp />));

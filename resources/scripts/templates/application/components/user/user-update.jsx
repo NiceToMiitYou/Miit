@@ -1,7 +1,7 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store'),
-    UserActions = require('../../../../application/actions/user-actions');
+var UserStore   = require('application/stores/user-store'),
+    UserActions = require('application/actions/user-actions');
 
 var UserUpdate = React.createClass({
     getDefaultProps: function() {

@@ -1,8 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    TeamConstants = require('../constants/team-constants');
+var Dispatcher    = require('application/dispatcher'),
+    TeamConstants = require('application/constants/team-constants');
 
 // Shortcut
 var ActionTypes = TeamConstants.ActionTypes;

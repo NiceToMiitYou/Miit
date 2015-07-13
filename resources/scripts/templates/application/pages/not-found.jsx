@@ -1,9 +1,9 @@
 
 // Include requirements
-var PageStore = require('../../../application/stores/page-store');
+var PageStore = require('application/stores/page-store');
 
 // Include components
-var Link = require('../../common/link.jsx');
+var Link = require('templates/common/link.jsx');
 
 var NotFound = React.createClass({
     getDefaultProps: function () {

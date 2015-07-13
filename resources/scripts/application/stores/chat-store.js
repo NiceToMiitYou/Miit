@@ -1,8 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    ChatConstants = require('../constants/chat-constants');
+var Dispatcher    = require('application/dispatcher'),
+    ChatConstants = require('application/constants/chat-constants');
 
 // Shortcut
 var ActionTypes = ChatConstants.ActionTypes;

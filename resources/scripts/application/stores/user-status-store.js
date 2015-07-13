@@ -1,9 +1,9 @@
 'use strict';
 
 // Include requirements
-var Dispatcher          = require('../dispatcher'),
-    UserStatusConstants = require('../constants/user-status-constants'),
-    TeamStore           = require('../stores/team-store');
+var Dispatcher          = require('application/dispatcher'),
+    UserStatusConstants = require('application/constants/user-status-constants'),
+    TeamStore           = require('application/stores/team-store');
 
 // Shortcut
 var ActionTypes = UserStatusConstants.ActionTypes;

@@ -1,7 +1,7 @@
 'use strict';
 
 var router,
-    routes      = new DataStore('routes');
+    routes = new DataStore('routes');
 
 module.exports = {
     init: function() {

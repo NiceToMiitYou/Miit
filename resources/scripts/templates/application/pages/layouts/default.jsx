@@ -1,6 +1,6 @@
 
-// Include componnents
-var Clock = require('../../../common/clock.jsx');
+// Include components
+var Clock = require('templates/common/clock.jsx');
 
 var DefaultLayout = React.createClass({
     render: function() {

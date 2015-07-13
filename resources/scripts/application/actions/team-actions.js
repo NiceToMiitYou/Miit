@@ -1,8 +1,8 @@
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    Realtime      = require('../realtime'),
-    TeamConstants = require('../constants/team-constants');
+var Dispatcher    = require('application/dispatcher'),
+    Realtime      = require('application/realtime'),
+    TeamConstants = require('application/constants/team-constants');
 
 // Shortcut
 var ActionTypes = TeamConstants.ActionTypes;

@@ -4,15 +4,15 @@
   "description": "The Miit application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
     "watch": "npm run watch-lib & npm run watch-www & npm run watch-app",
-    "watch-app": "watchify -v -d -t [ reactify --es6 ] resources/scripts/app.js -o public/dist/js/app.min.js",
-    "watch-lib": "watchify -v -d -t [ reactify --es6 ] resources/scripts/lib.js -o public/dist/js/lib.min.js",
-    "watch-www": "watchify -v -d -t [ reactify --es6 ] resources/scripts/www.js -o public/dist/js/www.min.js",
+    "watch-app": "NODE_PATH=$NODE_PATH:./resources/scripts watchify -v -d -t [ reactify --es6 ] resources/scripts/app.js -o public/dist/js/app.min.js",
+    "watch-lib": "NODE_PATH=$NODE_PATH:./resources/scripts watchify -v -d -t [ reactify --es6 ] resources/scripts/lib.js -o public/dist/js/lib.min.js",
+    "watch-www": "NODE_PATH=$NODE_PATH:./resources/scripts watchify -v -d -t [ reactify --es6 ] resources/scripts/www.js -o public/dist/js/www.min.js",
     "build": "npm run build-lib && npm run build-www && npm run build-app",
-    "build-app": "NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/app.js | uglifyjs > public/dist/js/app.min.js",
-    "build-lib": "NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/lib.js | uglifyjs > public/dist/js/lib.min.js",
-    "build-www": "NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/www.js | uglifyjs > public/dist/js/www.min.js"
+    "build-app": "NODE_PATH=$NODE_PATH:./resources/scripts NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/app.js | uglifyjs > public/dist/js/app.min.js",
+    "build-lib": "NODE_PATH=$NODE_PATH:./resources/scripts NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/lib.js | uglifyjs > public/dist/js/lib.min.js",
+    "build-www": "NODE_PATH=$NODE_PATH:./resources/scripts NODE_ENV=production browserify -t [ reactify --es6 ] resources/scripts/www.js | uglifyjs > public/dist/js/www.min.js"
   },
   "author": "Tacyniak Boris",
   "license": "ISC",

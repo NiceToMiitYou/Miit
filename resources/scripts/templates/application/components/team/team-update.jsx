@@ -1,10 +1,10 @@
 
 // Include requirements
-var TeamStore   = require('../../../../application/stores/team-store'),
-    TeamActions = require('../../../../application/actions/team-actions');
+var TeamStore   = require('application/stores/team-store'),
+    TeamActions = require('application/actions/team-actions');
 
 // Include common
-var If = require('../../../common/if.jsx');
+var If = require('templates/common/if.jsx');
 
 var TeamUpdate = React.createClass({
     getDefaultProps: function() {

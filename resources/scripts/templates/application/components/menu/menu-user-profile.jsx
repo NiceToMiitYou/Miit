@@ -1,6 +1,6 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store');
+var UserStore   = require('application/stores/user-store');
 
 // Include components
 var UserAvatar = require('../user/user-avatar.jsx');

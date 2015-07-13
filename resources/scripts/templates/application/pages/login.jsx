@@ -1,12 +1,12 @@
 
 // Include requirements
-var PageStore = require('../../../application/stores/page-store');
+var PageStore = require('application/stores/page-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
 
 // Include components
-var UserLogin = require('../components/user/user-login.jsx');
+var UserLogin = require('templates/application/components/user/user-login.jsx');
 
 var Login = React.createClass({
     getDefaultProps: function () {

@@ -1,13 +1,13 @@
 
 // Include requirements
-var UserStatusStore   = require('../../../../application/stores/user-status-store'),
-    UserStatusActions = require('../../../../application/actions/user-status-actions'),
-    TeamStore         = require('../../../../application/stores/team-store'),
-    TeamActions       = require('../../../../application/actions/team-actions');
+var UserStatusStore   = require('application/stores/user-status-store'),
+    UserStatusActions = require('application/actions/user-status-actions'),
+    TeamStore         = require('application/stores/team-store'),
+    TeamActions       = require('application/actions/team-actions');
 
 // Include common
-var If      = require('../../../common/if.jsx'),
-    Loading = require('../../../common/loading.jsx');
+var If      = require('templates/common/if.jsx'),
+    Loading = require('templates/common/loading.jsx');
 
 // Include components
 var UserListHeader = require('./user-list-header.jsx'),

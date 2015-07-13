@@ -1,10 +1,10 @@
 
 // Include requirements
-var UserStore       = require('../../../../application/stores/user-store'),
-    UserStatusStore = require('../../../../application/stores/user-status-store');
+var UserStore       = require('application/stores/user-store'),
+    UserStatusStore = require('application/stores/user-status-store');
 
 // Include common
-var If = require('../../../common/if.jsx');
+var If = require('templates/common/if.jsx');
 
 // Include components
 var UserAvatar        = require('./user-avatar.jsx'),

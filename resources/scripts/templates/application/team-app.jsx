@@ -1,13 +1,13 @@
 
 // Include requirements
-var UserStore   = require('../../application/stores/user-store'),
-    PageStore   = require('../../application/stores/page-store'),
-    UserActions = require('../../application/actions/user-actions'),
-    PageActions = require('../../application/actions/page-actions');
+var UserStore   = require('application/stores/user-store'),
+    PageStore   = require('application/stores/page-store'),
+    UserActions = require('application/actions/user-actions'),
+    PageActions = require('application/actions/page-actions');
 
 // Include components
-var MenuTeam               = require('./components/menu/menu-team.jsx'),
-    NotificationsContainer = require('./components/notifications/notifications-container.jsx');
+var MenuTeam               = require('templates/application/components/menu/menu-team.jsx'),
+    NotificationsContainer = require('templates/application/components/notifications/notifications-container.jsx');
 
 // Load pages
 var pages = require('./pages/_load');

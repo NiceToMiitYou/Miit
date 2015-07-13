@@ -1,8 +1,8 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store'),
-    TeamStore   = require('../../../../application/stores/team-store'),
-    TeamActions = require('../../../../application/actions/team-actions');
+var UserStore   = require('application/stores/user-store'),
+    TeamStore   = require('application/stores/team-store'),
+    TeamActions = require('application/actions/team-actions');
 
 var UserListInvite = React.createClass({
     getDefaultProps: function() {

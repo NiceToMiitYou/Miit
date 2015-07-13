@@ -1,6 +1,6 @@
 
 // Include requirements
-var NotificationsStore = require('../../../../application/stores/notifications-store');
+var NotificationsStore = require('application/stores/notifications-store');
 
 var NotificationsContainer = React.createClass({
     componentDidMount: function() {

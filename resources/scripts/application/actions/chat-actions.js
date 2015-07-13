@@ -1,8 +1,8 @@
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    Realtime      = require('../realtime'),
-    ChatConstants = require('../constants/chat-constants');
+var Dispatcher    = require('application/dispatcher'),
+    Realtime      = require('application/realtime'),
+    ChatConstants = require('application/constants/chat-constants');
 
 // Shortcut
 var ActionTypes = ChatConstants.ActionTypes;

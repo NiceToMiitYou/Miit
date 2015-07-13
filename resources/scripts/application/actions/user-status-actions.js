@@ -1,8 +1,8 @@
 
 // Include requirements
-var Dispatcher          = require('../dispatcher'),
-    Realtime            = require('../realtime'),
-    UserStatusConstants = require('../constants/user-status-constants');
+var Dispatcher          = require('application/dispatcher'),
+    Realtime            = require('application/realtime'),
+    UserStatusConstants = require('application/constants/user-status-constants');
 
 // Shortcut
 var ActionTypes = UserStatusConstants.ActionTypes;

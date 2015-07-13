@@ -48,8 +48,6 @@ function Dispatcher() {
             role     = 'PUBLIC';
         }
 
-        console.log(event, role);
-
         // Register roles
         roles[event] = role;
 

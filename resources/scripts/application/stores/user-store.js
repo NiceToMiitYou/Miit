@@ -1,8 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    UserConstants = require('../constants/user-constants');
+var Dispatcher    = require('application/dispatcher'),
+    UserConstants = require('application/constants/user-constants');
 
 // Shortcut
 var ActionTypes = UserConstants.ActionTypes;

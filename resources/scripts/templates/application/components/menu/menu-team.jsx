@@ -1,11 +1,11 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store'),
-    UserActions = require('../../../../application/actions/user-actions');
+var UserStore   = require('application/stores/user-store'),
+    UserActions = require('application/actions/user-actions');
 
 // Include common
-var If   = require('../../../common/if.jsx'),
-    Link = require('../../../common/link.jsx');
+var If   = require('templates/common/if.jsx'),
+    Link = require('templates/common/link.jsx');
 
 // Include components
 var MenuHeader      = require('./menu-header.jsx'),
@@ -62,7 +62,7 @@ var MenuTeam = React.createClass({
                     
                     <ul className="sl-list">
                         <li>
-                            <Link href="#/home" activeGroup="menu-team" activeName="home">
+                            <Link href="#/chat" activeGroup="menu-team" activeName="home">
                                 <i className="fa fa-weixin pull-left"></i> Chat
                                 <span className="notification">4</span>
                             </Link>

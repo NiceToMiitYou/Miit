@@ -1,8 +1,8 @@
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    PageConstants = require('../constants/page-constants'),
-    Router        = require('../router');
+var Dispatcher    = require('application/dispatcher'),
+    PageConstants = require('application/constants/page-constants'),
+    Router        = require('application/router');
 
 // Shortcut
 var ActionTypes = PageConstants.ActionTypes;

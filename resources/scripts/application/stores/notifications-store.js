@@ -1,8 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher             = require('../dispatcher'),
-    NotificationsConstants = require('../constants/notifications-constants');
+var Dispatcher             = require('application/dispatcher'),
+    NotificationsConstants = require('application/constants/notifications-constants');
 
 // Shortcut
 var ActionTypes = NotificationsConstants.ActionTypes;

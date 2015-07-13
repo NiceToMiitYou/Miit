@@ -1,10 +1,10 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('../dispatcher'),
-    PageConstants = require('../constants/page-constants'),
-    UserStore     = require('../stores/user-store'),
-    TeamStore     = require('../stores/team-store');
+var Dispatcher    = require('application/dispatcher'),
+    PageConstants = require('application/constants/page-constants'),
+    UserStore     = require('application/stores/user-store'),
+    TeamStore     = require('application/stores/team-store');
 
 // Shorcut
 var ActionTypes = PageConstants.ActionTypes;

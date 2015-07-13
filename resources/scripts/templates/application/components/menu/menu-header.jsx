@@ -1,11 +1,11 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store'),
-    TeamStore   = require('../../../../application/stores/team-store');
+var UserStore   = require('application/stores/user-store'),
+    TeamStore   = require('application/stores/team-store');
 
 // Include common
-var If   = require('../../../common/if.jsx'),
-    Link = require('../../../common/link.jsx');
+var If   = require('templates/common/if.jsx'),
+    Link = require('templates/common/link.jsx');
 
 var MenuHeader = React.createClass({
     componentDidMount: function() {

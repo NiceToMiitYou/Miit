@@ -1,9 +1,9 @@
 
 // Load Home Request
-var HomeRequest = require('../../application/requests/home-request');
+var HomeRequest = require('application/requests/home-request');
 
 // Include common
-var If = require('../common/if.jsx');
+var If = require('templates/common/if.jsx');
 
 var NewsLetter = React.createClass({
     getDefaultProps: function() {

@@ -1,8 +1,8 @@
 
 // Include requirements
-var UserStore   = require('../../../../application/stores/user-store'),
-    UserActions = require('../../../../application/actions/user-actions'),
-    TeamStore   = require('../../../../application/stores/team-store');
+var UserStore   = require('application/stores/user-store'),
+    UserActions = require('application/actions/user-actions'),
+    TeamStore   = require('application/stores/team-store');
 
 var UserLogin = React.createClass({
     getDefaultProps: function() {
