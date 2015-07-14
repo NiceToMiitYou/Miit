@@ -1,3 +1,7 @@
+
+// Include requirement
+var Router = require('application/router');
+
 // Set the active group global
 global.ActiveGroups = {};
 
@@ -16,7 +20,7 @@ var Link = React.createClass({
             target     = target.substr(target.indexOf('#') + 1);
             
             // Set the route in the router
-            MiitApp.router.setRoute(target);
+            Router.setRoute(target);
 
             this.setActive();
         }

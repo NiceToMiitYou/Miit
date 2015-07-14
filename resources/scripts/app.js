@@ -15,7 +15,6 @@ var shared    = new DataStore('shared');
 var MiitApp = {
     COPYRIGHT: COPYRIGHT,
     VERSION:   VERSION,
-    router: Router,
     init: function() {
         // Initialize the router
         Router.init();
