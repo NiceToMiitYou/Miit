@@ -26,11 +26,5 @@ module.exports = {
     SASS_FLEX_DIST:      config.DIST + 'css/flex-it/',
     SASS_WWW_DIST:       config.DIST + 'css/www/',
     SASS_TEAM_DIST:      config.DIST + 'css/team/',
-    SASS_IE8_DIST:       config.DIST + 'css/ie8/',
-
-    // Libs of the project
-    LIBS_ALL: [
-        config.BOWER + 'Chart.js/Chart.min.js',
-    ],
-    LIBS_DIST:           config.DIST + 'lib/'
+    SASS_IE8_DIST:       config.DIST + 'css/ie8/'
 };
