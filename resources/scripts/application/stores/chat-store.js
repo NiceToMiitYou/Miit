@@ -50,14 +50,17 @@ ChatStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
         case ActionTypes.REPLACE_CHATROOMS:
             _replaceChatrooms(action.chatrooms);
+            ChatStore.emitChatroomsRefreshed();
             break;
 
         case ActionTypes.ADD_MESSAGE:
             _addMessages(action.chatroom, action.message);
+            ChatStore.emitNewMessage();
             break;
 
         case ActionTypes.ADD_MESSAGES:
             _addMessages(action.chatroom, action.messages);
+            ChatStore.emitNewMessage();
             break;
     }
 });

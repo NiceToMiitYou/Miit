@@ -14,10 +14,6 @@ var path   = require('./gulp_path.js');
 gulp.task('default', ['copy', 'watch', 'sass']);
 
 gulp.task('copy', function() {
-    // Copy libs
-    gulp.src(path.LIBS_ALL)
-        // Copy all libs files in LIBS_DIST
-        .pipe(gulp.dest(path.LIBS_DIST));
 
     // Copy fonts
     return gulp.src(path.FONTS_ALL)

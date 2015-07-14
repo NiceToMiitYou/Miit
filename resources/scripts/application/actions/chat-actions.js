@@ -41,6 +41,10 @@ Realtime.on('chat:messages', function(data) {
 
 // Expose the actions
 module.exports = {
+    refresh: function() {
+        Realtime.send('chat:rooms');
+    },
+
     send: function(chatroom, text) {
         Realtime.send('chat:send', {
             chatroom: chatroom,

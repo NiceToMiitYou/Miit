@@ -1,8 +1,5 @@
 
 module.exports = {
-    // Bower folders
-    BOWER:     './bower_components/',
-
     // Dist folders
     DIST:      './public/dist/',
 

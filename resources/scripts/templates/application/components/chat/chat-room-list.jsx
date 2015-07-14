@@ -1,24 +1,50 @@
 
 // Include requirements
-var UserStore = require('application/stores/user-store');
+var ChatStore   = require('application/stores/chat-store'),
+    ChatActions = require('application/actions/chat-actions');
 
-var UserAvatar = React.createClass({
-    render: function() {
-        var user   = this.props.user || UserStore.getUser();
-        var avatar;
+var ChatRoomList = React.createClass({
+    getDefaultProps: function () {
+        return {
+            inChatroom: function() { return true; },
+            onChange:   function() {}
+        };
+    },
 
-        if(user.avatar) {
-            avatar = 'http://www.gravatar.com/avatar/' + user.avatar + '?s=128&d=identicon';
+    componentDidMount: function() {
+        ChatStore.addChatroomsRefreshedListener(this._onChanged);
+        ChatActions.refresh();
+    },
+
+    componentWillUnmount: function() {
+        ChatStore.removeChatroomsRefreshedListener(this._onChanged);
+    },
+
+    _onChanged: function() {
+        if(!this.props.inChatroom()) {
+            var chatrooms = ChatStore.getChatrooms();
+            
+            this.props.onChange(chatrooms[0] || {});
         }
 
-        avatar = avatar || '/img/logo-miit-light.png';
+        this.forceUpdate();
+    },
+
+    render: function() {
+        var chatrooms = ChatStore.getChatrooms();
 
         return (
-            <span className="miit-component user-avatar">
-                <img src={avatar} {...this.props} />
+            <span className="miit-component chat-room-list">
+                {chatrooms.map(function(chatroom) {
+                    return (
+                        <span key={chatroom.id}>
+                            {chatroom.name}
+                        </span>
+                    );
+                })}
             </span>
         );
     }
 });
 
-module.exports = UserAvatar;
+module.exports = ChatRoomList;

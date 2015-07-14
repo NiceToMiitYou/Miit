@@ -4,6 +4,9 @@ var Dispatcher    = require('application/dispatcher'),
     PageConstants = require('application/constants/page-constants'),
     Router        = require('application/router');
 
+// Load pages
+var pages = require('templates/application/pages/_load');
+
 // Shortcut
 var ActionTypes = PageConstants.ActionTypes;
 
@@ -31,7 +34,7 @@ var PageActions = {
 
 // Get the router and handle page change
 Router.routes.set('/([a-zA-Z0-9_\-]{0,})', function(mainPage) {
-    var page = mainPage || defaultPage;
+    var page = mainPage || pages.default;
 
     // Set the current active page of the menu
     ActiveGroups['menu-team'] = page;

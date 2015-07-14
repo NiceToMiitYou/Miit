@@ -30,17 +30,7 @@ module.exports = {
 
     // Libs of the project
     LIBS_ALL: [
-        config.BOWER + 'es5-shim/es5-shim.min.js',
-        config.BOWER + 'es5-shim/es5-shim.map',
-        config.BOWER + 'es5-shim/es5-sham.min.js',
-        config.BOWER + 'es5-shim/es5-sham.map',
-        config.BOWER + 'react/react-with-addons.js',
-        config.BOWER + 'react/react-with-addons.min.js',
-        config.BOWER + 'async/lib/async.js',
-        config.BOWER + 'director/build/director.min.js',
         config.BOWER + 'Chart.js/Chart.min.js',
-        config.BOWER + 'flux/dist/Flux.js',
-        config.BOWER + 'ExplorerCanvas/excanvas.js'
     ],
     LIBS_DIST:           config.DIST + 'lib/'
 };

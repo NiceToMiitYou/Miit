@@ -6,12 +6,13 @@ var PageStore = require('application/stores/page-store');
 var Layout = require('./layouts/default.jsx');
 
 // Include components
-var UserList = require('templates/application/components/user/user-list.jsx');
+var UserList = require('templates/application/components/user/user-list.jsx'),
+    ChatApp  = require('templates/application/components/chat/chat-app.jsx');
 
-var ChatApp = React.createClass({
+var ChatPage = React.createClass({
     getDefaultProps: function () {
         return {
-            title: 'Welcome',
+            title: 'Chat',
             text: {
                 users: 'Utilisateurs'
             }
@@ -21,6 +22,7 @@ var ChatApp = React.createClass({
     render: function() {
         return (
             <Layout title={this.props.title}>
+                <ChatApp />
                 <div className="sidr-right">
                     <span className="sr-label">{this.props.text.users}</span>
                     <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} />
@@ -30,4 +32,4 @@ var ChatApp = React.createClass({
     }
 });
 
-PageStore.registerMainPage('chat', (<ChatApp />));
+PageStore.registerMainPage('chat', (<ChatPage />));

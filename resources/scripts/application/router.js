@@ -1,6 +1,8 @@
 'use strict';
 
-var router,
+var Router = require('director').Router;
+
+var router = new Router(),
     routes = new DataStore('routes');
 
 module.exports = {
