@@ -7,6 +7,9 @@ var Dispatcher    = require('application/dispatcher'),
 // Shortcut
 var ActionTypes = ChatConstants.ActionTypes;
 
+// Is sending
+var Requested = {};
+
 //
 // Listen for events
 //
@@ -20,6 +23,10 @@ Realtime.on('chat:rooms', function(data) {
 });
 
 Realtime.on('chat:message', function(data) {
+    if(!data.chatroom) {
+        return;
+    }
+
     var action = {
         type:     ActionTypes.ADD_MESSAGE,
         chatroom: data.chatroom,
@@ -30,6 +37,12 @@ Realtime.on('chat:message', function(data) {
 });
 
 Realtime.on('chat:messages', function(data) {
+    if(!data.chatroom) {
+        return;
+    }
+
+    Requested[data.chatroom] = false;
+
     var action = {
         type:     ActionTypes.ADD_MESSAGES,
         chatroom: data.chatroom,
@@ -41,14 +54,45 @@ Realtime.on('chat:messages', function(data) {
 
 // Expose the actions
 module.exports = {
-    refresh: function() {
+    last: function(chatroom, count) {
+        if(!chatroom) {
+            return;
+        }
+
+        Realtime.send('chat:messages:last', {
+            chatroom: chatroom,
+            count:    count || 100
+        });
+    },
+
+    rooms: function() {
         Realtime.send('chat:rooms');
     },
 
+    messages: function(chatroom, last, count) {
+        if(!chatroom || true === Requested[chatroom]) {
+            return;
+        }
+
+        Requested[chatroom] = true;
+
+        Realtime.send('chat:messages', {
+            chatroom: chatroom,
+            count:    count || 20,
+            last:     last
+        });
+    },
+
     send: function(chatroom, text) {
+        if(!chatroom || !text || !text.trim()) {
+            return false;
+        }
+
         Realtime.send('chat:send', {
             chatroom: chatroom,
-            text:     text
+            text:     text.trim()
         });
+
+        return true;
     }
 };

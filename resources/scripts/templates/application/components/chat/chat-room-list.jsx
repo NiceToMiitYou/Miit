@@ -13,7 +13,7 @@ var ChatRoomList = React.createClass({
 
     componentDidMount: function() {
         ChatStore.addChatroomsRefreshedListener(this._onChanged);
-        ChatActions.refresh();
+        ChatActions.rooms();
     },
 
     componentWillUnmount: function() {

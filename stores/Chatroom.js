@@ -110,7 +110,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                     }
                 },
                 {
-                    '$sort': { id: 1 }
+                    '$sort': { createdAt: -1 }
                 },
                 {
                     '$limit': limit
@@ -131,16 +131,9 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         },
 
         getMessages: function(team, chatroom, last, count, cb) {
-            var order    = (count > 0) ? 1 : -1;
-            var operator = (order > 0) ? '$gte' : '$lte';
-            
             // Define the limit, block the result to 100
             var count = Math.abs(count);
             var limit = (count > 100 ) ? 100 : count;
-
-            // Generate the comparator of the last id
-            var comparator = {};
-                comparator[operator] = last;
 
             // Get the id of the chatroom
             var chatroomId = new ObjectId(chatroom._id || chatroom.id || chatroom);
@@ -154,17 +147,21 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                 },
                 {
                     '$project': {
-                        _id:       '$messages._id',
+                        id:        '$messages._id',
                         text:      '$messages.text',
                         user:      '$messages.user',
                         createdAt: '$messages.createdAt'
                     }
                 },
                 {
-                    '$sort': { _id: order }
+                    '$match': {
+                        createdAt: {
+                            '$lte': new Date(last)
+                        }
+                    }
                 },
                 {
-                    '$match': { _id: comparator }
+                    '$sort': { createdAt: -1 }
                 },
                 {
                     '$limit': limit
@@ -178,7 +175,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                     }
 
                     if(typeof cb === 'function') {
-                        cb(err, mesages);
+                        cb(err, messages);
                     }
                 });
 

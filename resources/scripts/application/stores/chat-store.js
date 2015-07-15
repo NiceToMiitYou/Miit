@@ -15,7 +15,7 @@ var events = KeyMirror({
 });
 
 // Global variables
-var Chatrooms, Messages = {};
+var Chatrooms, Messages = {}, Counter = {};
 
 function _replaceChatrooms(chatrooms) {
     Chatrooms = chatrooms || [];    
@@ -30,6 +30,21 @@ function _addMessages(chatroom, messages) {
     Messages[chatroom].mergeBy('id', messages);
 }
 
+function _hasChanged(chatroom) {
+    // Create an array if not exist
+    if(!Counter[chatroom]) {
+        Counter[chatroom] = 0;
+    }
+
+    if(Counter[chatroom] !== Messages[chatroom].length) {
+        Counter[chatroom] = Messages[chatroom].length;
+
+        return true;
+    }
+
+    return false;
+}
+
 // The ChatStore Object
 var ChatStore = ObjectAssign({}, EventEmitter.prototype, {
     getChatrooms: function() {
@@ -37,7 +52,9 @@ var ChatStore = ObjectAssign({}, EventEmitter.prototype, {
     },
 
     getMessages: function(chatroom) {
-        return Messages[chatroom] || [];
+        var messages = Messages[chatroom] || [];
+
+        return messages.sortBy('createdAt');
     }
 });
 
@@ -55,12 +72,18 @@ ChatStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.ADD_MESSAGE:
             _addMessages(action.chatroom, action.message);
-            ChatStore.emitNewMessage();
+            // Check for change
+            if(true === _hasChanged(action.chatroom)) {
+                ChatStore.emitNewMessage();
+            }
             break;
 
         case ActionTypes.ADD_MESSAGES:
             _addMessages(action.chatroom, action.messages);
-            ChatStore.emitNewMessage();
+            // Check for change
+            if(true === _hasChanged(action.chatroom)) {
+                ChatStore.emitNewMessage();
+            }
             break;
     }
 });
