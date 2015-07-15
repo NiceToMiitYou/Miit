@@ -115,7 +115,13 @@ var ChatMessageList = React.createClass({
         }
         else if(this.state.heigth !== el.scrollHeight)
         {
+            // Fix the scroll
             el.scrollTop = el.scrollHeight - this.state.heigth;
+            
+            // Save the value
+            this.setState({
+                heigth: el.scrollHeight
+            });
         }
     },
 
