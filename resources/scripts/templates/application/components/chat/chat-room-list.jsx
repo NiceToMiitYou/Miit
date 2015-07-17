@@ -1,13 +1,25 @@
 
 // Include requirements
 var ChatStore   = require('application/stores/chat-store'),
-    ChatActions = require('application/actions/chat-actions');
+    ChatActions = require('application/actions/chat-actions'),
+    UserStore   = require('application/stores/user-store');
+
+// Include common components
+var If       = require('templates/common/if.jsx'),
+    Dropdown = require('templates/common/dropdown.jsx');
+
+// Include components
+var ChatRoomListItem = require('./chat-room-list-item.jsx'),
+    ChatRoomCreate   = require('./chat-room-create.jsx');
 
 var ChatRoomList = React.createClass({
     getDefaultProps: function () {
         return {
             inChatroom: function() { return true; },
-            onChange:   function() {}
+            onChange:   function() {},
+            text: {
+                create: "Créer une salle"
+            }
         };
     },
 
@@ -31,17 +43,26 @@ var ChatRoomList = React.createClass({
     },
 
     render: function() {
+        // Get informations
+        var onChange  = this.props.onChange;
         var chatrooms = ChatStore.getChatrooms();
+
+        // Is the user an admin?
+        var isAdmin = UserStore.isAdmin();
 
         return (
             <span className="miit-component chat-room-list">
                 {chatrooms.map(function(chatroom) {
                     return (
-                        <span key={chatroom.id}>
-                            {chatroom.name}
-                        </span>
+                        <ChatRoomListItem key={chatroom.id} chatroom={chatroom} onChange={onChange} />
                     );
                 })}
+
+                <If test={isAdmin}>
+                    <Dropdown label={this.props.text.create}>
+                        <ChatRoomCreate />
+                    </Dropdown>
+                </If>
             </span>
         );
     }
