@@ -60,8 +60,8 @@ var Dropdown = React.createClass({
         var clDropdown = classNames('miit-component', 'dropdown', open);
 
         return (
-            <span onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} onClick={this.onClick} className={clDropdown}>
-                <span className="dropdown-label">
+            <span onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} className={clDropdown}>
+                <span className="dropdown-label" onClick={this.onClick}>
                     {this.props.label}
                     <i className={clIcon}></i>
                 </span>

@@ -54,6 +54,18 @@ Realtime.on('chat:messages', function(data) {
 
 // Expose the actions
 module.exports = {
+    create: function(name) {
+        if(!name || !name.trim()) {
+            return false;
+        }
+
+        Realtime.send('chat:create', {
+            name: name
+        });
+
+        return true;
+    },
+
     last: function(chatroom, count) {
         if(!chatroom) {
             return;
