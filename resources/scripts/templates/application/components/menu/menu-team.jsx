@@ -87,7 +87,7 @@ var MenuTeam = React.createClass({
                         </If>
                         <If test={UserStore.isAdmin()}>
                             <li>
-                                <Link href="/test2/plop">
+                                <Link href="/">
                                     <i className="fa fa-plus pull-left"></i> Ajouter une App
                                 </Link>
                             </li>

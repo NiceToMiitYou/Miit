@@ -85,7 +85,7 @@ module.exports = {
 
         Realtime.send('chat:messages:last', {
             chatroom: chatroom,
-            count:    count || 100
+            count:    count || 20
         });
     },
 

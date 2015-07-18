@@ -4,11 +4,17 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
     var mongoose = miitoo.get('Mongoose');
     var ObjectId = mongoose.Types.ObjectId;
 
+    function getId(object) {
+        return object._id || object.id || object;
+    }
+
     return {
         create: function(team, name, cb) {
+            var teamId = getId(team);
+
             var chatroom = new Chatroom({
                 name:   name,
-                teamId: team._id || team.id || team
+                teamId: teamId
             });
 
             chatroom.save(function(err) {
@@ -23,8 +29,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         },
 
         delete: function(team, chatroom, cb) {
-            var chatroomId = chatroom._id || chatroom.id || chatroom;
-            var teamId     = team._id || team.id || team;
+            var chatroomId = getId(chatroom);
+            var teamId     = getId(team);
 
             Chatroom.remove({
                 _id:    chatroomId,
@@ -40,12 +46,14 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             });
         },
 
-        send: function(team, user, chatroom_id, text, cb) {
-            var userId = user._id || user.id || user;
+        send: function(team, user, chatroom, text, cb) {
+            var chatroomId = getId(chatroom);
+            var teamId     = getId(team);
+            var userId     = getId(user);
 
             var condition = {
-                _id:    chatroom_id,
-                teamId: team._id || team.id
+                _id:    chatroomId,
+                teamId: teamId
             };
 
             var message = {
@@ -80,11 +88,13 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         },
 
         getChatrooms: function(team, cb) {
+            var teamId = getId(team);
+
             Chatroom
                 .find({
-                    teamId: team._id || team.id || team
+                    teamId: teamId
                 }, {
-                    messages: false
+                    messages:      false
                 })
                 .exec(function(err, chatrooms) {
                     if(err) {
@@ -109,7 +119,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             var limit = (count > 100 ) ? 100 : count;
 
             // Get the id of the chatroom
-            var chatroomId = new ObjectId(chatroom._id || chatroom.id || chatroom);
+            var chatroomId = new ObjectId(getId(chatroom));
 
             var aggregate = [
                 {
@@ -145,7 +155,6 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                         cb(err, messages);
                     }
                 });
-
         },
 
         getMessages: function(team, chatroom, last, count, cb) {
@@ -154,7 +163,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             var limit = (count > 100 ) ? 100 : count;
 
             // Get the id of the chatroom
-            var chatroomId = new ObjectId(chatroom._id || chatroom.id || chatroom);
+            var chatroomId = new ObjectId(getId(chatroom));
 
             var aggregate = [
                 {
