@@ -1,7 +1,8 @@
 
 // Include requirements
 var UserStore   = require('application/stores/user-store'),
-    UserActions = require('application/actions/user-actions');
+    UserActions = require('application/actions/user-actions'),
+    TeamStore   = require('application/stores/team-store');
 
 // Include common
 var If   = require('templates/common/if.jsx'),
@@ -61,23 +62,29 @@ var MenuTeam = React.createClass({
                     <MenuLabel label={this.props.text.apps_label} />
                     
                     <ul className="sl-list">
-                        <li>
-                            <Link href="#/chat" activeGroup="menu-team" activeName="home">
-                                <i className="fa fa-weixin pull-left"></i> Chat
-                                <span className="notification">4</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#/quizz" activeGroup="menu-team" activeName="quizz">
-                                <i className="fa fa-question pull-left"></i> Quizz
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#/test2/plop">
-                                <i className="fa fa-folder-o pull-left"></i> Documents
-                                <span className="notification">18</span>
-                            </Link>
-                        </li>
+                        <If test={TeamStore.hasApplication('APP_CHAT')}>
+                            <li>
+                                <Link href="#/chat" activeGroup="menu-team" activeName="chat">
+                                    <i className="fa fa-weixin pull-left"></i> Chat
+                                    <span className="notification">4</span>
+                                </Link>
+                            </li>
+                        </If>
+                        <If test={TeamStore.hasApplication('APP_QUIZZ')}>
+                            <li>
+                                <Link href="#/quizz" activeGroup="menu-team" activeName="quizz">
+                                    <i className="fa fa-question pull-left"></i> Quizz
+                                </Link>
+                            </li>
+                        </If>
+                        <If test={TeamStore.hasApplication('APP_DOCUMENTS')}>
+                            <li>
+                                <Link href="#/documents" activeName="documents">
+                                    <i className="fa fa-folder-o pull-left"></i> Documents
+                                    <span className="notification">18</span>
+                                </Link>
+                            </li>
+                        </If>
                         <If test={UserStore.isAdmin()}>
                             <li>
                                 <Link href="/test2/plop">

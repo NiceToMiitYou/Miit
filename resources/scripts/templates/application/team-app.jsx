@@ -9,11 +9,9 @@ var UserStore   = require('application/stores/user-store'),
 var MenuTeam               = require('templates/application/components/menu/menu-team.jsx'),
     NotificationsContainer = require('templates/application/components/notifications/notifications-container.jsx');
 
-// Load pages
-var pages = require('./pages/_load');
 
-// The default page
-var defaultPage = pages.default;
+// Load all pages
+var pages = require('templates/application/pages/_load');
 
 var TeamApp = React.createClass({
     getInitialState: function() {

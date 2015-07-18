@@ -25,7 +25,10 @@ var ChatMessageList = React.createClass({
     },
 
     componentDidMount: function() {
+        // Attach messages handler
         ChatStore.addNewMessageListener(this._onChanged);
+
+        // Attach scroll events
         this._stick();
         this.attachScrollListener();
 
@@ -36,6 +39,7 @@ var ChatMessageList = React.createClass({
     },
 
     componentDidUpdate: function () {
+        // Attach scroll events
         this._stick();
         this.attachScrollListener();
     },
@@ -52,8 +56,13 @@ var ChatMessageList = React.createClass({
     },
 
     componentWillUnmount: function() {
+        // Clear refresh of the date
         clearInterval(this.IntervalId);
+
+        // detach messages handler
         ChatStore.removeNewMessageListener(this._onChanged);
+
+        // Detach scroll events
         this.detachScrollListener();
     },
 

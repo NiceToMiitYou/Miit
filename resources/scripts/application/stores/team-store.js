@@ -33,6 +33,10 @@ var events = KeyMirror({
 var Users = [], Team;
 
 function _update(name, publix) {
+    if(!Team) {
+        Team = MiitApp.shared.get('team');
+    }
+    
     Team.name   = name;
     Team.public = publix;
 }
@@ -99,6 +103,16 @@ function _demoteUser(id, roles) {
     }
 }
 
+function _hasApplication(application) {
+    if(!Team) {
+        Team = MiitApp.shared.get('team');
+    }
+
+    var applications = Team.applications || [];
+
+    return -1 !== applications.indexOf(application);
+}
+
 var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
     getTeam: function() {
         if(!Team) {
@@ -121,6 +135,10 @@ var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getUsersByRole: function(role, inverse) {
         return _filterbyRoleUser(role, inverse);
+    },
+
+    hasApplication: function(application) {
+        return _hasApplication(application);
     }
 });
 

@@ -16,6 +16,12 @@ var events = KeyMirror({
     APPLICATION_PAGE_CHANGED: null,
 });
 
+// Load all pages
+var config = require('templates/application/pages/_config');
+
+// The default page
+var defaultPage = config.default;
+
 // All needed pages variables
 var CurrentMainPage, CurrentApplicationPage;
 
@@ -36,7 +42,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         else if(
             true  === UserStore.isLoggedIn() && 'login'  === page
         ) {
-            page = 'home';
+            page = defaultPage;
         }
 
         return PageStorage.get('main-' + page);
@@ -44,6 +50,10 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getCurrentApplicationPage: function() {
         return PageStorage.get('application-' + CurrentApplicationPage);
+    },
+
+    getDefaultPage: function() {
+        return defaultPage;
     },
 
     registerMainPage: function(name, component) {
