@@ -66,6 +66,18 @@ module.exports = {
         return true;
     },
 
+    delete: function(chatroom) {
+        if(!chatroom) {
+            return false;
+        }
+
+        Realtime.send('chat:delete', {
+            chatroom: chatroom
+        });
+
+        return true;
+    },
+
     last: function(chatroom, count) {
         if(!chatroom) {
             return;

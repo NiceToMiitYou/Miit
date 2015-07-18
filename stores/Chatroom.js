@@ -22,6 +22,24 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             });
         },
 
+        delete: function(team, chatroom, cb) {
+            var chatroomId = chatroom._id || chatroom.id || chatroom;
+            var teamId     = team._id || team.id || team;
+
+            Chatroom.remove({
+                _id:    chatroomId,
+                teamId: teamId
+            }, function(err) {
+                if(err) {
+                    miitoo.logger.debug(err);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err);
+                }
+            });
+        },
+
         send: function(team, user, chatroom_id, text, cb) {
             var userId = user._id || user.id || user;
 

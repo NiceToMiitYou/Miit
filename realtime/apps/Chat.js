@@ -8,6 +8,19 @@ module.exports = function ChatApp() {
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
+    function sendRooms(team) {
+        // Send the list of chatrooms
+        ChatroomStore.getChatrooms(team, function(err, chatrooms) {
+            var room = team._id + ':' + app.identifier();
+
+            // Send the informations to the whole app user
+            primus.in(room).write({
+                event:     'chat:rooms',
+                chatrooms: chatrooms
+            });
+        });
+    }
+
     // Create a chatroom
     Dispatcher.register('chat:create', 'ADMIN', function onCreateChatroom(spark, data, team, user) {
         var name = data.name;
@@ -17,16 +30,20 @@ module.exports = function ChatApp() {
         }
 
         ChatroomStore.create(team, name, function(err, chatroom) {
-            // Send the list of chatrooms
-            ChatroomStore.getChatrooms(team, function(err, chatrooms) {
-                var room = team._id + ':' + app.identifier();
+            sendRooms(team);
+        });
+    });
 
-                // Send the informations to the whole app user
-                primus.in(room).write({
-                    event:     'chat:rooms',
-                    chatrooms: chatrooms
-                });
-            });
+    // Delete a chatroom
+    Dispatcher.register('chat:delete', 'ADMIN', function onCreateChatroom(spark, data, team, user) {
+        var chatroom = data.chatroom;
+
+        if(!chatroom) {
+            return;
+        }
+
+        ChatroomStore.delete(team, chatroom, function(err) {
+            sendRooms(team);
         });
     });
 
