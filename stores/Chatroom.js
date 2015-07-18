@@ -8,7 +8,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
         create: function(team, name, cb) {
             var chatroom = new Chatroom({
                 name:   name,
-                teamId: team.id
+                teamId: team._id || team.id || team
             });
 
             chatroom.save(function(err) {
