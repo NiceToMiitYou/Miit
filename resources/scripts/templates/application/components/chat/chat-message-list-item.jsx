@@ -1,6 +1,12 @@
 
 // Include requirements
-var UserStore   = require('application/stores/user-store');
+var TeamStore  = require('application/stores/team-store');
+
+// Include common components
+var DateFormat = require('templates/common/date-format.jsx');
+
+// Include components
+var UserAvatar = require('../user/user-avatar.jsx');
 
 var ChatMessageListItem = React.createClass({
     getDefaultProps: function () {
@@ -12,13 +18,15 @@ var ChatMessageListItem = React.createClass({
     },
 
     render: function() {
-        var user      = this.props.user;
+        var user      = TeamStore.getUser(this.props.user);
         var text      = this.props.text;
         var createdAt = this.props.createdAt;
 
         return (
             <div className="miit-component chat-message-list-item">
-                {createdAt} - {text}
+                <UserAvatar user={user} height="42"/>
+                <DateFormat date={createdAt} from={true} />
+                {text}
             </div>
         );
     }

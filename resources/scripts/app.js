@@ -2,19 +2,16 @@
 // Include React as npm package
 global.React = require('react/addons');
 
+// Request the configuration file to setup the application
+var config = require('application/config');
+
 // Include requirements
 var Router  = require('application/router.js');
 var TeamApp = require('templates/application/team-app.jsx');
 
-// The application
-var VERSION   = '0.0.0';
-var COPYRIGHT = 'All rights reserved to ITEvents.';
-
-var shared    = new DataStore('shared');
-
 var MiitApp = {
-    COPYRIGHT: COPYRIGHT,
-    VERSION:   VERSION,
+    COPYRIGHT: config.COPYRIGHT,
+    VERSION:   config.VERSION,
     init: function() {
         // Initialize the router
         Router.init();
@@ -22,7 +19,7 @@ var MiitApp = {
         // Render the TeamApp component
         React.render(<TeamApp />, document.getElementById('content'));
     },
-    shared: shared
+    shared: config.shared
 };
 
 global.MiitApp = MiitApp;
