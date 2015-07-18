@@ -14,6 +14,8 @@ function topPosition(domElt) {
 }
 
 var ChatMessageList = React.createClass({
+    IntervalId: null,
+
     getInitialState: function () {
         return {
             chatroom: this.props.chatroom,
@@ -26,6 +28,11 @@ var ChatMessageList = React.createClass({
         ChatStore.addNewMessageListener(this._onChanged);
         this._stick();
         this.attachScrollListener();
+
+        // Refresh the list for date update
+        this.IntervalId = setInterval(function() {
+            this._onChanged();
+        }.bind(this), 15000);
     },
 
     componentDidUpdate: function () {
@@ -45,6 +52,7 @@ var ChatMessageList = React.createClass({
     },
 
     componentWillUnmount: function() {
+        clearInterval(this.IntervalId);
         ChatStore.removeNewMessageListener(this._onChanged);
         this.detachScrollListener();
     },

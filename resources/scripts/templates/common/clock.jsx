@@ -2,9 +2,9 @@
 // Include components
 var ClockFace = require('./clock-face.jsx');
 
-var ClockIntervalId;
-
 var Clock = React.createClass({
+    IntervalId: null,
+
     getInitialState: function() {
         return {
             date: new Date()
@@ -14,13 +14,13 @@ var Clock = React.createClass({
     componentDidMount: function() {
         this.tick();
         
-        ClockIntervalId = setInterval(function() {
+        this.IntervalId = setInterval(function() {
             this.tick();
         }.bind(this), 5000);
     },
 
     componentWillUnmount: function() {
-        clearInterval(ClockIntervalId);
+        clearInterval(this.IntervalId);
     },
 
     tick: function() {
