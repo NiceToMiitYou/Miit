@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var TeamStore   = require('application/stores/team-store'),

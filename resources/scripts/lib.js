@@ -1,3 +1,4 @@
+'use strict';
 
 // Load all libs
 global.AsyncQueue   = require('lib/async-queue');

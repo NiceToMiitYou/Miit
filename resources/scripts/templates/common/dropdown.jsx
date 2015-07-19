@@ -1,3 +1,4 @@
+'use strict';
 
 // Include components
 var If = require('./if.jsx');

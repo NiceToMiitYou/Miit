@@ -1,3 +1,4 @@
+'use strict';
 
 // Load all pages
 require('./chat-page.jsx');

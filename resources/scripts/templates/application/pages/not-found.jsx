@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var PageStore = require('application/stores/page-store');

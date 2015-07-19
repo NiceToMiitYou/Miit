@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var Dispatcher          = require('application/dispatcher'),

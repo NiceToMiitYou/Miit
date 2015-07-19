@@ -1,3 +1,4 @@
+'use strict';
 
 // Load Home Request
 var HomeRequest = require('application/requests/home-request');

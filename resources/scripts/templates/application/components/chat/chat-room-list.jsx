@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var ChatStore   = require('application/stores/chat-store'),

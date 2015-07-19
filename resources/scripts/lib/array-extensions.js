@@ -1,3 +1,4 @@
+'use strict';
 
 Array.prototype.indexBy = function(prop, value) {
     for(var index in this) {

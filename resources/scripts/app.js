@@ -1,3 +1,4 @@
+'use strict';
 
 // Include React as npm package
 global.React = require('react/addons');

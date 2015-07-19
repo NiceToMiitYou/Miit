@@ -1,3 +1,5 @@
+'use strict';
+
 var HomeRequest = {
     newsletter: function(email, cb) {
 

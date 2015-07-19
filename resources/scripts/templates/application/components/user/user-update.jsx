@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var UserStore   = require('application/stores/user-store'),

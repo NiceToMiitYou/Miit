@@ -1,3 +1,4 @@
+'use strict';
 
 var MenuLabel = React.createClass({
     render: function() {

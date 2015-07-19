@@ -1,3 +1,4 @@
+'use strict';
 
 // Include components
 var Clock = require('templates/common/clock.jsx');

@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var ChatActions = require('application/actions/chat-actions'),

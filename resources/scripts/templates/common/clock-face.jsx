@@ -1,3 +1,5 @@
+'use strict';
+
 var ClockFace = React.createClass({
     render: function() {
         var d = this.props.date;

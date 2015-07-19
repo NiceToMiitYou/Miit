@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirement
 var Router = require('application/router');

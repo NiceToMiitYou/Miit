@@ -1,3 +1,4 @@
+'use strict';
 
 var Loading = React.createClass({
     getDefaultProps: function() {

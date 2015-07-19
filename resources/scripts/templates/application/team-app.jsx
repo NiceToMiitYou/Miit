@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var UserStore   = require('application/stores/user-store'),
@@ -21,13 +22,18 @@ var TeamApp = React.createClass({
     },
 
     componentDidMount: function() {
-        UserStore.addLoggedInListener(this._onChange);
+        UserStore.addLoggedInListener(this._onLoggedIn);
         PageStore.addMainPageChangedListener(this._onChange);
     },
 
     componentWillUnmount: function() {
-        UserStore.removeLoggedInListener(this._onChange);
+        UserStore.removeLoggedInListener(this._onLoggedIn);
         PageStore.removeMainPageChangedListener(this._onChange);
+    },
+
+    _onLoggedIn: function() {
+        // Finally call onChange to refresh the page
+        this._onChange();
     },
 
     _onChange: function() {

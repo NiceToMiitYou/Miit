@@ -1,3 +1,4 @@
+'use strict';
 
 // Application settings
 var VERSION   = '0.0.0';

@@ -1,3 +1,5 @@
+'use strict';
+
 var If = React.createClass({
     render: function() {
         if (this.props.test) {

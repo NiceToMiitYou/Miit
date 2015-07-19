@@ -1,3 +1,4 @@
+'use strict';
 
 function addListenerName(eventName) {
     return 'add' + eventName.dashToCapitalize() + 'Listener';

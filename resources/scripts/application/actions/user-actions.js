@@ -1,3 +1,4 @@
+'use strict';
 
 // Include requirements
 var Dispatcher    = require('application/dispatcher'),
@@ -89,7 +90,7 @@ function check() {
 }
 
 Realtime.on('open', function() {
-    // Connection the user
+    // Log in the user
     check();
 });
 
