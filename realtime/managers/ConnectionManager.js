@@ -9,11 +9,6 @@ module.exports = function ConnectionManager() {
     primus.on('connection', function(spark) {
         miitoo.logger.info('Someone is connected.');
 
-        var user = spark.request.user;
-        var team = spark.request.team;
-
-        var apps = team.applications || [];
-
         // Bind event from client
         spark.on('data', function (data){
             miitoo.logger.info(data);
@@ -28,12 +23,6 @@ module.exports = function ConnectionManager() {
 
             // Dispatch the ping
             Dispatcher.dispatch(spark, 'incoming::ping', {});
-        });
-
-        // Initialize other components
-        apps.forEach(function(identifier) {
-            // Join the app room
-            spark.join(team._id + ':' + identifier);
         });
     });
 

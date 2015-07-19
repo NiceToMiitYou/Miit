@@ -17,7 +17,6 @@ module.exports = function UserManager() {
         });
     });
 
-
     function notDone(spark, event, err) {
         if(err)
         {

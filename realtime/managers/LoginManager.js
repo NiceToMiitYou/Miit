@@ -54,8 +54,18 @@ module.exports = function LoginManager() {
         spark.request.user  = user;
         spark.request.roles = user.roles;
 
-        // Add the user in the team channel
+        // Get apps
+        var apps = team.applications || [];
+
+        // Add the user in the team channel and is own channel
         spark.join(team.id);
+        spark.join(team.id + ':' + user.id);
+
+        // Join rooms of apps
+        apps.forEach(function(identifier) {
+            // Join the app room
+            spark.join(team._id + ':' + identifier);
+        });
 
         spark.write({
             event: event,
@@ -151,9 +161,20 @@ module.exports = function LoginManager() {
         spark.request.user  = session;
         spark.request.roles = session.roles;
     
-        // Add the user in the team channel
+        // Subscribes to rooms
         if(true === team.public) {
+            // Get apps
+            var apps = team.applications || [];
+
+            // Add the user in the team channel and is own channel
             spark.join(team.id);
+            spark.join(team.id + ':' + id);
+
+            // Join rooms of apps
+            apps.forEach(function(identifier) {
+                // Join the app room
+                spark.join(team._id + ':' + identifier);
+            });
         }
 
         // Send it to the user
