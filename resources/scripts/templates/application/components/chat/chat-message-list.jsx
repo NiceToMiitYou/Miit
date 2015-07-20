@@ -17,13 +17,14 @@ function topPosition(domElt) {
 
 var ChatMessageList = React.createClass({
     IntervalId:     null,
+    OldestMessage:  null,
     HasNewMessages: true,
+    ScrollHeight:   0,
+    IsSticky:       true,
 
     getInitialState: function () {
         return {
-            chatroom: this.props.chatroom,
-            stick:    true,
-            heigth:   0
+            chatroom: this.props.chatroom
         };
     },
 
@@ -74,20 +75,16 @@ var ChatMessageList = React.createClass({
 
         // Is it stick or not
         if(
-            true      === this.state.stick &&
+            true      === this.IsSticky &&
             threshold  >  el.scrollTop
         ) {
-            this.setState({
-                stick: false
-            });
+            this.IsSticky = false;
         }
         else if(
-            false     === this.state.stick &&
+            false     === this.IsSticky &&
             threshold  <  el.scrollTop
         ) {
-            this.setState({
-                stick: true
-            });
+            this.IsSticky = true;
         }
 
         // Should reload
@@ -101,14 +98,16 @@ var ChatMessageList = React.createClass({
 
             // Request
             if(0 < messages.length) {
-                var last = messages[0].createdAt;
+                var message  = messages[0];
+                var last     = message.createdAt;
 
-                // Save
-                this.setState({
-                    heigth: el.scrollHeight
-                });
+                if(message.id !== this.OldestId) {
+                    // Save the oldest id and scroll heigth
+                    this.OldestId     = message.id;
+                    this.ScrollHeight = el.scrollHeight;
 
-                ChatActions.messages(this.state.chatroom, last);
+                    ChatActions.messages(this.state.chatroom, last);
+                }
             }
         }
     },
@@ -136,7 +135,7 @@ var ChatMessageList = React.createClass({
 
         var el = this.getDOMNode();
         
-        if(true === this.state.stick) {    
+        if(true === this.IsSticky) {    
             el.scrollTop = el.scrollHeight;
 
             if(true === this.HasNewMessages) {
@@ -147,15 +146,13 @@ var ChatMessageList = React.createClass({
                 SubscriptionsActions.markReadSender(this.state.chatroom);
             }
         }
-        else if(this.state.heigth !== el.scrollHeight)
+        else if(this.ScrollHeight !== el.scrollHeight)
         {
             // Fix the scroll
-            el.scrollTop = el.scrollHeight - this.state.heigth;
+            el.scrollTop = el.scrollHeight - this.ScrollHeight;
             
             // Save the value
-            this.setState({
-                heigth: el.scrollHeight
-            });
+            this.ScrollHeight = el.scrollHeight;
         }
     },
 
