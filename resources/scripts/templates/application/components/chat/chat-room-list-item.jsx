@@ -1,8 +1,9 @@
 'use strict';
 
 // Include requirements
-var ChatActions = require('application/actions/chat-actions'),
-    UserStore   = require('application/stores/user-store');
+var ChatActions        = require('application/actions/chat-actions'),
+    UserStore          = require('application/stores/user-store'),
+    SubscriptionsStore = require('application/stores/subscriptions-store');
 
 // Include common components
 var If       = require('templates/common/if.jsx'),
@@ -22,12 +23,19 @@ var ChatRoomListItem = React.createClass({
         };
     },
 
-    _onChange: function() {
-        // Propagate the change
-        this.props.onChange(this.props.chatroom);
+    componentDidMount: function () {
+        SubscriptionsStore.addSubscriptionsUpdatedListener(this._onChange);
     },
 
-    _onRemove: function() {
+    componentWillUnmount: function () {
+        SubscriptionsStore.removeSubscriptionsUpdatedListener(this._onChange);
+    },
+
+    _onChange: function() {
+        this.forceUpdate();
+    },
+
+    onRemove: function() {
         var isAdmin  = UserStore.isAdmin();
 
         if(true === isAdmin) {
@@ -37,16 +45,25 @@ var ChatRoomListItem = React.createClass({
         }
     },
 
+    onChange: function() {
+        // Propagate the change
+        this.props.onChange(this.props.chatroom);
+    },
+
     render: function() {
         var chatroom = this.props.chatroom;
         var isAdmin  = UserStore.isAdmin();
+        var unread   = SubscriptionsStore.getUnreadBySender(chatroom.id);
 
         return (
             <span className="miit-component chat-room-list-item">
-                <span onClick={this._onChange}>{chatroom.name}</span>
+                <span onClick={this.onChange}>{chatroom.name}</span>
+                <If test={unread > 0}>
+                    <span className="notification">{unread}</span>
+                </If>
                 <If test={isAdmin}>
                     <Dropdown label="">
-                        <span onClick={this._onRemove}>{this.props.text.remove}</span>
+                        <span onClick={this.onRemove}>{this.props.text.remove}</span>
                     </Dropdown>
                 </If>
             </span>

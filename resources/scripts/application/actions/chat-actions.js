@@ -20,7 +20,11 @@ Realtime.on('chat:rooms', function(data) {
         chatrooms: data.chatrooms
     };
 
+    // Dispatch the action
     Dispatcher.dispatch(action);
+
+    // Send subscription request
+    Realtime.send('chat:subscribe');
 });
 
 Realtime.on('chat:message', function(data) {

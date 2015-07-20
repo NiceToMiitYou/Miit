@@ -11,5 +11,6 @@ Miitoo.load(__dirname + '/stores');
 Miitoo.load(__dirname + '/managers');
 Miitoo.load(__dirname + '/controllers');
 Miitoo.load(__dirname + '/realtime');
+Miitoo.load(__dirname + '/workers');
 
 Miitoo.start();

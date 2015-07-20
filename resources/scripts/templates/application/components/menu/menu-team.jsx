@@ -12,7 +12,8 @@ var If   = require('templates/common/if.jsx'),
 // Include components
 var MenuHeader      = require('./menu-header.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
-    MenuUserProfile = require('./menu-user-profile.jsx');
+    MenuUserProfile = require('./menu-user-profile.jsx'),
+    MenuTeamItem    = require('./menu-team-item.jsx');
 
 var MenuTeam = React.createClass({
     getDefaultProps: function () {
@@ -63,29 +64,9 @@ var MenuTeam = React.createClass({
                     <MenuLabel label={this.props.text.apps_label} />
                     
                     <ul className="sl-list">
-                        <If test={TeamStore.hasApplication('APP_CHAT')}>
-                            <li>
-                                <Link href="#/chat" activeGroup="menu-team" activeName="chat">
-                                    <i className="fa fa-weixin pull-left"></i> Chat
-                                    <span className="notification">4</span>
-                                </Link>
-                            </li>
-                        </If>
-                        <If test={TeamStore.hasApplication('APP_QUIZZ')}>
-                            <li>
-                                <Link href="#/quizz" activeGroup="menu-team" activeName="quizz">
-                                    <i className="fa fa-question pull-left"></i> Quizz
-                                </Link>
-                            </li>
-                        </If>
-                        <If test={TeamStore.hasApplication('APP_DOCUMENTS')}>
-                            <li>
-                                <Link href="#/documents" activeName="documents">
-                                    <i className="fa fa-folder-o pull-left"></i> Documents
-                                    <span className="notification">18</span>
-                                </Link>
-                            </li>
-                        </If>
+                        <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat"      activeName="chat" />
+                        <MenuTeamItem application="APP_QUIZZ"     label="Quizz"     link="#/quizz"     activeName="quizz" />
+                        <MenuTeamItem application="APP_DOCUMENTS" label="Documents" link="#/documents" activeName="documents" />
                         <If test={UserStore.isAdmin()}>
                             <li>
                                 <Link href="/">

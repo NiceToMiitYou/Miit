@@ -3,7 +3,8 @@
 module.exports = function ChatApp() {
     var app = this;
 
-    var ChatroomStore = miitoo.get('ChatroomStore');
+    var ChatroomStore     = miitoo.get('ChatroomStore');
+    var SubscriptionStore = miitoo.get('SubscriptionStore');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -57,13 +58,17 @@ module.exports = function ChatApp() {
         }
 
         ChatroomStore.send(team, user, chatroom, text, function(err, message) {
-            var room = team._id + ':' + app.identifier();
+            var identifier = app.identifier();
+
+            var room = team._id + ':' + identifier;
 
             primus.in(room).write({
                 event:    'chat:message',
                 chatroom: chatroom,
                 message:  message
             });
+
+            SubscriptionStore.increment(identifier, team, user, chatroom);
         });
     });
 
@@ -110,6 +115,24 @@ module.exports = function ChatApp() {
                 event:    'chat:messages',
                 chatroom: chatroom,
                 messages: messages
+            });
+        });
+    });
+
+    // Subscribe to the chatroom
+    Dispatcher.register('chat:subscribe', 'USER', function subscribe(spark, data, team, user) {
+
+        // List all chatroom then subscribe
+        ChatroomStore.getChatrooms(team, function(err, chatrooms) {
+            if(err) {
+                return;     
+            }
+
+            var identifier = app.identifier();
+
+            // Subscribe to all
+            chatrooms.forEach(function(chatroom) {
+                SubscriptionStore.create(identifier, team, user, chatroom);
             });
         });
     });

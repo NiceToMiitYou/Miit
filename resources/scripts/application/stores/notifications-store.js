@@ -16,23 +16,27 @@ var events = KeyMirror({
 // Global variables
 var Notifications = [];
 
-function _addNotification(notification, onRemoved) {
-    Notifications.push(notification);
-
-    setTimeout(function(){
-        // Popout the notification
-        Notifications.shift();
-        // Emit the removed event
-        onRemoved();
-    }, 5000);
-}
-
 // The NotificationsStore Object
 var NotificationsStore = ObjectAssign({}, EventEmitter.prototype, {
     getNotifications: function() {
         return Notifications;
     }
 });
+
+// On Add a notification
+function _addNotification(notification, onRemoved) {
+    Notifications.push(notification);
+
+    // Emit the notification
+    NotificationsStore.emitNotificationAdded(); 
+
+    setTimeout(function(){
+        // Popout the notification
+        Notifications.shift();
+        // Emit the removed event
+        NotificationsStore.emitNotificationRemoved();
+    }, 5000);
+}
 
 // Register Functions based on event
 NotificationsStore.generateNamedFunctions(events.NOTIFICATION_ADDED);
@@ -50,10 +54,7 @@ NotificationsStore.dispatchToken = Dispatcher.register(function(action){
             };
 
             // Add the no
-            _addNotification(notification, NotificationsStore.emitNotificationRemoved);
-
-            // Emit the notification
-            NotificationsStore.emitNotificationAdded(); 
+            _addNotification(notification);
             break;
     }
 });

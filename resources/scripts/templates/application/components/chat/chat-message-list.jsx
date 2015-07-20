@@ -1,8 +1,9 @@
 'use strict';
 
 // Include requirements
-var ChatStore   = require('application/stores/chat-store'),
-    ChatActions = require('application/actions/chat-actions');
+var ChatStore            = require('application/stores/chat-store'),
+    ChatActions          = require('application/actions/chat-actions'),
+    SubscriptionsActions = require('application/actions/subscriptions-actions');
 
 // Include components
 var ChatMessageListItem = require('./chat-message-list-item.jsx');
@@ -15,7 +16,8 @@ function topPosition(domElt) {
 }
 
 var ChatMessageList = React.createClass({
-    IntervalId: null,
+    IntervalId:     null,
+    HasNewMessages: true,
 
     getInitialState: function () {
         return {
@@ -34,9 +36,7 @@ var ChatMessageList = React.createClass({
         this.attachScrollListener();
 
         // Refresh the list for date update
-        this.IntervalId = setInterval(function() {
-            this._onChanged();
-        }.bind(this), 15000);
+        this.IntervalId = setInterval(this.forceUpdate.bind(this), 15000);
     },
 
     componentDidUpdate: function () {
@@ -122,14 +122,30 @@ var ChatMessageList = React.createClass({
     },
 
     _onChanged: function() {
+        // Mark new messages
+        this.HasNewMessages = true;
+
+        // Refresh the page
         this.forceUpdate();
     },
 
     _stick: function() {
+        if(typeof this.state.chatroom === 'undefined') {
+            return;
+        }
+
         var el = this.getDOMNode();
         
         if(true === this.state.stick) {    
             el.scrollTop = el.scrollHeight;
+
+            if(true === this.HasNewMessages) {
+                // Mark new messages
+                this.HasNewMessages = false;
+
+                // Mark the chatroom as read
+                SubscriptionsActions.markReadSender(this.state.chatroom);
+            }
         }
         else if(this.state.heigth !== el.scrollHeight)
         {
