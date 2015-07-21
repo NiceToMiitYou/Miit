@@ -11,7 +11,7 @@ var UserListHeader = React.createClass({
         return {
             text: {
                 avatar: 'Avatar',
-                name:   'Name',
+                name:   'Nom',
                 email:  'Email',
                 action: 'Action'
             },
