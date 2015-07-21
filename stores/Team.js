@@ -41,11 +41,17 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         });
     }
 
+    function getId(object) {
+        return object._id || object.id || object;
+    }
+
     return {
         findTeam: function(team, cb) {
+            var teamId = getId(team);
+
             Team
                 .findOne({
-                    _id: team._id || team
+                    _id: teamId
                 }, {
                     users: 0 // Exclude users from the list
                 })
@@ -81,19 +87,18 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         addUser: function(team, user, roles, cb) {
-            if(!team || !user) {
-                return;
-            }
+            var teamId = getId(team);
+            var userId = getId(user);
 
             var conditions = {
-                _id:          team._id || team,
-                'users.user': { $ne: user._id || user }
+                _id:          teamId,
+                'users.user': { $ne: userId }
             };
 
             var update = {
                 $addToSet: {
                     users: {
-                        user:  user._id || user,
+                        user:  userId,
                         roles: roles
                     }
                 }
@@ -103,18 +108,17 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         removeUser: function(team, user, cb) {
-            if(!team || !user) {
-                return;
-            }
+            var teamId = getId(team);
+            var userId = getId(user);
 
             var conditions = {
-                _id: team._id || team
+                _id: teamId
             };
 
             var update = {
                 $pull: {
                     users: {
-                        user: user._id || user
+                        user: userId
                     }
                 }
             };
@@ -123,13 +127,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         addRoleUser: function(team, user, roles, cb) {
-            if(!team || !user) {
-                return;
-            }
+            var teamId = getId(team);
+            var userId = getId(user);
 
             var conditions = {
-                _id:           team._id || team,
-                'users.user':  user._id || user
+                _id:          teamId,
+                'users.user': userId
             };
 
             var update = {
@@ -142,13 +145,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         removeRoleUser: function(team, user, roles, cb) {
-            if(!team || !user) {
-                return;
-            }
+            var teamId = getId(team);
+            var userId = getId(user);
 
             var conditions = {
-                _id:           team._id || team,
-                'users.user':  user._id || user
+                _id:           teamId,
+                'users.user':  userId
             };
 
             var update = {
@@ -161,13 +163,16 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         findUser: function(team, user, cb) {
+            var teamId = getId(team);
+            var userId = getId(user);
+
             Team
                 .findOne({
-                    _id: team._id || team
+                    _id: teamId
                 })
                 .populate({
                     path:    'users.user',
-                    match:   { _id: user._id || user },
+                    match:   { _id: userId },
                     select:  'name email avatar',
                     options: { limit: 1 }
                 })
@@ -186,9 +191,11 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         findUsers: function(team, cb) {
+            var teamId = getId(team);
+
             Team
                 .findOne({
-                    _id: team._id || team
+                    _id: teamId
                 })
                 .populate({
                     path:   'users.user',

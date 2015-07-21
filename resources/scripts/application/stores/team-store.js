@@ -2,7 +2,8 @@
 
 // Include requirements
 var Dispatcher    = require('application/dispatcher'),
-    TeamConstants = require('application/constants/team-constants');
+    TeamConstants = require('application/constants/team-constants'),
+    UserStore     = require('application/stores/user-store');
 
 // Shortcut
 var ActionTypes = TeamConstants.ActionTypes;
@@ -108,9 +109,42 @@ function _hasApplication(application) {
         Team = MiitApp.shared.get('team');
     }
 
+    // The list of applications
     var applications = Team.applications || [];
 
-    return -1 !== applications.indexOf(application);
+    // Get the application
+    var app = applications.findBy('identifier', application);
+    if(!app) {
+        return false;
+    }
+
+    var isAnonym = UserStore.isAnonym();
+
+    if (
+        true === isAnonym && (
+            false === app.public || false === Team.public
+        )        
+    ) {
+        return false;
+    }
+
+    return true;
+}
+
+function _hasApplications() {
+    if(!Team) {
+        Team = MiitApp.shared.get('team');
+    }
+
+    // The list of applications
+    var applications = Team.applications || [];
+
+    // Find if he can access to some applications
+    return applications.map(function(application) {
+        return _hasApplication(application.identifier);
+    }).reduce(function(a, b) {
+        return a || b;
+    }, false);
 }
 
 var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
@@ -133,13 +167,9 @@ var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
         return Users;    
     },
 
-    getUsersByRole: function(role, inverse) {
-        return _filterbyRoleUser(role, inverse);
-    },
-
-    hasApplication: function(application) {
-        return _hasApplication(application);
-    }
+    getUsersByRole:  _filterbyRoleUser,
+    hasApplications: _hasApplications,
+    hasApplication:  _hasApplication
 });
 
 TeamStore.generateNamedFunctions(events.REFRESHED);

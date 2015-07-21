@@ -1,8 +1,8 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('application/stores/user-store'),
-    TeamStore   = require('application/stores/team-store');
+var UserStore = require('application/stores/user-store'),
+    TeamStore = require('application/stores/team-store');
 
 // Include common
 var If   = require('templates/common/if.jsx'),

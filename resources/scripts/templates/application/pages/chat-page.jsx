@@ -1,13 +1,15 @@
 'use strict';
 
 // Include requirements
-var PageStore = require('application/stores/page-store');
+var PageStore = require('application/stores/page-store')
+    TeamStore = require('application/stores/team-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
 
 // Include components
-var UserList = require('templates/application/components/user/user-list.jsx'),
+var NotFound = require('./not-found.jsx'),
+    UserList = require('templates/application/components/user/user-list.jsx'),
     ChatApp  = require('templates/application/components/chat/chat-app.jsx');
 
 var ChatPage = React.createClass({
@@ -21,6 +23,10 @@ var ChatPage = React.createClass({
     },
 
     render: function() {
+        if(!TeamStore.hasApplication('APP_CHAT')) {
+            return <NotFound />;
+        }
+
         return (
             <Layout title={this.props.title}>
                 <ChatApp />

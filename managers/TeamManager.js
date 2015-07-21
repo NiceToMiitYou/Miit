@@ -28,11 +28,23 @@ var manager = miitoo.resolve(
                 return cb(new Error('Restricted name.'));
             }
 
+            var applications = [
+                {
+                    identifier: 'APP_CHAT'
+                },
+                {
+                    identifier: 'APP_QUIZZ'
+                },
+                {
+                    identifier: 'APP_DOCUMENTS'
+                }
+            ];
+
             // Create the team
             var team = new Team({
-                name: name,
-                slug: slug,
-                applications: ['APP_CHAT']
+                name:         name,
+                slug:         slug,
+                applications: applications
             });
             
             // Save the team
@@ -48,7 +60,6 @@ var manager = miitoo.resolve(
         },
 
         updateTeam: function(team, name, publix, cb) {
-
             // Check values
             if(!name || (true != publix && false != publix)) 
             {

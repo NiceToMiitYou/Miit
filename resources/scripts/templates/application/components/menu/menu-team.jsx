@@ -61,8 +61,10 @@ var MenuTeam = React.createClass({
                         </If>
                     </ul>
 
-                    <MenuLabel label={this.props.text.apps_label} />
-                    
+                    <If test={TeamStore.hasApplications() || UserStore.isAdmin()}>
+                        <MenuLabel label={this.props.text.apps_label} />
+                    </If>
+                        
                     <ul className="sl-list">
                         <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat"      activeName="chat" />
                         <MenuTeamItem application="APP_QUIZZ"     label="Quizz"     link="#/quizz"     activeName="quizz" />

@@ -26,9 +26,9 @@ var Me, Utils, Token, AnonymToken, LoggedIn = false;
 // Generate the validator for user's role
 function _isUserGenerator(role) {
     return function(user) {
-        var roles = (user || Me || {}).roles || [];
+        var roles = (user || Me || {}).roles || ['ANONYM'];
 
-        return roles.indexOf(role) >= 0;
+        return -1 !== roles.indexOf(role);
     };
 }
 
