@@ -1,7 +1,7 @@
 'use strict';
 
 // Include React as npm package
-global.React = require('react/addons');
+global.React = require('react');
 
 // Include components
 var CreateTeam = require('templates/www/create-team.jsx'),

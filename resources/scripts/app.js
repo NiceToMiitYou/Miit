@@ -1,7 +1,7 @@
 'use strict';
 
 // Include React as npm package
-global.React = require('react/addons');
+global.React = require('react');
 
 // Request the configuration file to setup the application
 var config = require('application/config');
