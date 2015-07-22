@@ -36,150 +36,239 @@
 </head>
 <body>
     <div class="header">
-        <div class="menu">
+        <div class="menu" id="menu">
             <div class="container">
                 <span class="logo">
-                    <img src="/img/logo-miit-white.png" alt="Logo Miit"> Miit
+                    <img src="/img/logo-miit-white.png" alt="Logo Miit"> <span>Miit</span>
                 </span>
+                <div class="pull-right sn">
+                    <a href="#"><i class="fa fa-twitter-square"></i></a>
+                    <a href="#"><i class="fa fa-facebook-square"></i></a>
+                    <a href="#"><i class="fa fa-youtube-square"></i></a>
+                    <a href="#"><i class="fa fa-google-plus-square"></i></a>
+                </div>
             </div>
         </div>
-        <div class="container banner">
-            <h1>Découvrez Miit</h1>
-            <span class="mt20">Miit est une application web collaborative qui va révolutionner votre manière de travailler</span>
+        <div class="container banner valign-wrapper">
+            <div class="row valign">
+                <div class="fixed">
+                    <div class="col-sm-11 pt20">
+                        <h1>Simplifiez votre communication</h1>
+                        <span class="mt20">Miit est une application web de travail collaboratif qui va révolutionner votre manière de communiquer</span>
+                    </div>
+                </div>
+            </div>
         </div>
+        <canvas id="canvas"></canvas>
     </div>
-
-    <div class="bg-white">
-        <div class="container pt50 pb50">
-            <h2>Inscrivez vous dès maintenant</h2>
-            <p class="pt10 text-100">Restez informé et béneficiez d'une relation privilégiée avec nos équipes.</p>
-            <div id="create-team">
-                <form class="miit-component news-letter">
-                    <div class="row pt30 pb20">
-                        <div class="col-md-9 mb10">
-                            <div class="input-field left-icon icon-transparent push0 pt5 pb5">
-                                <i class="fa fa-envelope-o pt5 pl5 pb5"></i>
-                                <input type="text" placeholder="Votre addresse mail" />
+    
+        <div class="bg-blue-grey newsletter-block">
+            <img src="/img/background-www.png" class="bg-separator">
+            <div class="container  pt20">
+                <h2>Inscrivez vous dès maintenant</h2>
+                <p class="pt10 text-100">Restez informé et béneficiez d'une relation privilégiée avec nos équipes.</p>
+                <div id="create-team">
+                    <form class="miit-component news-letter">
+                        <div class="row pt30 pb20">
+                            <div class="col-md-9 mb10">
+                                <div class="input-field left-icon icon-transparent push0 pt5 pb5">
+                                    <i class="fa fa-envelope-o pt5 pl5 pb5"></i>
+                                    <input type="text" placeholder="Votre addresse mail" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb10">
+                                <button type="submit" class="btn btn-info pl10 pr10 pt15 pb15">S'inscrire à la Newsletter</button>
                             </div>
                         </div>
-                        <div class="col-md-3 mb10">
-                            <button type="submit" class="btn btn-dark pl10 pr10 pt15 pb15">S'inscrire à la Newsletter</button>
+                    </form>
+                </div>
+                <div class="row beta-row pb20">
+                    <div class="col-xs-2">
+                        <img src="/img/beta.png">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="text-100"><b>Miit</b> est toujours en developpement et pour que nous puissions repondre le mieux possible à vos besoins comme à vos envie nous avons besoins de <b>votre aide.</b></p><br>
+                        <p class="text-100"><b>Inscrivez vous à la newsletter</b> pour recevoir des accès Beta à la plateforme dès son ouverture. Vous aurrez la possibilité d'échanger autant que vous le souhaitez avec nos equipes sur tous les sujets (sauf politique... on ne parle pas de politique).</p>
+                    </div>
+                </div>
+            </div>
+            <img src="/img/background-www-bottom.png" class="bg-separator bg-bot">
+        </div>
+    
+    <div class="content">
+        <div class="container pb30">
+
+            <img src="/img/illustration2.png"/>
+
+        </div>
+
+        <div>
+            <img src="/img/background-www-top.png" class="bg-separator">
+            <div class="bg-blue-grey">
+
+                <div class="container pt50 pb50">
+                    <h2>Plusieurs applications déja disponible</h2>
+                    <p class="mt20 text-100">Miit à choisi de séparer chacune de ses fonctionnalités en <b>Applications</b> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement comme vous le souhaitez.</p>
+                    
+<!--                     <div class="row mt10">
+                        <div class="app mt30 col-md-6">
+                            <div class="col-md-2 center">
+                                <i class="fa fa-weixin fa-4x"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <h3 class="mb10 mt20">Chat</h3>
+                                <p>Gardez un contact direct et en temps réel avec toute votre equipe</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="app mt30 col-md-6">
+                            <div class="col-md-2 center">
+                                <i class="fa fa-question fa-4x"></i>
+                            </div>
+                            <div class="col-md-10 left">
+                                <h3 class="mb10 mt20">Quizz</h3>
+                                <p>Posez vos questions et sondez le cercle de votre choix le plus simplement possible</p>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <div class="container pt50 pb50">
-        <h2>Construisez votre espace</h2>
-        <div class="row mt20">
-            <div class="feature col-md-4">
-                <i class="fa fa-cubes fa-4x"></i>
-                <span>Personnalisez</span>
-                <p>Créez votre équipe et organisez votre Miit avec différentes applications</p>
-                <div class="clearfix"></div>
-            </div>
-            <div class="feature col-md-4">
-                <i class="fa fa-share-alt fa-4x"></i>
-                <span>Partagez</span>
-                <p>Diffusez votre Miit au public ou restez en privé en choissisant vos utilisateurs</p>
-                <div class="clearfix"></div>
-            </div>
-            <div class="feature col-md-4">
-                <i class="fa fa-users fa-4x"></i>
-                <span>Communiquez</span>
-                <p>Echangez avec tous vos membres de manière simple et efficace</p>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
+                    <div class="row mt-10">
+                        <div class="app mt30 col-md-6">
+                            <div class="col-md-2 center">
+                                <i class="fa fa-folder-o fa-4x"></i>
+                            </div>
+                            <div class="col-md-10 left">
+                                <h3 class="mb10 mt20">Partage de documents</h3>
+                                <p>Partagez tous vos documents pour échanger facilement vos informations</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
 
-    <div class="bg-white">
-        <div class="container pt50 pb50">
-            <h2>Profitez d'une multitude de fonctionnalités</h2>
-            <p class="mt20 text-100">Miit à choisi de séparer chacune de ses fonctionnalités en <b>Applications</b> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement comme vous le souhaitez.</p>
-            
-            <div class="row mt10">
-                <div class="app mt30 col-md-6">
-                    <div class="col-md-2 center">
-                        <i class="fa fa-weixin fa-4x"></i>
+                        <div class="app mt30 col-md-6">
+                            <div class="col-md-2 center">
+                                <i class="fa fa-plus fa-4x"></i>
+                            </div>
+                            <div class="col-md-10 left">
+                                <h3 class="mb10 mt20">Et bien d'autres</h3>
+                                <p>Mitt intègre toujours plus d'applications pour répondre de mieux en mieux à vos besoins</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div> -->
+
+
+
+                <!-- <h2>Et nous en developpons toujours plus</h2> -->
+
+                    <div class="apps row mt30">
+                        <div class="app done col-md-2 col-xs-6">
+                            <i class="fa fa-comments-o"></i>
+                            <div class="odd">
+                                Chat
+                                <p>Discutez en direct avec votre équipe ou votre public.</p>
+                            </div>
+                        </div>
+
+                        <div class="app done col-md-2 col-xs-6">
+                            <i class="fa fa-check-square-o"></i>
+                            <div>
+                                Questionnaires
+                                <p>Interogez simplement votre audiance.</p>
+                            </div>
+                        </div>
+
+                        <div class="app done col-md-2 col-xs-6">
+                            <i class="fa fa-folder-open-o"></i>
+                            <div class="odd">
+                                Partage de documents
+                                <p>Distribuez facillement vos fichiers.</p>
+                            </div>
+                        </div>
+
+                        <div class="app  col-md-2 col-xs-6">
+                            <i class="fa fa-question-circle"></i>
+                            <div> 
+                                Mur de questions
+                                <p>Collectez et analysez les questions de votre audiance.</p>
+                            </div>
+                        </div>
+
+                        <div class="app col-md-2 col-xs-6">
+                            <i class="fa fa-tasks"></i>
+                            <div class="odd">To-do list
+                                <p>Suivez et gerez les tâches de votre groupe.</p>
+                            </div>
+                        </div>
+
+                        <div class="app col-md-2 col-xs-6">
+                            <i class="fa fa-calendar"></i>
+                            <div>
+                                Callendrier
+                                <p>Partagez un emplois du temps avec vos utilisateurs.</p>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-md-10">
-                        <h3 class="mb10 mt20">Chat</h3>
-                        <p>Gardez un contact direct et en temps réel avec toute votre equipe</p>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-
-                <div class="app mt30 col-md-6">
-                    <div class="col-md-2 center">
-                        <i class="fa fa-question fa-4x"></i>
-                    </div>
-                    <div class="col-md-10 left">
-                        <h3 class="mb10 mt20">Quizz</h3>
-                        <p>Posez vos questions et sondez le cercle de votre choix le plus simplement possible</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-
-            <div class="row mt-10">
-                <div class="app mt30 col-md-6">
-                    <div class="col-md-2 center">
-                        <i class="fa fa-folder-o fa-4x"></i>
-                    </div>
-                    <div class="col-md-10 left">
-                        <h3 class="mb10 mt20">Partage de documents</h3>
-                        <p>Partagez tous vos documents pour échanger facilement vos informations</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-
-                <div class="app mt30 col-md-6">
-                    <div class="col-md-2 center">
-                        <i class="fa fa-plus fa-4x"></i>
-                    </div>
-                    <div class="col-md-10 left">
-                        <h3 class="mb10 mt20">Et bien d'autres</h3>
-                        <p>Mitt intègre toujours plus d'applications pour répondre de mieux en mieux à vos besoins</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container pt30 pb30">
-        <h2>Gardez le contact</h2>
-        <div class="row mt30">
-            <a class="social col-md-3 center" href="https://twitter.com/NiceToMiitYou/">
-                <i class="fa fa-twitter-square mb20"></i><br>
-                Suivez-nous sur Twitter
-                <div class="clearfix"></div>
-            </a>
-            <a class="social col-md-3 center" href="https://www.facebook.com/NiceToMiitYou">
-                <i class="fa fa-facebook-square mb20"></i><br>
-                Aimez-nous sur Facebook
-                <div class="clearfix"></div>
-            </a>
-            <a class="social col-md-3 center" href="https://plus.google.com/u/0/+MiitFrapp/about">
-                <i class="fa fa-google-plus-square mb20"></i><br>
-                Ajoutez-nous sur Google+
-                <div class="clearfix"></div>
-            </a>
-            <a class="social col-md-3 center" href="#">
-                <i class="fa fa-youtube-square mb20"></i><br>
-                Regardez-nous sur Youtube
-                <div class="clearfix"></div>
-            </a>
+        <div>
+            <div class="bg-blue-grey">
+                <div class="container pt30 pb30">
+                    <h2>Gardez le contact</h2>
+                    <div class="row mt30">
+                        <a class="social col-md-3 center" href="https://twitter.com/NiceToMiitYou/">
+                            <i class="fa fa-twitter-square mb20"></i><br>
+                            Suivez-nous sur Twitter
+                            <div class="clearfix"></div>
+                        </a>
+                        <a class="social col-md-3 center" href="https://www.facebook.com/NiceToMiitYou">
+                            <i class="fa fa-facebook-square mb20"></i><br>
+                            Aimez-nous sur Facebook
+                            <div class="clearfix"></div>
+                        </a>
+                        <a class="social col-md-3 center" href="https://plus.google.com/u/0/+MiitFrapp/about">
+                            <i class="fa fa-google-plus-square mb20"></i><br>
+                            Ajoutez-nous sur Google+
+                            <div class="clearfix"></div>
+                        </a>
+                        <a class="social col-md-3 center" href="#">
+                            <i class="fa fa-youtube-square mb20"></i><br>
+                            Regardez-nous sur Youtube
+                            <div class="clearfix"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <img src="/img/background-www-bottom-2.png" class="bg-separator bg-bot">
         </div>
-    </div>
 
-    <div class="bg-blue-grey">
-        <div class="container pt30 pb30">
-            <span class="text-white">© copyright ITEvents 2015</span>
+        <div class="keep-contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6" style="">
+
+                        <h2>Restez relax</h2>
+                        <p>Patientez encore un petit nous avons beaucoup de surprises pour vous</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h2>Gardez le contact</h2>
+                        <p>Restez au courant de nos derniere nouveautés en vous inscrivant à la newsletter</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+<!--         <div>
+                <div class="container pt30 pb30">
+                    <span class="text-white">© copyright ITEvents 2015</span>
+                </div>
+        </div> -->
+
     </div>
     <!--[if lt IE 9]>
         <script type="text/javascript" src="/dist/lib/excanvas.js"></script>
@@ -192,9 +281,157 @@
     <script type="text/javascript" src="/dist/js/app.min.js"></script>
     <script type="text/javascript">
     window.onload = function(){
-        React.render(React.createElement(MiitComponents.CreateTeam,null),document.getElementById('create-team'));
-        //React.render(React.createElement(MiitComponents.NewsLetter,null),document.getElementById('create-team'));
+        //React.render(React.createElement(MiitComponents.CreateTeam,null),document.getElementById('create-team'));
+        React.render(React.createElement(MiitComponents.NewsLetter,null),document.getElementById('create-team'));
     };
+    </script>
+    <script>
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var Dots = [];
+    var colors = ['#1e2d3a', '#3076A0', '#1e2d3a', '#3191D0'];
+    var maximum = 50;
+
+    function Initialize() {
+      GenerateDots();
+
+      Update();
+    }
+
+    function Dot() {
+      this.active = true;
+
+      this.diameter = Math.random() * 7;
+
+      this.x = Math.round(Math.random() * canvas.width);
+      this.y = Math.round(Math.random() * canvas.height);
+
+      this.velocity = {
+        x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 0.7,
+        y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 0.7
+      };
+
+      this.alpha = 0.1;
+      this.hex = colors[Math.round(Math.random() * 3)];
+      this.color = HexToRGBA(this.hex, this.alpha);
+    }
+
+    Dot.prototype = {
+      Update: function() {
+        if(this.alpha < 0.8) {
+          this.alpha += 0.01;
+          this.color = HexToRGBA(this.hex, this.alpha);
+        }
+
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        if(this.x > canvas.width + 5 || this.x < 0 - 5 || this.y > canvas.height + 5 || this.y < 0 - 5) {
+          this.active = false;
+        }
+      },
+
+      Draw: function() {
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.arc(this.x, this.y, this.diameter, 0, Math.PI * 2, false);
+        context.fill();
+      }
+    }
+
+    function Update() {
+      GenerateDots();
+
+      Dots.forEach(function(Dot) {
+        Dot.Update();
+      });
+
+      Dots = Dots.filter(function(Dot) {
+        return Dot.active;
+      });
+
+      Render();
+      requestAnimationFrame(Update);
+    }
+
+    function Render() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      Dots.forEach(function(Dot) {
+        Dot.Draw();
+      });
+    }
+
+    function GenerateDots() {
+      if(Dots.length < maximum) {
+        for(var i = Dots.length; i < maximum; i++) {
+          Dots.push(new Dot());
+        }
+      }
+
+      return false;
+    }
+
+    function HexToRGBA(hex, alpha) {
+      var red = parseInt((TrimHex(hex)).substring(0, 2), 16);
+      var green = parseInt((TrimHex(hex)).substring(2, 4), 16);
+      var blue = parseInt((TrimHex(hex)).substring(4, 6), 16);
+
+      return 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+    }
+
+    function TrimHex(hex) {
+      return (hex.charAt(0) == "#") ? hex.substring(1, 7) : h;
+    }
+
+    window.onresize = function(event) {
+        Dots = [];
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+
+    Initialize();
+
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+        var d = document.getElementById("menu");
+
+        if( document.body.scrollTop > window.outerHeight - 20) {
+            addClass("fixed", d);
+        } else {
+            removeClass("show", d);
+            removeClass("fixed", d);
+        }
+        if( document.body.scrollTop > window.outerHeight+230) {
+            addClass("show", d);
+        }
+    }
+
+    function addClass( classname, element ) {
+        var cn = element.className;
+        //test for existance
+        if( cn.indexOf( classname ) != -1 ) {
+            return;
+        }
+        //add a space if the element already has class
+        if( cn != '' ) {
+            classname = ' '+classname;
+        }
+        element.className = cn+classname;
+    }
+
+    function removeClass( classname, element ) {
+        var cn = element.className;
+        var rxp = new RegExp( "\\s?\\b"+classname+"\\b", "g" );
+        cn = cn.replace( rxp, '' );
+        element.className = cn;
+    }
+
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
