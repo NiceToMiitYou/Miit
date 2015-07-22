@@ -2,11 +2,17 @@
 // Define the store
 var store = miitoo.resolve(['UserModel'], function(User) {
 
+    function getId(object) {
+        return object._id || object.id || object;
+    }
+
     return {
         findUser: function(user, cb) {
+            var userId = getId(user);
+
             User
                 .findOne({
-                    _id: user._id || user
+                    _id: userId
                 })
                 .exec(function(err, user) {
                     // Log the error

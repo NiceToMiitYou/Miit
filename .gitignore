@@ -29,5 +29,7 @@ node_modules
 # Bower dependencies
 bower_components
 
-# Ignore dist files
-public/dist
+# Ignore dist files (but not lib)
+public/dist/css
+public/dist/fonts
+public/dist/js

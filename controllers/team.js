@@ -1,7 +1,7 @@
 
 var controller = miitoo.resolve(
-    ['Lodash', 'Jwt', 'MiitConfig', 'TeamRoutes', 'TeamStore'],
-    function(_, jwt, config, app, TeamStore) {
+    ['Lodash', 'MiitConfig', 'ApplicationsConfig', 'TeamRoutes', 'TeamStore'],
+    function(_, config, applications, app, TeamStore) {
     
     // Find the team and allow the user if exist
     app.use(function(req, res, next) {
@@ -30,7 +30,8 @@ var controller = miitoo.resolve(
     app.all('*', function(req, res) {
         return res.render('team/index', {
             team: req.team,
-            user: req.user || { roles: ['ANONYM'] }
+            user: req.user || { roles: ['ANONYM'] },
+            apps: applications
         });
     });
 });

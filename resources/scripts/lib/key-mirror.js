@@ -15,43 +15,56 @@
  *
  */
 
-(function() {
-    var keyMirror = injector.resolve([], function() {
-        /**
-         * Constructs an enumeration with keys equal to their value.
-         *
-         * For example:
-         *
-         *   var COLORS = keyMirror({blue: null, red: null});
-         *   var myColor = COLORS.blue;
-         *   var isColorValid = !!COLORS[myColor];
-         *
-         * The last line could not be performed if the values of the generated enum were
-         * not equal to their keys.
-         *
-         *   Input:  {key1: val1, key2: val2}
-         *   Output: {key1: key1, key2: key2}
-         *
-         * @param {object} obj
-         * @return {object}
-         */
-        return function(obj) {
-            var ret = {};
-            var key;
-            
-            if (!(obj instanceof Object && !Array.isArray(obj))) {
-                throw new Error('keyMirror(...): Argument must be an object.');
-            }
+;(function () {
+    'use strict';
 
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    ret[key] = key;
-                }
-            }
-            
-            return ret;
-        };
-    });
+    var exports = this;
 
-    injector.register('key-mirror', keyMirror);
-})();
+    /**
+     * Constructs an enumeration with keys equal to their value.
+     *
+     * For example:
+     *
+     *   var COLORS = keyMirror({blue: null, red: null});
+     *   var myColor = COLORS.blue;
+     *   var isColorValid = !!COLORS[myColor];
+     *
+     * The last line could not be performed if the values of the generated enum were
+     * not equal to their keys.
+     *
+     *   Input:  {key1: val1, key2: val2}
+     *   Output: {key1: key1, key2: key2}
+     *
+     * @param {object} obj
+     * @return {object}
+     */
+    var KeyMirror = function(obj) {
+        var ret = {};
+        var key;
+        
+        if (!(obj instanceof Object && !Array.isArray(obj))) {
+            throw new Error('KeyMirror(...): Argument must be an object.');
+        }
+
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                ret[key] = key;
+            }
+        }
+        
+        return ret;
+    };
+
+    // Expose the class either via AMD, CommonJS or the global object
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return KeyMirror;
+        });
+    }
+    else if (typeof module === 'object' && module.exports){
+        module.exports = KeyMirror;
+    }
+    else {
+        exports.KeyMirror = KeyMirror;
+    }
+}.call(this));

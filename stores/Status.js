@@ -2,18 +2,25 @@
 // Define the store
 var store = miitoo.resolve(['StatusModel'], function(Status) {
 
-    function updateStatus(status, user, team, cb)  {
+    function getId(object) {
+        return object._id || object.id || object;
+    }
+
+    function updateStatus(status, user, team, cb) {
+        var userId = getId(user);
+        var teamId = getId(team);
+
         Status.findOneAndUpdate({
-                userId: user._id || '',
-                teamId: team._id || ''
+                userId: userId,
+                teamId: teamId
             }, {
                 status: status,
-                userId: user._id || '',
-                teamId: team._id || '',
+                userId: userId,
+                teamId: teamId,
                 changed: new Date()
             }, {
                 upsert: true,
-                "new": false
+                "new":  false
             }, function(err, old) {
                 // Log the error
                 if(err) {
@@ -21,9 +28,10 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 }
 
                 if(typeof cb === 'function') {
+
                     cb(err, {
                         status: status,
-                        userId: user._id || ''
+                        userId: userId
                     }, (old || {}).status !== status);
                 }
             });
@@ -39,10 +47,14 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
         },
 
         getStatus: function(team, cb) {
+            var teamId = getId(team);
+
             Status
                 .find({
-                    teamId: team._id
+                    teamId: teamId,
+                    status: { $ne: 'OFFLINE' }
                 }, {
+                    _id:    false,
                     userId: true,
                     status: true
                 })
@@ -58,12 +70,16 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 });
         },
 
-        getStatusByUserId: function(team, userId, cb) {
+        getStatusByUserId: function(team, user, cb) {
+            var teamId = getId(team);
+            var userId = getId(user);
+
             Status
                 .findOne({
-                    teamId: team._id,
+                    teamId: teamId,
                     userId: userId
                 }, {
+                    _id:    false,
                     userId: true,
                     status: true
                 })

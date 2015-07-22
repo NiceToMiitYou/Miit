@@ -1,4 +1,4 @@
-
+'use strict';
 
 var config = {
     domain: (process.env.NODE_ENV === 'production') ? 'miit.fr' : 'miit.dev',

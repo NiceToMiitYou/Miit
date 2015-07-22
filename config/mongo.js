@@ -1,3 +1,4 @@
+'use strict';
 
 var config = {
     uri: 'mongodb://miit.database/Miit',

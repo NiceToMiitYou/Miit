@@ -1,19 +1,12 @@
 
+// Regex for email
+var RegexEmail    = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+// The controller for public part of the site
 var controller = miitoo.resolve(
-    ['Slugify', 'RestResponse', 'MiitConfig', 'WWWRoutes', 'UserStore', 'TeamStore', 'UserModel', 'TeamModel'],
-    function(slugify, response, config, app, UserStore, TeamStore, User, Team) {
+    ['Slugify', 'RestResponse', 'WWWRoutes', 'UserManager', 'TeamManager', 'MailChimp', 'MailChimpConfig'],
+    function(slugify, response, app, UserManager, TeamManager, MailChimp, MailChimpConfig) {
     
-    function generatePassword() {
-        var password = '';
-
-        // Loop for password length
-        for(var i = 0; i <= 1; i++) {
-            password += Math.random().toString(36).slice(-8);
-        }
-
-        return password;
-    }
-
     // Index route
     app.get('/', function(req, res) {
 
@@ -22,86 +15,64 @@ var controller = miitoo.resolve(
 
     // Create register route
     app.post('/register', function(req, res) {
-
+        // Get parameters
         var email = req.body.email;
         var name  = req.body.name;
-        var slug  = slugify(name);
 
-        if(slug.length < 4 || 0 <= config.restrict.subdomains.indexOf(slug)) {
-            return response(res, new Error('Restricted name.'));
+        if(!email || !name) {
+            return;
         }
 
         // Create the team
-        function createTeam(err, user) {
-            // Create the team
-            var team = new Team({
-                name: name,
-                slug: slug,
-                applications: ['APP_CHAT']
-            });
-            
-            // Save the team
-            team.save(function(errTeam) {
-                if(!errTeam)
-                {
-                    TeamStore.addUser(team, user, ['USER', 'ADMIN', 'OWNER'], function(errAdded) {
-                        return response(res, errAdded);
-                    });
-                }
-                else
-                {
-                    return response(res, errTeam);
-                }
-            });
-        }
-
-        UserStore.findUserByEmail(email, function(err, user) {
+        UserManager.findUserByEmailOrCreate(email, function(err, user) {
             if(err) {
                 return response(res, err);
             }
 
-            if(!user) {
-                // Create the user
-                user = new User({
-                    email:    email,
-                    password: generatePassword()
-                });
-
-                // Log the user informations
-                miitoo.logger.debug(user);
-
-                // save it
-                user.save(function(errUser) {
-                    if(errUser) {
-                        return response(res, errUser);
-                    }
-                    // Then create the team
-                    createTeam(errUser, user);
-                });
-            }
-            else
-            {
-                // Create the team
-                createTeam(err, user);
-            }
+            TeamManager.createTeam(user, name, function(errTeam, team) {
+                return response(res, errTeam);
+            });
         });
     });
 
     // Register newsletter route
     app.post('/newsletter', function(req, res) {
-
+        // Get the email
         var email = req.body.email;
 
-        if(email)
+        // Check if it's an email
+        if(RegexEmail.test(email))
         {
-            return res.json({
-                done: true
+            MailChimp.lists.subscribe({
+                id: MailChimpConfig.newsletter_list_id,
+                email:{
+                    email: email
+                },
+                double_optin: false
+            }, function(data) {
+                miitoo.logger.debug('Email added to the newsletter:', email, 'Attribute to:', ip);
+
+                return res.json({
+                    done: true
+                });
+            }, function(error) {
+                if(error.error) {
+                    miitoo.logger.debug('Email added to the newsletter:', error.code, '-', error.error);
+                }
+
+                return res.json({
+                    done: !error.error
+                });
             });
         }
+        else
+        {
+            miitoo.logger.debug('This is not an email:', email);
 
-        return res.json({
-            done: false
-        });
+            return res.json({
+                done: false
+            });
+        }
     });
 });
 

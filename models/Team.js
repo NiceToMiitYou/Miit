@@ -22,11 +22,17 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             roles: [String]
         }],
         locked: {
-            type: Boolean,
+            type:    Boolean,
             default: false
         },
-        name:         String,
-        applications: [String]
+        name: String,
+        applications: [{
+            identifier: String,
+            public: {
+                type:    Boolean,
+                default: false
+            }
+        }]
     });
 
     /**
