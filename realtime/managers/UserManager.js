@@ -5,6 +5,8 @@ module.exports = function UserManager() {
     var TeamStore = miitoo.get('TeamStore');
 
     var Dispatcher = miitoo.get('RealtimeDispatcher');
+
+    var primus = miitoo.get('Primus');
     
     // Handle get informations of the user
     Dispatcher.register('user:me', function onGetMe(spark, data, team, user) {
@@ -103,6 +105,12 @@ module.exports = function UserManager() {
                 spark.write({
                     event: 'user:update',
                     done:  true,
+                    name:  user.name
+                });
+
+                primus.in(team._id).write({
+                    event: 'team:user:update',
+                    id:    session.id,
                     name:  user.name
                 });
             });

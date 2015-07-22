@@ -37,6 +37,15 @@ function _update(name, publix) {
     if(!Team) {
         Team = MiitApp.shared.get('team');
     }
+
+    // Kick all anonymous on update of privacity
+    if(
+        publix !== Team.public &&
+        true   === UserStore.isAnonym()
+    ) {
+
+        window.location.reload();
+    }
     
     Team.name   = name;
     Team.public = publix;
@@ -78,10 +87,18 @@ function _getUserById(id) {
     return Users.findBy('id', id);
 }
 
+function _updateUser(id, name) {
+    var index = Users.indexBy('id', id);
+    
+    if(-1 !== index) {
+        Users[index].name = name;
+    }
+}
+
 function _removeUser(id) {
     var index = Users.indexBy('id', id);
     
-    if(index >= 0) {
+    if(-1 !== index) {
         delete Users[index];
     }
 }
@@ -193,6 +210,10 @@ TeamStore.generateNamedFunctions(events.NOT_REMOVED);
 TeamStore.dispatchToken = Dispatcher.register(function(action){
 
     switch(action.type) {
+        case ActionTypes.UPDATE_USER_COMPLETED:
+            _updateUser(action.id, action.name);
+            TeamStore.emitRefreshed();
+            break;
         case ActionTypes.REFRESH_USERS_COMPLETED:
             _replaceUsers(action.users);
             TeamStore.emitRefreshed();

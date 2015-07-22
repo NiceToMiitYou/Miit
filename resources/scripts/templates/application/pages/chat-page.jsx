@@ -8,7 +8,7 @@ var PageStore = require('application/stores/page-store')
 var Layout = require('./layouts/default.jsx');
 
 // Include components
-var NotFound = require('./not-found.jsx'),
+var Login    = require('./login.jsx'),
     UserList = require('templates/application/components/user/user-list.jsx'),
     ChatApp  = require('templates/application/components/chat/chat-app.jsx');
 
@@ -23,8 +23,8 @@ var ChatPage = React.createClass({
     },
 
     render: function() {
-        if(!TeamStore.hasApplication('APP_CHAT')) {
-            return <NotFound />;
+        if(false === TeamStore.hasApplication('APP_CHAT')) {
+            return <Login />;
         }
 
         return (
@@ -40,3 +40,5 @@ var ChatPage = React.createClass({
 });
 
 PageStore.registerMainPage('chat', (<ChatPage />));
+
+module.exports = ChatPage;

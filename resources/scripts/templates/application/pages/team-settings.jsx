@@ -41,7 +41,7 @@ var TeamSettings = React.createClass({
     },
 
     render: function() {
-        if(!UserStore.isAdmin()) {
+        if(false === UserStore.isAdmin()) {
             return <NotFound />;
         }
 
@@ -66,3 +66,5 @@ var TeamSettings = React.createClass({
 });
 
 PageStore.registerMainPage('settings', (<TeamSettings />));
+
+module.exports = TeamSettings;

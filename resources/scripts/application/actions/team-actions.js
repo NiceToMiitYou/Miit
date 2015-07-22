@@ -70,6 +70,17 @@ Realtime.on('team:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
+// Handle user update
+Realtime.on('team:user:update', function(data) {
+    var action = {
+        type: ActionTypes.UPDATE_USER_COMPLETED,
+        id:   data.id,
+        name: data.name
+    };
+
+    Dispatcher.dispatch(action);
+});
+
 // Handle refresh
 Realtime.on('team:users', function(data) {
     var action = {
@@ -87,8 +98,8 @@ module.exports = {
 
     update: function(name, publix) {
         Realtime.send('team:update', {
-            name:     name,
-            'public': publix
+            name:   name,
+            public: publix
         });
     },
 

@@ -162,6 +162,59 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
+        addApplication: function(team, identifier, cb) {
+            var teamId = getId(team);
+
+            var conditions = {
+                _id: teamId
+            };
+
+            var update = {
+                $push: {
+                    'applications': {
+                        identifier: identifier
+                    }
+                }
+            };
+            
+            updateTeam(conditions, update, cb);
+        },
+
+        updateApplication: function(team, identifier, public, cb) {
+            var teamId = getId(team);
+
+            var conditions = {
+                _id:                       teamId,
+                'applications.identifier': identifier
+            };
+
+            var update = {
+                $set: {
+                    'applications.$.public': public
+                }
+            };
+            
+            updateTeam(conditions, update, cb);
+        },
+
+        removeApplication: function(team, identifier, cb) {
+            var teamId = getId(team);
+
+            var conditions = {
+                _id: teamId
+            };
+
+            var update = {
+                $pull: {
+                    'applications': {
+                        identifier: identifier
+                    }
+                }
+            };
+            
+            updateTeam(conditions, update, cb);
+        },
+
         findUser: function(team, user, cb) {
             var teamId = getId(team);
             var userId = getId(user);

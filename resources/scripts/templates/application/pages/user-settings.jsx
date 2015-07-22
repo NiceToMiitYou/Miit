@@ -64,3 +64,5 @@ var UserSettings = React.createClass({
 });
 
 PageStore.registerMainPage('me', (<UserSettings />));
+
+module.exports = UserSettings;

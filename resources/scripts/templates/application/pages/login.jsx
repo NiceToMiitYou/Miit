@@ -26,3 +26,5 @@ var Login = React.createClass({
 });
 
 PageStore.registerMainPage('login', (<Login />));
+
+module.exports = Login;

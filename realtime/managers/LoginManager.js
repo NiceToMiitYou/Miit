@@ -64,7 +64,7 @@ module.exports = function LoginManager() {
         // Join rooms of apps
         apps.forEach(function(app) {
             // Join the app room
-            spark.join(team._id + ':' + app.identifier);
+            spark.join(team.id + ':' + app.identifier);
         });
 
         spark.write({
@@ -173,9 +173,9 @@ module.exports = function LoginManager() {
             // Join rooms of apps
             apps.forEach(function(app) {
 
-                if(false === app.public) {
+                if(true === app.public) {
                     // Join the app room
-                    spark.join(team._id + ':' + app.identifier);
+                    spark.join(team.id + ':' + app.identifier);
                 }
             });
         }

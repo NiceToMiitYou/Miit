@@ -2,6 +2,7 @@
 
 var TeamConstants = {
     ActionTypes: KeyMirror({
+        UPDATE_USER_COMPLETED: null,
         REFRESH_USERS_COMPLETED: null,
         // Update Actions
         UPDATE_TEAM_COMPLETED: null,

@@ -1,12 +1,19 @@
 'use strict';
 
 module.exports = function TeamManager() {
+    // Load the configuration of applications
+    var ApplicationsConfig = miitoo.get('ApplicationsConfig');
+
+    // Get the store of the team
     var TeamStore = miitoo.get('TeamStore');
 
+    // Get others Managers to handle teams and users
     var TeamManager = miitoo.get('TeamManager');
     var UserManager = miitoo.get('UserManager');
     
     var Dispatcher = miitoo.get('RealtimeDispatcher');
+
+    var primus = miitoo.get('Primus');
 
     // Handle get informations of an user
     Dispatcher.register('team:user', 'USER', function onGetUser(spark, data, team) {
@@ -53,14 +60,54 @@ module.exports = function TeamManager() {
                 notDone(spark, 'team:update', err);
             }
 
-            spark.write({
-                event:    'team:update',
-                done:     true,
-                name:     name,
-                'public': publix
+            primus.in(team._id).write({
+                event:  'team:update',
+                done:   true,
+                name:   name,
+                public: publix
             });
 
             spark.request.team = teamToUpdate;
+        });
+    });
+
+    // Handle update informations of team
+    Dispatcher.register('team:application:add', 'ADMIN', function onAddApplicationTeam(spark, data, team) {
+        var identifier = data.identifier;
+
+        if(!identifier || !ApplicationsConfig[identifier]) {
+            return;
+        }
+
+        TeamStore.addApplication(team, identifier, function(err) {
+
+        });
+    });
+
+    // Handle update informations of team
+    Dispatcher.register('team:application:update', 'ADMIN', function onUpdateApplicationTeam(spark, data, team) {
+        var identifier = data.identifier;
+        var publix     = data.public;
+
+        if(!identifier || !ApplicationsConfig[identifier]) {
+            return;
+        }
+
+        TeamStore.addApplication(team, identifier, publix, function(err) {
+            
+        });
+    });
+
+    // Handle update informations of team
+    Dispatcher.register('team:application:remove', 'ADMIN', function onRemoveApplicationTeam(spark, data, team) {
+        var identifier = data.identifier;
+
+        if(!identifier || !ApplicationsConfig[identifier]) {
+            return;
+        }
+
+        TeamStore.removeApplication(team, identifier, function(err) {
+            
         });
     });
 
