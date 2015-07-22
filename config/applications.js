@@ -11,7 +11,10 @@ config['APP_CHAT'] = {
     anonymPricing: 0.001,
 
     // Background color
-    color: 'blue'
+    color: 'blue',
+
+    // The icon
+    icon: 'weixin'
 };
 
 // Definition of the Quizz
@@ -23,7 +26,10 @@ config['APP_QUIZZ'] = {
     anonymPricing: 0.001,
 
     // Background color
-    color: 'green'
+    color: 'green',
+
+    // The icon
+    icon: 'question'
 };
 
 // Definition of the Document
@@ -35,7 +41,10 @@ config['APP_DOCUMENTS'] = {
     anonymPricing: 0.001,
 
     // Background color
-    color: 'red'
+    color: 'red',
+
+    // The icon
+    icon: 'file-text'
 };
 
-miitoo.register('MiitApplications', config, true);
+miitoo.register('ApplicationsConfig', config, true);

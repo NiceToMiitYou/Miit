@@ -42,6 +42,7 @@
             // Set default value to initialize the storage
             MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
             MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
+            MiitApp.shared.set('applications', <%- JSON.stringify(apps) %>);
             
             // Initialize the Application
             MiitApp.init();

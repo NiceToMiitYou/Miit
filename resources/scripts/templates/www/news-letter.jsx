@@ -54,7 +54,7 @@ var NewsLetter = React.createClass({
             return;
         }
 
-        HomeRequest.registration(email, function(data) {
+        HomeRequest.newsletter(email, function(data) {
             if(data.done) {
                 this.setState({
                     done: true
