@@ -10,7 +10,7 @@ var NewsLetter = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                email: 'Votre addresse mail'
+                email: 'Votre adresse mail'
             },
             submit: 'S\'inscrire à la Newsletter'
         };
