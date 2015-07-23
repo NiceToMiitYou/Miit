@@ -50,7 +50,7 @@ var controller = miitoo.resolve(
                 },
                 double_optin: false
             }, function(data) {
-                miitoo.logger.debug('Email added to the newsletter:', email, 'Attribute to:', ip);
+                miitoo.logger.debug('Email added to the newsletter:', email);
 
                 return res.json({
                     done: true

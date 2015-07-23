@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="minimum-width=460, user-scalable=no">
     
     <meta name="description" content="Miit est une application web collaborative qui va révolutionner votre manière de travailler">
     <meta name="keywords" content="Miit,WebApplication,Collaboration,Chat,Questionnaire,Partager">
@@ -35,7 +35,7 @@
     <title>Bienvenue sur Miit - Application collaborative révolutionnaire!</title>
 </head>
 <body>
-    <div class="header">
+    <div class="header" id="header">
         <div class="menu" id="menu">
             <div class="container">
                 <span class="logo">
@@ -96,10 +96,18 @@
         </div>
     
     <div class="content">
-        <div class="container pb30">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <img src="/img/illustration2.png" class="mb20" style="max-width:100%;"/>
+                </div>
 
-            <img src="/img/illustration2.png"/>
+                <div class="col-md-8 col-sm-8">
+                    <h1>Construisez un espace unique</h1>
+                    <p class="mt10 mb30">Installez autant d'applications que vous le souhaitez pour créer un espace qui repond exactement à vos besoins</p>
+                </div>
 
+            </div>
         </div>
 
         <div>
@@ -163,7 +171,8 @@
                 <!-- <h2>Et nous en developpons toujours plus</h2> -->
 
                     <div class="apps row mt30">
-                        <div class="app done col-md-2 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-comments-o"></i>
                             <div class="odd">
                                 Chat
@@ -171,7 +180,8 @@
                             </div>
                         </div>
 
-                        <div class="app done col-md-2 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-check-square-o"></i>
                             <div>
                                 Questionnaires
@@ -179,7 +189,8 @@
                             </div>
                         </div>
 
-                        <div class="app done col-md-2 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-folder-open-o"></i>
                             <div class="odd">
                                 Partage de documents
@@ -187,7 +198,8 @@
                             </div>
                         </div>
 
-                        <div class="app  col-md-2 col-xs-6">
+                        <div class="app  col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-question-circle"></i>
                             <div> 
                                 Mur de questions
@@ -195,14 +207,16 @@
                             </div>
                         </div>
 
-                        <div class="app col-md-2 col-xs-6">
+                        <div class="app col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-tasks"></i>
                             <div class="odd">To-do list
                                 <p>Suivez et gerez les tâches de votre groupe.</p>
                             </div>
                         </div>
 
-                        <div class="app col-md-2 col-xs-6">
+                        <div class="app col-md-2 col-sm-4 col-xs-6">
+                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-calendar"></i>
                             <div>
                                 Callendrier
@@ -392,13 +406,13 @@
     function myFunction() {
         var d = document.getElementById("menu");
 
-        if( document.body.scrollTop > window.outerHeight - 20) {
+        if( document.body.scrollTop > document.getElementById("header").offsetHeight - 20) {
             addClass("fixed", d);
         } else {
             removeClass("show", d);
             removeClass("fixed", d);
         }
-        if( document.body.scrollTop > window.outerHeight+230) {
+        if( document.body.scrollTop > document.getElementById("header").offsetHeight + 230) {
             addClass("show", d);
         }
     }
