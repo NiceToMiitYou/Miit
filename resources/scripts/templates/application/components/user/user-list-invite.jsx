@@ -32,12 +32,10 @@ var UserListInvite = React.createClass({
 
     componentDidMount: function() {
         TeamStore.addInvitedListener(this._onInvited);
-        TeamStore.addNotInvitedListener(this._onError);
     },
 
     componentWillUnmount: function() {
         TeamStore.removeInvitedListener(this._onInvited);
-        TeamStore.removeNotInvitedListener(this._onError);
     },
 
     handleChange: function(newValue) {
@@ -87,10 +85,6 @@ var UserListInvite = React.createClass({
         if(typeof this.props.onInvite === 'function') {
             this.props.onInvite(email);
         }
-    },
-
-    _onError: function() {
-        console.log('Can not invite the user.');
     },
 
     render: function() {

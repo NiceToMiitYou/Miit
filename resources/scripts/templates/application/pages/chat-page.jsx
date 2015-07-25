@@ -1,7 +1,7 @@
 'use strict';
 
 // Include requirements
-var PageStore = require('application/stores/page-store')
+var PageStore = require('application/stores/page-store'),
     TeamStore = require('application/stores/team-store');
 
 // Include Layout

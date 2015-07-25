@@ -28,36 +28,19 @@ var UserListItemRoles = React.createClass({
     componentDidMount: function() {
         // Promote
         TeamStore.addPromotedListener(this._onChanged);
-        TeamStore.addNotPromotedListener(this._onError);
         // Demote
         TeamStore.addDemotedListener(this._onChanged);
-        TeamStore.addNotDemotedListener(this._onError);
     },
 
     componentWillUnmount: function() {
         // Promote
         TeamStore.removePromotedListener(this._onChanged);
-        TeamStore.removeNotPromotedListener(this._onError);
         // Demote
         TeamStore.removeDemotedListener(this._onChanged);
-        TeamStore.removeNotDemotedListener(this._onError);
-    },
-
-    _stopLoading: function() {
-        if(this.isMounted()) {
-            this.setState({
-                loading: false
-            });
-        }
     },
 
     _onChanged: function() {
-        this._stopLoading();
-    },
-
-    _onError: function() {
-        this._stopLoading();
-        console.log('Can not promote or demote the user.');
+        this.forceUpdate();
     },
 
     toggleRole: function(role, cb) {
@@ -72,10 +55,6 @@ var UserListItemRoles = React.createClass({
 
     handleClick: function(action, e) {
         e.preventDefault();
-
-        // Don't load twice
-        if(this.state.loading)
-            return;
 
         var IAmAdmin    = UserStore.isAdmin();
         var userIsOwner = UserStore.isOwner(this.props.user);
@@ -106,7 +85,7 @@ var UserListItemRoles = React.createClass({
     },
 
     render: function() {
-        var IAmAdmin    = UserStore.isAdmin();
+        var IAmAdmin = UserStore.isAdmin();
 
         if(false === IAmAdmin) {
             return null;

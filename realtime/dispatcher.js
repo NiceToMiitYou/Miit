@@ -1,6 +1,9 @@
 // Get event
 var EventEmitter = require('events').EventEmitter;
 
+// Get the team store (initialized before the realtime)
+var TeamStore = miitoo.injector.get('TeamStore');
+
 // Getter for user
 function getUser(spark) {
     return (spark.request || {}).user || {};
@@ -139,24 +142,32 @@ function Dispatcher() {
     // Dispacth an event
     this.dispatch = function(spark, event, data, replayed)
     {
-        var user = getUser(spark);
-        var team = getTeam(spark);
+        var teamId = getTeam(spark);
 
-        // Check if he has the rigth access
-        if(false === isAllowed(spark, event, team, user)) {
-
-            // Replay it later
-            if(!replayed) {
-                miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');
-
-                setTimeout(function() {
-                    this.dispatch(spark, event, data, true);
-                }.bind(this), 250);
+        TeamStore.findTeam(teamId, function(err, team) {
+            // Check if the team exist
+            if(err || !team) {
+                return;
             }
-            return;
-        }
 
-        this.emit(event, spark, data, team, user);
+            var user   = getUser(spark);
+
+            // Check if he has the rigth access
+            if(false === isAllowed(spark, event, team, user)) {
+
+                // Replay it later
+                if(!replayed) {
+                    miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');
+
+                    setTimeout(function() {
+                        this.dispatch(spark, event, data, true);
+                    }.bind(this), 250);
+                }
+                return;
+            }
+
+            this.emit(event, spark, data, team, user);
+        }.bind(this));
     };
 }
 

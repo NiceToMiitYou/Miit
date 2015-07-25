@@ -86,6 +86,21 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 });
         },
 
+        updateTeam: function(team, name, publix, cb) {
+            var teamId = getId(team);
+
+            var conditions = {
+                _id: teamId
+            };
+
+            var update = {
+                name:   name,
+                public: publix
+            };
+
+            updateTeam(conditions, update, cb);
+        },
+
         addUser: function(team, user, roles, cb) {
             var teamId = getId(team);
             var userId = getId(user);

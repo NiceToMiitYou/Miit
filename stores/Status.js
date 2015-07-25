@@ -20,7 +20,7 @@ var store = miitoo.resolve(['StatusModel'], function(Status) {
                 changed: new Date()
             }, {
                 upsert: true,
-                "new":  false
+                'new':  false
             }, function(err, old) {
                 // Log the error
                 if(err) {

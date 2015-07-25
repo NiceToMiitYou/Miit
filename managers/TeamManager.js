@@ -57,37 +57,6 @@ var manager = miitoo.resolve(
                 // If there is no problem, then create things for the team
                 onCreate(team, user, cb);
             });
-        },
-
-        updateTeam: function(team, name, publix, cb) {
-            // Check values
-            if(!name || (true != publix && false != publix)) 
-            {
-                return cb(new Error('Invalid data.'));
-            }
-
-            // Find the team before update
-            TeamStore.findTeam(team, function(err, teamToUpdate){
-                if(err)
-                {
-                    return cb(err);
-                }
-                if(!team)
-                {
-                    return cb(new Error('No team to update'));
-                }
-
-                teamToUpdate.name   = name;
-                teamToUpdate.public = publix;
-
-                teamToUpdate.save(function(errUpdate) {
-                    if(errUpdate) {
-                        return cb(errUpdate);
-                    }
-
-                    return cb(null, teamToUpdate);
-                });
-            });
         }
     };
 });

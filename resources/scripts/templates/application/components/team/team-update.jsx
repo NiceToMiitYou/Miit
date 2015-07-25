@@ -15,7 +15,7 @@ var TeamUpdate = React.createClass({
             },
             text: {
                 public:    'Publique',
-                isPublic:  'Votre Miit est publique et accessible a tout le monde via l\'URL suivante',
+                isPublic:  'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
                 private:   'Privé',
                 isPrivate: 'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
@@ -53,12 +53,10 @@ var TeamUpdate = React.createClass({
     
     componentDidMount: function() {
         TeamStore.addTeamUpdatedListener(this._onChanged);
-        TeamStore.addTeamNotUpdatedListener(this._onError);
     },
 
     componentWillUnmount: function() {
         TeamStore.removeTeamUpdatedListener(this._onChanged);
-        TeamStore.removeTeamNotUpdatedListener(this._onError);
     },
 
     _onChanged: function() {
@@ -71,10 +69,6 @@ var TeamUpdate = React.createClass({
                 value_public: team.public
             });
         }
-    },
-
-    _onError: function() {
-        console.log('team not updated.');
     },
     
     handleChange: function(e) {

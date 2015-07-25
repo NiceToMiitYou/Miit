@@ -15,8 +15,7 @@ var ActionTypes = TeamConstants.ActionTypes;
 // Handle promote
 Realtime.on('team:promote', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.PROMOTE_USER_COMPLETED :
-                            ActionTypes.PROMOTE_USER_ERROR,
+        type:  ActionTypes.PROMOTE_USER_COMPLETED,
         id:    data.id,
         roles: data.roles
     };
@@ -27,8 +26,7 @@ Realtime.on('team:promote', function(data) {
 // Handle demote
 Realtime.on('team:demote', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.DEMOTE_USER_COMPLETED :
-                            ActionTypes.DEMOTE_USER_ERROR,
+        type:  ActionTypes.DEMOTE_USER_COMPLETED,
         id:    data.id,
         roles: data.roles
     };
@@ -39,9 +37,8 @@ Realtime.on('team:demote', function(data) {
 // Handle remove
 Realtime.on('team:remove', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.REMOVE_USER_COMPLETED :
-                            ActionTypes.REMOVE_USER_ERROR,
-        id: data.id
+        type: ActionTypes.REMOVE_USER_COMPLETED,
+        id:   data.id
     };
 
     Dispatcher.dispatch(action);
@@ -50,8 +47,7 @@ Realtime.on('team:remove', function(data) {
 // Handle invite
 Realtime.on('team:invite', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.INVITE_USER_COMPLETED :
-                            ActionTypes.INVITE_USER_ERROR,
+        type: ActionTypes.INVITE_USER_COMPLETED,
         user: data.user
     };
 
@@ -61,8 +57,7 @@ Realtime.on('team:invite', function(data) {
 // Handle update
 Realtime.on('team:update', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.UPDATE_TEAM_COMPLETED :
-                            ActionTypes.UPDATE_TEAM_ERROR,
+        type:   ActionTypes.UPDATE_TEAM_COMPLETED,
         name:   data.name,
         public: data.public
     };

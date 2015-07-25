@@ -29,7 +29,7 @@ var authorization = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], functi
                     });
                 }
 
-                req.team  = team;
+                req.team  = team.id;
                 req.user  = {};
                 req.roles = ['ANONYM'];
 

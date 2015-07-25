@@ -12,22 +12,16 @@ var ActionTypes = TeamConstants.ActionTypes;
 var events = KeyMirror({
     // Tean updated
     TEAM_UPDATED: null,
-    TEAM_NOT_UPDATED: null,
     // Users refreshed
     REFRESHED: null,
-    NOT_REFRESHED: null,
     // User invited
     INVITED: null,
-    NOT_INVITED: null,
     // User promote
     PROMOTED: null,
-    NOT_PROMOTED: null,
     // User demote
     DEMOTED: null,
-    NOT_DEMOTED: null,
     // User removed
-    REMOVED: null,
-    NOT_REMOVED: null
+    REMOVED: null
 });
 
 // Global variables
@@ -190,22 +184,13 @@ var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
 });
 
 TeamStore.generateNamedFunctions(events.REFRESHED);
-TeamStore.generateNamedFunctions(events.NOT_REFRESHED);
-
-TeamStore.generateNamedFunctions(events.TEAM_UPDATED);
-TeamStore.generateNamedFunctions(events.TEAM_NOT_UPDATED);
-
-TeamStore.generateNamedFunctions(events.INVITED);
-TeamStore.generateNamedFunctions(events.NOT_INVITED);
+TeamStore.generateNamedFunctions(events.TEAM_UPDATED);;
 
 TeamStore.generateNamedFunctions(events.PROMOTED);
-TeamStore.generateNamedFunctions(events.NOT_PROMOTED);
-
 TeamStore.generateNamedFunctions(events.DEMOTED);
-TeamStore.generateNamedFunctions(events.NOT_DEMOTED);
 
+TeamStore.generateNamedFunctions(events.INVITED);
 TeamStore.generateNamedFunctions(events.REMOVED);
-TeamStore.generateNamedFunctions(events.NOT_REMOVED);
 
 TeamStore.dispatchToken = Dispatcher.register(function(action){
 
@@ -223,45 +208,27 @@ TeamStore.dispatchToken = Dispatcher.register(function(action){
             _update(action.name, action.public);
             TeamStore.emitTeamUpdated();
             break;
-        case ActionTypes.UPDATE_TEAM_ERROR:
-            TeamStore.emitTeamNotUpdated();
-            break;
 
         case ActionTypes.INVITE_USER_COMPLETED:
             _addUser(action.user);
             TeamStore.emitInvited();
-            break;
-        case ActionTypes.INVITE_USER_ERROR:
-            TeamStore.emitNotInvited();
             break;
 
         case ActionTypes.PROMOTE_USER_COMPLETED:
             _promoteUser(action.id, action.roles);
             TeamStore.emitPromoted();
             break;
-        case ActionTypes.PROMOTE_USER_ERROR:
-            TeamStore.emitNotPromoted();
-            break;
 
         case ActionTypes.DEMOTE_USER_COMPLETED:
             _demoteUser(action.id, action.roles);
             TeamStore.emitDemoted();
-            break;
-        case ActionTypes.DEMOTE_USER_ERROR:
-            TeamStore.emitNotDemoted();
             break;
 
         case ActionTypes.REMOVE_USER_COMPLETED:
             _removeUser(action.id);
             TeamStore.emitRemoved();
             break;
-        case ActionTypes.REMOVE_USER_ERROR:
-            TeamStore.emitNotRemoved();
-            break;
     }
-
 });
-
-global.TeamStore = TeamStore
 
 module.exports = TeamStore;
