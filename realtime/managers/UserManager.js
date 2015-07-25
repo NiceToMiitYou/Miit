@@ -45,7 +45,6 @@ module.exports = function UserManager() {
         UserStore.findUser(session.id, function(err, user) {
             if(err || !user)
             {
-                notDone(spark, 'user:password', err);
                 return;
             }
 
@@ -54,10 +53,10 @@ module.exports = function UserManager() {
                 if(true === result) {
                     // Save the user
                     user.password = password_new || user.password;
+
                     user.save(function(errSave) {
                         if(errSave)
                         {
-                            notDone(spark, 'user:password', errSave);
                             return;
                         }
 
@@ -88,7 +87,6 @@ module.exports = function UserManager() {
         UserStore.findUser(session.id, function(err, user) {
             if(err || !user)
             {
-                notDone(spark, 'user:update', err);
                 return;
             }
 
@@ -98,13 +96,11 @@ module.exports = function UserManager() {
             user.save(function(err) {
                 if(err)
                 {
-                    notDone(spark, 'user:update', err);
                     return;
                 }
 
                 spark.write({
                     event: 'user:update',
-                    done:  true,
                     name:  user.name
                 });
 

@@ -17,7 +17,7 @@ var ActionTypes = UserConstants.ActionTypes;
 Realtime.on('login:token', function(data) {
     if(data.user) {
         var action = {
-            type:  ActionTypes.REFRESH_USER_COMPLETED,
+            type:  ActionTypes.REFRESH_USER,
             token: data.token,
             user:  data.user
         };
@@ -30,7 +30,7 @@ Realtime.on('login:token', function(data) {
 Realtime.on('login:anonym', function(data) {
     if(data.user) {
         var action = {
-            type:  ActionTypes.LOGIN_ANONYM_COMPLETED,
+            type:  ActionTypes.LOGIN_ANONYM,
             token: data.token,
             user:  data.user
         };
@@ -42,7 +42,7 @@ Realtime.on('login:anonym', function(data) {
 // Handle login
 Realtime.on('login:password', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.LOGIN_USER_COMPLETED :
+        type: (data.done) ? ActionTypes.LOGIN_USER :
                             ActionTypes.LOGIN_USER_ERROR,
         user:  data.user,
         token: data.token
@@ -54,7 +54,7 @@ Realtime.on('login:password', function(data) {
 // Handle password change
 Realtime.on('user:password', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.CHANGE_PASSWORD_USER_COMPLETED :
+        type: (data.done) ? ActionTypes.CHANGE_PASSWORD_USER :
                             ActionTypes.CHANGE_PASSWORD_USER_ERROR
     };
 
@@ -64,8 +64,7 @@ Realtime.on('user:password', function(data) {
 // Handle update
 Realtime.on('user:update', function(data) {
     var action = {
-        type: (data.done) ? ActionTypes.UPDATE_USER_COMPLETED :
-                            ActionTypes.UPDATE_USER_ERROR,
+        type: ActionTypes.UPDATE_USER,
         name: data.name
     };
 
@@ -110,7 +109,7 @@ module.exports = {
 
     logout: function() {
         var action = {
-            type:  ActionTypes.LOGOUT_USER_COMPLETED
+            type:  ActionTypes.LOGOUT_USER
         };
 
         Dispatcher.dispatch(action);

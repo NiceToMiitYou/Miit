@@ -15,7 +15,7 @@ var ActionTypes = PageConstants.ActionTypes;
 var PageActions = {
     changeMainPage: function(main) {
         var action = {
-            type: ActionTypes.CHANGE_MAIN_PAGE_COMPLETED,
+            type: ActionTypes.CHANGE_MAIN_PAGE,
             mainPage: main
         };
 
@@ -24,7 +24,7 @@ var PageActions = {
 
     changeApplicationPage: function(main, miit, application) {
         var action = {
-            type: ActionTypes.CHANGE_APPLICATION_PAGE_COMPLETED,
+            type: ActionTypes.CHANGE_APPLICATION_PAGE,
             mainPage: main,
             applicationPage: application
         };

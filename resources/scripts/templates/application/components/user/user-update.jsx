@@ -41,12 +41,10 @@ var UserUpdate = React.createClass({
 
     componentDidMount: function() {
         UserStore.addUserUpdatedListener(this._onChanged);
-        UserStore.addUserNotUpdatedListener(this._onError);
     },
 
     componentWillUnmount: function() {
         UserStore.removeUserUpdatedListener(this._onChanged);
-        UserStore.removeUserNotUpdatedListener(this._onError);
     },
 
     _onChanged: function() {
@@ -58,10 +56,6 @@ var UserUpdate = React.createClass({
                 value_name: user.name
             });
         }
-    },
-
-    _onError: function() {
-        console.log('user not updated.');
     },
     
     handleChange: function(e) {

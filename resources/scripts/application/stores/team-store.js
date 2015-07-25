@@ -115,6 +115,29 @@ function _demoteUser(id, roles) {
     }
 }
 
+function _addApplication(identifier) {
+    var index = Team.applications.indexBy('identifier', identifier);
+
+    // The application
+    var application = {
+        identifier: identifier,
+        public:     true
+    };
+
+    if(-1 !== index) {
+
+        Team.applications[index] = application;
+    }
+    else 
+    {
+        Team.applications.push(application);
+    }
+}
+
+function _removeApplication(identifier) {
+    Team.applications.removeBy('identifier', identifier);
+}
+
 function _hasApplication(application) {
     if(!Team) {
         Team = MiitApp.shared.get('team');
@@ -195,36 +218,46 @@ TeamStore.generateNamedFunctions(events.REMOVED);
 TeamStore.dispatchToken = Dispatcher.register(function(action){
 
     switch(action.type) {
-        case ActionTypes.UPDATE_USER_COMPLETED:
+        case ActionTypes.UPDATE_USER:
             _updateUser(action.id, action.name);
             TeamStore.emitRefreshed();
             break;
-        case ActionTypes.REFRESH_USERS_COMPLETED:
+        case ActionTypes.REFRESH_USERS:
             _replaceUsers(action.users);
             TeamStore.emitRefreshed();
             break;
 
-        case ActionTypes.UPDATE_TEAM_COMPLETED:
+        case ActionTypes.UPDATE_TEAM:
             _update(action.name, action.public);
             TeamStore.emitTeamUpdated();
             break;
 
-        case ActionTypes.INVITE_USER_COMPLETED:
+        case ActionTypes.ADD_APPLICATION_TEAM:
+            _addApplication(identifier);
+            TeamStore.emitTeamUpdated();
+            break;
+
+        case ActionTypes.REMOVE_APPLICATION_TEAM:
+            _removedApplication(identifier);
+            TeamStore.emitTeamUpdated();
+            break;
+
+        case ActionTypes.INVITE_USER:
             _addUser(action.user);
             TeamStore.emitInvited();
             break;
 
-        case ActionTypes.PROMOTE_USER_COMPLETED:
+        case ActionTypes.PROMOTE_USER:
             _promoteUser(action.id, action.roles);
             TeamStore.emitPromoted();
             break;
 
-        case ActionTypes.DEMOTE_USER_COMPLETED:
+        case ActionTypes.DEMOTE_USER:
             _demoteUser(action.id, action.roles);
             TeamStore.emitDemoted();
             break;
 
-        case ActionTypes.REMOVE_USER_COMPLETED:
+        case ActionTypes.REMOVE_USER:
             _removeUser(action.id);
             TeamStore.emitRemoved();
             break;

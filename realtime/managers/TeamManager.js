@@ -5,13 +5,13 @@ module.exports = function TeamManager() {
     var ApplicationsConfig = miitoo.get('ApplicationsConfig');
 
     // Get the store of the team
-    var TeamStore = miitoo.get('TeamStore');
-
-    // Get others Managers to handle users
+    var TeamStore   = miitoo.get('TeamStore');
     var UserManager = miitoo.get('UserManager');
     
+    // Get the dispatcher
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
+    // And primus
     var primus = miitoo.get('Primus');
 
     // Handle get informations of an user
@@ -73,7 +73,7 @@ module.exports = function TeamManager() {
         var identifier = data.identifier;
         var publix     = data.public;
 
-        if(!identifier || !ApplicationsConfig[identifier]) {
+        if(!identifier || !ApplicationsConfig[identifier] || !(publix === true || publix === false)) {
             return;
         }
 
@@ -115,7 +115,7 @@ module.exports = function TeamManager() {
 
                 spark.write({
                     event: 'team:invite',
-                    user:  {
+                    user: {
                         id:     user.id,
                         name:   user.name,
                         email:  user.email,

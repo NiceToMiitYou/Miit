@@ -100,11 +100,11 @@ var handleChangeApplicationPage = function(action) {
 // Handle actions
 PageStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
-        case ActionTypes.CHANGE_APPLICATION_PAGE_COMPLETED:
+        case ActionTypes.CHANGE_APPLICATION_PAGE:
             handleChangeApplicationPage(action);
             break;
 
-        case ActionTypes.CHANGE_MAIN_PAGE_COMPLETED:
+        case ActionTypes.CHANGE_MAIN_PAGE:
             handleChangeMainPage(action);
             break;
     }

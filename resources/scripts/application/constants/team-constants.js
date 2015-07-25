@@ -3,18 +3,18 @@
 var TeamConstants = {
     ActionTypes: KeyMirror({
         // Handle user action
-        UPDATE_USER_COMPLETED: null,
-        REFRESH_USERS_COMPLETED: null,
+        UPDATE_USER: null,
+        REFRESH_USERS: null,
         // Update Actions
-        UPDATE_TEAM_COMPLETED: null,
+        UPDATE_TEAM: null,
         // Invite Actions
-        INVITE_USER_COMPLETED: null,
+        INVITE_USER: null,
         // Demote Actions
-        DEMOTE_USER_COMPLETED: null,
+        DEMOTE_USER: null,
         // Promote Actions
-        PROMOTE_USER_COMPLETED: null,
+        PROMOTE_USER: null,
         // Remove Actions
-        REMOVE_USER_COMPLETED: null
+        REMOVE_USER: null
     })
 };
 

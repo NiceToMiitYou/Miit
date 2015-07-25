@@ -15,7 +15,7 @@ var ActionTypes = TeamConstants.ActionTypes;
 // Handle promote
 Realtime.on('team:promote', function(data) {
     var action = {
-        type:  ActionTypes.PROMOTE_USER_COMPLETED,
+        type:  ActionTypes.PROMOTE_USER,
         id:    data.id,
         roles: data.roles
     };
@@ -26,7 +26,7 @@ Realtime.on('team:promote', function(data) {
 // Handle demote
 Realtime.on('team:demote', function(data) {
     var action = {
-        type:  ActionTypes.DEMOTE_USER_COMPLETED,
+        type:  ActionTypes.DEMOTE_USER,
         id:    data.id,
         roles: data.roles
     };
@@ -37,7 +37,7 @@ Realtime.on('team:demote', function(data) {
 // Handle remove
 Realtime.on('team:remove', function(data) {
     var action = {
-        type: ActionTypes.REMOVE_USER_COMPLETED,
+        type: ActionTypes.REMOVE_USER,
         id:   data.id
     };
 
@@ -47,7 +47,7 @@ Realtime.on('team:remove', function(data) {
 // Handle invite
 Realtime.on('team:invite', function(data) {
     var action = {
-        type: ActionTypes.INVITE_USER_COMPLETED,
+        type: ActionTypes.INVITE_USER,
         user: data.user
     };
 
@@ -57,7 +57,7 @@ Realtime.on('team:invite', function(data) {
 // Handle update
 Realtime.on('team:update', function(data) {
     var action = {
-        type:   ActionTypes.UPDATE_TEAM_COMPLETED,
+        type:   ActionTypes.UPDATE_TEAM,
         name:   data.name,
         public: data.public
     };
@@ -68,7 +68,7 @@ Realtime.on('team:update', function(data) {
 // Handle user update
 Realtime.on('team:user:update', function(data) {
     var action = {
-        type: ActionTypes.UPDATE_USER_COMPLETED,
+        type: ActionTypes.UPDATE_USER,
         id:   data.id,
         name: data.name
     };
@@ -79,7 +79,7 @@ Realtime.on('team:user:update', function(data) {
 // Handle refresh
 Realtime.on('team:users', function(data) {
     var action = {
-        type:  ActionTypes.REFRESH_USERS_COMPLETED,
+        type:  ActionTypes.REFRESH_USERS,
         users: data.users
     };
 

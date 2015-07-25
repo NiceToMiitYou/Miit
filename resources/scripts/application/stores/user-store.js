@@ -16,8 +16,7 @@ var events = KeyMirror({
     PASSWORD_CHANGED: null,
     PASSWORD_NOT_CHANGED: null,
     // Event on update
-    USER_UPDATED: null,
-    USER_NOT_UPDATED: null,
+    USER_UPDATED: null
 });
 
 // Global variables
@@ -130,22 +129,21 @@ UserStore.generateNamedFunctions(events.PASSWORD_CHANGED);
 UserStore.generateNamedFunctions(events.PASSWORD_NOT_CHANGED);
 
 UserStore.generateNamedFunctions(events.USER_UPDATED);
-UserStore.generateNamedFunctions(events.USER_NOT_UPDATED);
 
 UserStore.dispatchToken = Dispatcher.register(function(action){
 
     switch(action.type) {
-        case ActionTypes.REFRESH_USER_COMPLETED:
+        case ActionTypes.REFRESH_USER:
             _connect(action.token, action.user);
             UserStore.emitLoggedIn();
             break;
 
-        case ActionTypes.LOGIN_ANONYM_COMPLETED:
+        case ActionTypes.LOGIN_ANONYM:
             _connectAnonym(action.token, action.user);
             UserStore.emitLoggedIn();
             break;
 
-        case ActionTypes.LOGIN_USER_COMPLETED:
+        case ActionTypes.LOGIN_USER:
             _connect(action.token, action.user);
             UserStore.emitLoggedIn();
             break;
@@ -153,24 +151,21 @@ UserStore.dispatchToken = Dispatcher.register(function(action){
             UserStore.emitLoginError();
             break;
 
-        case ActionTypes.LOGOUT_USER_COMPLETED:
+        case ActionTypes.LOGOUT_USER:
             _disconnect();
             window.location.href = '/';
             break;
 
-        case ActionTypes.CHANGE_PASSWORD_USER_COMPLETED:
+        case ActionTypes.CHANGE_PASSWORD_USER:
             UserStore.emitPasswordChanged();
             break;
         case ActionTypes.CHANGE_PASSWORD_USER_ERROR:
             UserStore.emitPasswordNotChanged();
             break;
 
-        case ActionTypes.UPDATE_USER_COMPLETED:
+        case ActionTypes.UPDATE_USER:
             _update(action.name);
             UserStore.emitUserUpdated();
-            break;
-        case ActionTypes.UPDATE_USER_ERROR:
-            UserStore.emitUserNotUpdated();
             break;
     }
 });

@@ -3,7 +3,7 @@
 var NotificationsConstants = {
     ActionTypes: KeyMirror({
         // Session Actions
-        NEW_NOTIFICATION:   null
+        NEW_NOTIFICATION: null
     })
 };
 
