@@ -3,6 +3,9 @@
 // Include requirements
 var NotificationsStore = require('application/stores/notifications-store');
 
+// Include component
+var Notification = require('./notification.jsx');
+
 var NotificationsContainer = React.createClass({
     componentDidMount: function() {
         NotificationsStore.addNotificationAddedListener(this._onChanged);
@@ -10,7 +13,8 @@ var NotificationsContainer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        NotificationsStore.addNotificationRemovedListener(this._onChanged);
+        NotificationsStore.removeNotificationAddedListener(this._onChanged);
+        NotificationsStore.removeNotificationRemovedListener(this._onChanged);
     },
 
     _onChanged: function() {

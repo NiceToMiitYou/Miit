@@ -24,6 +24,10 @@ EventEmitter.prototype.generateNamedFunctions = function(eventName) {
     };
 
     this[emitEventName(eventName)] = function() {
-        self.emit(eventName);
+        var args = Array.prototype.slice.call(arguments) || [];
+
+        args.unshift(eventName);
+
+        self.emit.apply(this, args);
     };
 };
