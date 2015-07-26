@@ -402,6 +402,27 @@ h2 {
 
 .keep-contact {
 	overflow: hidden;
+
+	.input-field {
+		border-color: #FFF;
+
+		input::-webkit-input-placeholder {
+		   color: #FFF;
+		}
+
+		input:-moz-placeholder { /* Firefox 18- */
+		   color: #FFF;  
+		}
+
+		input::-moz-placeholder {  /* Firefox 19+ */
+		   color: #FFF;  
+		}
+
+		input:-ms-input-placeholder {  
+		   color: #FFF;  
+		}
+
+	}
 }
 
 @media screen and (max-width: 1200px) {
