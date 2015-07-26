@@ -1,7 +1,8 @@
 'use strict';
 
 // Include requirements
-var TeamStore   = require('application/stores/team-store'),
+var UserStore   = require('application/stores/user-store'),
+    TeamStore   = require('application/stores/team-store'),
     TeamActions = require('application/actions/team-actions');
 
 // Include common
@@ -96,6 +97,10 @@ var TeamUpdate = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
 
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
         var name   = this.state.value_name;
         var publix = this.state.value_public;
         var team   = TeamStore.getTeam();
@@ -132,6 +137,10 @@ var TeamUpdate = React.createClass({
     },
 
     render: function() {
+        if(false === UserStore.isAdmin()) {
+            return null;
+        }
+
         var value_name   = this.state.value_name;
         var classes_name = classNames({
             'invalid': this.state.missing_name ||
