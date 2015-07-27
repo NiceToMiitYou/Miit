@@ -58,13 +58,19 @@ module.exports = function TeamManager() {
     // Handle update informations of team
     Dispatcher.register('team:application:add', 'ADMIN', function onAddApplicationTeam(spark, data, team) {
         var identifier = data.identifier;
+        var publix     = data.public;
 
-        if(!identifier || !ApplicationsConfig[identifier]) {
+        if(!identifier || !ApplicationsConfig[identifier] || !(publix === true || publix === false)) {
             return;
         }
 
-        TeamStore.addApplication(team, identifier, function(err) {
+        TeamStore.addApplication(team, identifier, publix, function(err) {
 
+            primus.in(team._id).write({
+                event:      'team:application:add',
+                identifier: identifier,
+                public:     publix
+            });
         });
     });
 
@@ -77,8 +83,13 @@ module.exports = function TeamManager() {
             return;
         }
 
-        TeamStore.addApplication(team, identifier, publix, function(err) {
+        TeamStore.updateApplication(team, identifier, publix, function(err) {
             
+            primus.in(team._id).write({
+                event:      'team:application:update',
+                identifier: identifier,
+                public:     publix
+            });
         });
     });
 
@@ -92,6 +103,10 @@ module.exports = function TeamManager() {
 
         TeamStore.removeApplication(team, identifier, function(err) {
             
+            primus.in(team._id).write({
+                event:      'team:application:remove',
+                identifier: identifier
+            });
         });
     });
 

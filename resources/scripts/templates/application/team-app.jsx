@@ -2,6 +2,7 @@
 
 // Include requirements
 var UserStore            = require('application/stores/user-store'),
+    TeamStore            = require('application/stores/team-store'),
     PageStore            = require('application/stores/page-store'),
     UserActions          = require('application/actions/user-actions'),
     PageActions          = require('application/actions/page-actions'),
@@ -24,11 +25,13 @@ var TeamApp = React.createClass({
 
     componentDidMount: function() {
         UserStore.addLoggedInListener(this._onLoggedIn);
+        TeamStore.addTeamUpdatedListener(this._onChange);
         PageStore.addMainPageChangedListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         UserStore.removeLoggedInListener(this._onLoggedIn);
+        TeamStore.removeTeamUpdatedListener(this._onChange);
         PageStore.removeMainPageChangedListener(this._onChange);
     },
 

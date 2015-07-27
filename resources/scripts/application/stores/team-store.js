@@ -115,13 +115,13 @@ function _demoteUser(id, roles) {
     }
 }
 
-function _addApplication(identifier) {
+function _addApplication(identifier, publix) {
     var index = Team.applications.indexBy('identifier', identifier);
 
     // The application
     var application = {
         identifier: identifier,
-        public:     true
+        public:     publix
     };
 
     if(-1 !== index) {
@@ -131,6 +131,15 @@ function _addApplication(identifier) {
     else 
     {
         Team.applications.push(application);
+    }
+}
+
+function _updateApplication(identifier, publix) {
+    var index = Team.applications.indexBy('identifier', identifier);
+
+    if(-1 !== index) {
+
+        Team.applications[index].public = publix;
     }
 }
 
@@ -232,13 +241,18 @@ TeamStore.dispatchToken = Dispatcher.register(function(action){
             TeamStore.emitTeamUpdated();
             break;
 
-        case ActionTypes.ADD_APPLICATION_TEAM:
-            _addApplication(identifier);
+        case ActionTypes.ADD_APPLICATION:
+            _addApplication(action.identifier, action.public);
             TeamStore.emitTeamUpdated();
             break;
 
-        case ActionTypes.REMOVE_APPLICATION_TEAM:
-            _removedApplication(identifier);
+        case ActionTypes.UPDATE_APPLICATION:
+            _updateApplication(action.identifier, action.public);
+            TeamStore.emitTeamUpdated();
+            break;
+
+        case ActionTypes.REMOVE_APPLICATION:
+            _removeApplication(action.identifier);
             TeamStore.emitTeamUpdated();
             break;
 

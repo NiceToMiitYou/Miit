@@ -7,13 +7,14 @@ var TeamConstants = {
         REFRESH_USERS: null,
         // Update Actions
         UPDATE_TEAM: null,
-        // Invite Actions
+        // Applications actions
+        ADD_APPLICATION: null,
+        UPDATE_APPLICATION: null,
+        REMOVE_APPLICATION: null,
+        // Users Actions
         INVITE_USER: null,
-        // Demote Actions
         DEMOTE_USER: null,
-        // Promote Actions
         PROMOTE_USER: null,
-        // Remove Actions
         REMOVE_USER: null
     })
 };

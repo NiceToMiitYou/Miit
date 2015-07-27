@@ -12,7 +12,9 @@ var NewsLetter = React.createClass({
             placeholder: {
                 email: 'Votre adresse mail'
             },
-            submit: 'S\'inscrire à la Newsletter'
+            submit:       'S\'inscrire à la Newsletter',
+            submit_short: 'S\'inscrire',
+            variant: false
         };
     },
 
@@ -71,20 +73,23 @@ var NewsLetter = React.createClass({
                        this.state.invalid_email
         });
 
-        var done = this.state.done;
+        var done    = this.state.done;
+        var submit  = (false === this.props.variant) ? this.props.submit :
+                                                       this.props.submit_short;
+        var classes = classNames('btn', (false === this.props.variant) ? 'btn-info' : 'btn-dark' ,'pl10 pr10 pt15 pb15');
 
         return (
             <form className="miit-component news-letter" onSubmit={this.handleSubmit}>
                 <If test={!done}>
                     <div className="row pt30 pb20">
-                        <div className="col-md-9 mb10">
+                        <div className="col-md-8 mb10">
                             <div className={classes_email + " input-field left-icon icon-transparent push0 pt5 pb5" }>
                                 <i className="fa fa-envelope-o pt5 pl5 pb5"></i>
                                 <input type="text" placeholder={this.props.placeholder.email} ref="email" />
                             </div>
                         </div>
-                        <div className="col-md-3 mb10">
-                            <button type="submit" className="btn btn-info pl10 pr10 pt15 pb15">{this.props.submit}</button>
+                        <div className="col-md-4 mb10">
+                            <button type="submit" className={classes}>{submit}</button>
                         </div>
                     </div>
                 </If>

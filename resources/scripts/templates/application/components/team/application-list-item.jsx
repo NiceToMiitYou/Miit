@@ -1,7 +1,8 @@
 'use strict';
 
 // Include requirements
-var TeamStore   = require('application/stores/team-store'),
+var UserStore   = require('application/stores/user-store'),
+    TeamStore   = require('application/stores/team-store'),
     TeamActions = require('application/actions/team-actions');
 
 // Include common
@@ -21,6 +22,40 @@ var ApplicationListItem = React.createClass({
                 public: 'Publique'
             }
         };
+    },
+    
+    componentDidMount: function() {
+        TeamStore.addTeamUpdatedListener(this._onChanged);
+    },
+
+    componentWillUnmount: function() {
+        TeamStore.removeTeamUpdatedListener(this._onChanged);
+    },
+
+    togglePublic: function() {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        var application = this.props.application;
+
+        // Send the request to delete the application
+        TeamActions.updateApplication(application.identifier, !application.public);
+    },
+
+    handleRemove: function() {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        var application = this.props.application;
+
+        // Send the request to delete the application
+        TeamActions.removeApplication(application.identifier);
+    },
+
+    _onChanged: function() {
+        this.forceUpdate();
     },
 
     render: function() {
@@ -44,10 +79,10 @@ var ApplicationListItem = React.createClass({
                     {application.name}
                 </span>
                 <span>
-                    <input type="checkbox" checked={application.public} readOnly /> {this.props.text.public}
+                    <input type="checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
                 </span>
                 <span>
-                    <button className='btn btn-danger ml20'>
+                    <button className='btn btn-danger ml20' onClick={this.handleRemove}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </span>

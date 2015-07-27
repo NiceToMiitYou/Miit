@@ -65,6 +65,38 @@ Realtime.on('team:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
+// Handle add application
+Realtime.on('team:application:add', function(data) {
+    var action = {
+        type:       ActionTypes.ADD_APPLICATION,
+        identifier: data.identifier,
+        public:     data.public
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update application
+Realtime.on('team:application:update', function(data) {
+    var action = {
+        type:       ActionTypes.UPDATE_APPLICATION,
+        identifier: data.identifier,
+        public:     data.public
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle add application
+Realtime.on('team:application:remove', function(data) {
+    var action = {
+        type:       ActionTypes.REMOVE_APPLICATION,
+        identifier: data.identifier
+    };
+
+    Dispatcher.dispatch(action);
+});
+
 // Handle user update
 Realtime.on('team:user:update', function(data) {
     var action = {
@@ -95,6 +127,26 @@ module.exports = {
         Realtime.send('team:update', {
             name:   name,
             public: publix
+        });
+    },
+
+    addApplication: function(identifier, publix) {
+        Realtime.send('team:application:add', {
+            identifier: identifier,
+            public:     publix
+        });
+    },
+
+    updateApplication: function(identifier, publix) {
+        Realtime.send('team:application:update', {
+            identifier: identifier,
+            public:     publix
+        });
+    },
+
+    removeApplication: function(identifier) {
+        Realtime.send('team:application:remove', {
+            identifier: identifier
         });
     },
 
