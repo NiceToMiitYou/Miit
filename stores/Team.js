@@ -177,7 +177,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        addApplication: function(team, identifier, cb) {
+        addApplication: function(team, identifier, public, cb) {
             var teamId = getId(team);
 
             var conditions = {
@@ -187,7 +187,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             var update = {
                 $push: {
                     'applications': {
-                        identifier: identifier
+                        identifier: identifier,
+                        publix:     public
                     }
                 }
             };

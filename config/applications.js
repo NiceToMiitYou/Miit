@@ -4,6 +4,9 @@ var config = {};
 
 // Definition of the Chat
 config['APP_CHAT'] = {
+    // The identifier of the app
+    identifier: 'APP_CHAT',
+
     // Pricing applied for User
     userPricing: 0.1,
 
@@ -19,6 +22,9 @@ config['APP_CHAT'] = {
 
 // Definition of the Quizz
 config['APP_QUIZZ'] = {
+    // The identifier of the app
+    identifier: 'APP_QUIZZ',
+    
     // Pricing applied for User
     userPricing: 0.1,
 
@@ -34,6 +40,9 @@ config['APP_QUIZZ'] = {
 
 // Definition of the Document
 config['APP_DOCUMENTS'] = {
+    // The identifier of the app
+    identifier: 'APP_DOCUMENTS',
+    
     // Pricing applied for User
     userPricing: 0.1,
 
