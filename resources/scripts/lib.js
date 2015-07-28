@@ -1,15 +1,15 @@
 'use strict';
 
 // Load all libs
-global.AsyncQueue   = require('lib/async-queue');
-global.classNames   = require('lib/class-names');
-global.DataStore    = require('lib/data-store');
-global.EventEmitter = require('lib/event-emitter');
-global.KeyMirror    = require('lib/key-mirror');
-global.ObjectAssign = require('lib/object-assign');
-global.MiitUtils    = require('lib/utils');
+global.AsyncQueue   = require('async-queue');
+global.classNames   = require('class-names');
+global.DataStore    = require('data-store');
+global.EventEmitter = require('event-emitter');
+global.KeyMirror    = require('key-mirror');
+global.ObjectAssign = require('object-assign');
+global.MiitUtils    = require('utils');
 
 // Extensions
-require('lib/array-extensions');
-require('lib/event-emitter-extensions');
-require('lib/string-extensions');
+require('array-extensions');
+require('event-emitter-extensions');
+require('string-extensions');

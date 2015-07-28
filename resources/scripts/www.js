@@ -4,8 +4,8 @@
 global.React = require('react');
 
 // Include components
-var CreateTeam = require('templates/www/create-team.jsx'),
-    NewsLetter = require('templates/www/news-letter.jsx');
+var CreateTeam = require('templates/create-team.jsx'),
+    NewsLetter = require('templates/news-letter.jsx');
 
 global.onload = function(){
     //React.render(<CreateTeam />, document.getElementById('create-team'));
