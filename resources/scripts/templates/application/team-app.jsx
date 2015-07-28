@@ -9,8 +9,9 @@ var UserStore            = require('application/stores/user-store'),
     SubscriptionsActions = require('application/actions/subscriptions-actions');
 
 // Include components
-var MenuTeam               = require('templates/application/components/menu/menu-team.jsx'),
-    NotificationsContainer = require('templates/application/components/notifications/notifications-container.jsx');
+var MenuTeam              = require('templates/application/components/menu/menu-team.jsx'),
+    ModalContainer        = require('templates/application/components/modal/modal-container.jsx'),
+    NotificationContainer = require('templates/application/components/notifications/notification-container.jsx');
 
 
 // Load all pages
@@ -62,14 +63,17 @@ var TeamApp = React.createClass({
 
     render: function() {
         return (
-            <div className="page bg-grey lighten-5">
-                <MenuTeam />
+            <div className="bg-grey lighten-5">
+                <div className="page bg-grey lighten-5">
+                    <MenuTeam />
 
-                <div className="main">
-                    {this.state.page}
+                    <div className="main">
+                        {this.state.page}
+                    </div>
                 </div>
-
-                <NotificationsContainer />
+            
+                <ModalContainer />
+                <NotificationContainer />
             </div>
         );
     }

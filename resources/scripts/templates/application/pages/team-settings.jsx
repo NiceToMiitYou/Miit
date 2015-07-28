@@ -1,9 +1,10 @@
 'use strict';
 
 // Include requirements
-var PageStore = require('application/stores/page-store'),
-    UserStore = require('application/stores/user-store'),
-    TeamStore = require('application/stores/team-store');
+var PageStore  = require('application/stores/page-store'),
+    ModalStore = require('application/stores/modal-store'),
+    UserStore  = require('application/stores/user-store'),
+    TeamStore  = require('application/stores/team-store');
 
 // Include Layout
 var Layout = require('./layouts/default.jsx');
@@ -15,7 +16,8 @@ var Panel = require('templates/common/panel.jsx');
 var NotFound        = require('./not-found.jsx'),
     UserList        = require('templates/application/components/user/user-list.jsx'),
     TeamUpdate      = require('templates/application/components/team/team-update.jsx'),
-    ApplicationList = require('templates/application/components/team/application-list.jsx');
+    ApplicationList = require('templates/application/components/team/application-list.jsx'),
+    AppStoreList    = require('templates/application/components/app-store/app-store-list.jsx');
 
 var TeamSettings = React.createClass({
     getDefaultProps: function () {
@@ -34,6 +36,12 @@ var TeamSettings = React.createClass({
 
     componentWillUnmount: function() {
         TeamStore.removeTeamUpdatedListener(this._onChange);
+    },
+
+    openAppStore: function() {
+        ModalActions.open('app-store', <AppStoreList />, {
+            title: 'App store'
+        });
     },
 
     _onChange: function() {
@@ -55,6 +63,9 @@ var TeamSettings = React.createClass({
 
                 <Panel icon="th" title={this.props.text.applications}>
                     <ApplicationList />
+                    <button className="btn btn-info" onClick={this.openAppStore}>
+                        Application Store
+                    </button>
                 </Panel>
 
                 <Panel icon="users" title={this.props.text.users}>

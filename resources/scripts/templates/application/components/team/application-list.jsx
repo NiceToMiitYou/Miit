@@ -16,7 +16,7 @@ var ApplicationList = React.createClass({
                 <ApplicationListHeader />
 
                 {applications.map(function(application) {
-                    return (<ApplicationListItem key={application.identifier} application={application} />);
+                    return (<ApplicationListItem key={'app-list-' + application.identifier} application={application} />);
                 })}
             </div>
         );
