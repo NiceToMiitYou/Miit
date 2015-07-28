@@ -6,11 +6,11 @@ var UserStore   = require('core/stores/user-store'),
     TeamStore   = require('core/stores/team-store');
 
 // Include common
-var If   = require('templates/if.jsx'),
-    Link = require('core/templates/components/link.jsx');
+var If   = require('templates/if.jsx');
 
 // Include components
-var MenuHeader      = require('./menu-header.jsx'),
+var Link = require('core/templates/components/link.jsx'),
+    MenuHeader      = require('./menu-header.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
     MenuUserProfile = require('./menu-user-profile.jsx'),
     MenuTeamItem    = require('./menu-team-item.jsx');

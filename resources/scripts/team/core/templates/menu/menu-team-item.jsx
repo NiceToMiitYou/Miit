@@ -5,8 +5,10 @@ var TeamStore          = require('core/stores/team-store'),
     SubscriptionsStore = require('core/stores/subscriptions-store');
 
 // Include common
-var If   = require('templates/if.jsx'),
-    Link = require('core/templates/components/link.jsx');
+var If   = require('templates/if.jsx');
+
+// Include components
+var Link = require('core/templates/components/link.jsx')
 
 var MenuTeamItem = React.createClass({
 
