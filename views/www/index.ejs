@@ -308,44 +308,5 @@
     <![endif]-->
     <script type="text/javascript" src="/dist/js/lib.min.js"></script>
     <script type="text/javascript" src="/dist/js/www.min.js"></script>
-    <script>
-
-    window.onscroll = function() {myFunction()};
-
-    function myFunction() {
-        var d = document.getElementById("menu");
-
-        if( document.body.scrollTop > document.getElementById("header").offsetHeight - 20) {
-            addClass("fixed", d);
-        } else {
-            removeClass("show", d);
-            removeClass("fixed", d);
-        }
-        if( document.body.scrollTop > document.getElementById("header").offsetHeight + 230) {
-            addClass("show", d);
-        }
-    }
-
-    function addClass( classname, element ) {
-        var cn = element.className;
-        //test for existance
-        if( cn.indexOf( classname ) != -1 ) {
-            return;
-        }
-        //add a space if the element already has class
-        if( cn != '' ) {
-            classname = ' '+classname;
-        }
-        element.className = cn+classname;
-    }
-
-    function removeClass( classname, element ) {
-        var cn = element.className;
-        var rxp = new RegExp( "\\s?\\b"+classname+"\\b", "g" );
-        cn = cn.replace( rxp, '' );
-        element.className = cn;
-    }
-
-    </script>
 </body>
 </html>
