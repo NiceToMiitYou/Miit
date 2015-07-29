@@ -33,3 +33,6 @@ bower_components
 public/dist/css
 public/dist/fonts
 public/dist/js
+
+# Ignore core-require
+resources/scripts/core/core-require.js
