@@ -17,7 +17,7 @@ function Dot(canvas, context, colors) {
     this.canvas  = canvas;
     this.context = context;
 
-    this.diameter = Math.random() * 7;
+    this.diameter = Math.random() * 9;
 
     this.x = Math.round(Math.random() * canvas.width);
     this.y = Math.round(Math.random() * canvas.height);
