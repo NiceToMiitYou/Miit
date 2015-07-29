@@ -1,8 +1,10 @@
 'use strict';
 
+// Include core requirements
+var UserStore = MiitApp.require('core/stores/user-store');
+
 // Include requirements
-var ChatActions = require('application/actions/chat-actions'),
-    UserStore   = require('application/stores/user-store');
+var ChatActions = require('chat-actions');
 
 var ChatRoomCreate = React.createClass({
     getDefaultProps: function () {

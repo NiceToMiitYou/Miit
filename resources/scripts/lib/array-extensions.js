@@ -92,8 +92,9 @@ Array.prototype.merge = function(values) {
 
 Array.prototype.removeBy = function(prop, value) {
     var index = this.indexBy(prop, value);
+
     for(; index >= 0; index = this.indexBy(prop, value)) {
-        delete this[index];
+        this.splice(index, 1);
     }
 
     return this;
@@ -101,8 +102,9 @@ Array.prototype.removeBy = function(prop, value) {
 
 Array.prototype.remove = function(value) {
     var index = this.indexOf(value);
+    
     for(;index >= 0;index = this.indexOf(value)) {
-        delete this[index];
+        this.splice(index, 1);
     }
 
     return this;
@@ -118,6 +120,12 @@ Array.prototype.removeAll = function(values) {
     }.bind(this));
 
     return this;
+};
+
+Array.prototype.difference = function(diff) {
+    return this.filter(function(value) {
+        return -1 === diff.indexOf(value);
+    });
 };
 
 Array.prototype.hashCode = function() {

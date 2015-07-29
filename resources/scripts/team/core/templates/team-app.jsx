@@ -13,10 +13,6 @@ var MenuTeam              = require('core/templates/menu/menu-team.jsx'),
     ModalContainer        = require('core/templates/modal/modal-container.jsx'),
     NotificationContainer = require('core/templates/notifications/notification-container.jsx');
 
-
-// Load all pages
-var pages = require('pages/_load');
-
 var TeamApp = React.createClass({
     getInitialState: function() {
         return {

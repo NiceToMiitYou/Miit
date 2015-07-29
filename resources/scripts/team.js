@@ -7,9 +7,12 @@ global.React = require('react');
 var config = require('core/config');
 
 // Include requirements
-var Router  = require('core/lib/router.js');
+var Router  = require('core/lib/router');
 var TeamApp = require('core/templates/team-app.jsx');
 
+var self = this;
+
+// Define the application
 var MiitApp = {
     COPYRIGHT: config.COPYRIGHT,
     VERSION:   config.VERSION,
@@ -21,7 +24,11 @@ var MiitApp = {
         // Render the TeamApp component
         React.render(<TeamApp />, document.getElementById('content'));
     },
-    require: require
+    require: require('core-require')
 };
 
+// Export the App in the page
 global.MiitApp = MiitApp;
+
+// Load listeners
+require('core/listeners/_load');

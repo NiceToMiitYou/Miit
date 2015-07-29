@@ -1,13 +1,15 @@
 'use strict';
 
+// Include core requirements
+var UserStore          = MiitApp.require('core/stores/user-store'),
+    SubscriptionsStore = MiitApp.require('core/stores/subscriptions-store');
+
 // Include requirements
-var ChatActions        = require('application/actions/chat-actions'),
-    UserStore          = require('application/stores/user-store'),
-    SubscriptionsStore = require('application/stores/subscriptions-store');
+var ChatActions = require('chat-actions');
 
 // Include common components
-var If       = require('templates/common/if.jsx'),
-    Dropdown = require('templates/common/dropdown.jsx');
+var If       = MiitApp.require('templates/if.jsx'),
+    Dropdown = MiitApp.require('templates/dropdown.jsx');
 
 var ChatRoomListItem = React.createClass({
     getDefaultProps: function () {

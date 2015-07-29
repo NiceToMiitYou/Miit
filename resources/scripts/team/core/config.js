@@ -5,7 +5,7 @@ var VERSION   = '0.0.0';
 var COPYRIGHT = 'All rights reserved to ITEvents.';
 
 // Application DataStore
-var shared    = new DataStore('shared');
+var shared = new DataStore('shared');
 
 // Set up moment.js to load locales
 var Moment = require('moment');
@@ -13,7 +13,7 @@ var Moment = require('moment');
 // Load locales
 require('moment/locale/fr');
 
-
+// Export configuration
 module.exports = {
     COPYRIGHT: COPYRIGHT,
     VERSION:   VERSION,

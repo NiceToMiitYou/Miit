@@ -1,8 +1,10 @@
 'use strict';
 
-// Include requirements
-var Dispatcher    = require('core/lib/dispatcher'),
-    ChatConstants = require('core/constants/chat-constants');
+// Include core requirements
+var Dispatcher = MiitApp.require('core/lib/dispatcher');
+
+// Include requirement
+var ChatConstants = require('chat-constants');
 
 // Shortcut
 var ActionTypes = ChatConstants.ActionTypes;

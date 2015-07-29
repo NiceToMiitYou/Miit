@@ -1,13 +1,13 @@
 'use strict';
 
 // Include requirements
-var ChatStore   = require('application/stores/chat-store'),
-    ChatActions = require('application/actions/chat-actions');
+var ChatStore   = require('chat-store'),
+    ChatActions = require('chat-actions');
 
 // Include components
-var ChatRoomList    = require('./chat-room-list.jsx'),
-    ChatMessageList = require('./chat-message-list.jsx'),
-    ChatMessageSend = require('./chat-message-send.jsx');
+var ChatRoomList    = require('templates/chat-room-list.jsx'),
+    ChatMessageList = require('templates/chat-message-list.jsx'),
+    ChatMessageSend = require('templates/chat-message-send.jsx');
 
 var ChatApp = React.createClass({
     getInitialState: function() {

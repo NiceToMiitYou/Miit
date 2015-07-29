@@ -58,11 +58,11 @@ function _filterbyRoleUser(role, inverse) {
         var result = false;
 
         if(!inverse) {
-            result = user.roles.indexOf(role) >= 0;
+            result =  0  <= user.roles.indexOf(role);
         }
         else
         {
-            result = user.roles.indexOf(role) < 0;
+            result = -1 === user.roles.indexOf(role);
         }
 
         return result;
@@ -125,7 +125,6 @@ function _addApplication(identifier, publix) {
     };
 
     if(-1 !== index) {
-
         Team.applications[index] = application;
     }
     else 
@@ -138,7 +137,6 @@ function _updateApplication(identifier, publix) {
     var index = Team.applications.indexBy('identifier', identifier);
 
     if(-1 !== index) {
-
         Team.applications[index].public = publix;
     }
 }

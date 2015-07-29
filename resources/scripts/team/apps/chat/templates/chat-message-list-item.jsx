@@ -1,13 +1,13 @@
 'use strict';
 
 // Include requirements
-var TeamStore  = require('application/stores/team-store');
+var TeamStore  = MiitApp.require('core/stores/team-store');
 
 // Include common components
-var DateFormat = require('templates/common/date-format.jsx');
+var DateFormat = MiitApp.require('templates/date-format.jsx');
 
 // Include components
-var UserAvatar = require('templates/application/components/user/user-avatar.jsx');
+var UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
 
 var ChatMessageListItem = React.createClass({
     getDefaultProps: function () {

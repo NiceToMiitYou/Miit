@@ -1,12 +1,14 @@
 'use strict';
 
+// Include core requirements
+var SubscriptionsActions = MiitApp.require('core/actions/subscriptions-actions');
+
 // Include requirements
-var ChatStore            = require('application/stores/chat-store'),
-    ChatActions          = require('application/actions/chat-actions'),
-    SubscriptionsActions = require('application/actions/subscriptions-actions');
+var ChatStore   = require('chat-store'),
+    ChatActions = require('chat-actions');
 
 // Include components
-var ChatMessageListItem = require('./chat-message-list-item.jsx');
+var ChatMessageListItem = require('templates/chat-message-list-item.jsx');
 
 function topPosition(domElt) {
   if (!domElt) {

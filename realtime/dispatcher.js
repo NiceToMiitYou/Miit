@@ -144,6 +144,10 @@ function Dispatcher() {
     {
         var teamId = getTeam(spark);
 
+        if(!teamId) {
+            return;
+        }
+
         TeamStore.findTeam(teamId, function(err, team) {
             // Check if the team exist
             if(err || !team) {

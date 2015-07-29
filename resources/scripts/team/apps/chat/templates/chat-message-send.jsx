@@ -1,7 +1,7 @@
 'use strict';
 
 // Include requirements
-var ChatActions = require('application/actions/chat-actions');
+var ChatActions = require('chat-actions');
 
 var ChatMessageSend = React.createClass({
     getDefaultProps: function () {
