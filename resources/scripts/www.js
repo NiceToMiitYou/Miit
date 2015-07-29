@@ -3,14 +3,18 @@
 // Include React as npm package
 global.React = require('react');
 
-// Include requierements
+// Load Analytics
 require('core/lib/google-analytics');
+
+// Include requierements
+var Bubbles = require('core/lib/bubbles');
 
 // Include components
 var CreateTeam = require('templates/create-team.jsx'),
     NewsLetter = require('templates/news-letter.jsx');
 
 global.onload = function() {
+    Bubbles('canvas');
 
     //React.render(<CreateTeam />, document.getElementById('create-team'));
     React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
