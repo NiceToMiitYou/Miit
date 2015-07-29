@@ -81,7 +81,7 @@ var NewsLetter = React.createClass({
         return (
             <form className="miit-component news-letter" onSubmit={this.handleSubmit}>
                 <If test={!done}>
-                    <div className="row pt30 pb20">
+                    <div className="row pt30">
                         <div className="col-md-8 mb10">
                             <div className={classes_email + " input-field left-icon icon-transparent push0 pt5 pb5" }>
                                 <i className="fa fa-envelope-o pt5 pl5 pb5"></i>
