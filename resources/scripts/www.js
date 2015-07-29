@@ -3,11 +3,15 @@
 // Include React as npm package
 global.React = require('react');
 
+// Include requierements
+require('core/lib/google-analytics');
+
 // Include components
 var CreateTeam = require('templates/create-team.jsx'),
     NewsLetter = require('templates/news-letter.jsx');
 
-global.onload = function(){
+global.onload = function() {
+
     //React.render(<CreateTeam />, document.getElementById('create-team'));
     React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
 
