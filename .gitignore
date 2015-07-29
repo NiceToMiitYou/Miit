@@ -35,4 +35,4 @@ public/dist/fonts
 public/dist/js
 
 # Ignore core-require
-resources/scripts/core/core-require.js
+resources/scripts/team/core-require.js
