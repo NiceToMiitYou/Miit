@@ -13,7 +13,7 @@ html, body {
   overflow: auto;
   height: 100%;
 
-  .user-list {
+  & > .user-list {
   	margin-right: 250px;
   }
 
@@ -218,8 +218,53 @@ a {
     	background-color: rgb(230,113,132);
     }
 }
+.chat-app {
 
-.chat-message-list {
-	overflow-y: scroll;
-	height: calc(100% - 185px);
+	h1 {
+
+	}
+
+	.chat-room-list {
+		display: block;
+		margin: 0 -25px;
+		height: 50px;
+		background-color: #EFEFEF;
+		margin-bottom: 20px;
+		line-height: 50px;
+
+		.chat-room-list-item {
+			padding: 0 25px;
+			float: left;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #FAFAFA;
+			}
+
+			span {
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.chat-message-list {
+		overflow-y: scroll;
+		height: calc(100% - 165px);
+
+		.chat-message-list-item {
+			margin-top: 15px;
+		}
+	}
+
+	.chat-message-send {
+		 input {
+		 	padding-right: 80px;
+		 }
+
+		 button {
+		 	    padding-top: 10px;
+		 	    padding-bottom: 10px;
+		 	    margin-top: -39px;
+		 }
+	}
 }

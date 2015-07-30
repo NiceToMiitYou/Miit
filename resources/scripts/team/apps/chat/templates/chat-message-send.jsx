@@ -50,7 +50,7 @@ var ChatMessageSend = React.createClass({
         return (
             <form className="miit-component chat-message-send" onSubmit={this.handleSubmit}>
                 <input type="text" value={message} placeholder={this.props.placeholder.message} onChange={this.handleChange} />
-                <button type="submit" className="btn btn-warning">{this.props.submit}</button>
+                <button type="submit" className="btn btn-info pull-right"><i className="fa fa-arrow-circle-o-right"></i></button>
             </form>
         );
     }

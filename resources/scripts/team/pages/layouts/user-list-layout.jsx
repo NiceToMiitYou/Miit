@@ -22,7 +22,7 @@ var DefaultLayout = React.createClass({
                     <a href="#" className="minimize-menu">
                         <i className="fa fa-bars"></i>
                     </a>
-                    <h1 className="mt10 mb20">{this.props.title}</h1>
+                    <h1>{this.props.title}</h1>
                     <Clock />
                 </div>
 
