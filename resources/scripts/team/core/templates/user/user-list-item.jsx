@@ -55,7 +55,7 @@ var UserListItem = React.createClass({
                 <span className="pl10">{name}</span>
 
                 <If test={this.props.status}>
-                    <span className={classes}><i className="icon-logo-miit"></i></span>
+                    <span className={classes}><i className="fa fa-circle"></i></span>
                 </If>
                 
                 <If test={this.props.email && UserStore.isUser()}>

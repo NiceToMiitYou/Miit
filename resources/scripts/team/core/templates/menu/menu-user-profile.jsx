@@ -43,7 +43,7 @@ var MenuUserProfile = React.createClass({
                     <UserAvatar user={user} />
                 </div>
                 <span className="username">{name}</span>
-                <span><i className="fa fa-circle-thin stat-open mr5"></i> {this.props.text.connected}</span>
+                <span><i className="fa fa-circle stat-open mr5"></i> {this.props.text.connected}</span>
             </span>
         );
     }
