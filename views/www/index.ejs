@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="minimum-width=460, user-scalable=no">
     
-    <meta name="description" content="Miit est une application web collaborative qui va révolutionner votre manière de travailler">
+    <meta name="description" content="Miit est une application web de travail collaboratif qui va révolutionner votre manière de communiquer">
     <meta name="keywords" content="Miit,WebApplication,Collaboration,Chat,Questionnaire,Partager">
     <meta name="author" content="ITEvents">
     <meta name="language" content="fr-FR">
@@ -116,10 +116,10 @@
 
                 <div class="container pt50 pb50">
                     <h2>Plusieurs applications déjà disponibles</h2>
-                    <p class="mt20 text-100">Miit a choisi de séparer chacune de ses fonctionnalités en <b>Applications</b> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement comme vous le souhaitez.</p>
+                    <p id="apps-desc" class="mt20 text-100">Miit a choisi de séparer chacune de ses fonctionnalités en <b>Applications</b> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement comme vous le souhaitez.</p>
 
                     <div class="apps row mt30">
-                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6" id="app1">
                             <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-comments-o"></i>
                             <div class="odd">
@@ -128,7 +128,7 @@
                             </div>
                         </div>
 
-                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6" id="app2">
                             <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-check-square-o"></i>
                             <div>
@@ -137,7 +137,7 @@
                             </div>
                         </div>
 
-                        <div class="app done col-md-2 col-sm-4 col-xs-6">
+                        <div class="app done col-md-2 col-sm-4 col-xs-6" id="app3">
                             <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
                             <i class="fa fa-folder-open-o"></i>
                             <div class="odd">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
 
-                        <div class="app  col-md-2 col-sm-4 col-xs-6">
+                        <div class="app  col-md-2 col-sm-4 col-xs-6" id="app4">
                             <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-question-circle"></i>
                             <div> 
@@ -155,7 +155,7 @@
                             </div>
                         </div>
 
-                        <div class="app col-md-2 col-sm-4 col-xs-6">
+                        <div class="app col-md-2 col-sm-4 col-xs-6" id="app5">
                             <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-tasks"></i>
                             <div class="odd">To-do list
@@ -163,7 +163,7 @@
                             </div>
                         </div>
 
-                        <div class="app col-md-2 col-sm-4 col-xs-6">
+                        <div class="app col-md-2 col-sm-4 col-xs-6" id="app6">
                             <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
                             <i class="fa fa-calendar"></i>
                             <div>
@@ -186,7 +186,7 @@
                             <div>
                                 <div class="case-header">
                                     <img src="/img/face1.png" class="pull-left mr20"> 
-                                    <span><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
+                                    <span onclick="openApp(1, 2, 4)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
                                 </div>
                                 <h3>Vous organisez des conférences ?</h3>
                                 <p class="mt10 text-100 desc">Améliorez l'interactivité de vos présentations en reuceuillant les questions de votre public sans perturber votre conférence et repondez y le moment venu sans même avoir à faire passer un micro. Vous pouvez egalement inverser les rôles en sondant votre publique pour adapter le mieux possible votre discours à votre audiance.</p>
@@ -197,7 +197,7 @@
                             <div>
                                 <div class="case-header">
                                     <img src="/img/face2.png" class="pull-left mr20"> 
-                                    <span class="odd"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
+                                    <span class="odd" onclick="openApp(1, 2, 3, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
                                 </div>
                                 <h3>Vous faites beaucoup de réunions ?</h3>
                                 <p class="mt10 text-100 desc">Il n'est pas toujours simple de donner la parole à tout le monde pendant vos réunions ou d'arriver à definir des solutions claires à la fin. Miit va permettre à tout le monde de donnez son avis, de votez pour des solutions precises et d'avoir accès aux documents que vous souhaitez partager. Une fois terminer garder une image claire de votre reunion pour y revenir quand vous le souhaitez.</p>
@@ -208,10 +208,10 @@
                             <div>
                                 <div class="case-header">
                                     <img src="/img/face3.png" class="pull-left mr20"> 
-                                    <span><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
+                                    <span onclick="openApp(1, 3, 5, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
                                 </div>
                                 <h3>Vous gerez des projets toujours plus compliqué ?</h3>
-                                <p class="mt10 text-100 desc">Suivez l'evolution de vos differents projets ainsi que l'avancement de vos equipes</p>
+                                <p class="mt10 text-100 desc">Suivez l'evolution de vos differents projets ainsi que l'avancement de vos equipes tâche apres tâche. Organnisez et partagez vos calendriers avec qui vous le souhaitez en controlant les droits d'accès et de modifications de chacun en quelques cliques.</p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                             <div>
                                 <div class="case-header">
                                     <img src="/img/face4.png" class="pull-left mr20"> 
-                                    <span class="odd"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
+                                    <span class="odd" onclick="openApp(1, 2, 3, 4, 5, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'interesse</p></span>
                                 </div>
                                 <h3>Vous avez d'autres besoins ?</h3>
                                 <p class="mt10 text-100 desc">La force de Miit reside dans son pouvoir de personnalisation. Vous pouvez composer votre espaces en fonction de vos besoins du moment et enregistrer votre modele pour le réutiliser plus tard.</p>
