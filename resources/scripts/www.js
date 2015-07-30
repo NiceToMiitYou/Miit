@@ -7,9 +7,7 @@ global.React = require('react');
 require('core/lib/google-analytics');
 
 // Load the handler of fixed menu
-require('core/lib/fixed-menu');
-
-require('core/lib/fixed-menu');
+require('core/lib/core');
 
 // Include requierements
 var Bubbles = require('core/lib/bubbles');
