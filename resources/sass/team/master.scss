@@ -233,7 +233,7 @@ a {
 		margin: 0 -25px;
 		height: 50px;
 		background-color: #EFEFEF;
-		margin-bottom: 20px;
+		margin-bottom: 25px;
 		line-height: 50px;
 
 		.chat-room-list-item {
@@ -256,7 +256,34 @@ a {
 		height: calc(100% - 165px);
 
 		.chat-message-list-item {
-			margin-top: 15px;
+			margin-top: 25px;
+
+			.user-info {
+				line-height: 1.4em;
+				.username {
+					line-height: 1em;
+					margin-right: 10px;
+    				color: #2980B9;
+    				font-weight: bold;
+				}
+				.date-format {
+					font-size: .8em;
+					color: #444;
+					line-height: 1em;
+				}
+			}
+
+			.message-content {
+				margin-left: 52px;
+				line-height: 1.5em;
+				font-size: .92em;
+				margin-top: 5px;
+			}
+
+			.user-avatar {
+				float: left;
+				margin-right: 10px;
+			}
 		}
 	}
 

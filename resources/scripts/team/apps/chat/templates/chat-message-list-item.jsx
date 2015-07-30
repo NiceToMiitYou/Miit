@@ -1,6 +1,8 @@
 'use strict';
 
 // Include requirements
+// var UserStore       = require('core/stores/user-store'),
+
 var TeamStore  = MiitApp.require('core/stores/team-store');
 
 // Include common components
@@ -26,8 +28,12 @@ var ChatMessageListItem = React.createClass({
         return (
             <div className="miit-component chat-message-list-item">
                 <UserAvatar user={user} height="42"/>
-                <DateFormat date={createdAt} from={true} />
-                {text}
+                <div className="user-info">
+                    <span className="username">{user.name}</span>
+                    <DateFormat date={createdAt} from={true} />
+                </div>
+                <div className="message-content">{text}</div>
+                <div className="clearfix"></div>
             </div>
         );
     }
