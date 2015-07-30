@@ -98,21 +98,21 @@ var CreateTeam = React.createClass({
                 
                 <div className="row pt20 pb20">
                     <div className="col-md-6 mb10">
-                        <div className="input-field left-icon icon-transparent push0">
-                            <i className="fa fa-envelope-o"></i>
+                        <div className="input-field left-icon icon-transparent pt5 pb5 push0">
+                            <i className="fa fa-envelope-o pt5 pb5"></i>
                             <input type="text" className={classes_email} placeholder={this.props.placeholder.email} ref="email" />
                         </div>
                     </div>
 
                     <div className="col-md-6">
-                        <div className="input-field left-icon icon-transparent col5">
-                            <i className="fa fa-users"></i>
+                        <div className="input-field left-icon icon-transparent pt5 pb5 col5">
+                            <i className="fa fa-users pt5 pb5"></i>
                             <input type="text" className={classes_team}  placeholder={this.props.placeholder.team}  ref="team" />
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-dark mt5">{this.props.submit}</button>
+                <button type="submit" className="btn btn-info pl20 pr20 pt15 pb15">{this.props.submit}</button>
                 
             </form>
         );
