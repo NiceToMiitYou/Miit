@@ -59,13 +59,11 @@ var TeamApp = React.createClass({
 
     render: function() {
         return (
-            <div className="bg-grey lighten-5">
-                <div className="page bg-grey lighten-5">
-                    <MenuTeam />
+            <div className="page bg-grey lighten-5">
+                <MenuTeam />
 
-                    <div className="main">
-                        {this.state.page}
-                    </div>
+                <div className="main container-fluid">
+                    {this.state.page}
                 </div>
             
                 <ModalContainer />

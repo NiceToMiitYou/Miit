@@ -90,17 +90,6 @@ a {
     padding: 0 30px;
 }
 
-#content {
-  height: 100%;
-  overflow: hidden;
-}
-
-
-.main {
-  overflow: auto;
-  height: 100%;
-}
-
 .page {
 
     height: 100%;
@@ -1365,6 +1354,14 @@ click-wave { 0% {
   .loading {
     margin: auto;
   }
+}
+
+.fullwidth {
+  width: 100%
+}
+
+.fullheight {
+  height: 100%;
 }
 
 .hide {

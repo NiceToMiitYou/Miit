@@ -3,6 +3,22 @@ html, body {
 	height: 100%;
 }
 
+#content {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.main {
+  overflow: auto;
+  height: 100%;
+
+  .user-list {
+  	margin-right: 250px;
+  }
+
+}
+
 .bg-cover-img {
 	position: fixed;
 	z-index: -1;
@@ -205,5 +221,5 @@ a {
 
 .chat-message-list {
 	overflow-y: scroll;
-	height: 400px;
+	height: calc(100% - 185px);
 }
