@@ -18,6 +18,7 @@ var ChatRoomListItem = React.createClass({
                 id:   '',
                 name: ''
             },
+            active: false,
             onChange: function() {},
             text: {
                 remove: 'Supprimer'
@@ -57,8 +58,10 @@ var ChatRoomListItem = React.createClass({
         var isAdmin  = UserStore.isAdmin();
         var unread   = SubscriptionsStore.getUnreadBySender(chatroom.id);
 
+        var classes  = classNames('miit-component chat-room-list-item', (true === this.props.active) ? 'active' : ''); 
+
         return (
-            <span className="miit-component chat-room-list-item">
+            <span className={classes}>
                 <span onClick={this.onChange}>{chatroom.name}</span>
                 <If test={unread > 0}>
                     <span className="notification">{unread}</span>

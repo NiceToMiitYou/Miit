@@ -20,6 +20,7 @@ var ChatRoomList = React.createClass({
         return {
             inChatroom: function() { return true; },
             onChange:   function() {},
+            current:    {},
             text: {
                 create: "Créer une salle"
             }
@@ -56,10 +57,12 @@ var ChatRoomList = React.createClass({
         return (
             <span className="miit-component chat-room-list">
                 {chatrooms.map(function(chatroom) {
+                    var isCurrent = chatroom.id === this.props.current.id;
+
                     return (
-                        <ChatRoomListItem key={chatroom.id} chatroom={chatroom} onChange={onChange} />
+                        <ChatRoomListItem key={chatroom.id} chatroom={chatroom} active={isCurrent} onChange={onChange} />
                     );
-                })}
+                }.bind(this))}
 
                 <If test={isAdmin}>
                     <Dropdown label={this.props.text.create}>
