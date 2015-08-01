@@ -6,8 +6,9 @@ global.React = require('react');
 // Load Analytics
 require('core/lib/google-analytics');
 
-// Load the handler of fixed menu
-require('core/lib/core');
+// Load the handler of fixed menu and open-app
+require('core/lib/fixed-menu');
+require('core/lib/open-app');
 
 // Include requierements
 var Bubbles = require('core/lib/bubbles');
@@ -19,8 +20,8 @@ var CreateTeam = require('templates/create-team.jsx'),
 global.onload = function() {
     Bubbles('canvas');
 
-    React.render(<CreateTeam />, document.getElementById('create-team'));
-    // React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
+    //React.render(<CreateTeam />, document.getElementById('create-team'));
+    React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
 
     // Keep contact field
     React.render(<NewsLetter variant={true} />, document.getElementById('keep-contact'));
