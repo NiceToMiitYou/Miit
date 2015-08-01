@@ -10,7 +10,7 @@ var If = require('templates/if.jsx');
 
 var Translations = {
     APP_CHAT:      'Chat',
-    APP_QUIZZ:     'Quizz',
+    APP_QUIZ:      'Quiz',
     APP_DOCUMENTS: 'Documents',
 };
 
