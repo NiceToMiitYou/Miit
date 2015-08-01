@@ -104,7 +104,7 @@ module.exports = function UserManager() {
                     name:  user.name
                 });
 
-                primus.in(team._id).write({
+                primus.in(team.id).write({
                     event: 'team:user:update',
                     id:    session.id,
                     name:  user.name

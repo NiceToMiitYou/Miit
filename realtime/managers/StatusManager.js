@@ -11,7 +11,7 @@ module.exports = function StatusManager() {
     function onStatusChanged(team) {
         return function(err, status, changed) {
             if(changed) {
-                primus.in(team._id).write({
+                primus.in(team.id).write({
                     event:  'status:user',
                     status: status
                 });

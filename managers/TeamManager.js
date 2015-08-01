@@ -33,7 +33,7 @@ var manager = miitoo.resolve(
                     identifier: 'APP_CHAT'
                 },
                 {
-                    identifier: 'APP_QUIZZ'
+                    identifier: 'APP_QUIZ'
                 },
                 {
                     identifier: 'APP_DOCUMENTS'

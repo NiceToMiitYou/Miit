@@ -6,8 +6,8 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
     // The schema of the Chatroom
     var schema = new mongoose.Schema({
-        teamId: String,
-        name:   String,
+        team: String,
+        name: String,
         public: {
             type:    Boolean,
             default: true

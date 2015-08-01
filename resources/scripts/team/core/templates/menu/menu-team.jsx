@@ -43,7 +43,7 @@ var MenuTeam = React.createClass({
                         
                     <ul className="sl-list">
                         <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat"      activeName="chat" />
-                        <MenuTeamItem application="APP_QUIZZ"     label="Quizz"     link="#/quizz"     activeName="quizz" />
+                        <MenuTeamItem application="APP_QUIZ"      label="Quiz"      link="#/quiz"      activeName="quiz" />
                         <MenuTeamItem application="APP_DOCUMENTS" label="Documents" link="#/documents" activeName="documents" />
                         <If test={UserStore.isAdmin()}>
                             <li>
@@ -53,7 +53,6 @@ var MenuTeam = React.createClass({
                             </li>
                         </If>
                     </ul>
-
 
                     <MenuLabel label={this.props.text.user_label} />
                     <MenuUserProfile />

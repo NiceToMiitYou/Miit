@@ -13,8 +13,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             var teamId = getId(team);
 
             var chatroom = new Chatroom({
-                name:   name,
-                teamId: teamId
+                name: name,
+                team: teamId
             });
 
             chatroom.save(function(err) {
@@ -33,8 +33,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             var teamId     = getId(team);
 
             Chatroom.remove({
-                _id:    chatroomId,
-                teamId: teamId
+                _id:  chatroomId,
+                team: teamId
             }, function(err) {
                 if(err) {
                     miitoo.logger.debug(err);
@@ -52,8 +52,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             var userId     = getId(user);
 
             var condition = {
-                _id:    chatroomId,
-                teamId: teamId
+                _id:  chatroomId,
+                team: teamId
             };
 
             var message = {
@@ -92,7 +92,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
 
             Chatroom
                 .find({
-                    teamId: teamId
+                    team: teamId
                 }, {
                     messages:      false
                 })
