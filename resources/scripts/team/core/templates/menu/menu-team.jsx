@@ -3,6 +3,7 @@
 // Include requirements
 var UserStore   = require('core/stores/user-store'),
     UserActions = require('core/actions/user-actions'),
+    UserList    = require('core/templates/user/user-list.jsx'),
     TeamStore   = require('core/stores/team-store');
 
 // Include common
@@ -34,33 +35,6 @@ var MenuTeam = React.createClass({
             <div className="sidr-left bg-blue-grey">
                 <div className="sl-wrapper">
                     <MenuHeader />
-                    
-                    <MenuLabel label={this.props.text.user_label} />
-                    <MenuUserProfile />
-
-                    <ul className="sl-list mb10">
-                        <If test={!UserStore.isAnonym()}>
-                            <li>
-                                <Link href="#/me" activeGroup="menu-team" activeName="me">
-                                    <i className="fa fa-cogs pull-left"></i> {this.props.text.my_account}
-                                </Link>
-                            </li>
-                        </If>
-                        <If test={!UserStore.isAnonym()}>
-                            <li>
-                                <Link href="#/logout" onLinkClick={UserActions.logout}>
-                                    <i className="fa fa-sign-out pull-left"></i> {this.props.text.disconnect}
-                                </Link>
-                            </li>
-                        </If>
-                        <If test={UserStore.isAnonym()}>
-                            <li>
-                                <Link href="#/login">
-                                    <i className="fa fa-sign-in pull-left"></i> {this.props.text.connect}
-                                </Link>
-                            </li>
-                        </If>
-                    </ul>
 
                     <If test={TeamStore.hasApplications() || UserStore.isAdmin()}>
                         <MenuLabel label={this.props.text.apps_label} />
@@ -78,6 +52,12 @@ var MenuTeam = React.createClass({
                             </li>
                         </If>
                     </ul>
+
+
+                    <MenuLabel label={this.props.text.user_label} />
+                    <MenuUserProfile />
+                    
+                    <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} />
 
                 </div>
             </div>

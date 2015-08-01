@@ -136,10 +136,11 @@ a {
 
 	.user-list-item {
 
-		border-top: 1px solid #E8E8E8;
+		border-top: 1px solid #1A2631;
 		display: table;
-		padding: 7px 0;
+		padding: 7px 12px;
 		width: 100%;
+		color: #FFF;
 
 		& > span {
 			display: table-cell;

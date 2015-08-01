@@ -565,39 +565,39 @@ a {
     font-size: 13px;
   }
 
-  .user-list {
+}
 
-    .user-list-item {
-      padding: 8px 10px;
-      border-top: 0;
-      cursor: pointer;
-      font-size: 14px;
+.user-list {
 
-      &:hover {
-        background:#FFF;
-      }
+  .user-list-item {
+    padding: 8px 10px;
+    border-top: 0;
+    cursor: pointer;
+    font-size: 14px;
 
-      .user-avatar  {
-        min-width: initial;
+    &:hover {
+      background:#2B3C4C;
+    }
 
-        img {
-          width: 30px;
-        }
-      }
+    .user-avatar  {
+      min-width: initial;
 
-      span.status {
-        width: 32px;
-        float: right;
-        font-size: 1.3em;
-        &.online {
-          color:#4caf50;
-        }
-        &.offline {
-          color :#f44336;
-        }
+      img {
+        width: 30px;
       }
     }
 
+    span.status {
+      width: 32px;
+      float: right;
+      font-size: 1.3em;
+      &.online {
+        color:#4caf50;
+      }
+      &.offline {
+        color :#f44336;
+      }
+    }
   }
 
 }

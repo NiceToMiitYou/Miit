@@ -5,7 +5,7 @@ var PageStore = MiitApp.require('core/stores/page-store'),
     TeamStore = MiitApp.require('core/stores/team-store');
 
 // Include Layout
-var Layout = MiitApp.require('pages/layouts/user-list-layout.jsx');
+var Layout = MiitApp.require('pages/layouts/default-layout.jsx');
 
 // Include core components
 var Login = MiitApp.require('pages/login.jsx');
