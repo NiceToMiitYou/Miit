@@ -39,10 +39,12 @@ module.exports = function LoginManager() {
         });
     }
 
-    function refreshRooms(spark, team, user, anonym) {
+    function refreshRooms(spark, team, user) {
         if(!spark) {
             return;
         }
+
+        var anonym = -1 !== user.roles.indexOf('ANONYM');
 
         // Remove from rooms
         spark.leaveAll(function() {
@@ -70,7 +72,14 @@ module.exports = function LoginManager() {
                         spark.join(team.id + ':' + app.identifier);
                     }
                 });
+
+                // Join rooms of roles
+                user.roles.forEach(function(role) {
+                    spark.join(team.id + ':' + role);
+                });
             }
+
+            spark.join(team.id + ':PUBLIC');
         });
     }
 
@@ -93,7 +102,7 @@ module.exports = function LoginManager() {
         var apps = team.applications || [];
 
         // Subscribes to rooms
-        refreshRooms(spark, team, user, false);
+        refreshRooms(spark, team, user);
 
         spark.write({
             event: event,
@@ -190,7 +199,7 @@ module.exports = function LoginManager() {
         spark.request.roles = session.roles;
     
         // Subscribes to rooms
-        refreshRooms(spark, team, session, true);
+        refreshRooms(spark, team, session);
 
         // Send it to the user
         spark.write({
@@ -229,11 +238,9 @@ module.exports = function LoginManager() {
         }
     });
 
-    Dispatcher.register('login:rooms', 'ANONYM', function onRefreshRooms(spark, data, team, user, roles) {
-
-        var anonym = -1 !== roles.indexOf('ANONYM');
+    Dispatcher.register('login:rooms', 'USER', function onRefreshRooms(spark, data, team, user) {
 
         // Subscribes to rooms
-        refreshRooms(spark, team, user, anonym);
+        refreshRooms(spark, team, user);
     });
 };
