@@ -57,7 +57,7 @@ var MenuTeam = React.createClass({
                     <MenuLabel label={this.props.text.user_label} />
                     <MenuUserProfile />
                     
-                    <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} />
+                    <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
 
                 </div>
             </div>

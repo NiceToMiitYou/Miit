@@ -44,14 +44,11 @@ var TeamApp = React.createClass({
         if(this.isMounted()) {
             var page = PageStore.getCurrentMainPage();
 
-            console.log('load', page);
-
             if(!page)
             {
                 this.setState({
                     page: PageStore.getNotFoundPage() || null
                 });
-                console.log('load', 404);
             }
             else
             {

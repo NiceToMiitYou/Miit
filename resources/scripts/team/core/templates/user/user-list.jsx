@@ -3,6 +3,7 @@
 // Include requirements
 var UserStatusStore   = require('core/stores/user-status-store'),
     UserStatusActions = require('core/actions/user-status-actions'),
+    UserStore         = require('core/stores/user-store'),
     TeamStore         = require('core/stores/team-store'),
     TeamActions       = require('core/actions/team-actions');
 
@@ -25,7 +26,8 @@ var UserList = React.createClass({
             roles:    true,
             emails:   true,
             filtered: true,
-            status:   false
+            status:   false,
+            me:       true
         };
     },
 
@@ -38,6 +40,10 @@ var UserList = React.createClass({
 
     componentWillMount: function() {
         var list = UserStatusStore.getUsers(this.props.filtered);
+
+        if(false === this.props.me) {
+            list.removeBy('id', UserStore.getUser().id);
+        }
 
         this.setState({
             users: list.sortBy('name')
@@ -55,6 +61,8 @@ var UserList = React.createClass({
         TeamStore.addRemovedListener(this._refresh);
         // Refresh
         TeamStore.addRefreshedListener(this._refresh);
+        // LoggedIn
+        UserStore.addLoggedInListener(this._refresh);
         // Status Changed
         UserStatusStore.addStatusChangedListener(this._refresh);
         // Refresh the list
@@ -72,6 +80,8 @@ var UserList = React.createClass({
         TeamStore.removeRemovedListener(this._refresh);
         // Refresh
         TeamStore.removeRefreshedListener(this._refresh);
+        // LoggedIn
+        UserStore.removeLoggedInListener(this._refresh);
         // Status Changed
         UserStatusStore.removeStatusChangedListener(this._refresh);
     },
@@ -80,6 +90,10 @@ var UserList = React.createClass({
         if(this.isMounted()) {
             var list = UserStatusStore.getUsers(this.props.filtered);
             
+            if(false === this.props.me) {
+                list.removeBy('id', UserStore.getUser().id);
+            }
+
             this.setState({
                 users:  list.sortBy('name'),
                 loaded: true
