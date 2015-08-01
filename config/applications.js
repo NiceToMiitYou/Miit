@@ -20,10 +20,10 @@ config['APP_CHAT'] = {
     icon: 'weixin'
 };
 
-// Definition of the Quizz
-config['APP_QUIZZ'] = {
+// Definition of the Quiz
+config['APP_QUIZ'] = {
     // The identifier of the app
-    identifier: 'APP_QUIZZ',
+    identifier: 'APP_QUIZ',
     
     // Pricing applied for User
     userPricing: 0.1,

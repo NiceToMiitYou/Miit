@@ -62,6 +62,8 @@ Realtime.on('team:update', function(data) {
         public: data.public
     };
 
+    Realtime.send('login:rooms');
+
     Dispatcher.dispatch(action);
 });
 
@@ -72,6 +74,8 @@ Realtime.on('team:application:add', function(data) {
         identifier: data.identifier,
         public:     data.public
     };
+
+    Realtime.send('login:rooms');
 
     Dispatcher.dispatch(action);
 });
@@ -84,6 +88,8 @@ Realtime.on('team:application:update', function(data) {
         public:     data.public
     };
 
+    Realtime.send('login:rooms');
+
     Dispatcher.dispatch(action);
 });
 
@@ -93,6 +99,8 @@ Realtime.on('team:application:remove', function(data) {
         type:       ActionTypes.REMOVE_APPLICATION,
         identifier: data.identifier
     };
+
+    Realtime.send('login:rooms');
 
     Dispatcher.dispatch(action);
 });

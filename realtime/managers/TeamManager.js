@@ -47,7 +47,7 @@ module.exports = function TeamManager() {
 
         TeamStore.updateTeam(team, name, publix, function(err) {
 
-            primus.in(team._id).write({
+            primus.in(team.id).write({
                 event:  'team:update',
                 name:   name,
                 public: publix
@@ -66,7 +66,7 @@ module.exports = function TeamManager() {
 
         TeamStore.addApplication(team, identifier, publix, function(err) {
 
-            primus.in(team._id).write({
+            primus.in(team.id).write({
                 event:      'team:application:add',
                 identifier: identifier,
                 public:     publix
@@ -85,7 +85,7 @@ module.exports = function TeamManager() {
 
         TeamStore.updateApplication(team, identifier, publix, function(err) {
             
-            primus.in(team._id).write({
+            primus.in(team.id).write({
                 event:      'team:application:update',
                 identifier: identifier,
                 public:     publix
@@ -103,7 +103,7 @@ module.exports = function TeamManager() {
 
         TeamStore.removeApplication(team, identifier, function(err) {
             
-            primus.in(team._id).write({
+            primus.in(team.id).write({
                 event:      'team:application:remove',
                 identifier: identifier
             });

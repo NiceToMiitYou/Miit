@@ -16,7 +16,7 @@ module.exports = function ChatApp() {
     function sendRooms(team) {
         // Send the list of chatrooms
         ChatroomStore.getChatrooms(team, function(err, chatrooms) {
-            var room = team._id + ':' + app.identifier();
+            var room = team.id + ':' + app.identifier();
 
             // Send the informations to the whole app user
             primus.in(room).write({
@@ -64,7 +64,7 @@ module.exports = function ChatApp() {
         ChatroomStore.send(team, user, chatroom, text, function(err, message) {
             var identifier = app.identifier();
 
-            var room = team._id + ':' + identifier;
+            var room = team.id + ':' + identifier;
 
             primus.in(room).write({
                 event:    'chat:message',

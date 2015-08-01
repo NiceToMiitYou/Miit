@@ -6,23 +6,21 @@ var TeamStore = miitoo.injector.get('TeamStore');
 
 // Getter for user
 function getUser(spark) {
-    return (spark.request || {}).user || {};
+    return (spark.request || {}).user || false;
 }
 
 // Getter for team
 function getTeam(spark) {
-    return (spark.request || {}).team || {};
+    return (spark.request || {}).team || false;
 }
 
 // Getter for user roles
 function getRoles(spark) {
-    return (spark.request || {}).roles || [];
+    return (spark.request || {}).roles || ['ANONYM'];
 }
 
 // Getter for team
-function isRoleAllowed(spark, team, user, role) {
-    var userRoles = getRoles(spark);
-
+function isRoleAllowed(team, user, role, userRoles) {
     if('PUBLIC' === role) {
         return true;
     }
@@ -40,12 +38,10 @@ function isRoleAllowed(spark, team, user, role) {
 }
 
 // Getter for team
-function isApplicationAllowed(spark, team, application) {
+function isApplicationAllowed(team, application, userRoles) {
     if(!application) {
         return true;
     }
-
-    var userRoles = getRoles(spark);
 
     // The list of applications
     var applications = team.applications || [];
@@ -99,13 +95,13 @@ function Dispatcher() {
     }
 
     // Check if allowed
-    function isAllowed(spark, event, team, user) {
+    function isAllowed(event, team, user, userRoles) {
         // Retrieve informations
         var role        = getRoleForEvent(event);
         var application = getApplicationForEvent(event);
 
-        var allowed = isApplicationAllowed(spark, team, application) &&
-                      isRoleAllowed(spark, team, user, role);
+        var allowed = isApplicationAllowed(team, application, userRoles) &&
+                      isRoleAllowed(team, user, role, userRoles);
 
         if(false === allowed) {
             miitoo.logger.debug('The user has been blocked. Needed role:', role, ' - Application:', application,' - Action:', event);
@@ -154,10 +150,11 @@ function Dispatcher() {
                 return;
             }
 
-            var user   = getUser(spark);
+            var user  = getUser(spark),
+                roles = getRoles(spark);
 
             // Check if he has the rigth access
-            if(false === isAllowed(spark, event, team, user)) {
+            if(false === isAllowed(event, team, user, roles)) {
 
                 // Replay it later
                 if(!replayed) {
@@ -170,7 +167,7 @@ function Dispatcher() {
                 return;
             }
 
-            this.emit(event, spark, data, team, user);
+            this.emit(event, spark, data, team, user, roles);
         }.bind(this));
     };
 }

@@ -39,6 +39,41 @@ module.exports = function LoginManager() {
         });
     }
 
+    function refreshRooms(spark, team, user, anonym) {
+        if(!spark) {
+            return;
+        }
+
+        // Remove from rooms
+        spark.leaveAll(function() {
+
+            // Subscribes to rooms
+            if(
+                false === anonym ||
+                true  === team.public
+            ) {
+                // Get apps
+                var apps = team.applications || [];
+
+                // Add the user in the team channel and is own channel
+                spark.join(team.id);
+                spark.join(team.id + ':' + user.id);
+
+                // Join rooms of apps
+                apps.forEach(function(app) {
+
+                    if(
+                        false === anonym ||
+                        true  === app.public
+                    ) {
+                        // Join the app room
+                        spark.join(team.id + ':' + app.identifier);
+                    }
+                });
+            }
+        });
+    }
+
     // Function if this is the rigth login
     function rigthLogin(spark, event, team, user, email) {
         // Dispatch a disconnection event
@@ -57,15 +92,8 @@ module.exports = function LoginManager() {
         // Get apps
         var apps = team.applications || [];
 
-        // Add the user in the team channel and is own channel
-        spark.join(team.id);
-        spark.join(team.id + ':' + user.id);
-
-        // Join rooms of apps
-        apps.forEach(function(app) {
-            // Join the app room
-            spark.join(team.id + ':' + app.identifier);
-        });
+        // Subscribes to rooms
+        refreshRooms(spark, team, user, false);
 
         spark.write({
             event: event,
@@ -162,23 +190,7 @@ module.exports = function LoginManager() {
         spark.request.roles = session.roles;
     
         // Subscribes to rooms
-        if(true === team.public) {
-            // Get apps
-            var apps = team.applications || [];
-
-            // Add the user in the team channel and is own channel
-            spark.join(team.id);
-            spark.join(team.id + ':' + id);
-
-            // Join rooms of apps
-            apps.forEach(function(app) {
-
-                if(true === app.public) {
-                    // Join the app room
-                    spark.join(team.id + ':' + app.identifier);
-                }
-            });
-        }
+        refreshRooms(spark, team, session, true);
 
         // Send it to the user
         spark.write({
@@ -191,7 +203,7 @@ module.exports = function LoginManager() {
         Dispatcher.dispatch(spark, 'incoming::ping', {}, true);
     }
 
-    Dispatcher.register('login:anonym', 'ANONYM', function onTokenUser(spark, data, team) {
+    Dispatcher.register('login:anonym', 'ANONYM', function onTokenAnonym(spark, data, team) {
         
         // if there is no token
         if(!data.token || data.token == "null") {
@@ -215,5 +227,13 @@ module.exports = function LoginManager() {
                 rigthAnonymLogin(spark, payload.user, data.token, team);
             });
         }
+    });
+
+    Dispatcher.register('login:rooms', 'ANONYM', function onRefreshRooms(spark, data, team, user, roles) {
+
+        var anonym = -1 !== roles.indexOf('ANONYM');
+
+        // Subscribes to rooms
+        refreshRooms(spark, team, user, anonym);
     });
 };
