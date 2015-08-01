@@ -26,5 +26,3 @@ global.onload = function() {
     // Keep contact field
     React.render(<NewsLetter variant={true} />, document.getElementById('keep-contact'));
 };
-
-// Remove class to an element
