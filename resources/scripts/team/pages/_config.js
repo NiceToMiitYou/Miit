@@ -1,5 +1,6 @@
 'use strict';
 
 module.exports = {
-    'default': 'chat'
+    'default': 'chat',
+    '404':     'not-found'
 };

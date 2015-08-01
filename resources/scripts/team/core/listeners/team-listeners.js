@@ -17,4 +17,4 @@ function refreshApplicationsScripts() {
 TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);
 
 // Start it once
-setTimeout(refreshApplicationsScripts);
+MiitApp.onInit(refreshApplicationsScripts);

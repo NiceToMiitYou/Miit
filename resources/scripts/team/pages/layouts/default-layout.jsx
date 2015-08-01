@@ -6,7 +6,7 @@ var Clock = require('templates/clock.jsx');
 var DefaultLayout = React.createClass({
     render: function() {
         return (
-            <div>
+            <div className="fullheight">
                 <div className="page-header">
                     <a href="#" className="minimize-menu">
                         <i className="fa fa-bars"></i>

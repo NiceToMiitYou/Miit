@@ -35,4 +35,6 @@ var ChatPage = React.createClass({
 
 PageStore.registerMainPage('chat', (<ChatPage />));
 
+console.log('chat page loaded');
+
 module.exports = ChatPage;

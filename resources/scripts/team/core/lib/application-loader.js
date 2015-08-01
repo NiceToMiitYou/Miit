@@ -40,6 +40,12 @@ global.ApplicationLoader = module.exports = {
     },
 
     register: function(identifier, plugin) {
+        // If no plugin, load the identifier from the plugin
+        if(!plugin) {
+            plugin     = identifier;
+            identifier = plugin.identifier;
+        }
+
         var id = identifier.toSlug();
 
         if(
@@ -47,6 +53,8 @@ global.ApplicationLoader = module.exports = {
             typeof plugin === 'object' &&
                    plugin !== null
         ) {
+            console.log('plugin loaded', id);
+
             ApplicationsLoaded[id] = plugin;
             
             if(typeof plugin.onRegister === 'function') {
