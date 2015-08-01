@@ -62,7 +62,7 @@ var ChatRoomList = React.createClass({
                 })}
 
                 <If test={isAdmin}>
-                    <Dropdown label={this.props.text.create}>
+                    <Dropdown label={this.props.text.create} className="create-room">
                         <ChatRoomCreate />
                     </Dropdown>
                 </If>

@@ -58,8 +58,8 @@ var ChatRoomListItem = React.createClass({
         var unread   = SubscriptionsStore.getUnreadBySender(chatroom.id);
 
         return (
-            <span className="miit-component chat-room-list-item">
-                <span onClick={this.onChange}>{chatroom.name}</span>
+            <span className="miit-component chat-room-list-item" onClick={this.onChange}>
+                <span className="chatroom-name">{chatroom.name}</span>
                 <If test={unread > 0}>
                     <span className="notification">{unread}</span>
                 </If>

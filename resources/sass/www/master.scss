@@ -145,7 +145,7 @@ h3 {
 		} 
 
 		h1 {
-			font-size: 3.4em;
+			font-size: 3.2em;
 			font-weight: 100;
 		}
 
@@ -556,13 +556,21 @@ h3 {
 		}
 	}
 
+
+	.banner {
+		h1 {
+			font-size: 3em;
+			font-weight: 100;
+		}
+	}
+
 }
 
 @media screen and (max-width: 992px) {
 	.header {
 		.banner {
 			color: #FFF;
-			text-align: center;
+			text-align: left;
 			height: 70%;
 
 			img {
@@ -644,6 +652,16 @@ h3 {
 				}
 			}
 
+		}
+	}
+}
+
+
+@media screen and (max-width: 585px) {
+
+	.header {
+		.banner {
+			text-align: center;
 		}
 	}
 }
