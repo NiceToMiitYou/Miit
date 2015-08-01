@@ -25,7 +25,8 @@ var MenuTeam = React.createClass({
                 disconnect:      'Déconnexion',
                 connect:         'Connexion',
                 apps_label:      'Applications',
-                add_application: 'Ajouter une App'
+                add_application: 'Ajouter une App',
+                add_user: 'Ajouter un utilisateur'
             }
         };
     },
@@ -58,7 +59,15 @@ var MenuTeam = React.createClass({
                     <MenuUserProfile />
                     
                     <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
-
+                    <If test={UserStore.isAdmin()}>
+                        <ul className="sl-list">
+                            <li>
+                                <Link href="#/settings">
+                                    <i className="fa fa-user-plus pull-left"></i> {this.props.text.add_user}
+                                </Link>
+                            </li>
+                        </ul>
+                    </If>
                 </div>
             </div>
         );

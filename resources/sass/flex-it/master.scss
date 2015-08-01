@@ -246,6 +246,13 @@ a {
     transition: width 500ms ease;
     z-index: 9;
 
+    // .add_user {
+    //   padding: 12px;
+    //   display: block;
+    //   font-size: .9em;
+    //   color: #B0C4D2;
+    // }
+
     .sl-wrapper {
         width: 100%;
     }
@@ -1039,6 +1046,48 @@ click-wave { 0% {
 
 /* ---------------- END BUTTONS CSS ---------------- */
 
+/* ---------------- BEGIN MODAL CSS ---------------- */
+
+
+.modal-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(30, 45, 58, 0.5);
+    }
+
+    .modal-dialog {
+      position: relative;
+      top: 50%;
+      height: 50%;
+      width: 75%;
+      margin-left: 12.5%;
+      margin-top: -25%;
+      border-radius: 2px;
+      padding: 20px 25px;
+      border: 1px solid #E8E8E8;
+
+      .modal-title {
+        font-size: 1.8em;
+        margin: 10px 0 15px 0;
+        font-weight: 100;
+      }
+    }
+}
+
+
+/* ---------------- END MODAL CSS ---------------- */
+
 /* ---------------- BEGIN NOTIFICATION CSS ---------------- */
 
 .dialog-container {
@@ -1715,14 +1764,6 @@ counter-rotate { 0% {
         margin-right: 0;
         width: 50px;
         text-align: center;
-    }
-
-    .sidr-left ul.sl-list {
-        
-    }
-
-    .sidr-left ul.sl-list li {
-        
     }
 
     .sidr-left ul.sl-list li a {

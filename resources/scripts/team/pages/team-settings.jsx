@@ -40,7 +40,9 @@ var TeamSettings = React.createClass({
 
     openAppStore: function() {
         ModalActions.open('app-store', <AppStoreList />, {
-            title: 'App store'
+            title: 'App store',
+            color : "grey",
+            size : "medium"
         });
     },
 

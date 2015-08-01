@@ -68,7 +68,7 @@ var ChatRoomListItem = React.createClass({
                 </If>
                 <If test={isAdmin}>
                     <Dropdown label="">
-                        <span onClick={this.onRemove}>{this.props.text.remove}</span>
+                        <span onClick={this.onRemove}><i className="fa fa-trash pull-left"></i> {this.props.text.remove}</span>
                     </Dropdown>
                 </If>
             </span>

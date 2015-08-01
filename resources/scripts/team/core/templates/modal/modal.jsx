@@ -11,7 +11,9 @@ var Modal = React.createClass({
         return {
             name:   'Modal',
             element: null,
-            options: {}
+            options: {
+
+            }
         };
     },
 
@@ -28,12 +30,28 @@ var Modal = React.createClass({
         var overlay = false !== this.props.options.overlay;
         var title = this.props.options.title || this.props.name;
 
+        var colorClass = '';
+
+        console.log(this.props)
+
+        switch(this.props.options.color) {
+            case 'dark' :
+                colorClass = 'bg-blue-grey text-white';
+                break;
+
+            default : 
+                colorClass =  'bg-grey lighten-5';
+                break;
+        }
+
+        var modalClasses = classNames('modal-dialog', colorClass, this.props.options.size || 'medium')
+
         return (
             <div className="miit-component modal-container">
                 <If test={overlay}>
                     <div className="modal-overlay" onClick={this.handleOverlayClick}></div>
                 </If>
-                <div className="modal-dialog">
+                <div className={modalClasses}>
                     <div className="modal-title">{title}</div>
                     <div className="modal-content">
                         {this.props.element}

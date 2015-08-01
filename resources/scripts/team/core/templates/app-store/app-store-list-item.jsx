@@ -60,17 +60,14 @@ var AppStoreListItem = React.createClass({
 
         return (
             <div className="miit-component app-store-list-item">
-                <span>
+                <span onClick={this.handleAdd} className="app-icon">
                     <i className={appClasses}></i>
                 </span>
-                <span>
-                    {application.name}
-                </span>
-                <span>
-                    <button className='btn btn-info ml20' onClick={this.handleAdd}>
-                        <i className="fa fa-plus"></i>
-                    </button>
-                </span>
+                <div className="app-desc">
+                    <span>
+                        {application.name}
+                    </span>
+                </div>
             </div>
         );
     }
