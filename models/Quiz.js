@@ -4,11 +4,11 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
     // The schema of the Quiz
     var schema = new mongoose.Schema({
-        teamId: {
+        team: {
             type:     String,
             required: true
         },
-        userId: {
+        user: {
             type:     String,
             required: true
         },
