@@ -20,7 +20,8 @@ var events = KeyMirror({
 var config = require('pages/_config');
 
 // The default page
-var defaultPage = config.default;
+var defaultPage  = config.default;
+var notFoundPage = config['404'];
 
 // All needed pages variables
 var CurrentMainPage, CurrentApplicationPage;
@@ -40,7 +41,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
             page = 'login';
         }
         else if(
-            true  === UserStore.isLoggedIn() && 'login'  === page
+            true  === UserStore.isLoggedIn() && 'login' === page
         ) {
             page = defaultPage;
         }
@@ -53,23 +54,39 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
     },
 
     getDefaultPage: function() {
-        return defaultPage;
+        return PageStorage.get('main-' + defaultPage);
+    },
+
+    getNotFoundPage: function() {
+        return PageStorage.get('main-' + notFoundPage);
     },
 
     registerMainPage: function(name, component) {
         PageStorage.set('main-' + name, component);
+
+        // Emit the change
+        PageStore.emitMainPageChanged();
     },
 
     registerApplicationPage: function(name, component) {
         PageStorage.set('application-' + name, component);
+
+        // Emit the change
+        PageStore.emitApplicationPageChanged();
     },
 
     removeMainPage: function(name) {
         PageStorage.remove('main-' + name);
+
+        // Emit the change
+        PageStore.emitMainPageChanged();
     },
 
     removeApplicationPage: function(name) {
         PageStorage.remove('application-' + name);
+        
+        // Emit the change
+        PageStore.emitApplicationPageChanged();
     }
 });
 
