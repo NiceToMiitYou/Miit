@@ -240,13 +240,19 @@ a {
 			padding: 0 25px;
 			float: left;
 			cursor: pointer;
+			position: relative;
 
-			&:hover {
+			&:hover, &.active {
 				background-color: #FAFAFA;
 			}
 
 			span {
 				margin-right: 2px;
+			}
+
+			i {
+				margin-left: 15px;
+				float: inherit;
 			}
 		}
 
@@ -255,15 +261,20 @@ a {
 			color: #2980b9;
 			float: left;
 			padding: 0 15px;
+			position: relative;
 
 			i {
 				margin-left: 15px;
+				float: inherit;
 			}
 
 			.dropdown-inner {
 				border: 1px solid #EEE;
 				background-color: #FFF;
 				padding: 10px;
+				top: 100%;
+				left: 0;
+				width: 350px;
 
 				input {
 					background-color: #FFF;

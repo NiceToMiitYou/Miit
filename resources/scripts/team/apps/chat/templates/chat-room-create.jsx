@@ -65,7 +65,7 @@ var ChatRoomCreate = React.createClass({
 
         return (
             <form className="miit-component chat-room-create" onSubmit={this.handleSubmit} onClick={this.onClick}>
-                <input type="text" value={name} placeholder={this.props.placeholder.name} onChange={this.handleChange} />
+                <input type="text" value={name} placeholder={this.props.placeholder.room} onChange={this.handleChange} />
                 <button type="submit" className="btn btn-warning">{this.props.submit}</button>
             </form>
         );
