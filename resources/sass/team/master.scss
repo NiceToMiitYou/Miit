@@ -240,14 +240,50 @@ a {
 			padding: 0 25px;
 			float: left;
 			cursor: pointer;
+			position: relative;
 
-			&:hover {
+			&:hover, &.active {
 				background-color: #FAFAFA;
 			}
 
 			span {
-				margin-right: 5px;
+				margin-right: 2px;
 			}
+
+			i {
+				margin-left: 15px;
+				float: inherit;
+			}
+		}
+
+		.create-room {
+			cursor: pointer;
+			color: #2980b9;
+			float: left;
+			padding: 0 15px;
+			position: relative;
+
+			i {
+				margin-left: 15px;
+				float: inherit;
+			}
+
+			.dropdown-inner {
+				border: 1px solid #EEE;
+				background-color: #FFF;
+				padding: 10px;
+				top: 100%;
+				left: 0;
+				width: 350px;
+
+				input {
+					background-color: #FFF;
+				}
+			}
+		}
+
+		.dropdown-inner {
+			position: absolute;
 		}
 	}
 
@@ -259,7 +295,7 @@ a {
 			margin-top: 25px;
 
 			.user-info {
-				line-height: 1.4em;
+				line-height: 1.2em;
 				.username {
 					line-height: 1em;
 					margin-right: 10px;

@@ -7,7 +7,8 @@ var Dropdown = React.createClass({
     timeoutId: null,
 
     propTypes: {
-        label: React.PropTypes.string.isRequired
+        label: React.PropTypes.string.isRequired,
+        className: React.PropTypes.string
     },
 
     getDefaultProps: function() {
@@ -58,7 +59,7 @@ var Dropdown = React.createClass({
         var open = { open: this.state.open };
 
         var clIcon     = classNames('pull-right', 'fa', icon);
-        var clDropdown = classNames('miit-component', 'dropdown', open);
+        var clDropdown = classNames('miit-component', 'dropdown', open, this.props.className);
 
         return (
             <span onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} className={clDropdown}>

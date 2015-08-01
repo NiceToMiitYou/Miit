@@ -61,8 +61,8 @@ var ChatRoomListItem = React.createClass({
         var classes  = classNames('miit-component chat-room-list-item', (true === this.props.active) ? 'active' : ''); 
 
         return (
-            <span className={classes}>
-                <span onClick={this.onChange}>{chatroom.name}</span>
+            <span className={classes} onClick={this.onChange}>
+                <span className="chatroom-name">{chatroom.name}</span>
                 <If test={unread > 0}>
                     <span className="notification">{unread}</span>
                 </If>
