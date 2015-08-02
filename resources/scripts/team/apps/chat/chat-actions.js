@@ -5,10 +5,7 @@ var Dispatcher = MiitApp.require('core/lib/dispatcher'),
     Realtime   = MiitApp.require('core/lib/realtime');
 
 // Include requirements
-var ChatConstants = require('chat-constants');
-
-// Shortcut
-var ActionTypes = ChatConstants.ActionTypes;
+var ActionTypes = require('chat-constants').ActionTypes;
 
 // Is sending
 var Requested = {};

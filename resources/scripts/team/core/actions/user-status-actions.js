@@ -1,12 +1,9 @@
 'use strict';
 
 // Include requirements
-var Dispatcher          = require('core/lib/dispatcher'),
-    Realtime            = require('core/lib/realtime'),
-    UserStatusConstants = require('core/constants/user-status-constants');
-
-// Shortcut
-var ActionTypes = UserStatusConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    Realtime    = require('core/lib/realtime'),
+    ActionTypes = require('core/constants/user-status-constants').ActionTypes;
 
 // Global variables
 var sending = false;

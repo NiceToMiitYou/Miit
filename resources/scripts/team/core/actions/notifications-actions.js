@@ -1,11 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher             = require('core/lib/dispatcher'),
-    NotificationsConstants = require('core/constants/notifications-constants');
-
-// Shortcut
-var ActionTypes = NotificationsConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    ActionTypes = require('core/constants/notifications-constants').ActionTypes;
 
 // Expose the actions
 module.exports = {
