@@ -19,7 +19,7 @@ var events = KeyMirror({
 // Global variables
 var Chatrooms, Messages = {}, Counter = {};
 
-function _replaceChatrooms(chatrooms) {
+function _refreshChatrooms(chatrooms) {
     Chatrooms = chatrooms || [];    
 }
 
@@ -67,8 +67,8 @@ ChatStore.generateNamedFunctions(events.CHATROOMS_REFRESHED);
 // Handle actions
 ChatStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
-        case ActionTypes.REPLACE_CHATROOMS:
-            _replaceChatrooms(action.chatrooms);
+        case ActionTypes.REFRESH_CHATROOMS:
+            _refreshChatrooms(action.chatrooms);
             ChatStore.emitChatroomsRefreshed();
             break;
 

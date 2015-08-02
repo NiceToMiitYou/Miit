@@ -18,7 +18,7 @@ var Requested = {};
 //
 Realtime.on('chat:rooms', function(data) {
     var action = {
-        type:      ActionTypes.REPLACE_CHATROOMS,
+        type:      ActionTypes.REFRESH_CHATROOMS,
         chatrooms: data.chatrooms
     };
 
