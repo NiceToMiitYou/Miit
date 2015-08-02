@@ -1,10 +1,11 @@
 'use strict';
 
 // Include requirements
-var PageStore  = require('core/stores/page-store'),
-    ModalStore = require('core/stores/modal-store'),
-    UserStore  = require('core/stores/user-store'),
-    TeamStore  = require('core/stores/team-store');
+var PageStore    = require('core/stores/page-store'),
+    ModalActions = require('core/actions/modal-actions'),
+    ModalStore   = require('core/stores/modal-store'),
+    UserStore    = require('core/stores/user-store'),
+    TeamStore    = require('core/stores/team-store');
 
 // Include Layout
 var Layout = require('./layouts/default-layout.jsx');

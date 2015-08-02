@@ -5,7 +5,7 @@ var Dispatcher  = require('core/lib/dispatcher'),
     ActionTypes = require('core/constants/modal-constants').ActionTypes;
 
 // Expose the actions
-global.ModalActions = module.exports = {
+module.exports = {
     open: function(name, element, options) {
         var action = {
             type:    ActionTypes.OPEN_MODAL,
