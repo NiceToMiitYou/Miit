@@ -45,7 +45,7 @@ module.exports = function TeamManager() {
             return;
         }
 
-        TeamStore.updateTeam(team, name, publix, function(err) {
+        TeamStore.update(team, name, publix, function(err) {
 
             primus.in(team.id).write({
                 event:  'team:update',
@@ -187,7 +187,7 @@ module.exports = function TeamManager() {
                 return;
             }
 
-            TeamStore.addRoleUser(team, userId, roles, function(errAdd) {
+            TeamStore.promoteUser(team, userId, roles, function(errAdd) {
                 if(errAdd) 
                 {
                     return;
@@ -219,7 +219,7 @@ module.exports = function TeamManager() {
             }
 
             // Remove the user
-            TeamStore.removeRoleUser(team, userId, roles, function(errDemote) {
+            TeamStore.demoteUser(team, userId, roles, function(errDemote) {
                 if(errDemote) 
                 {
                     return;

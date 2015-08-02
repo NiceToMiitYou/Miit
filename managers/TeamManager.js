@@ -19,7 +19,7 @@ var manager = miitoo.resolve(
     }
 
     return {
-        createTeam: function(user, name, cb) {
+        create: function(user, name, cb) {
             // Generate the name
             var slug  = slugify(name);
 
