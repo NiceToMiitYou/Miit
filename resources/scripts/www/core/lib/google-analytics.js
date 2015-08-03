@@ -33,7 +33,7 @@ function showBanner(){
     div.innerHTML = '\
     <div id="cookie-banner-message" class="container">\
         Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie\
-        à des fins de mesure d\'audience.\
+        à des fins de mesure d\'audience. <br />\
         <a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s\'opposer</a>.\
         <button id="close-button" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Fermer</button>\
     </div>';
@@ -123,12 +123,7 @@ function createInformAndAskDiv() {
     var bodytag = document.getElementsByTagName('body')[0];
     var div = document.createElement('div');
     div.setAttribute('id','inform-and-ask');
-    div.style.zIndex = 10;
-    div.style.color = 'black';
-    div.style.width= window.innerWidth+"px" ;
-    div.style.height= window.innerHeight+"px";
     div.style.display= "none";
-    div.style.position= "fixed";
     // Le code HTML de la demande de consentement
     // Vous pouvez modifier le contenu ainsi que le style
     div.innerHTML = '<div id="inform-and-consent">\
