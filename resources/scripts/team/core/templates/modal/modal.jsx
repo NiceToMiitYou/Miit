@@ -39,6 +39,10 @@ var Modal = React.createClass({
                 colorClass = 'bg-blue-grey text-white';
                 break;
 
+            case 'grey' :
+                colorClass = 'bg-grey';
+                break;
+
             default : 
                 colorClass =  'bg-grey lighten-5';
                 break;

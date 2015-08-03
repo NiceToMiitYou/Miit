@@ -7,7 +7,7 @@ html, body {
 body {
     // background-color: rgb(54, 140, 192);
     color: #FFF;
-	// min-width: 460px;
+	min-width: 530px;
     // overflow-x: hidden;
 }
 
@@ -645,11 +645,8 @@ h3 {
 				left: 120px;
 				width: 100%;
 
-
-				&.odd {
-
-						margin-left: 20px;
-				}
+				&.odd:before {
+				    margin-left: 0;				}
 			}
 
 		}
@@ -660,8 +657,18 @@ h3 {
 @media screen and (max-width: 585px) {
 
 	.header {
+
 		.banner {
 			text-align: center;
 		}
 	}
+
+	.case>div span>p {
+    	left: 80px;
+	}
+
+	.case>div span i {
+	    left: 28px;
+	}
+
 }

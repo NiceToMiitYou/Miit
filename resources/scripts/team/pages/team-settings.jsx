@@ -71,7 +71,7 @@ var TeamSettings = React.createClass({
                 </Panel>
 
                 <Panel icon="users" title={this.props.text.users}>
-                    <UserList autoload={true} />
+                    <UserList autoload={true} headers={false} status={true}/>
                 </Panel>
             </Layout>
         );

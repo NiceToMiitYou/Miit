@@ -44,8 +44,6 @@ var AppStoreListItem = React.createClass({
         var application = this.props.application;
 
         if(false === TeamStore.hasApplication(application.identifier)) {
-            console.log('Application:', Translations[application.identifier], 'Added');
-
             TeamActions.addApplication(application.identifier, false);
         }
     },
@@ -56,10 +54,13 @@ var AppStoreListItem = React.createClass({
         // Add extra informations
         application.name  = Translations[application.identifier];
 
+        var isInstalled = TeamStore.hasApplication(application.identifier);
+
         var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color);
+        var installedClass = (isInstalled) ? 'installed' : 'not-installed';
 
         return (
-            <div className="miit-component app-store-list-item">
+            <div className={ "miit-component app-store-list-item " + installedClass }>
                 <span onClick={this.handleAdd} className="app-icon">
                     <i className={appClasses}></i>
                 </span>

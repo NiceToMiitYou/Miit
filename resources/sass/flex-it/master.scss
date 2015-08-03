@@ -1074,13 +1074,16 @@ click-wave { 0% {
       margin-left: 12.5%;
       margin-top: -25%;
       border-radius: 2px;
-      padding: 20px 25px;
+      padding: 0 25px;
       border: 1px solid #E8E8E8;
 
       .modal-title {
-        font-size: 1.8em;
-        margin: 10px 0 15px 0;
+        font-size: 1.5em;
+        padding: 18px 25px;
+        margin: -1px -26px;
         font-weight: 100;
+        background-color: #FFF;
+        margin-bottom: 25px;
       }
     }
 }
@@ -1329,6 +1332,10 @@ click-wave { 0% {
 
 .bg-blue-grey.darken-1  {
     background-color: #1A2631!important;
+}
+
+.bg-grey {
+  background-color: #F7F4F4!important;
 }
 
 .bg-grey.lighten-5 {
