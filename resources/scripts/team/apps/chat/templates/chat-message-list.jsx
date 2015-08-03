@@ -11,10 +11,10 @@ var ChatStore   = require('chat-store'),
 var ChatMessageListItem = require('templates/chat-message-list-item.jsx');
 
 function topPosition(domElt) {
-  if (!domElt) {
-    return 0;
-  }
-  return domElt.offsetTop + topPosition(domElt.offsetParent);
+    if (!domElt) {
+        return 0;
+    }
+    return domElt.offsetTop + topPosition(domElt.offsetParent);
 }
 
 var ChatMessageList = React.createClass({

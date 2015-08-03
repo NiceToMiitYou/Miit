@@ -13,6 +13,7 @@ var Requested = {};
 //
 // Listen for events
 //
+
 Realtime.on('chat:rooms', function(data) {
     var action = {
         type:      ActionTypes.REFRESH_CHATROOMS,

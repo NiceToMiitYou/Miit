@@ -70,6 +70,11 @@ module.exports = function LoginManager() {
                     ) {
                         // Join the app room
                         spark.join(team.id + ':' + app.identifier);
+
+                        // Join rooms of roles per apps
+                        user.roles.forEach(function(role) {
+                            spark.join(team.id + ':' + app.identifier + ':' + role);
+                        });
                     }
                 });
 

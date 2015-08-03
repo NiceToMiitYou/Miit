@@ -83,7 +83,7 @@ function watch-apps() {
 function watch-all-apps() {
     for D in resources/scripts/team/apps/*; do
         if [ -d "${D}" ]; then
-            watch-apps ${D##*/}
+            watch-apps ${D##*/} &
         fi
     done
 }
@@ -111,7 +111,7 @@ function build-apps() {
 function build-all-apps() {
     for D in resources/scripts/team/apps/*; do
         if [ -d "${D}" ]; then
-            build-apps ${D##*/} &
+            build-apps ${D##*/}
         fi
     done
 }
@@ -120,7 +120,7 @@ echo "Running: ${ACTION}"
 
 case ${ACTION} in
     "watch")
-        watch-lib & watch-www & watch-team & watch-all-apps
+        watch-lib & watch-www & watch-all-apps & watch-team
         ;;
     "watch-lib")
         watch-lib
@@ -135,7 +135,7 @@ case ${ACTION} in
         watch-all-apps
         ;;
     "build")
-        build-lib && build-www && build-team && build-all-apps
+        build-lib && build-www && build-all-apps && build-team
         ;;
     "build-lib")
         build-lib

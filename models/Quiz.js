@@ -1,4 +1,6 @@
 
+var MAX_TIMESTAMP = 8640000000000000;
+
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
@@ -18,11 +20,24 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         },
         description: String,
         duration:    Number,
-        start:       Date,
-        end:         Date,
+        icon:        String,
+        start: {
+            type:    Date,
+            default: Date.now
+        },
+        end: {
+            type:    Date,
+            default: function() {
+                return new Date(MAX_TIMESTAMP); 
+            }
+        },
         public: {
             type:    Boolean,
             default: true
+        },
+        published: {
+            type:    Boolean,
+            default: false
         },
         createdAt: {
             type:    Date,
