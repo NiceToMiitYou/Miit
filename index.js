@@ -1,5 +1,5 @@
 // Get the instance of the framework
-var Framework = require('Miitoo').Miitoo;
+var Framework = require('miitoo').Miitoo;
 
 // Instanciate the Miitoo Framework
 var Miitoo = new Framework();
