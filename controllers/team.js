@@ -13,7 +13,7 @@ var controller = miitoo.resolve(
             }
             
             if(!team) {
-                var port = (config.port === 80) ? '' : ':' + config.port;
+                var port = (config.domain === 'miit.fr') ? '' : ':' + config.port;
                 var url  = 'http://www.' + config.domain + port + '/';
 
                 return res.redirect(url);
