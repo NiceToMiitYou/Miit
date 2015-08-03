@@ -29,10 +29,9 @@ function showBanner(){
     var bodytag = document.getElementById('header');
     var div = document.createElement('div');
     div.setAttribute('id','cookie-banner');
-    div.setAttribute('class','container');
     // Le code HTML de la demande de consentement
     div.innerHTML = '\
-    <div id="cookie-banner-message">\
+    <div id="cookie-banner-message" class="container">\
         Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie\
         à des fins de mesure d\'audience.\
         <a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s\'opposer</a>.\
