@@ -672,3 +672,69 @@ h3 {
 	}
 
 }
+
+#cookie-banner {
+
+	position: fixed;
+	z-index: 10000;
+	line-height: 1.8em;
+	width: 100%;
+	top: 70px;
+
+	#cookie-banner-message {
+		background-color: rgba(48, 118, 160, 0.85);
+		text-align: center;
+		padding: 10px;
+		font-size: 13px;
+		border-bottom: none;
+		color: #FFF;
+		z-index: 100000; 
+
+		a {
+			color: #FFF;
+			font-weight: bold;
+			text-decoration: underline;
+		}
+
+		button {
+			background-color: #3498DB;
+			    color: #FFF;
+			    padding: 5px 15px;
+			    margin-left: 15px;
+		}
+	}
+}
+
+#inform-and-consent {
+	width: 400px;
+	background-color: rgba(48, 118, 160, 0.95);
+	border: none;
+	padding: 20px 15px;
+	color: #FFF;
+	text-align: center;
+	position: fixed;
+	top: 140px;
+	left: 50%;
+	margin-top: 0;
+	margin-left: -175px;
+	z-index: 100000;
+	opacity: 1;
+	line-height: 1.2em;
+
+	button {
+		background-color: #3498DB;
+		    color: #FFF;
+		    padding: 5px 15px;
+		    margin-left: 15px;
+		    margin-top: 15px;
+	}
+}
+
+#inform-and-ask {
+	    z-index: 999999;
+	    color: black;
+	    width: 100%;
+	    height: 1244px;
+	    position: fixed;
+	    background-color: rgba(29, 45, 59, 0.5);
+}
