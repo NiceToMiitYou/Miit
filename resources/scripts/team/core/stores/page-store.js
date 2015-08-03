@@ -1,13 +1,10 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('core/lib/dispatcher'),
-    PageConstants = require('core/constants/page-constants'),
-    UserStore     = require('core/stores/user-store'),
-    TeamStore     = require('core/stores/team-store');
-
-// Shorcut
-var ActionTypes = PageConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    ActionTypes = require('core/constants/page-constants').ActionTypes,
+    UserStore   = require('core/stores/user-store'),
+    TeamStore   = require('core/stores/team-store');
 
 // List of events
 var events = KeyMirror({

@@ -1,12 +1,9 @@
 'use strict';
 
 // Include requirements
-var Dispatcher             = require('core/lib/dispatcher'),
-    Realtime               = require('core/lib/realtime'),
-    SubscriptionsConstants = require('core/constants/subscriptions-constants');
-
-// Shortcut
-var ActionTypes = SubscriptionsConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    Realtime    = require('core/lib/realtime'),
+    ActionTypes = require('core/constants/subscriptions-constants').ActionTypes;
 
 // Listen for the subscriptions list
 Realtime.on('subscription:list', function(data) {

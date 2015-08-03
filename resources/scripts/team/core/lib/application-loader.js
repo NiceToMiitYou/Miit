@@ -53,8 +53,6 @@ global.ApplicationLoader = module.exports = {
             typeof plugin === 'object' &&
                    plugin !== null
         ) {
-            console.log('plugin loaded', id);
-
             ApplicationsLoaded[id] = plugin;
             
             if(typeof plugin.onRegister === 'function') {

@@ -86,7 +86,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 });
         },
 
-        updateTeam: function(team, name, publix, cb) {
+        update: function(team, name, publix, cb) {
             var teamId = getId(team);
 
             var conditions = {
@@ -141,7 +141,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        addRoleUser: function(team, user, roles, cb) {
+        promoteUser: function(team, user, roles, cb) {
             var teamId = getId(team);
             var userId = getId(user);
 
@@ -159,7 +159,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        removeRoleUser: function(team, user, roles, cb) {
+        demoteUser: function(team, user, roles, cb) {
             var teamId = getId(team);
             var userId = getId(user);
 

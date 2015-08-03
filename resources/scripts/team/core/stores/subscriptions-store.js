@@ -1,11 +1,8 @@
 'use strict';
 
 // Include requirements
-var Dispatcher             = require('core/lib/dispatcher'),
-    SubscriptionsConstants = require('core/constants/subscriptions-constants');
-
-// Shortcut
-var ActionTypes = SubscriptionsConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    ActionTypes = require('core/constants/subscriptions-constants').ActionTypes;
 
 // List of events
 var events = KeyMirror({

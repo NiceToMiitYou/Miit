@@ -1,13 +1,10 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('core/lib/dispatcher'),
-    Realtime      = require('core/lib/realtime'),
-    UserConstants = require('core/constants/user-constants'),
-    UserStore     = require('core/stores/user-store');
-
-// Shortcut
-var ActionTypes = UserConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    Realtime    = require('core/lib/realtime'),
+    ActionTypes = require('core/constants/user-constants').ActionTypes,
+    UserStore   = require('core/stores/user-store');
 
 //
 // Listen for events

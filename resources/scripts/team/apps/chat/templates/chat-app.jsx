@@ -23,6 +23,12 @@ var ChatApp = React.createClass({
     },
 
     inChatroom: function() {
+        var rooms = ChatStore.getChatrooms();
+
+        if(-1 === rooms.indexBy('id', this.state.current.id)) {
+            return false;
+        }
+
         return !!this.state.current.id;
     },
 

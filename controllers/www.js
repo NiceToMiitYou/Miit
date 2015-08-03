@@ -29,7 +29,7 @@ var controller = miitoo.resolve(
                 return response(res, err);
             }
 
-            TeamManager.createTeam(user, name, function(errTeam, team) {
+            TeamManager.create(user, name, function(errTeam, team) {
                 return response(res, errTeam);
             });
         });

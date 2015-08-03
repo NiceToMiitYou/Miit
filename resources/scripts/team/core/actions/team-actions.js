@@ -1,12 +1,9 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('core/lib/dispatcher'),
-    Realtime      = require('core/lib/realtime'),
-    TeamConstants = require('core/constants/team-constants');
-
-// Shortcut
-var ActionTypes = TeamConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    Realtime    = require('core/lib/realtime'),
+    ActionTypes = require('core/constants/team-constants').ActionTypes;
 
 //
 // Listen for events

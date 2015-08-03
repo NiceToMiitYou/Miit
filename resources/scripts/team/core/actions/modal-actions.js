@@ -1,14 +1,11 @@
 'use strict';
 
 // Include requirements
-var Dispatcher     = require('core/lib/dispatcher'),
-    ModalConstants = require('core/constants/modal-constants');
-
-// Shortcut
-var ActionTypes = ModalConstants.ActionTypes;
+var Dispatcher  = require('core/lib/dispatcher'),
+    ActionTypes = require('core/constants/modal-constants').ActionTypes;
 
 // Expose the actions
-global.ModalActions = module.exports = {
+module.exports = {
     open: function(name, element, options) {
         var action = {
             type:    ActionTypes.OPEN_MODAL,

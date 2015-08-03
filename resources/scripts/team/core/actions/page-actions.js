@@ -1,15 +1,12 @@
 'use strict';
 
 // Include requirements
-var Dispatcher    = require('core/lib/dispatcher'),
-    Router        = require('core/lib/router'),
-    PageConstants = require('core/constants/page-constants');
+var Dispatcher  = require('core/lib/dispatcher'),
+    Router      = require('core/lib/router'),
+    ActionTypes = require('core/constants/page-constants').ActionTypes;
 
 // Load pages
 var config = require('pages/_config');
-
-// Shortcut
-var ActionTypes = PageConstants.ActionTypes;
 
 // Expose the actions
 var PageActions = {
