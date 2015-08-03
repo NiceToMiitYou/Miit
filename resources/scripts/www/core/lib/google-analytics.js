@@ -6,7 +6,8 @@ var tagAnalyticsCNIL = {}
 var gaProperty = 'UA-63327442-1'
 // Désactive le tracking si le cookie d'Opt-out existe déjà .
 var disableStr = 'ga-disable-' + gaProperty;
-var firstCall = false;
+var firstCall      = false,
+    clickprocessed = false;
 
 function getCookieExpireDate() { 
     // Le nombre de millisecondes que font 13 mois 
@@ -37,7 +38,9 @@ function showBanner(){
     border-bottom:1px solid #eeeeee; color: black; z-index:100000;" id="cookie-banner-message" align="center">Ce site utilise Google\
     Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure\
     d\'audience. <a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()" \
-    style="text-decoration:underline;"> En savoir plus ou s\'opposer</a>.</div>';
+    style="text-decoration:underline;"> En savoir plus ou s\'opposer</a>.\
+    <button id="close-button" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Fermer</button>\
+    </div>';
     // Vous pouvez modifier le contenu ainsi que le style
     // Ajoute la bannière juste au début de la page 
     bodytag.insertBefore(div,bodytag.firstChild); 
@@ -149,8 +152,14 @@ function createInformAndAskDiv() {
 
 function isClickOnOptOut( evt) { 
     // Si le noeud parent ou le noeud parent du parent est la bannière, on ignore le clic
-    return(evt.target.parentNode.id == 'cookie-banner' || evt.target.parentNode.parentNode.id =='cookie-banner' 
-    || evt.target.id == 'optout-button')
+    return (
+        evt.target.id != 'close-button' &&
+        (
+            evt.target.parentNode.id            == 'cookie-banner' ||
+            evt.target.parentNode.parentNode.id == 'cookie-banner' ||
+            evt.target.id                       == 'optout-button'
+        )
+    );
 }
 
 function consent(evt) {
@@ -161,7 +170,7 @@ function consent(evt) {
             document.cookie = 'hasConsent=true; '+ getCookieExpireDate() +' ; path=/'; 
             callGoogleAnalytics();
             clickprocessed = true;
-            window.setTimeout(function() {evt.target.click();}, 1000)
+            window.setTimeout(function() {evt.target.click();}, 1000);
         } 
     }
 }
@@ -215,7 +224,7 @@ tagAnalyticsCNIL.CookieConsent = {
         // la bannière
         var consentCookie = getCookie('hasConsent');
 
-        clickprocessed = false; 
+        clickprocessed = false;
         if (!consentCookie) {
             // L'utilisateur n'a pas encore de cookie, on affiche la bannière. 
             // Si il clique sur un autre élément que la bannière on enregistre le consentement
