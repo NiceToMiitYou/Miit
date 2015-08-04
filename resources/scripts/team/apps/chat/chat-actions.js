@@ -2,7 +2,8 @@
 
 // Include core requirements
 var Dispatcher = MiitApp.require('core/lib/dispatcher'),
-    Realtime   = MiitApp.require('core/lib/realtime');
+    Realtime   = MiitApp.require('core/lib/realtime'),
+    UserStore  = MiitApp.require('core/stores/user-store');
 
 // Include requirements
 var ActionTypes = require('chat-constants').ActionTypes;
@@ -60,6 +61,10 @@ Realtime.on('chat:messages', function(data) {
 // Expose the actions
 module.exports = {
     create: function(name) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+        
         if(!name || !name.trim()) {
             return false;
         }
@@ -72,6 +77,10 @@ module.exports = {
     },
 
     delete: function(chatroom) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+        
         if(!chatroom) {
             return false;
         }

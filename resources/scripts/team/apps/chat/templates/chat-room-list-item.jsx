@@ -39,13 +39,9 @@ var ChatRoomListItem = React.createClass({
     },
 
     onRemove: function() {
-        var isAdmin  = UserStore.isAdmin();
+        var chatroomId = this.props.chatroom.id;
 
-        if(true === isAdmin) {
-            var chatroomId = this.props.chatroom.id;
-
-            ChatActions.delete(chatroomId);
-        }
+        ChatActions.delete(chatroomId);
     },
 
     onChange: function() {
@@ -67,7 +63,7 @@ var ChatRoomListItem = React.createClass({
                     <span className="notification">{unread}</span>
                 </If>
                 <If test={isAdmin}>
-                    <Dropdown label="">
+                    <Dropdown>
                         <span onClick={this.onRemove}><i className="fa fa-trash pull-left"></i> {this.props.text.remove}</span>
                     </Dropdown>
                 </If>

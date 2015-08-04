@@ -34,14 +34,7 @@ var ChatRoomCreate = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
 
-        // Is the user an admin?
-        var isAdmin = UserStore.isAdmin();
-
-        if(!isAdmin) {
-            return;
-        }
-
-        var name  = this.state.name;
+        var name = this.state.name;
 
         var send = ChatActions.create(name);
 
