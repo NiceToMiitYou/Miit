@@ -16,20 +16,20 @@ var MenuTeam              = require('core/templates/menu/menu-team.jsx'),
 var TeamApp = React.createClass({
     getInitialState: function() {
         return {
-            page: null
+            page: PageStore.getCurrentMainPage()
         };
     },
 
     componentDidMount: function() {
         UserStore.addLoggedInListener(this._onLoggedIn);
         TeamStore.addTeamUpdatedListener(this._onChange);
-        PageStore.addMainPageChangedListener(this._onChange);
+        PageStore.addPageChangedListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         UserStore.removeLoggedInListener(this._onLoggedIn);
         TeamStore.removeTeamUpdatedListener(this._onChange);
-        PageStore.removeMainPageChangedListener(this._onChange);
+        PageStore.removePageChangedListener(this._onChange);
     },
 
     _onLoggedIn: function() {

@@ -15,7 +15,7 @@ var TeamUpdate = React.createClass({
                 name: "Nom de l'équipe"
             },
             text: {
-                public:    'Publique',
+                public:    'Public',
                 isPublic:  'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
                 private:   'Privé',
                 isPrivate: 'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'

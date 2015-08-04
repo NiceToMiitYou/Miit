@@ -3,8 +3,7 @@
 var PageConstants = {
     ActionTypes: KeyMirror({
         // Change Page Actions
-        CHANGE_MAIN_PAGE: null,
-        CHANGE_APPLICATION_PAGE: null
+        CHANGE_PAGE: null
     })
 };
 

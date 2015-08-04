@@ -2,8 +2,7 @@
 
 var Router = require('director').Router;
 
-var router = new Router(),
-    routes = new DataStore('routes');
+var router, routes = new DataStore('routes');
 
 module.exports = {
     init: function() {
@@ -21,8 +20,6 @@ module.exports = {
     routes: routes,
 
     setRoute: function(path) {
-        if(router) {
-            router.setRoute(path);
-        }
+        router.setRoute(path);
     }
 };

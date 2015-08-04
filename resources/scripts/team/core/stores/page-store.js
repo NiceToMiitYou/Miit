@@ -9,8 +9,7 @@ var Dispatcher  = require('core/lib/dispatcher'),
 // List of events
 var events = KeyMirror({
     // Events on page Change
-    MAIN_PAGE_CHANGED: null,
-    APPLICATION_PAGE_CHANGED: null,
+    PAGE_CHANGED: null
 });
 
 // Load all pages
@@ -47,7 +46,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
     },
 
     getCurrentApplicationPage: function() {
-        return PageStorage.get('application-' + CurrentApplicationPage);
+        return PageStorage.get('app-' + CurrentMainPage + '-' + CurrentApplicationPage);
     },
 
     getDefaultPage: function() {
@@ -62,72 +61,41 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         PageStorage.set('main-' + name, component);
 
         // Emit the change
-        PageStore.emitMainPageChanged();
+        PageStore.emitPageChanged();
     },
 
-    registerApplicationPage: function(name, component) {
-        PageStorage.set('application-' + name, component);
+    registerApplicationPage: function(main, name, component) {
+        PageStorage.set('app-' + main +  '-' + name, component);
 
         // Emit the change
-        PageStore.emitApplicationPageChanged();
+        PageStore.emitPageChanged();
     },
 
     removeMainPage: function(name) {
         PageStorage.remove('main-' + name);
 
         // Emit the change
-        PageStore.emitMainPageChanged();
+        PageStore.emitPageChanged();
     },
 
-    removeApplicationPage: function(name) {
-        PageStorage.remove('application-' + name);
+    removeApplicationPage: function(main, name) {
+        PageStorage.remove('app-' + main +  '-' +name);
         
         // Emit the change
-        PageStore.emitApplicationPageChanged();
+        PageStore.emitPageChanged();
     }
 });
 
 // Register Functions based on event
-PageStore.generateNamedFunctions(events.MAIN_PAGE_CHANGED);
-PageStore.generateNamedFunctions(events.APPLICATION_PAGE_CHANGED);
-
-// On main page change
-var handleChangeMainPage = function(action) {
-    // On page changed
-    if(action.mainPage &&
-       action.mainPage !== CurrentMainPage)
-    {
-        // Set the current main page
-        CurrentMainPage = action.mainPage;
-        // Emit the change
-        PageStore.emitMainPageChanged();
-    }
-};
-
-// On application page change
-var handleChangeApplicationPage = function(action) {
-    // On page changed
-    if(action.applicationPage && 
-       action.applicationPage !== CurrentApplicationPage)
-    {
-        // Set the current application page
-        CurrentApplicationPage = action.applicationPage;
-        // Emit the change
-        PageStore.emitApplicationPageChanged();
-    }
-
-    handleChangeMainPage(action);
-};
+PageStore.generateNamedFunctions(events.PAGE_CHANGED);
 
 // Handle actions
 PageStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
-        case ActionTypes.CHANGE_APPLICATION_PAGE:
-            handleChangeApplicationPage(action);
-            break;
-
-        case ActionTypes.CHANGE_MAIN_PAGE:
-            handleChangeMainPage(action);
+        case ActionTypes.CHANGE_PAGE:
+            CurrentMainPage        = action.main;
+            CurrentApplicationPage = action.app;
+            PageStore.emitPageChanged();
             break;
     }
 });

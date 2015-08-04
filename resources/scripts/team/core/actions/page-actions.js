@@ -10,20 +10,11 @@ var config = require('pages/_config');
 
 // Expose the actions
 var PageActions = {
-    changeMainPage: function(main) {
+    changePage: function(main, app) {
         var action = {
-            type: ActionTypes.CHANGE_MAIN_PAGE,
-            mainPage: main
-        };
-
-        Dispatcher.dispatch(action);
-    },
-
-    changeApplicationPage: function(main, miit, application) {
-        var action = {
-            type: ActionTypes.CHANGE_APPLICATION_PAGE,
-            mainPage: main,
-            applicationPage: application
+            type: ActionTypes.CHANGE_PAGE,
+            main: main,
+            app:  app
         };
 
         Dispatcher.dispatch(action);
@@ -31,14 +22,14 @@ var PageActions = {
 };
 
 // Get the router and handle page change
-Router.routes.set('/([a-zA-Z0-9_\-]{0,})', function(mainPage) {
+Router.routes.set('/([a-zA-Z0-9_\-]{0,})/?([a-zA-Z0-9_\-]{0,})?', function(mainPage, appPage) {
     var page = mainPage || config.default;
 
     // Set the current active page of the menu
     ActiveGroups['menu-team'] = page;
 
-    // Set the current active page          
-    PageActions.changeMainPage(page);
+    // Set the current active page
+    PageActions.changePage(page, appPage);
 });
 
 module.exports = PageActions;
