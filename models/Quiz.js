@@ -51,6 +51,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             },
             subtitle: String,
             type:     Number,
+            order:    Number,
             group:    String,
             required: {
                 type:    Boolean,
@@ -60,6 +61,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             answers: [{
                 title: String,
                 type:  Number,
+                order: Number,
                 // Choices model
                 choices: [{
                     userId: {
