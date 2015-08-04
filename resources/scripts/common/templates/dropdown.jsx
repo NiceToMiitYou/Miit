@@ -7,7 +7,7 @@ var Dropdown = React.createClass({
     timeoutId: null,
 
     propTypes: {
-        label: React.PropTypes.string.isRequired,
+        label:     React.PropTypes.string,
         className: React.PropTypes.string
     },
 

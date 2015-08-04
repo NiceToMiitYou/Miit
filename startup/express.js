@@ -32,13 +32,14 @@ function handleResponse(res, err, extra) {
 miitoo.register('RestResponse', handleResponse, true);
 
 // Register routes
-miitoo.register('WWWRoutes',  express.Router);
-miitoo.register('TeamRoutes', express.Router);
+miitoo.register('WWWRoutes',      express.Router);
+miitoo.register('TeamRoutes',     express.Router);
+miitoo.register('MandrillRoutes', express.Router);
 
 // Define the middlewares
 var configurator = miitoo.resolve(
-    ['ExpressApp', 'Mongoose', 'WWWRoutes', 'TeamRoutes'],
-    function(app, mongoose, wwwRoutes, teamRoutes) {
+    ['ExpressApp', 'Mongoose', 'WWWRoutes', 'TeamRoutes', 'MandrillRoutes'],
+    function(app, mongoose, wwwRoutes, teamRoutes, mandrillRoutes) {
     
     app.engine('ejs', require('ejs').renderFile);
     
@@ -46,9 +47,11 @@ var configurator = miitoo.resolve(
 
     // parse application/json
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
 
     // Handle Routes by subdomain
     app.use(subdomain('www', wwwRoutes));
+    app.use(subdomain('mdl', mandrillRoutes));
     app.use(subdomain('*',   teamRoutes));
 });
 

@@ -1,4 +1,4 @@
-//Load MailChimp
+// Load MailChimp
 var mailchimp_api = require('mailchimp-api');
 
 // Load the configuration
