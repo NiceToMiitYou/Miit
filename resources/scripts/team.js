@@ -10,7 +10,7 @@ var config = require('core/config');
 var Router  = require('core/lib/router');
 var TeamApp = require('core/templates/team-app.jsx');
 
-var self = this;
+var isRendered = false;
 
 // Callbacks before init
 var callbacks = [];
@@ -34,9 +34,14 @@ var MiitApp = {
 
         // Initialize the router
         Router.init();
-
+    },
+    render: function() {
         // Render the TeamApp component
-        React.render(<TeamApp />, document.getElementById('content'));
+        if(false === isRendered) {
+            isRendered = true;
+
+            React.render(<TeamApp />, document.getElementById('content'));
+        }
     },
     require: require('core-require')
 };

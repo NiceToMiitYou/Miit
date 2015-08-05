@@ -12,7 +12,7 @@ var TeamUpdate = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                name: "Nom de l'équipe"
+                name: 'Nom du Miit'
             },
             text: {
                 public:    'Public',
@@ -20,7 +20,7 @@ var TeamUpdate = React.createClass({
                 private:   'Privé',
                 isPrivate: 'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
-            submit: "Modifier"
+            submit: 'Modifier'
         };
     },
 
