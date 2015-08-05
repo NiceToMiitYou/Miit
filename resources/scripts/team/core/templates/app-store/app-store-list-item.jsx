@@ -8,11 +8,7 @@ var UserStore   = require('core/stores/user-store'),
 // Include common
 var If = require('templates/if.jsx');
 
-var Translations = {
-    APP_CHAT:      'Chat',
-    APP_QUIZ:      'Quiz',
-    APP_DOCUMENTS: 'Documents',
-};
+var Translations = require('core/translation');
 
 var AppStoreListItem = React.createClass({
     getDefaultProps: function () {

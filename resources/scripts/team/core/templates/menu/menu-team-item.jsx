@@ -4,6 +4,9 @@
 var TeamStore          = require('core/stores/team-store'),
     SubscriptionsStore = require('core/stores/subscriptions-store');
 
+// Include translation
+var Translations = require('core/translation');
+
 // Include common
 var If   = require('templates/if.jsx');
 
@@ -11,7 +14,6 @@ var If   = require('templates/if.jsx');
 var Link = require('core/templates/components/link.jsx')
 
 var MenuTeamItem = React.createClass({
-
     componentDidMount: function () {
         SubscriptionsStore.addSubscriptionsUpdatedListener(this._onChange);
     },
@@ -27,10 +29,7 @@ var MenuTeamItem = React.createClass({
     getDefaultProps: function () {
         return {
             application: '',
-            label:       '',
-            activeGroup: 'menu-team',
-            activeName:  '',
-            link:        ''
+            activeGroup: 'menu-team'
         };
     },
 
@@ -41,12 +40,18 @@ var MenuTeamItem = React.createClass({
             return null;
         }
 
+        // Link information
+        var activeName = application.replace('APP_', '').toLowerCase();
+        var link       = '#/' + activeName + '/';
+
+        // Informations
+        var label  = Translations[application];
         var unread = SubscriptionsStore.getUnreadByApplication(application);
 
         return (
             <li>
-                <Link href={this.props.link} activeGroup={this.props.activeGroup} activeName={this.props.activeName}>
-                    <i className="fa fa-weixin pull-left"></i> {this.props.label}
+                <Link href={link} activeGroup={this.props.activeGroup} activeName={activeName}>
+                    <i className="fa fa-weixin pull-left"></i> {label}
                     <If test={unread > 0}>
                         <span className="notification">{unread}</span>
                     </If>

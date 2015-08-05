@@ -32,6 +32,8 @@ var MenuTeam = React.createClass({
     },
 
     render: function() {
+        var applications = TeamStore.getTeam().applications || [];
+
         return (
             <div className="sidr-left bg-blue-grey">
                 <div className="sl-wrapper">
@@ -42,9 +44,12 @@ var MenuTeam = React.createClass({
                     </If>
                         
                     <ul className="sl-list">
-                        <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat/"      activeName="chat" />
-                        <MenuTeamItem application="APP_QUIZ"      label="Quiz"      link="#/quiz/"      activeName="quiz" />
-                        <MenuTeamItem application="APP_DOCUMENTS" label="Documents" link="#/documents/" activeName="documents" />
+                        {applications.map(function(application) {
+                            var identifier = application.identifier;
+
+                            return <MenuTeamItem key={'menu-team-' + identifier} application={identifier} />
+                        })}
+                        
                         <If test={UserStore.isAdmin()}>
                             <li>
                                 <Link href="#/settings">
