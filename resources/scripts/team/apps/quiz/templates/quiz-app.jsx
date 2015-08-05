@@ -39,18 +39,9 @@ var QuizApp = React.createClass({
         if(this.isMounted()) {
             var page = PageStore.getCurrentApplicationPage();
 
-            if(!page)
-            {
-                this.setState({
-                    page: QuizList
-                });
-            }
-            else
-            {
-                this.setState({
-                    page: page
-                });
-            }
+            this.setState({
+                page: page || QuizList
+            });
         }
     },
 
