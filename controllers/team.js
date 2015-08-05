@@ -7,6 +7,15 @@ var controller = miitoo.resolve(
     app.use(function(req, res, next) {
         var slug = _.first(req.subdomains);
 
+        // If no subdomain redirect to home
+        if(typeof slug === 'undefined' || slug.length < 4) {
+            var port = (config.domain === 'miit.fr') ? '' : ':' + config.port;
+            var url  = 'http://www.' + config.domain + port + '/';
+
+            return res.redirect(301, url);
+        }
+
+        // Or find if a team exist
         TeamStore.findTeamBySlug(slug, function(err, team) {
             if(err) {
                 miitoo.logger.error(err);
