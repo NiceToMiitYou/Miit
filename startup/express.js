@@ -47,7 +47,9 @@ var configurator = miitoo.resolve(
     app.set('view engine', 'ejs');
 
     // Enable Gzip compression
-    app.use(compress()); 
+    app.use(compress({
+        level: 9
+    })); 
     
     // parse application/json
     app.use(bodyParser.json());
