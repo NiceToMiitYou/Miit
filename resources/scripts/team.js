@@ -24,21 +24,20 @@ var MiitApp = {
         // Add an application to the list
         callbacks.push(callback);
     },
-    init: function() {
-        // Call all callbacks
-        callbacks.forEach(function(callback) {
-            if(typeof callback === 'function') {
-                callback();
-            }
-        });
-
-        // Initialize the router
-        Router.init();
-    },
     render: function() {
         // Render the TeamApp component
         if(false === isRendered) {
             isRendered = true;
+
+            // Call all callbacks
+            callbacks.forEach(function(callback) {
+                if(typeof callback === 'function') {
+                    callback();
+                }
+            });
+
+            // Initialize the router
+            Router.init();
 
             React.render(<TeamApp />, document.getElementById('content'));
         }
