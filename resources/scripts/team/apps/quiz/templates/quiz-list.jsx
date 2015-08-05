@@ -7,6 +7,12 @@ var PageStore = MiitApp.require('core/stores/page-store');
 var QuizStore   = require('quiz-store');
 
 var QuizList = React.createClass({
+    statics: {
+        getLinkList: function() {
+            return ['create'];
+        }
+    },
+
     render: function() {
         var quizzes = QuizStore.getQuizzes();
 

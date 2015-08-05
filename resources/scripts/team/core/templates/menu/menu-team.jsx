@@ -26,7 +26,7 @@ var MenuTeam = React.createClass({
                 connect:         'Connexion',
                 apps_label:      'Applications',
                 add_application: 'Ajouter une App',
-                add_user: 'Ajouter un utilisateur'
+                add_user:        'Ajouter un utilisateur'
             }
         };
     },
@@ -42,9 +42,9 @@ var MenuTeam = React.createClass({
                     </If>
                         
                     <ul className="sl-list">
-                        <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat"      activeName="chat" />
-                        <MenuTeamItem application="APP_QUIZ"      label="Quiz"      link="#/quiz"      activeName="quiz" />
-                        <MenuTeamItem application="APP_DOCUMENTS" label="Documents" link="#/documents" activeName="documents" />
+                        <MenuTeamItem application="APP_CHAT"      label="Chat"      link="#/chat/"      activeName="chat" />
+                        <MenuTeamItem application="APP_QUIZ"      label="Quiz"      link="#/quiz/"      activeName="quiz" />
+                        <MenuTeamItem application="APP_DOCUMENTS" label="Documents" link="#/documents/" activeName="documents" />
                         <If test={UserStore.isAdmin()}>
                             <li>
                                 <Link href="#/settings">

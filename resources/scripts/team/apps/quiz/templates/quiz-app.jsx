@@ -9,7 +9,8 @@ var TeamStore = MiitApp.require('core/stores/team-store'),
 var QuizActions = require('quiz-actions');
 
 // Include common template
-var Link = MiitApp.require('core/templates/components/link.jsx');
+var Link = MiitApp.require('core/templates/components/link.jsx'),
+    If   = MiitApp.require('templates/if.jsx');
 
 // Include templates
 var QuizList = require('templates/quiz-list.jsx');
@@ -17,7 +18,7 @@ var QuizList = require('templates/quiz-list.jsx');
 var QuizApp = React.createClass({
     getInitialState: function () {
         return {
-            page: QuizList
+            page: null
         };
     },
 
@@ -53,14 +54,27 @@ var QuizApp = React.createClass({
         }
     },
 
-    
-
     render: function() {
         var Page = this.state.page;
 
+        if(null === Page) {
+            return null;
+        }
+
+        var links = [];
+
+        if(typeof Page.getLinkList === 'function') {
+            links = Page.getLinkList();
+        }
+
         return (
             <div className="miit-component quiz-app">
-                <Link href="#/quiz/create">Créer</Link>
+                <If test={-1 !== links.indexOf('return')}>
+                    <Link href="#/quiz/">Retour</Link>
+                </If>
+                <If test={-1 !== links.indexOf('create')}>
+                    <Link href="#/quiz/create">Créer</Link>
+                </If>
                 <Page ref="page" />
             </div>
         );

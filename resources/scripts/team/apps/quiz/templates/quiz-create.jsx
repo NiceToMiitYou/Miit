@@ -9,6 +9,12 @@ var QuizActions = require('quiz-actions'),
     QuizStore   = require('quiz-store');
 
 var QuizCreate = React.createClass({
+    statics: {
+        getLinkList: function() {
+            return ['return'];
+        }
+    },
+
     render: function() {
         return (
             <div className="miit-component quiz-create">
