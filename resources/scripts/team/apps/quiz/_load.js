@@ -6,7 +6,7 @@ var plugin = {
     onRegister: function() {
         require('quiz-actions');
         require('quiz-store');
-        require('templates/quiz-page.jsx');
+        require('templates/_load');
     },
 
     onRemove: function() {

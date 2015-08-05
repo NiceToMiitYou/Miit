@@ -2,7 +2,8 @@
 
 // Include core requirements
 var Dispatcher = MiitApp.require('core/lib/dispatcher'),
-    Realtime   = MiitApp.require('core/lib/realtime');
+    Realtime   = MiitApp.require('core/lib/realtime'),
+    UserStore  = MiitApp.require('core/stores/user-store');
 
 // Include requirements
 var ActionTypes = require('quiz-constants').ActionTypes;
@@ -50,5 +51,11 @@ Realtime.on('quiz:refresh', function() {
 module.exports = {
     refresh: function() {
         Realtime.send('quiz:quizzes');
+    },
+
+    create: function() {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
     }
 };

@@ -12,6 +12,12 @@ module.exports = function QuizApp() {
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
+    function sendRefreshAction(team) {
+        primus.in(team.id + ':' + app.identifier()).write({
+            event: 'quiz:refresh'
+        });
+    }
+
     // List quizzes
     Dispatcher.register('quiz:quizzes', 'USER', app.identifier(), function onListQuizzes(spark, data, team, user, roles) {
         // Check for roles
@@ -43,12 +49,12 @@ module.exports = function QuizApp() {
         }
 
         QuizStore.createQuiz(name, description, team, user, function(err, quizz) {
-            
+            sendRefreshAction(team);
         });
     });
 
     // Update a quiz
-    Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onCreateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
         var quizId      = data.id,
             name        = data.name,
             description = data.description;
@@ -57,8 +63,8 @@ module.exports = function QuizApp() {
             return;
         }
 
-        QuizStore.updateQuiz(name, description, team, user, function(err, chatroom) {
-            
+        QuizStore.updateQuiz(quizId, name, description, team, function(err, chatroom) {
+            sendRefreshAction(team);
         });
     });
 };

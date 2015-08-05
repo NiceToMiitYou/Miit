@@ -95,6 +95,7 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.CHANGE_PAGE:
             CurrentMainPage        = action.main;
             CurrentApplicationPage = action.app;
+
             PageStore.emitPageChanged();
             break;
     }
