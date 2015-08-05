@@ -29,6 +29,6 @@ var NotFound = React.createClass({
     }
 });
 
-PageStore.registerMainPage('not-found', (<NotFound />));
+PageStore.registerMainPage('not-found', NotFound);
 
 module.exports = NotFound;

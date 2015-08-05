@@ -60,12 +60,14 @@ var TeamApp = React.createClass({
     },
 
     render: function() {
+        var Page = this.state.page;
+
         return (
             <div className="page bg-grey lighten-5">
                 <MenuTeam />
 
                 <div className="main container-fluid">
-                    {this.state.page}
+                    <Page />
                 </div>
             
                 <ModalContainer />

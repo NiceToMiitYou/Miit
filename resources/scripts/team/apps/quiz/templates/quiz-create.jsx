@@ -18,6 +18,6 @@ var QuizCreate = React.createClass({
     }
 });
 
-PageStore.registerApplicationPage('quiz', 'create', (<QuizCreate />));
+PageStore.registerApplicationPage('quiz', 'create', QuizCreate);
 
 module.exports = QuizCreate;

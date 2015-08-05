@@ -33,6 +33,6 @@ var ChatPage = React.createClass({
     }
 });
 
-PageStore.registerMainPage('chat', (<ChatPage />));
+PageStore.registerMainPage('chat', ChatPage);
 
 module.exports = ChatPage;

@@ -79,6 +79,6 @@ var TeamSettings = React.createClass({
     }
 });
 
-PageStore.registerMainPage('settings', (<TeamSettings />));
+PageStore.registerMainPage('settings', TeamSettings);
 
 module.exports = TeamSettings;

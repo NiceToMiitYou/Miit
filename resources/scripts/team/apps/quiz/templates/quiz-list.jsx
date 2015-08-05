@@ -21,6 +21,4 @@ var QuizList = React.createClass({
     }
 });
 
-PageStore.registerApplicationPage('quiz', 'list', (<QuizList />));
-
 module.exports = QuizList;

@@ -8,13 +8,16 @@ var TeamStore = MiitApp.require('core/stores/team-store'),
 // Include requirements
 var QuizActions = require('quiz-actions');
 
+// Include common template
+var Link = MiitApp.require('core/templates/components/link.jsx');
+
 // Include templates
-var QuizList    = require('templates/quiz-list.jsx');
+var QuizList = require('templates/quiz-list.jsx');
 
 var QuizApp = React.createClass({
     getInitialState: function () {
         return {
-            page: null
+            page: QuizList
         };
     },
 
@@ -38,7 +41,7 @@ var QuizApp = React.createClass({
             if(!page)
             {
                 this.setState({
-                    page: <QuizList />
+                    page: QuizList
                 });
             }
             else
@@ -50,10 +53,15 @@ var QuizApp = React.createClass({
         }
     },
 
+    
+
     render: function() {
+        var Page = this.state.page;
+
         return (
             <div className="miit-component quiz-app">
-                {this.state.page}
+                <Link href="#/quiz/create">Créer</Link>
+                <Page ref="page" />
             </div>
         );
     }

@@ -33,6 +33,6 @@ var QuizPage = React.createClass({
     }
 });
 
-PageStore.registerMainPage('quiz', (<QuizPage />));
+PageStore.registerMainPage('quiz', QuizPage);
 
 module.exports = QuizPage;
