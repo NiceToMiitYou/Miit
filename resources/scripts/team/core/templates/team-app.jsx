@@ -44,18 +44,9 @@ var TeamApp = React.createClass({
         if(this.isMounted()) {
             var page = PageStore.getCurrentMainPage();
 
-            if(!page)
-            {
-                this.setState({
-                    page: PageStore.getNotFoundPage() || null
-                });
-            }
-            else
-            {
-                this.setState({
-                    page: page
-                });
-            }
+            this.setState({
+                page: page || PageStore.getNotFoundPage() || null
+            });
         }
     },
 

@@ -25,7 +25,8 @@ Realtime.on('quiz:quizzes', function(data) {
 Realtime.on('quiz:create', function(data) {
     var action = {
         type: ActionTypes.ADD_QUIZ,
-        quiz: data.quiz
+        quiz: data.quiz,
+        open: data.open
     };
 
     // Dispatch the action

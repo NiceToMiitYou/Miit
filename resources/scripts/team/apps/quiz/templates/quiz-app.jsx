@@ -63,9 +63,6 @@ var QuizApp = React.createClass({
                 <If test={-1 !== links.indexOf('return')}>
                     <Link href="#/quiz/">Retour</Link>
                 </If>
-                <If test={-1 !== links.indexOf('create')}>
-                    <Link href="#/quiz/create">Créer</Link>
-                </If>
                 <Page ref="page" />
             </div>
         );

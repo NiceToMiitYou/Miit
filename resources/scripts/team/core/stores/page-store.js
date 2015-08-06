@@ -20,7 +20,7 @@ var defaultPage  = config.default;
 var notFoundPage = config['404'];
 
 // All needed pages variables
-var CurrentMainPage, CurrentApplicationPage;
+var CurrentMainPage, CurrentApplicationPage, Argument;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages');
@@ -47,6 +47,10 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getCurrentApplicationPage: function() {
         return PageStorage.get('app-' + CurrentMainPage + '-' + CurrentApplicationPage);
+    },
+
+    getArgument: function() {
+        return Argument;
     },
 
     getDefaultPage: function() {
@@ -95,6 +99,7 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.CHANGE_PAGE:
             CurrentMainPage        = action.main;
             CurrentApplicationPage = action.app;
+            Argument               = action.argument;
 
             PageStore.emitPageChanged();
             break;

@@ -48,8 +48,20 @@ module.exports = function QuizApp() {
             return;
         }
 
-        QuizStore.createQuiz(name, description, team, user, function(err, quizz) {
-            sendRefreshAction(team);
+        QuizStore.createQuiz(name, description, team, user, function(err, quiz) {
+            // Send quiz to creator to open it
+            spark.write({
+                event: 'quiz:create',
+                quiz:  quiz,
+                open:  true
+            });
+
+            // Send the event to all admins
+            primus.except(spark.id).in(team.id + ':' + app.identifier() + ':ADMIN').write({
+                event: 'quiz:create',
+                quiz:  quiz,
+                open:  false
+            });
         });
     });
 
