@@ -16,7 +16,9 @@ function checkLoaded() {
     }
 
     // Then render the application
-    MiitApp.render();
+    setTimeout(function() {
+        MiitApp.render();
+    });
 }
 
 function addAndCheck(identifier) {
