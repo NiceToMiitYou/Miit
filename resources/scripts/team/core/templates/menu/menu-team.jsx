@@ -11,7 +11,7 @@ var If   = require('templates/if.jsx');
 
 // Include templates
 var Link            = require('core/templates/components/link.jsx'),
-    UserList        = require('core/templates/user/user-list.jsx')
+    UserList        = require('core/templates/user/user-list.jsx'),
     UserSettings    = require('pages/user-settings.jsx'),
     MenuHeader      = require('./menu-header.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
