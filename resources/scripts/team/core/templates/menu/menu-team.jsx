@@ -1,19 +1,19 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    UserActions = require('core/actions/user-actions'),
+var UserStore    = require('core/stores/user-store'),
+    UserActions  = require('core/actions/user-actions'),
     ModalActions = require('core/actions/modal-actions'),
-    UserList    = require('core/templates/user/user-list.jsx'),
-    TeamStore   = require('core/stores/team-store');
+    TeamStore    = require('core/stores/team-store');
 
 // Include common
 var If   = require('templates/if.jsx');
 
-// Include components
-var Link = require('core/templates/components/link.jsx'),
+// Include templates
+var Link            = require('core/templates/components/link.jsx'),
+    UserList        = require('core/templates/user/user-list.jsx')
+    UserSettings    = require('pages/user-settings.jsx'),
     MenuHeader      = require('./menu-header.jsx'),
-    UserSettings      = require('pages/user-settings.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
     MenuUserProfile = require('./menu-user-profile.jsx'),
     MenuTeamItem    = require('./menu-team-item.jsx');
@@ -34,7 +34,7 @@ var MenuTeam = React.createClass({
     },
 
     openAppStore: function() {
-        ModalActions.open('app-store', <UserSettings />, {
+        ModalActions.open('user-settings', <UserSettings />, {
             title:  this.props.text.my_account,
             color : 'grey',
             size :  'medium'
