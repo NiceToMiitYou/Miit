@@ -3,6 +3,7 @@
 // Include requirements
 var UserStore   = require('core/stores/user-store'),
     UserActions = require('core/actions/user-actions'),
+    ModalActions = require('core/actions/modal-actions'),
     UserList    = require('core/templates/user/user-list.jsx'),
     TeamStore   = require('core/stores/team-store');
 
@@ -12,6 +13,7 @@ var If   = require('templates/if.jsx');
 // Include components
 var Link = require('core/templates/components/link.jsx'),
     MenuHeader      = require('./menu-header.jsx'),
+    UserSettings      = require('pages/user-settings.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
     MenuUserProfile = require('./menu-user-profile.jsx'),
     MenuTeamItem    = require('./menu-team-item.jsx');
@@ -20,7 +22,7 @@ var MenuTeam = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                user_label:      'Utilisateur',
+                user_label:      'Utilisateurs',
                 my_account:      'Mon compte',
                 disconnect:      'Déconnexion',
                 connect:         'Connexion',
@@ -29,6 +31,14 @@ var MenuTeam = React.createClass({
                 add_user:        'Ajouter un utilisateur'
             }
         };
+    },
+
+    openAppStore: function() {
+        ModalActions.open('app-store', <UserSettings />, {
+            title:  this.props.text.my_account,
+            color : 'grey',
+            size :  'medium'
+        });
     },
 
     render: function() {
@@ -61,6 +71,10 @@ var MenuTeam = React.createClass({
 
                     <MenuLabel label={this.props.text.user_label} />
                     <MenuUserProfile />
+
+                    <span onClick={this.openAppStore}>
+                        <i className="fa fa-plus pull-left"></i> {this.props.text.my_account}
+                    </span>
                     
                     <UserList headers={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
                     <If test={UserStore.isAdmin()}>
