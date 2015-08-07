@@ -1,11 +1,8 @@
 'use strict';
 
-// Include core lib
-var Router = MiitApp.require('core/lib/router');
-
 // Include core requirements
-var PageStore    = MiitApp.require('core/stores/page-store'),
-    UserStore    = MiitApp.require('core/stores/user-store'),
+var UserStore    = MiitApp.require('core/stores/user-store'),
+    PageStore    = MiitApp.require('core/stores/page-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
@@ -15,13 +12,20 @@ var QuizActions = require('quiz-actions'),
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
 
-var QuizCreate = React.createClass({
+var QuizUpdate = React.createClass({
+    statics: {
+        getLinkList: function() {
+            return ['return'];
+        }
+    },
+
     getDefaultProps: function () {
         return {
             text: {
+                title:       'Modifer',
                 name:        'Nom',
                 description: 'Description',
-                submit:      'Créer'
+                submit:      'Sauvegarder'
             }  
         };
     },
@@ -31,16 +35,28 @@ var QuizCreate = React.createClass({
             value_name:        '',
             value_description: '',
             error_name:        false,
-            processing:        false
+            quiz:              null
         };
     },
 
     componentDidMount: function() {
-        QuizStore.addQuizCreatedListener(this._onCreated);
+        QuizStore.addQuizzesRefreshedListener(this._onChange);
     },
 
     componentWillUnmount: function() {
-        QuizStore.removeQuizCreatedListener(this._onCreated);
+        QuizStore.removeQuizzesRefreshedListener(this._onChange);
+    },
+
+    _onChange: function() {
+        var quizId = PageStore.getArgument(),
+            quiz   = QuizStore.getQuiz(quizId);
+
+        // Define the quiz
+        this.setState({
+            quiz:              quiz,
+            value_name:        quiz.name,
+            value_description: quiz.description
+        });
     },
 
     handleChange: function(e) {
@@ -64,12 +80,12 @@ var QuizCreate = React.createClass({
 
         // Reset error
         this.setState({
-            error_name: false,
-            processing: false
+            error_name: false
         });
 
         // Get values
-        var name        = this.state.value_name,
+        var quizId      = this.state.quiz.id,
+            name        = this.state.value_name,
             description = this.state.value_description;
 
         // Check the name
@@ -81,29 +97,13 @@ var QuizCreate = React.createClass({
         }
 
         // Create the quiz
-        var result = QuizActions.create(name, description);
-
-        this.setState({
-            processing: result
-        });
-    },
-
-    _onCreated: function(quizId) {
-        // Change the page of the app
-        setTimeout(function() {
-            // Set the route as quiz update
-            Router.setRoute('/quiz/update/' + quizId);
-        });
-
-        // Delay the closure of the modal
-        setTimeout(function() {
-            // Close the modal
-            ModalActions.close('quiz-create-new');
-        }, 25);
+        var result = QuizActions.update(quizId, name, description);
     },
 
     render: function() {
-        if(false === UserStore.isAdmin()) {
+        var quiz = this.state.quiz;
+
+        if(false === UserStore.isAdmin() || !quiz) {
             return null;
         }
 
@@ -114,11 +114,10 @@ var QuizCreate = React.createClass({
         // Get errors
         var classesName = classNames(this.state.error_name ? 'invalid' : '');
 
-        // Is processing
-        var processing = this.state.processing;
-
         return (
-            <div className="miit-component quiz-create">
+            <div className="miit-component quiz-update">
+                <h2>{this.props.text.title} - {quiz.name}</h2>
+
                 <form onSubmit={this.handleSubmit}>
                     <label className="ml40">
                         {this.props.text.name}
@@ -131,12 +130,13 @@ var QuizCreate = React.createClass({
 
                     <button type="submit">{this.props.text.submit}</button>
                 </form>
-                <If test={processing}>
-                    <div className="overlay">This &lt;DIV&gt; should overlay the form</div>
-                </If>
+
+
             </div>
         );
     }
 });
 
-module.exports = QuizCreate;
+PageStore.registerApplicationPage('quiz', 'update', QuizUpdate);
+
+module.exports = QuizUpdate;

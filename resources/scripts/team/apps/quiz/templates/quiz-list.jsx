@@ -2,7 +2,6 @@
 
 // Include core requirements
 var UserStore    = MiitApp.require('core/stores/user-store'),
-    PageStore    = MiitApp.require('core/stores/page-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
@@ -12,13 +11,20 @@ var QuizStore = require('quiz-store');
 var If = MiitApp.require('templates/if.jsx');
 
 // Include template
-var QuizCreate = require('templates/quiz-create.jsx');
+var QuizListItem = require('templates/quiz-list-item.jsx'),
+    QuizCreate   = require('templates/quiz-create.jsx');
 
 var QuizList = React.createClass({
-    statics: {
-        getLinkList: function() {
-            return ['create'];
-        }
+    componentDidMount: function() {
+        QuizStore.addQuizzesRefreshedListener(this._onChange);
+    },
+
+    componentWillUnmount: function() {
+        QuizStore.removeQuizzesRefreshedListener(this._onChange);
+    },
+
+    _onChange: function() {
+        this.forceUpdate();
     },
 
     getDefaultProps: function () {
@@ -45,9 +51,11 @@ var QuizList = React.createClass({
                 <If test={UserStore.isAdmin()}>
                     <span onClick={this.onClickCreate}>{this.props.text.create}</span>
                 </If>
-                {quizzes.map(function(quiz) {
-                    return null;
-                })}
+                <div className="list">
+                    {quizzes.map(function(quiz) {
+                        return <QuizListItem key={'quiz-' + quiz.id} quiz={quiz} />;
+                    })}
+                </div>
             </div>
         );
     }
