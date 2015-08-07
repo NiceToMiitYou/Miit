@@ -14,7 +14,7 @@ var ActionTypes = require('quiz-constants').ActionTypes;
 
 Realtime.on('quiz:quizzes', function(data) {
     var action = {
-        type:    ActionTypes.REFRESH_QUIZ,
+        type:    ActionTypes.REFRESH_QUIZZES,
         quizzes: data.quizzes
     };
 
@@ -54,9 +54,20 @@ module.exports = {
         Realtime.send('quiz:quizzes');
     },
 
-    create: function() {
+    create: function(name, description) {
         if(false === UserStore.isAdmin()) {
             return;
         }
+
+        if(!name || !name.trim()) {
+            return false;
+        }
+
+        Realtime.send('quiz:create', {
+            name:        name,
+            description: description
+        });
+
+        return true;
     }
 };

@@ -12,6 +12,7 @@ var ActionTypes = QuizConstants.ActionTypes;
 // List of events
 var events = KeyMirror({
     // Events on quiz event
+    QUIZ_CREATED: null,
     QUIZZES_REFRESHED: null
 });
 
@@ -38,10 +39,15 @@ function _updateQuiz(quiz) {
 var QuizStore = ObjectAssign({}, EventEmitter.prototype, {
     getQuizzes: function() {
         return Quizzes || [];
+    },
+
+    getQuiz: function(id) {
+        return Quizzes.findBy('id', id);
     }
 });
 
 // Register Functions based on event
+QuizStore.generateNamedFunctions(events.QUIZ_CREATED);
 QuizStore.generateNamedFunctions(events.QUIZZES_REFRESHED);
 
 // Handle actions
@@ -53,8 +59,15 @@ QuizStore.dispatchToken = Dispatcher.register(function(action){
             break;
         
         case ActionTypes.ADD_QUIZ:
-            _addQuiz(action.quiz);
-            QuizStore.emitQuizzesRefreshed();
+            var quiz = action.quiz;
+            // Add the quiz
+            _addQuiz(quiz);
+            // Emit the rigth event
+            if(true === action.open) {
+                QuizStore.emitQuizCreated(quiz.id);
+            } else {
+                QuizStore.emitQuizzesRefreshed();
+            }
             break;
 
         case ActionTypes.UPDATE_QUIZ:
