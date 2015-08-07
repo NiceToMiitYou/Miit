@@ -55,9 +55,13 @@ module.exports = function ChatApp() {
     // Send a message
     Dispatcher.register('chat:send', 'USER', app.identifier(), function onSendMessage(spark, data, team, user) {
         var chatroom = data.chatroom;
-        var text     = data.text;
+        var text     = data.text || '';
 
-        if(!chatroom || !text) {
+        if(
+            !chatroom ||
+            'string' !== typeof text ||
+            !text || !text.trim()
+        ) {
             return;
         }
 

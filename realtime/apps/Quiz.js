@@ -44,7 +44,11 @@ module.exports = function QuizApp() {
         var name        = data.name || '',
             description = data.description || '';
 
-        if(!name || !name.trim()) {
+        if(
+            'string' !== typeof name ||
+            'string' !== typeof description ||
+            !name || !name.trim()
+        ) {
             return;
         }
 
@@ -74,10 +78,15 @@ module.exports = function QuizApp() {
             name        = data.name || '',
             description = data.description || '';
 
-        if(!quizId || !name || !name.trim()) {
+        if(
+            !quizId ||
+            'string' !== typeof name ||
+            'string' !== typeof description ||
+            !name || !name.trim()
+        ) {
             return;
         }
-        
+
         name        = name.trim();
         description = description.trim();
 
