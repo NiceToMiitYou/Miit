@@ -105,7 +105,7 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
             });
         },
 
-        updateQuiz: function(quizz, name, description, team, cb) {
+        updateQuiz: function(quiz, name, description, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);
 

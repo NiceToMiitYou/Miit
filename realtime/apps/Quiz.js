@@ -41,12 +41,15 @@ module.exports = function QuizApp() {
 
     // Create a quiz
     Dispatcher.register('quiz:create', 'ADMIN', app.identifier(), function onCreateQuiz(spark, data, team, user) {
-        var name        = data.name,
-            description = data.description;
+        var name        = data.name || '',
+            description = data.description || '';
 
-        if(!name) {
+        if(!name || !name.trim()) {
             return;
         }
+
+        name        = name.trim();
+        description = description.trim();
 
         QuizStore.createQuiz(name, description, team, user, function(err, quiz) {
             // Send quiz to creator to open it
@@ -68,12 +71,15 @@ module.exports = function QuizApp() {
     // Update a quiz
     Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
         var quizId      = data.id,
-            name        = data.name,
-            description = data.description;
+            name        = data.name || '',
+            description = data.description || '';
 
-        if(!quizId || !name) {
+        if(!quizId || !name || !name.trim()) {
             return;
         }
+        
+        name        = name.trim();
+        description = description.trim();
 
         QuizStore.updateQuiz(quizId, name, description, team, function(err, chatroom) {
             sendRefreshAction(team);

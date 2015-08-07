@@ -69,5 +69,23 @@ module.exports = {
         });
 
         return true;
+    },
+
+    update: function(id, name, description) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id || !name || !name.trim()) {
+            return false;
+        }
+
+        Realtime.send('quiz:update', {
+            id:          id,
+            name:        name,
+            description: description
+        });
+
+        return true;
     }
 };
