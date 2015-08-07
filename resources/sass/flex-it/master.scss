@@ -597,7 +597,7 @@ a {
     span.status {
       width: 32px;
       float: right;
-      font-size: 1.3em;
+      font-size: .8em;
       &.online {
         color:#4caf50;
       }
@@ -614,7 +614,7 @@ a {
 
 /* ---------------- BEGIN INPUT CSS ---------------- */
 
-input {
+input[type="text"] {
     width: 100%;
     border-radius: 0;
     border: 0;
@@ -894,7 +894,7 @@ click-wave { 0% {
   font-size: .9em;
   line-height: 1.35;
   overflow: hidden;
-  padding: 6px 30px;
+  padding: 6px 20px;
   position: relative;
   text-decoration: none;
   -webkit-transition: background 0.2s ease-in-out;

@@ -52,11 +52,12 @@ var UserListItem = React.createClass({
         return (
             <div className="miit-component user-list-item">
                 <UserAvatar user={this.props.user} />
-                <span className="pl10">{name}</span>
-
-                <If test={this.props.status}>
-                    <span className={classes}><i className="fa fa-circle"></i></span>
-                </If>
+                <span className="pl10">
+                    {name}
+                    <If test={this.props.status}>
+                        <span className={classes}><i className="fa fa-circle"></i></span>
+                    </If>
+                </span>
                 
                 <If test={this.props.email && UserStore.isUser()}>
                     <span className="pl10">{this.props.user.email}</span>

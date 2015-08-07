@@ -110,8 +110,6 @@ a {
 }
 
 .user-list {
-	line-height: 2em;
-
 
 	.user-list-header {
 		font-weight: bold;
@@ -147,17 +145,13 @@ a {
 			vertical-align: middle;
 		}
 
-		i.fa {
-			font-size: .6em;
-		}
+		// .user-list-item-roles {
+		// 	width: 50%;
 
-		.user-list-item-roles {
-			width: 50%;
-
-			button {
-				padding: 6px 12px;
-			}
-		}
+		// 	button {
+		// 		padding: 6px 12px;
+		// 	}
+		// }
 
 		.user-avatar {
 
@@ -194,27 +188,108 @@ a {
 	}
 }
 
+.application-list {
+
+	margin-bottom: 20px;
+
+	.application-list-header {
+		margin-bottom: 10px;
+		display: none;
+	}
+
+	.application-list-item {
+
+		padding: 5px 0;
+		border-top: 1px solid #E8E8E8;
+
+		&:hover {
+			background-color:#EFEFEF;
+		}
+
+		& > div {
+			display: inline-block;
+
+			& > span {
+				display: inline-block;
+				margin-right: 15px;
+				vertical-align: middle;
+			}
+
+			&.application-actions {
+				text-align: right;
+				width: 70%;
+
+				button {
+					i {
+						margin-right: 5px;
+					}
+				}
+			}
+
+			&.application-info {
+				width: 30%;
+			}
+		}
+		
+		.application-icon {
+			margin-left: 6px;
+			i {
+				color: #FFF;
+				border-radius: 2px;
+				font-size: 1.3em;
+				width: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
+		}
+	}
+
+}
+
 .panel {
 	.user-list {
 
+		&::after {
+			content:"";
+			display: block;
+			clear: both;
+		}
+
 		.user-list-item {
 			color: #000;
-
 			width: 50%;
 			float: left;
 
+			span.status {
+				float: inherit;
+			}
+
 			.user-avatar {
-				width: 60px;
+				width: 80px;
 				float: left;
 				margin-right: 10px;
 			}
 
 			&:hover {
-				background-color: transparent;
+				background-color: #F0F0F0;
 			}
 
-			span {
+			& > span {
 				display: block;
+				line-height: 1.7em;
+			}
+		}
+
+		.user-list-invite {
+
+			&::before {
+			    display: block;
+			    content: "";
+			    clear: both;
+			}
+
+			form {
+				margin-top: 20px;
 			}
 		}
 	}

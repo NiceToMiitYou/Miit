@@ -10,7 +10,7 @@ var If = require('templates/if.jsx');
 
 var Translations = {
     APP_CHAT:      'Chat',
-    APP_QUIZZ:     'Quizz',
+    APP_QUIZ:      'Quiz',
     APP_DOCUMENTS: 'Documents',
 };
 
@@ -19,7 +19,9 @@ var ApplicationListItem = React.createClass({
         return {
             application: {},
             text: {
-                public: 'Publique'
+                public:    'Publique',
+                app_del:   'Supprimer',
+                app_conf:  'Configurer',
             }
         };
     },
@@ -72,20 +74,29 @@ var ApplicationListItem = React.createClass({
 
         return (
             <div className="miit-component application-list-item">
-                <span>
-                    <i className={appClasses}></i>
-                </span>
-                <span>
-                    {application.name}
-                </span>
-                <span>
-                    <input type="checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
-                </span>
-                <span>
-                    <button className='btn btn-danger ml20' onClick={this.handleRemove}>
-                        <i className="fa fa-trash-o"></i>
-                    </button>
-                </span>
+                <div className="application-info">
+                    <span className="application-icon">
+                        <i className={appClasses}></i>
+                    </span>
+                    <span className="application-name">
+                        {application.name}
+                    </span>
+                </div>
+                <div className="application-actions">
+                    <span className="checkbox-field">
+                        <input type="checkbox" className="option-input checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
+                    </span>
+                    <span>
+                        <button className='btn btn-info ml20'>
+                            <i className="fa fa-cog"></i>
+                            {this.props.text.app_conf}
+                        </button>
+                        <button className='btn btn-danger ml20' onClick={this.handleRemove}>
+                            <i className="fa fa-trash-o"></i>
+                            {this.props.text.app_del}
+                        </button>
+                    </span>
+                </div>
             </div>
         );
     }

@@ -104,17 +104,18 @@ var UserListItemRoles = React.createClass({
         });
 
         return (
-            <span className="miit-component user-list-item-roles">
-                <div className="checkbox-field pull-left ml20" onClick={this.handleClick.bind(this, 'ADMIN')} >
+            <span className="miit-component user-list-item-roles mt5">
+
+                <button onClick={this.handleClick.bind(this, 'REMOVE')} className='btn pull-left btn-danger btn-sm mr10 pl15 pr15' disabled={remove_active}>
+                    <i className="fa fa-trash-o"></i>
+                </button>
+
+                <div className="checkbox-field pull-left" onClick={this.handleClick.bind(this, 'ADMIN')} >
                     <label>
                         <input type="checkbox" className="option-input checkbox" checked={userIsAdmin} readOnly />
                         {this.props.text.admin}
                     </label>
                 </div>
-
-                <button onClick={this.handleClick.bind(this, 'REMOVE')} className='btn btn-danger ml20' disabled={remove_active}>
-                    <i className="fa fa-trash-o"></i>
-                </button>
             </span>
         );
     }
