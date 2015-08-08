@@ -63,10 +63,10 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
 
             if(true !== closed) {
                 conditions['closed'] = false;
-                conditions['start']  = { $gte: Date.now() };
+                conditions['start']  = { $lte: Date.now() };
                 conditions['end']    = { $gte: Date.now() };
 
-                console.log('Request open quizzes.');
+                console.log('Request opened quizzes.');
             }
 
             Quiz

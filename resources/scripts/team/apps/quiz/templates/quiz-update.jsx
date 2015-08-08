@@ -41,6 +41,7 @@ var QuizUpdate = React.createClass({
 
     componentDidMount: function() {
         QuizStore.addQuizzesRefreshedListener(this._onChange);
+        this._onChange();
     },
 
     componentWillUnmount: function() {
@@ -131,7 +132,7 @@ var QuizUpdate = React.createClass({
                     <button type="submit">{this.props.text.submit}</button>
                 </form>
 
-
+                
             </div>
         );
     }
