@@ -60,7 +60,7 @@ var ChatRoomListItem = React.createClass({
             <span className={classes} onClick={this.onChange}>
                 <span className="chatroom-name">{chatroom.name}</span>
                 <If test={unread > 0}>
-                    <span className="notification">{unread}</span>
+                    <span className="notification pull-left">{unread}</span>
                 </If>
                 <If test={isAdmin}>
                     <Dropdown>

@@ -415,6 +415,11 @@ a {
 				margin-left: 15px;
 				float: inherit;
 			}
+
+			.notification {
+				margin-right: 6px;
+				margin-top: 16px;
+			}
 		}
 
 		.create-room {
@@ -471,7 +476,8 @@ a {
 		height: calc(100% - 165px);
 
 		.chat-message-list-item {
-			margin-top: 25px;
+			margin-top: 20px;
+			margin-bottom: 10px;
 
 			.user-info {
 				line-height: 1.2em;
@@ -511,6 +517,8 @@ a {
 		 	    padding-top: 10px;
 		 	    padding-bottom: 10px;
 		 	    margin-top: -39px;
+		 	    margin-right: 1px;
+		 	    border-radius:0;
 		 }
 	}
 }

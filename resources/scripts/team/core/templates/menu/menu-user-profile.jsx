@@ -3,6 +3,9 @@
 // Include requirements
 var UserStore   = require('core/stores/user-store');
 
+// Include common
+var If = require('templates/if.jsx');
+
 // Include components
 var UserAvatar = require('core/templates/user/user-avatar.jsx'),
     Link = require('core/templates/components/link.jsx');
@@ -45,9 +48,11 @@ var MenuUserProfile = React.createClass({
                 </div>
                 <span className="username">
                     {name}
-                    <Link href="#/me" className="pull-right mr10 text-white">
-                        <i className="fa fa-cog pull-left"></i>
-                    </Link>
+                    <If test={UserStore.isUser()}>
+                        <Link href="#/me" className="pull-right mr10 text-white">
+                            <i className="fa fa-cog pull-left"></i>
+                        </Link>
+                    </If>
                 </span>
                 <span><i className="fa fa-circle stat-open mr5"></i> {this.props.text.connected}</span>
             </span>
