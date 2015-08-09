@@ -17,7 +17,8 @@ var store = miitoo.resolve(['UserModel'], function(User) {
                 .exec(function(err, user) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -34,7 +35,8 @@ var store = miitoo.resolve(['UserModel'], function(User) {
                 .exec(function(err, user) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {

@@ -12,6 +12,9 @@ var QuizActions = require('quiz-actions'),
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
 
+// Include templates
+var QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
+
 var QuizUpdate = React.createClass({
     statics: {
         getLinkList: function() {
@@ -51,6 +54,10 @@ var QuizUpdate = React.createClass({
     _onChange: function() {
         var quizId = PageStore.getArgument(),
             quiz   = QuizStore.getQuiz(quizId);
+
+        if(!quiz) {
+            return;
+        }
 
         // Define the quiz
         this.setState({
@@ -132,7 +139,7 @@ var QuizUpdate = React.createClass({
                     <button type="submit">{this.props.text.submit}</button>
                 </form>
 
-                
+                <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
             </div>
         );
     }
