@@ -83,6 +83,23 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
     schema.options.toJSON = {
         transform: function(doc, ret, options) {
             ret.id = ret._id;
+
+            for(var i in ret.questions) {
+
+                // Do the same to answers
+                for(var j in ret.questions[i].answers) {
+                    // Swap _id to id
+                    ret.questions[i].answers[j].id = ret.questions[i].answers[j]._id;
+
+                    delete ret.questions[i].answers[j]._id;
+                }
+
+                // Swap _id to id
+                ret.questions[i].id = ret.questions[i]._id;
+
+                delete ret.questions[i]._id;
+            }
+            
             delete ret._id;
             delete ret.__v;
             return ret;
