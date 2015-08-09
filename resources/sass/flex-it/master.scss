@@ -614,7 +614,7 @@ a {
 
 /* ---------------- BEGIN INPUT CSS ---------------- */
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
     width: 100%;
     border-radius: 0;
     border: 0;
@@ -632,6 +632,7 @@ input[type="text"] {
     &:focus  {
         outline: 0;
         background: transparent;
+        border-color: #1e2d3a;
     }
 }
 
@@ -1727,79 +1728,21 @@ counter-rotate { 0% {
 @media screen and (max-width: 768px) {
 
     .page {
-        padding-left: 50px;
+        padding-left: 0px;
+        margin-left: 0;
+
+        .page-header {
+          left: 0;
+        }
     }
 
     /* ---------------- BEGIN LEFT SIDEBAR CSS ---------------- */
 
     .sidr-left {
-        width: 50px;
+        margin-left: -220px;
+        z-index: 99999;
     }
 
-    .page.fullwidth .sidr-left {
-        width: 0;
-    }
-
-    .page {
-      margin-left: 0;
-    }
-
-    .sidr-left .sl-header {
-        padding: 0px;
-    }
-
-    .sidr-left .sl-header:hover {
-        background-color: #33414D!important;
-    }
-
-    .sidr-left .sl-header i.fa-bars {
-        margin-right: 0px;
-        width: 50px;
-        text-align: center;
-    }
-
-    .sidr-left .sl-label {
-        color: #FFF;
-        line-height: 2.3em;
-        padding: 0px;
-        display: block;
-        background: #16202A;
-        
-    }
-
-    .sidr-left .sl-label i {
-        margin-right: 0;
-        width: 50px;
-        text-align: center;
-    }
-
-    .sidr-left ul.sl-list li a {
-        padding-left: 0px;
-    }
-
-
-
-    .sidr-left ul.sl-list li a i {
-        width: 50px;
-        text-align: center;
-    }
-
-    .sidr-left .sl-footer span {
-        line-height: 40px;
-        display: block;
-    }
-
-    .sidr-left .sl-footer .avatar {
-        width: 40px;
-        overflow: hidden;
-        height: 40px;
-        float: left;
-        margin-right: 12px;
-    }
-
-    .sidr-left .sl-footer .avatar img {
-        width: 100%;
-    }
 
     /* ---------------- END LEFT SIDEBAR CSS ---------------- */
 
