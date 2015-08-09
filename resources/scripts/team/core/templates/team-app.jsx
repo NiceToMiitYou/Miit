@@ -16,7 +16,8 @@ var MenuTeam              = require('core/templates/menu/menu-team.jsx'),
 var TeamApp = React.createClass({
     getInitialState: function() {
         return {
-            page: PageStore.getCurrentMainPage()
+            page:        PageStore.getCurrentMainPage(),
+            menu_opened: PageStore.getMenuState()
         };
     },
 
@@ -24,12 +25,14 @@ var TeamApp = React.createClass({
         UserStore.addLoggedInListener(this._onLoggedIn);
         TeamStore.addTeamUpdatedListener(this._onChange);
         PageStore.addPageChangedListener(this._onChange);
+        PageStore.addMenuToggledListener(this._onToggle);
     },
 
     componentWillUnmount: function() {
         UserStore.removeLoggedInListener(this._onLoggedIn);
         TeamStore.removeTeamUpdatedListener(this._onChange);
         PageStore.removePageChangedListener(this._onChange);
+        PageStore.removeMenuToggledListener(this._onToggle);
     },
 
     _onLoggedIn: function() {
@@ -50,11 +53,22 @@ var TeamApp = React.createClass({
         }
     },
 
+    _onToggle: function(open) {
+        if(this.isMounted()) {
+            this.setState({
+                menu_opened: open
+            });
+        }
+    },
+
     render: function() {
-        var Page = this.state.page;
+        var Page       = this.state.page;
+        var MenuOpened = this.state.menu_opened;
+
+        var classes = classNames('team-app page bg-grey lighten-5', (true === MenuOpened) ? 'menu-open': 'menu-close');
 
         return (
-            <div className="page bg-grey lighten-5">
+            <div className={classes}>
                 <MenuTeam />
 
                 <div className="main container-fluid">

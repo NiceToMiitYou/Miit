@@ -9,7 +9,8 @@ var Dispatcher  = require('core/lib/dispatcher'),
 // List of events
 var events = KeyMirror({
     // Events on page Change
-    PAGE_CHANGED: null
+    PAGE_CHANGED: null,
+    MENU_TOGGLED: null
 });
 
 // Load all pages
@@ -21,6 +22,9 @@ var notFoundPage = config['404'];
 
 // All needed pages variables
 var CurrentMainPage, CurrentApplicationPage, Argument;
+
+// Menu State
+var MenuOpened = false;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages');
@@ -51,6 +55,10 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getArgument: function() {
         return Argument;
+    },
+
+    getMenuState: function() {
+        return MenuOpened;
     },
 
     getDefaultPage: function() {
@@ -92,6 +100,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
 // Register Functions based on event
 PageStore.generateNamedFunctions(events.PAGE_CHANGED);
+PageStore.generateNamedFunctions(events.MENU_TOGGLED);
 
 // Handle actions
 PageStore.dispatchToken = Dispatcher.register(function(action){
@@ -102,6 +111,14 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
             Argument               = action.argument;
 
             PageStore.emitPageChanged();
+            break;
+
+        case ActionTypes.TOGGLE_MENU:
+
+            // Toggle the menu
+            MenuOpened = !MenuOpened;
+
+            PageStore.emitMenuToggled(MenuOpened);
             break;
     }
 });

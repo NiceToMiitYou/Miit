@@ -19,6 +19,14 @@ var PageActions = {
         };
 
         Dispatcher.dispatch(action);
+    },
+
+    toggleMenu: function() {
+        var action = {
+            type:     ActionTypes.TOGGLE_MENU
+        };
+
+        Dispatcher.dispatch(action);
     }
 };
 
