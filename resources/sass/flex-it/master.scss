@@ -151,6 +151,10 @@ a {
         width: 100%;
         color: #FFF;
         height: 55px;
+        -webkit-transition: left 500ms ease;
+        -moz-transition: left 500ms ease;
+        -o-transition: left 500ms ease;
+        transition: left 500ms ease;
           -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
           -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
@@ -228,6 +232,21 @@ a {
           }
 
     }
+
+    &.menu-close {
+          padding-left: 0px;
+          margin-left: 0;
+
+          .page-header {
+            left: 0;
+          }
+
+      .sidr-left {
+          margin-left: -220px;
+          z-index: 99999;
+      }
+
+    }
 }
 
 /* ---------------- BEGIN LEFT SIDEBAR CSS ---------------- */
@@ -240,10 +259,10 @@ a {
     width: 220px;
     overflow: hidden;
 
-    -webkit-transition: width 500ms ease;
-    -moz-transition: width 500ms ease;
-    -o-transition: width 500ms ease;
-    transition: width 500ms ease;
+    -webkit-transition: margin-left 500ms ease;
+    -moz-transition: margin-left 500ms ease;
+    -o-transition: margin-left 500ms ease;
+    transition: margin-left 500ms ease;
     z-index: 9;
 
     // .add_user {
@@ -1700,55 +1719,24 @@ counter-rotate { 0% {
 
 @media screen and (max-width: 1024px) {
 
-    html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video, button {
-    }
-
-
-    .page {
-
-    }
-
-
-    /* ---------------- BEGIN LEFT SIDEBAR CSS ---------------- */
-
-
-    /* ---------------- END LEFT SIDEBAR CSS ---------------- */
-
-
 }
 
 @media screen and (max-width: 768px) {
 
-    .page {
-        padding-left: 0px;
-        margin-left: 0;
+    // .page {
+    //     padding-left: 0px;
+    //     margin-left: 0;
 
-        .page-header {
-          left: 0;
-        }
-    }
-
-    /* ---------------- BEGIN LEFT SIDEBAR CSS ---------------- */
-
-    .sidr-left {
-        margin-left: -220px;
-        z-index: 99999;
-    }
+    //     .page-header {
+    //       left: 0;
+    //     }
+    // }
 
 
-    /* ---------------- END LEFT SIDEBAR CSS ---------------- */
+    // .sidr-left {
+    //     margin-left: -220px;
+    //     z-index: 99999;
+    // }
 
 
 }
