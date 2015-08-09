@@ -4,7 +4,8 @@
 var UserStore   = require('core/stores/user-store');
 
 // Include components
-var UserAvatar = require('core/templates/user/user-avatar.jsx');
+var UserAvatar = require('core/templates/user/user-avatar.jsx'),
+    Link = require('core/templates/components/link.jsx');
 
 var MenuUserProfile = React.createClass({
    getDefaultProps: function() {
@@ -42,7 +43,12 @@ var MenuUserProfile = React.createClass({
                 <div className="avatar">
                     <UserAvatar user={user} />
                 </div>
-                <span className="username">{name}</span>
+                <span className="username">
+                    {name}
+                    <Link href="#/me" className="pull-right mr10 text-white">
+                        <i className="fa fa-cog pull-left"></i>
+                    </Link>
+                </span>
                 <span><i className="fa fa-circle stat-open mr5"></i> {this.props.text.connected}</span>
             </span>
         );
