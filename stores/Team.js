@@ -32,7 +32,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         Team.update(conditions, update, function(err, doc) {
             // Log the error
             if(err) {
-                miitoo.logger.error(err);
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
             }
 
             if(typeof cb === 'function') {
@@ -58,7 +59,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 .exec(function(err, team) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -77,7 +79,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 .exec(function(err, team) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -248,7 +251,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 .exec(function(err, team) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -273,7 +277,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 .exec(function(err, team) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {

@@ -19,7 +19,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
 
             chatroom.save(function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -37,7 +38,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                 team: teamId
             }, function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -74,7 +76,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             }, function(err, doc) {
                 // Log the error
                 if(err) {
-                    miitoo.logger.error(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -98,7 +101,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                 })
                 .exec(function(err, chatrooms) {
                     if(err) {
-                        miitoo.logger.debug(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -148,7 +152,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             Chatroom
                 .aggregate(aggregate, function(err, messages) {
                     if(err) {
-                        miitoo.logger.debug(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -198,7 +203,8 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
             Chatroom
                 .aggregate(aggregate, function(err, messages) {
                     if(err) {
-                        miitoo.logger.debug(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {

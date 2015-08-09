@@ -11,7 +11,8 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
         Quiz.update(conditions, update, function(err, doc) {
             // Log the error
             if(err) {
-                miitoo.logger.error(err);
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
             }
 
             if(typeof cb === 'function') {
@@ -33,7 +34,8 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 .exec(function(err, quiz) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -74,7 +76,8 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 .exec(function(err, quizzes) {
                     // Log the error
                     if(err) {
-                        miitoo.logger.error(err);
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
@@ -91,12 +94,14 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 name:        name,
                 description: description,
                 team:        teamId,
-                user:        userId
+                user:        userId,
+                questions:   []
             });
 
             quiz.save(function(err) {
                 if(err) {
-                    miitoo.logger.error(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -117,6 +122,75 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
             var update = {
                 name:        name,
                 description: description
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        addQuestion: function(quiz, title, subtitle, kind, order, required, team, cb) {
+            var quizId = getId(quiz),
+                teamId = getId(team);
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            var update = {
+                $addToSet: {
+                    questions: {
+                        title:    title,
+                        subtitle: subtitle,
+                        kind:     kind,
+                        order:    order,
+                        required: required,
+                        answers:  []
+                    }
+                }
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        updateQuestion: function(quiz, question, title, subtitle, order, required, team, cb) {
+            var quizId     = getId(quiz),
+                teamId     = getId(team),
+                questionId = getId(question);
+
+            var conditions = {
+                _id:             quizId,
+                team:            teamId,
+                'questions._id': questionId
+            };
+
+            var update = {
+                $set: {
+                    'questions.$.title':    title,
+                    'questions.$.subtitle': subtitle,
+                    'questions.$.order':    order,
+                    'questions.$.required': required
+                }
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        removeQuestion: function(quiz, question, team, cb) {
+            var quizId     = getId(quiz),
+                teamId     = getId(team),
+                questionId = getId(question);
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            var update = {
+                $pull: {
+                    questions: {
+                        _id: questionId
+                    }
+                }
             };
 
             updateQuiz(conditions, update, cb);

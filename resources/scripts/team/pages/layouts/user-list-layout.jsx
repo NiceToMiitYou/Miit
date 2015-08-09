@@ -1,9 +1,12 @@
 'use strict';
 
+// Include requirements
+var PageActions = require('core/actions/page-actions');
+
 // Include components
 var Clock = require('templates/clock.jsx');
 
-// Include components
+// Include templates
 var UserList = require('core/templates/user/user-list.jsx');
 
 var DefaultLayout = React.createClass({
@@ -19,7 +22,7 @@ var DefaultLayout = React.createClass({
         return (
             <div className="fullheight">
                 <div className="page-header">
-                    <a href="#" className="minimize-menu">
+                    <a className="minimize-menu" onClick={PageActions.toggleMenu}>
                         <i className="fa fa-bars"></i>
                     </a>
                     <h1>{this.props.title}</h1>

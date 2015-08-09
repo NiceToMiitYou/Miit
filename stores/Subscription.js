@@ -38,7 +38,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, subscription, { upsert: true }, function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -60,7 +61,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
                 last:  false
             }).exec(function(err, subscriptions) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -79,7 +81,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
             .limit(limit)
             .exec(function(err, subscriptions) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -108,7 +111,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
                 multi: true
             }, function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -134,7 +138,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
                 multi: true
             }, function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {
@@ -161,7 +166,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
                 multi: true
             }, function(err) {
                 if(err) {
-                    miitoo.logger.debug(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                 }
 
                 if(typeof cb === 'function') {

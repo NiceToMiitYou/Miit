@@ -50,7 +50,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
                 required: true
             },
             subtitle: String,
-            type:     Number,
+            kind:     Number,
             order:    Number,
             group:    String,
             required: {
@@ -60,7 +60,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             // Answers model
             answers: [{
                 title: String,
-                type:  Number,
+                kind:  Number,
                 order: Number,
                 // Choices model
                 choices: [{

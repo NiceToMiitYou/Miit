@@ -87,5 +87,75 @@ module.exports = {
         });
 
         return true;
+    },
+
+    addQuestion: function(quiz, title, subtitle, kind, order, required) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(
+            !quiz ||
+            'string' !== typeof title ||
+            'string' !== typeof subtitle ||
+            (kind !== 1 && kind !== 2 && kind !== 3) ||
+            !title || !title.trim()
+        ) {
+            return false;
+        }
+
+        Realtime.send('quiz:questions:add', {
+            quiz:     quiz,
+            title:    title.trim(),
+            subtitle: subtitle.trim(),
+            kind:     kind,
+            order:    order,
+            required: required
+        });
+
+        return true;
+    },
+
+    updateQuestion: function(quiz, question, title, subtitle, order, required) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(
+            !quiz || !question ||
+            'string' !== typeof title ||
+            'string' !== typeof subtitle ||
+            !title || !title.trim()
+        ) {
+            return false;
+        }
+
+        Realtime.send('quiz:questions:update', {
+            quiz:     quiz,
+            question: question,
+            title:    title.trim(),
+            subtitle: subtitle.trim(),
+            order:    order,
+            required: required
+        });
+
+        return true;
+    },
+
+    removeQuestion: function(quiz, question) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!quiz || !question) {
+            return false;
+        }
+
+        Realtime.send('quiz:questions:remove', {
+            quiz:     quiz,
+            question: question
+        });
+
+        return true;
     }
 };
