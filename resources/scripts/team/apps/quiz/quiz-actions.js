@@ -159,5 +159,72 @@ module.exports = {
         });
 
         return true;
+    },
+
+    addAnswer: function(quiz, question, title, kind, order) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(
+            !quiz || !question ||
+            'string' !== typeof title ||
+            (kind !== 1 && kind !== 2) ||
+            !title || !title.trim()
+        ) {
+            return false;
+        }
+
+        Realtime.send('quiz:answers:add', {
+            quiz:     quiz,
+            question: question,
+            title:    title.trim(),
+            kind:     kind,
+            order:    order
+        });
+
+        return true;
+    },
+
+    updateAnswer: function(quiz, question, answer, title, order) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(
+            !quiz || !question || !answer ||
+            'string' !== typeof title ||
+            !title || !title.trim()
+        ) {
+            return false;
+        }
+
+        Realtime.send('quiz:answers:update', {
+            quiz:     quiz,
+            question: question,
+            answer:   answer,
+            title:    title.trim(),
+            order:    order
+        });
+
+        return true;
+    },
+
+    removeAnswer: function(quiz, question, answer) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!quiz || !question || !answer) {
+            return false;
+        }
+
+        Realtime.send('quiz:answers:remove', {
+            quiz:     quiz,
+            question: question,
+            answer:   answer
+        });
+
+        return true;
     }
 };

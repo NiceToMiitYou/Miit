@@ -90,13 +90,13 @@ module.exports = function QuizApp() {
         name        = name.trim();
         description = description.trim();
 
-        QuizStore.updateQuiz(quizId, name, description, team, function(err, chatroom) {
+        QuizStore.updateQuiz(quizId, name, description, team, function(err, quiz) {
             sendRefreshAction(team);
         });
     });
 
     // Add a question to a quiz
-    Dispatcher.register('quiz:questions:add', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:add', 'ADMIN', app.identifier(), function onAddQuestion(spark, data, team, user) {
         var quizId   = data.quiz,
             title    = data.title || '',
             subtitle = data.subtitle || '',
@@ -117,13 +117,13 @@ module.exports = function QuizApp() {
         title    = title.trim();
         subtitle = subtitle.trim();
 
-        QuizStore.addQuestion(quizId, title, subtitle, kind, order, required, team, function(err, chatroom) {
+        QuizStore.addQuestion(quizId, title, subtitle, kind, order, required, team, function(err, quiz) {
             sendRefreshAction(team);
         });
     });
 
     // Update a question to a quiz
-    Dispatcher.register('quiz:questions:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:update', 'ADMIN', app.identifier(), function onUpdateQuestion(spark, data, team, user) {
         var questionId = data.question,
             quizId     = data.quiz,
             title      = data.title || '',
@@ -143,13 +143,13 @@ module.exports = function QuizApp() {
         title    = title.trim();
         subtitle = subtitle.trim();
 
-        QuizStore.updateQuestion(quizId, questionId, title, subtitle, order, required, team, function(err, chatroom) {
+        QuizStore.updateQuestion(quizId, questionId, title, subtitle, order, required, team, function(err, quiz) {
             sendRefreshAction(team);
         });
     });
 
     // Remove a question to a quiz
-    Dispatcher.register('quiz:questions:remove', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:remove', 'ADMIN', app.identifier(), function onRemoveQuestion(spark, data, team, user) {
         var questionId = data.question,
             quizId     = data.quiz;
 
@@ -157,7 +157,69 @@ module.exports = function QuizApp() {
             return;
         }
 
-        QuizStore.removeQuestion(quizId, questionId, team, function(err, chatroom) {
+        QuizStore.removeQuestion(quizId, questionId, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
+    // Add an answer to a quiz
+    Dispatcher.register('quiz:answers:add', 'ADMIN', app.identifier(), function onAddAnswer(spark, data, team, user) {
+        var quizId     = data.quiz,
+            questionId = data.question,
+            title      = data.title || '',
+            kind       = data.kind || 1,
+            order      = data.order;
+
+        if(
+            !quizId || !questionId ||
+            'string' !== typeof title ||
+            (kind !== 1 && kind !== 2) ||
+            !title || !title.trim()
+        ) {
+            return;
+        }
+
+        title = title.trim();
+
+        QuizStore.addAnswer(quizId, questionId, title, kind, order, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
+    // Update an answer to a quiz
+    Dispatcher.register('quiz:answers:update', 'ADMIN', app.identifier(), function onUpdateAnswer(spark, data, team, user) {
+        var answerId   = data.answer,
+            questionId = data.question,
+            quizId     = data.quiz,
+            title      = data.title || '',
+            order      = data.order;
+
+        if(
+            !quizId || !questionId || !answerId ||
+            'string' !== typeof title ||
+            !title || !title.trim()
+        ) {
+            return;
+        }
+
+        title = title.trim();
+
+        QuizStore.updateAnswer(quizId, questionId, answerId, title, order, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
+    // Remove an answer to a quiz
+    Dispatcher.register('quiz:answers:remove', 'ADMIN', app.identifier(), function onRemoveAnswer(spark, data, team, user) {
+        var answerId   = data.answer,
+            questionId = data.question,
+            quizId     = data.quiz;
+
+        if(!quizId || !questionId || !answerId) {
+            return;
+        }
+
+        QuizStore.removeAnswer(quizId, questionId, answerId, team, function(err, quiz) {
             sendRefreshAction(team);
         });
     });

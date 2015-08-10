@@ -7,6 +7,9 @@ var QuizActions = require('quiz-actions'),
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
 
+// Include templates
+var QuizUpdateAnswers = require('templates/quiz-update-answers.jsx');
+
 var QuizUpdateQuestionsItem = React.createClass({
     getDefaultProps: function () {
         return {
@@ -38,13 +41,13 @@ var QuizUpdateQuestionsItem = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         var question = nextProps.question;
 
-        return {
+        this.setState({
             question:       question,
             value_title:    question.title,
             value_subtitle: question.subtitle,
             value_required: question.required,
             error_title:    false
-        };
+        });
     },
 
     handleChange: function(e) {
@@ -82,7 +85,9 @@ var QuizUpdateQuestionsItem = React.createClass({
     },
 
     handleSubmit: function(e) {
-        e.preventDefault();
+        if(e) {
+            e.preventDefault();
+        }
 
         this.setState({
             error_title: false
@@ -104,6 +109,15 @@ var QuizUpdateQuestionsItem = React.createClass({
         var quiz     = this.props.quiz,
             question = this.state.question;
 
+        // Check for change
+        if(
+            title    === question.title &&
+            subtitle === question.subtitle &&
+            required === question.required
+        ) {
+            return;
+        }
+
         // Create if new
         if('new' === question.id) {
             
@@ -112,6 +126,14 @@ var QuizUpdateQuestionsItem = React.createClass({
         } else { // Update if exist
 
             QuizActions.updateQuestion(quiz, question.id, title, subtitle, question.order, required);
+        }
+    },
+
+    saveAnswers: function() {
+        var refs = this.refs;
+
+        if(refs['answers']) {
+            refs['answers'].saveAll();
         }
     },
 
@@ -154,10 +176,8 @@ var QuizUpdateQuestionsItem = React.createClass({
                     </div>
                 </form>
 
-                <If test={isCreated}>
-                    <div className="list">
-
-                    </div>
+                <If test={isCreated && 3 !== question.kind}>
+                    <QuizUpdateAnswers ref="answers" quiz={this.props.quiz} question={this.props.question.id} answers={question.answers} />
                 </If>
             </div>
         );

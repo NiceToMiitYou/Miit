@@ -19,7 +19,8 @@ var QuizUpdateQuestions = React.createClass({
             quiz: '',
             text: {
                 title:           'Questions',
-                create_question: 'Ajouter une questions',
+                create_question: 'Ajouter une question',
+                save:            'Tout sauvegarder',
                 types: {
                     unique:   'Question à choix unique',
                     multiple: 'Question à choix multiple',
@@ -31,7 +32,6 @@ var QuizUpdateQuestions = React.createClass({
     },
 
     getInitialState: function () {
-        console.log('REFRESHED:', this.props.questions);
         return {
             questions:  this.props.questions || [],
             value_kind: 1
@@ -59,12 +59,11 @@ var QuizUpdateQuestions = React.createClass({
     handleCreateQuestion: function(e) {
         e.preventDefault();
 
-        // Get the latest question and all questions
-        var questions    = this.state.questions,
-            lastQuestion = questions.length - 1;
+        // Get all questions
+        var questions = this.state.questions;
 
         // If the latest question is not created, do not add more questions
-        if(lastQuestion >= 0 && 'new' === questions[lastQuestion].id) {
+        if(-1 !== questions.indexBy('id', 'new')) {
             return;
         }
 
@@ -89,9 +88,8 @@ var QuizUpdateQuestions = React.createClass({
     },
 
     handleRemoveNotSaved: function() {
-        // Get the latest question and all questions
-        var questions    = this.state.questions,
-            lastQuestion = questions.length - 1;
+        // Get all questions
+        var questions = this.state.questions;
 
         // Question with id "new" are not yet created
         questions.removeBy('id', 'new');
@@ -100,6 +98,15 @@ var QuizUpdateQuestions = React.createClass({
         this.setState({
             questions: questions
         });
+    },
+
+    saveAll: function() {
+        var refs = this.refs;
+
+        for(var i in refs) {
+            refs[i].handleSubmit();
+            refs[i].saveAnswers();
+        }
     },
 
     render: function() {
@@ -115,7 +122,9 @@ var QuizUpdateQuestions = React.createClass({
                 
                 <div className="list">
                     {questions.map(function(question) {
-                        return <QuizUpdateQuestionsItem key={'question-' + question.id} question={question} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} />;
+                        var key = 'question-' + question.id;
+
+                        return <QuizUpdateQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} />;
                     }, this)}
                 </div>
 
@@ -128,6 +137,12 @@ var QuizUpdateQuestions = React.createClass({
 
                     <button type="button" onClick={this.handleCreateQuestion}>
                         {this.props.text.create_question}
+                    </button>
+                </div>
+
+                <div className="actions">
+                    <button type="button" onClick={this.saveAll}>
+                        {this.props.text.save}
                     </button>
                 </div>
             </div>

@@ -30,6 +30,8 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 .findOne({
                     _id:  quizId,
                     team: teamId
+                }, {
+                    'questions.answers.choices' : false
                 })
                 .exec(function(err, quiz) {
                     // Log the error
@@ -73,6 +75,7 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
 
             Quiz
                 .find(conditions)
+                .select('-questions.answers.choices')
                 .exec(function(err, quizzes) {
                     // Log the error
                     if(err) {
@@ -189,6 +192,111 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 $pull: {
                     questions: {
                         _id: questionId
+                    }
+                }
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        addAnswer: function(quiz, question, title, kind, order, team, cb) {
+            var quizId     = getId(quiz),
+                questionId = getId(question),
+                teamId     = getId(team);
+
+            var conditions = {
+                _id:             quizId,
+                team:            teamId,
+                'questions._id': questionId
+            };
+
+            var update = {
+                $addToSet: {
+                    'questions.$.answers': {
+                        title:    title,
+                        kind:     kind,
+                        order:    order
+                    }
+                }
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        updateAnswer: function(quiz, question, answer, title, order, team, cb) {
+            var quizId     = getId(quiz),
+                teamId     = getId(team),
+                questionId = getId(question),
+                answerId   = getId(answer);
+
+            this.findQuiz(team, quiz, function(err, instance) {
+                if(err) {
+                    return;
+                }
+
+                var foundQuestion = -1;
+
+                // Find the question
+                for(var i = 0; i < instance.questions.length; i++) {
+                    if(instance.questions[i].id == questionId) {
+                        foundQuestion = i;
+                        break;
+                    }
+                }
+
+                // If exist
+                if(-1 !== foundQuestion) {
+
+                    var foundAnswer = -1;
+
+                    // Find the answer
+                    for(var i = 0; i < instance.questions[foundQuestion].answers.length; i++) {
+                        if(instance.questions[foundQuestion].answers[i].id == answerId) {
+                            foundAnswer = i;
+                            break;
+                        }
+                    }
+
+                    // If exist proceed to the update
+                    if(-1 !== foundAnswer) {
+
+                        var conditions = {
+                            _id:                     quizId,
+                            team:                    teamId,
+                            'questions._id':         questionId,
+                            'questions.answers._id': answerId
+                        };
+
+                        var update = {
+                            $set: {}
+                        };
+
+                        update['$set']['questions.' + foundQuestion + '.answers.' + foundAnswer + '.title'] = title;
+                        update['$set']['questions.' + foundQuestion + '.answers.' + foundAnswer + '.order'] = order;
+
+                        updateQuiz(conditions, update, cb);
+                    }
+                }
+            });
+
+        },
+
+        removeAnswer: function(quiz, question, answer, team, cb) {
+            var quizId     = getId(quiz),
+                teamId     = getId(team),
+                questionId = getId(question),
+                answerId   = getId(answer);
+
+            var conditions = {
+                _id:             quizId,
+                team:            teamId,
+                'questions._id': questionId
+            };
+
+            var update = {
+                $pull: {
+                    'questions.$.answers': {
+                        _id: answerId
                     }
                 }
             };
