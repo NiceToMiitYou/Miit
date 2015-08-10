@@ -49,6 +49,10 @@ function _hasChanged(chatroom) {
 
 // The ChatStore Object
 var ChatStore = ObjectAssign({}, EventEmitter.prototype, {
+    getChatroom: function(id) {
+        return this.getChatrooms().findBy('id', id);
+    },
+
     getChatrooms: function() {
         return Chatrooms || [];
     },

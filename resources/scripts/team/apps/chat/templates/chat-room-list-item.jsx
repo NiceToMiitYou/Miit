@@ -1,7 +1,8 @@
 'use strict';
 
 // Include core requirements
-var UserStore          = MiitApp.require('core/stores/user-store'),
+var Router             = MiitApp.require('core/lib/router'),
+    UserStore          = MiitApp.require('core/stores/user-store'),
     SubscriptionsStore = MiitApp.require('core/stores/subscriptions-store');
 
 // Include requirements
@@ -45,8 +46,10 @@ var ChatRoomListItem = React.createClass({
     },
 
     onChange: function() {
-        // Propagate the change
-        this.props.onChange(this.props.chatroom);
+        var chatroomId = this.props.chatroom.id;
+
+        // Change the route of the application
+        Router.setRoute('/chat/room/' + chatroomId);
     },
 
     render: function() {

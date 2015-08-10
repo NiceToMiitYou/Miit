@@ -62,7 +62,7 @@ var ChatRoomList = React.createClass({
                     return (
                         <ChatRoomListItem key={chatroom.id} chatroom={chatroom} active={isCurrent} onChange={onChange} />
                     );
-                }.bind(this))}
+                }, this)}
 
                 <If test={isAdmin}>
                     <Dropdown label={this.props.text.create} className="create-room">

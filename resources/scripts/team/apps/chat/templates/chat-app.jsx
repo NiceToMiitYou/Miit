@@ -1,44 +1,51 @@
 'use strict';
 
+// Include core requierments
+var PageStore = MiitApp.require('core/stores/page-store');
+
 // Include requirements
 var ChatStore   = require('chat-store'),
     ChatActions = require('chat-actions');
 
 // Include components
-var ChatRoomList    = require('templates/chat-room-list.jsx'),
-    ChatMessageList = require('templates/chat-message-list.jsx'),
-    ChatMessageSend = require('templates/chat-message-send.jsx');
+var ChatRoom = require('templates/chat-room.jsx');
 
 var ChatApp = React.createClass({
-    getInitialState: function() {
+    getInitialState: function () {
         return {
-            current: {}
+            page: null
         };
     },
 
-    onChange: function(chatroom) {
-        this.setState({
-            current: chatroom
-        });
+    componentDidMount: function() {
+        PageStore.addPageChangedListener(this._onChange);
+        this._onChange();
     },
 
-    inChatroom: function() {
-        var rooms = ChatStore.getChatrooms();
+    componentWillUnmount: function() {
+        PageStore.removePageChangedListener(this._onChange);
+    },
 
-        if(-1 === rooms.indexBy('id', this.state.current.id)) {
-            return false;
+    _onChange: function() {
+        if(this.isMounted()) {
+            var page = PageStore.getCurrentApplicationPage();
+
+            this.setState({
+                page: page || ChatRoom
+            });
         }
-
-        return !!this.state.current.id;
     },
 
     render: function() {
+        var Page = this.state.page;
+
+        if(null === Page) {
+            return null;
+        }
+
         return (
             <div className="miit-component chat-app fullheight">
-                <ChatRoomList onChange={this.onChange} current={this.state.current} inChatroom={this.inChatroom} />
-                <h1>{this.state.current.name}</h1>
-                <ChatMessageList chatroom={this.state.current.id} />
-                <ChatMessageSend chatroom={this.state.current.id} />
+                <Page ref="page" />
             </div>
         );
     }
