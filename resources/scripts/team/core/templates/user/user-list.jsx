@@ -21,6 +21,7 @@ var UserList = React.createClass({
         return {
             users:    [],
             loading:  'Chargement...',
+            loader:   true,
             headers:  true,
             invite:   true,
             roles:    true,
@@ -110,7 +111,7 @@ var UserList = React.createClass({
                 {this.state.users.map(function(user) {
                     return <UserListItem key={user.id} user={user} email={this.props.emails} roles={this.props.roles} status={this.props.status} />;
                 }, this)}
-                <If test={!this.state.loaded}>
+                <If test={!this.state.loaded && this.props.loader}>
                     <Loading />
                 </If>
                 <If test={this.props.invite}>
