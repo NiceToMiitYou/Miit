@@ -43,10 +43,12 @@ Realtime.on('quiz:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
-// Ask for refresh on the notification from the server
-Realtime.on('quiz:refresh', function() {
+var refresh = Debounce(function() {
     Realtime.send('quiz:quizzes');
-});
+}, 250);
+
+// Ask for refresh on the notification from the server
+Realtime.on('quiz:refresh', refresh);
 
 // Expose the actions
 module.exports = {

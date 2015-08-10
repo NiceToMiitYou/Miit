@@ -24,7 +24,7 @@ var notFoundPage = config['404'];
 var CurrentMainPage, CurrentApplicationPage, Argument;
 
 // Menu State
-var MenuOpened = true;
+var MenuOpened = window.innerWidth >= 768;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages');
