@@ -26,6 +26,7 @@ var TeamApp = React.createClass({
         TeamStore.addTeamUpdatedListener(this._onChange);
         PageStore.addPageChangedListener(this._onChange);
         PageStore.addMenuToggledListener(this._onToggle);
+        this._onLoggedIn();
     },
 
     componentWillUnmount: function() {
