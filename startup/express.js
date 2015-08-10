@@ -1,7 +1,6 @@
 
 // Load express-session
 var bodyParser = require('body-parser');
-var compress   = require('compression');
 var subdomain  = require('miitoo/lib/middleware/subdomain');
 
 // Load express dependency
@@ -45,11 +44,6 @@ var configurator = miitoo.resolve(
     app.engine('ejs', require('ejs').renderFile);
     
     app.set('view engine', 'ejs');
-
-    // Enable Gzip compression
-    app.use(compress({
-        level: 9
-    })); 
     
     // parse application/json
     app.use(bodyParser.json());
