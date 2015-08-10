@@ -15,39 +15,30 @@ var QuizListItem = React.createClass({
         return {
             quiz: {},
             text: {
-                update: 'Modifier'
+                update:   'Modifier',
+                answered: 'Répondre'
             }
         };
-    },
-
-    onClickShow: function(evt) {
-        var classes = evt.target.className.split(' '),
-            tagName = evt.target.tagName;
-
-        if(-1 !== classes.indexOf('actions')) {
-            return;
-        } else if('A' === tagName) {
-            return;
-        }
-
-        var quizId = this.props.quiz.id;
-
-        // Change the route of the application
-        Router.setRoute('/quiz/show/' + quizId);
     },
 
     render: function() {
         var quiz = this.props.quiz;
  
         return (
-            <div className="miit-component quiz-list-item" onClick={this.onClickShow}>
-                <h3>{quiz.name}</h3>
-                <p>{quiz.description}</p>
-                <If test={UserStore.isAdmin()}>
-                    <div className="actions">
-                        <Link href={'#/quiz/update/' + quiz.id}>{this.props.text.update}</Link>
+            <div className="miit-component quiz-list-item col-md-6">
+                <div className="quiz-list-item-inner  hover-layer">
+                    <div className="hover-layer-overlay"></div>
+                    <h3 >{quiz.name}</h3>
+                    <p>{quiz.description}</p>
+
+                    <div className="actions hover-layer-content">
+                        <If test={UserStore.isAdmin()}>
+                            <Link href={'#/quiz/update/' + quiz.id} className="mr25"><i className="fa fa-pencil mr5"></i>{this.props.text.update}</Link>
+                        </If>
+                        <Link href={'#/quiz/show/' + quiz.id}><i className="fa fa-check-square-o mr5"></i>{this.props.text.answered}</Link>
                     </div>
-                </If>
+
+                </div>
             </div>
         );
     }

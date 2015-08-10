@@ -105,19 +105,19 @@ a {
         padding-left: 0;
     }
 
-    h1 {
+    h2 {
         font-size: 2em;
         font-weight: 100;
         line-height: 1em;
     }
 
-    h2 {
+    h3 {
         font-size: 1.4em;
         line-height: 1em;
         font-weight: 100;
     }
 
-    h3 {
+    h4 {
         font-size: 1.05em;
         line-height: 1em;
         font-weight: 400;
@@ -1202,125 +1202,6 @@ click-wave { 0% {
 
 /* ---------------- END NOTIFICATION CSS ---------------- */
 
-/* ---------------- BEGIN APP LIST CSS ---------------- */
-
-.app-list {
-}
-
-.app-list li {
-    display: inline-block;
-    width: 115px;
-    float: left;
-}
-
-.app-list li:hover {
-    background-color: #EEE;
-}
-
-.app-list li a {
-    display: block;
-    height: 100%;
-    text-align: center;
-    color: #000;
-    padding-top: 20px;
-}
-
-.app-list li a span {
-    line-height: 35px;
-    font-size: 12px;
-}
-
-.app-list li a i {
-    display: block;
-    width: 60px;
-    line-height: 60px;
-    margin: auto;
-    background: #4BAD4F;
-    color: #FFF;
-    font-size: 1.5em;
-    border-radius: 5%;
-}
-
-/* ---------------- END APP LIST CSS ---------------- */
-
-
-/* ---------------- BEGIN CHAT CSS ---------------- */
-
-.chat {
-
-}
-
-.chat .chat-input {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 25px;
-}
-
-.chat .chat-input .input-field {
-    padding-right: 150px;
-    margin-bottom: 8px;
-}
-
-.chat .chat-input button {
-    position: absolute;
-    right: 25px;
-    top: 10px;
-}
-
-.chat .chat-wrapper {
-
-}
-
-.chat .chat-wrapper .chat-bubble {
-    position: relative;
-    padding-left: 50px;
-    margin-bottom: 25px;
-    
-}
-
-.chat .chat-wrapper .chat-bubble .chat-avatar {
-    display: inline-table;
-    float: left;
-    position: absolute;
-    left: 0;
-    
-}
-
-.chat .chat-wrapper .chat-bubble .chat-avatar img {
-    width: 50px;
-    
-}
-
-.chat .chat-wrapper .chat-bubble .chat-message {
-    display: inline-table;
-    padding: 5px 20px;
-}
-
-.chat .chat-wrapper .chat-bubble .chat-message > span {
-    font-weight: normal;
-    
-}
-
-.chat .chat-wrapper .chat-bubble .chat-message > span > span {
-    font-size: 12px;
-    margin-left: 5px;
-    color: #848383;
-
-    
-}
-
-.chat .chat-wrapper .chat-bubble .chat-message > p {
-    font-size: 14px;
-    margin-top: 8px;
-    line-height: 1.5em;
-    font-weight: 100;
-
-}
-
-/* ---------------- END CHAT CSS ---------------- */
-
 
 /* ------------------------------------------------- */
 /* ---------------- END CORE CSS ---------------- */
@@ -1583,6 +1464,60 @@ click-wave { 0% {
   line-height: 55px;
   padding-right: 15px;
   font-weight: 100;
+}
+
+.hover-layer {
+  position: relative;
+
+  .hover-layer-overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background-color: rgba(0,0,0,0.8);
+    -webkit-transition: opacity .6s ease-out;
+    -moz-transition: opacity .6s ease-out;
+    -o-transition: opacity .6s ease-out;
+    transition: opacity .6s ease-out;
+
+  }
+
+
+  .hover-layer-content {
+    color: #FFF;
+    text-align: center;
+    opacity: 0;
+    position: absolute;
+    z-index: 99999;
+    -webkit-transition: opacity .6s ease-out, top .6s ease-out;
+    -moz-transition: opacity .6s ease-out, top .6s ease-out;
+    -o-transition: opacity .6s ease-out, top .6s ease-out;
+    transition: opacity .6s ease-out, top .6s ease-out;
+    left: 0;
+    right: 0;
+    top: 22%;
+
+    a {
+      color: #FFF;
+    }
+  }
+
+  &:hover {
+
+    .hover-layer-overlay {
+      opacity: 1;
+      z-index: 99;
+    }
+
+    .hover-layer-content {
+      opacity: 1;
+      top: 40%;
+    }
+
+  }
 }
 
 @-webkit-keyframes 

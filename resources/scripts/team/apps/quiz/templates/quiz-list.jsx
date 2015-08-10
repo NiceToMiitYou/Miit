@@ -49,7 +49,9 @@ var QuizList = React.createClass({
             <div className="miit-component quiz-list">
                 <h2>{this.props.text.title}</h2>
                 <If test={UserStore.isAdmin()}>
-                    <span onClick={this.onClickCreate}>{this.props.text.create}</span>
+                    <div className="page-actions">
+                        <button className="btn btn-info pull-right" onClick={this.onClickCreate}><i className="fa fa-plus mr5"></i> {this.props.text.create}</button>
+                    </div>
                 </If>
                 <div className="list">
                     {quizzes.map(function(quiz) {
