@@ -93,10 +93,10 @@ a {
 .page {
 
     height: 100%;
-    -webkit-transition: margin-left 500ms ease;
-    -moz-transition: margin-left 500ms ease;
-    -o-transition: margin-left 500ms ease;
-    transition: margin-left 500ms ease;
+    -webkit-transition: margin-left 500ms ease, margin-right 500ms ease;
+    -moz-transition: margin-left 500ms ease, margin-right 500ms ease;
+    -o-transition: margin-left 500ms ease, margin-right 500ms ease;
+    transition: margin-left 500ms ease, margin-right 500ms ease;
     margin-left: 220px;
     padding-top:55px;
     position: relative;
@@ -1459,7 +1459,7 @@ click-wave { 0% {
 }
 
 .clock {
-  position: fixed;
+  position: absolute;
   right: 0;
   line-height: 55px;
   padding-right: 15px;
@@ -1658,20 +1658,13 @@ counter-rotate { 0% {
 
 @media screen and (max-width: 768px) {
 
-    // .page {
-    //     padding-left: 0px;
-    //     margin-left: 0;
+    .page.menu-open {
+        margin-right: -220px;
 
-    //     .page-header {
-    //       left: 0;
-    //     }
-    // }
-
-
-    // .sidr-left {
-    //     margin-left: -220px;
-    //     z-index: 99999;
-    // }
+        .page-header {
+          right: -220px;
+        }
+    }
 
 
 }
