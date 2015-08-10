@@ -63,7 +63,7 @@ var ChatRoom = React.createClass({
         return (
             <div className="miit-component chat-room fullheight">
                 <ChatRoomList onChange={this.onChange} current={this.state.current} inChatroom={this.inChatroom} />
-                <h1>{this.state.current.name}</h1>
+                <h2>{this.state.current.name}</h2>
                 <ChatMessageList chatroom={this.state.current.id} />
                 <ChatMessageSend chatroom={this.state.current.id} />
             </div>

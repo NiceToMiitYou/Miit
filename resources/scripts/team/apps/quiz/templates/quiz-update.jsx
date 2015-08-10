@@ -2,8 +2,7 @@
 
 // Include core requirements
 var UserStore    = MiitApp.require('core/stores/user-store'),
-    PageStore    = MiitApp.require('core/stores/page-store'),
-    ModalActions = MiitApp.require('core/actions/modal-actions');
+    PageStore    = MiitApp.require('core/stores/page-store');
 
 // Include requirements
 var QuizActions = require('quiz-actions'),

@@ -14,9 +14,9 @@ var QuizUpdateAnswersItem = React.createClass({
             question: '',
             answer:   {},
             text: {
-                submit:   'Sauvegarder',
-                title:    'Intitulé',
-                delete:   'Supprimer' 
+                submit: 'Sauvegarder',
+                title:  'Intitulé',
+                delete: 'Supprimer' 
             },
             removeNew: function(){}
         };
