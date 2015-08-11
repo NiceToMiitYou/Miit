@@ -139,6 +139,16 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 team: teamId
             };
 
+            var answers = [];
+
+            if(3 === kind) {
+                answers.push({
+                    title: '',
+                    kind:  2,
+                    order: 0
+                });
+            }
+
             var update = {
                 $addToSet: {
                     questions: {
@@ -147,7 +157,7 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                         kind:     kind,
                         order:    order,
                         required: required,
-                        answers:  []
+                        answers:  answers
                     }
                 }
             };
