@@ -37,7 +37,10 @@ var QuizShowQuestions = React.createClass({
         for(var i in refs) {
             var answer = refs[i].getAnswers();
 
-            answers.push(answer);
+            // Exclude wrong answer
+            if(false !== answer) {
+                answers.push(answer);
+            }
         }
 
         console.log(answers);
