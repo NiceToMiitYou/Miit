@@ -4,10 +4,12 @@
   "description": "The Miit application",
   "main": "index.js",
   "scripts": {
-    "postinstall": "mkdir -p ./public/dist/js/apps/ && mkdir -p ./public/dist/fonts/ && mkdir -p ./public/dist/css/",
+    "postinstall": "mkdir -p ./public/dist/js/apps/ && mkdir -p ./public/dist/fonts/ && mkdir -p ./public/dist/css/ && mkdir -p ./cache/avatar/",
     "start": "node index",
     "watch": "./run-script.sh watch",
-    "build": "./run-script.sh build"
+    "build": "./run-script.sh build",
+    "cache-clear": "./run-script.sh cache-clear",
+    "cache-clear-all": "./run-script.sh cache-clear-all"
   },
   "author": "Tacyniak Boris",
   "license": "ISC",

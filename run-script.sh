@@ -4,6 +4,8 @@
 ACTION=$1;
 SCRIPTS_FOLDER="./resources/scripts";
 DIST_FOLDER="./public/dist/js";
+SHARED_FOLDER="./shared";
+CACHE_FOLDER="./cache"
 
 REQUIRE_FILE='./resources/scripts/team/core-require.js';
 
@@ -73,11 +75,11 @@ function watch-www() {
 }
 
 function watch-team() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team start-watchify team.js team.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team start-watchify team.js team.min.js
 }
 
 function watch-apps() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team/apps/${1} start-watchify team/apps/${1}/_load.js apps/app-${1}.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team/apps/${1} start-watchify team/apps/${1}/_load.js apps/app-${1}.min.js
 }
 
 function watch-all-apps() {
@@ -101,11 +103,11 @@ function build-www() {
 }
 
 function build-team() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team start-build team.js team.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team start-build team.js team.min.js
 }
 
 function build-apps() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team/apps/${1} start-build team/apps/${1}/_load.js apps/app-${1}.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/common:$SCRIPTS_FOLDER/team/apps/${1} start-build team/apps/${1}/_load.js apps/app-${1}.min.js
 }
 
 function build-all-apps() {
@@ -114,6 +116,14 @@ function build-all-apps() {
             build-apps ${D##*/}
         fi
     done
+}
+
+function cache-clear() {
+    find $CACHE_FOLDER -ctime +30 -exec rm {} \;
+}
+
+function cache-clear-all() {
+    find $CACHE_FOLDER -type f -exec rm {} \;
 }
 
 echo "Running: ${ACTION}"
@@ -148,6 +158,12 @@ case ${ACTION} in
         ;;
     "build-apps")
         build-all-apps
+        ;;
+    "cache-clear")
+        cache-clear
+        ;;
+    "cache-clear-all")
+        cache-clear-all
         ;;
 esac
 

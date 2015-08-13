@@ -5,8 +5,10 @@ var config = {
     port:   8080,
 
     restrict: {
-        subdomains: ['admin', 'api', 'blog', 'demo', 'miit', 'pop3', 'settings', 'smtp', 'support', 'www']
+        subdomains: ['admin', 'api', 'blog', 'cdn', 'contact', 'demo', 'img', 'mdl', 'miit', 'pop3', 'settings', 'smtp', 'support', 'user', 'www']
     },
+
+    gravatar: 'http://www.gravatar.com/avatar/{hash}?s=128&d=identicon',
 
     tokenSecret: 'MyNameIsMiitJamesMiit'
 };
