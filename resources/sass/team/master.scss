@@ -630,3 +630,13 @@ a {
 		}
 	}
 }
+
+
+.quiz-create {
+	form {
+		textarea {
+			resize: none;
+			height: 120px;
+		}
+	}
+}

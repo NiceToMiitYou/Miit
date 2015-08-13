@@ -120,16 +120,17 @@ var QuizCreate = React.createClass({
         return (
             <div className="miit-component quiz-create">
                 <form onSubmit={this.handleSubmit}>
-                    <label className="ml40">
+                    <label>
                         {this.props.text.name}
                         <input type="text" name="name"        value={value_name}        onChange={this.handleChange} className={classesName}/>
                     </label>
-                    <label className="ml40">
+                    <label className="mt20">
                         {this.props.text.description}
-                        <input type="text" name="description" value={value_description} onChange={this.handleChange} />
+                        <textarea name="description" onChange={this.handleChange}>{value_description}</textarea>
                     </label>
-
-                    <button type="submit">{this.props.text.submit}</button>
+                    <div className="modal-footer right">
+                         <button type="submit" className="btn-info btn btn-lg">{this.props.text.submit}</button>
+                    </div>
                 </form>
                 <If test={processing}>
                     <div className="overlay">This &lt;DIV&gt; should overlay the form</div>
