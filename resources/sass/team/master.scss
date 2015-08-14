@@ -12,6 +12,7 @@ html, body {
 .main {
   overflow: auto;
   height: 100%;
+  padding-bottom: 20px;
 
   & > .user-list {
   	margin-right: 250px;
@@ -119,6 +120,22 @@ a {
 	      top: 20px;
 	      right: 25px;
 	    }
+	}
+}
+
+.sidr-left {
+	ul.sl-list {
+		li {
+			a {
+				color: #FFF;
+				i {
+					text-align: center;
+					border-radius: 2px;
+					margin-right: 12px;
+					width: 28px;
+				}
+			}
+		}
 	}
 }
 
@@ -679,6 +696,18 @@ a {
 	}
 
 	.quiz-show {
+
+		p {
+			line-height: 1.3em;
+		}
+
+		&.preview {
+			margin-top: 30px;
+			
+			h2 {
+				font-size: 2em;
+			}
+		}
 		
 		.quiz-show-answers-item {
 			margin-top: 12px;

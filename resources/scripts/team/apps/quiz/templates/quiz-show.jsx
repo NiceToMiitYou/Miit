@@ -26,6 +26,7 @@ var QuizShow = React.createClass({
             text: {
                 title:       'Questionnaire',
                 name:        'Nom',
+                preview:     'Aperçu',
                 description: 'Description'
             },
             preview: false
@@ -73,10 +74,10 @@ var QuizShow = React.createClass({
 
         return (
             <div className={classes}>
-                <h2>{this.props.text.title} - {quiz.name}</h2>
+                <h2 className="mb10">{(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}</h2>
 
                 <If test={quiz.description}>
-                    <p>{quiz.description}</p>
+                    <p className="mb20">{quiz.description}</p>
                 </If>
 
                 <QuizShowQuestions quiz={quiz.id} questions={quiz.questions} preview={preview} />

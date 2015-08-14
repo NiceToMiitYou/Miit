@@ -92,8 +92,6 @@ var QuizShowQuestions = React.createClass({
 
         return (
             <div className="miit-component quiz-show-questions">
-                <h3>{this.props.text.title}</h3>
-                
                 <div className="list">
                     {questions.map(function(question) {
                         var key   = 'question-' + question.id,
@@ -107,7 +105,7 @@ var QuizShowQuestions = React.createClass({
 
                 <If test={!preview}>
                     <div className="actions">
-                        <button type="button" onClick={this.getAnswers}>
+                        <button type="button" className="btn btn-success" onClick={this.getAnswers}>
                             <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
                         </button>
                     </div>

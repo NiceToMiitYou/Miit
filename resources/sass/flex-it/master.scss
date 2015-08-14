@@ -658,6 +658,11 @@ input[type="text"], input[type="password"], textarea {
     }
 }
 
+textarea {
+  line-height: 1.4em;
+  padding-top: 11px;
+}
+
 label.input-field {
 
   display: block;
@@ -992,13 +997,13 @@ click-wave { 0% {
 }
 /* line 65, ../sass/_buttons.scss */
 .btn.btn-success {
-  background-color: #179680;
-  border-color: #179680;
+    background-color: #4CAF50;
+    border-color: #48A74C;
 }
 /* line 69, ../sass/_buttons.scss */
 .btn.btn-success:hover, .btn.btn-success:focus {
-  background-color: rgba(23, 150, 128, 0.9);
-  border-color: rgba(23, 150, 128, 0.9);
+  background-color: rgba(76, 175, 80, 0.9);
+  border-color: rgba(76, 175, 80, 0.9);
 }
 /* line 76, ../sass/_buttons.scss */
 .btn.btn-info {

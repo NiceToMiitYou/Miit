@@ -189,7 +189,7 @@ var QuizUpdateQuestions = React.createClass({
                 </div>
 
                 <div className="actions mt20">
-                    <button type="button" className="btn btn-info" onClick={this.saveAll}>
+                    <button type="button" className="btn btn-success" onClick={this.saveAll}>
                         <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
                     </button>
                 </div>

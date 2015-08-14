@@ -120,11 +120,11 @@ var QuizCreate = React.createClass({
         return (
             <div className="miit-component quiz-create">
                 <form onSubmit={this.handleSubmit}>
-                    <label>
+                    <label className="input-field">
                         {this.props.text.name}
                         <input type="text" name="name"        value={value_name}        onChange={this.handleChange} className={classesName}/>
                     </label>
-                    <label className="mt20">
+                    <label className="mt20 input-field">
                         {this.props.text.description}
                         <textarea name="description" onChange={this.handleChange}>{value_description}</textarea>
                     </label>

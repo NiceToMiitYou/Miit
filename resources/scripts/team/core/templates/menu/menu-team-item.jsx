@@ -28,7 +28,7 @@ var MenuTeamItem = React.createClass({
 
     getDefaultProps: function () {
         return {
-            application: '',
+            application: {},
             activeGroup: 'menu-team'
         };
     },
@@ -36,22 +36,25 @@ var MenuTeamItem = React.createClass({
     render: function() {
         var application = this.props.application;
 
-        if(false === TeamStore.hasApplication(application)) {
+        if(false === TeamStore.hasApplication(application.identifier)) {
             return null;
         }
-
+        console.log("AAAAAAA");
+        console.log(application);
         // Link information
-        var activeName = application.replace('APP_', '').toLowerCase();
+        var activeName = application.identifier.replace('APP_', '').toLowerCase();
         var link       = '#/' + activeName + '/';
 
+        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, "pull-left");
+
         // Informations
-        var label  = Translations[application];
-        var unread = SubscriptionsStore.getUnreadByApplication(application);
+        var label  = Translations[application.identifier];
+        var unread = SubscriptionsStore.getUnreadByApplication(application.identifier);
 
         return (
             <li>
                 <Link href={link} activeGroup={this.props.activeGroup} activeName={activeName}>
-                    <i className="fa fa-weixin pull-left"></i> {label}
+                    <i className={appClasses}></i> {label}
                     <If test={unread > 0}>
                         <span className="notification">{unread}</span>
                     </If>

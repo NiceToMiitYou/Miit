@@ -47,7 +47,7 @@ var MenuTeam = React.createClass({
                         {applications.map(function(application) {
                             var identifier = application.identifier;
 
-                            return <MenuTeamItem key={'menu-team-' + identifier} application={identifier} />
+                            return <MenuTeamItem key={'menu-team-' + identifier} application={application} />
                         })}
                         
                         <If test={UserStore.isAdmin()}>
