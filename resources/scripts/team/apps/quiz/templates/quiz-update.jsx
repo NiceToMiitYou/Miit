@@ -134,7 +134,7 @@ var QuizUpdate = React.createClass({
                         </label>
                         <label className="input-field mt20">
                             {this.props.text.description}
-                            <textarea type="text" name="description" onChange={this.handleChange}>{value_description}</textarea>
+                            <textarea type="text" name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                         </label>
 
                         <button className="btn btn-info mt20" type="submit">{this.props.text.submit}</button>
