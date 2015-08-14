@@ -15,6 +15,7 @@ var QuizShowQuestionsItem = React.createClass({
         return {
             quiz:     '',
             question: {},
+            counter:  1,
             error:    null,
             text: {
                 submit:   'Sauvegarder',
@@ -53,6 +54,7 @@ var QuizShowQuestionsItem = React.createClass({
         // Get question
         var quiz     = this.props.quiz,
             question = this.props.question,
+            counter  = this.props.counter,
             error    = this.state.error,
             answers  = question.answers || [];
 
@@ -65,7 +67,7 @@ var QuizShowQuestionsItem = React.createClass({
 
         return (
             <div className={classes}>
-                {question.title}
+                {counter + ' - ' + question.title}
 
                 <QuizShowAnswers ref="answers" quiz={quiz} question={question} answers={answers} />
             </div>

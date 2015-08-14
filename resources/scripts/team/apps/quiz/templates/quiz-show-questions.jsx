@@ -87,7 +87,8 @@ var QuizShowQuestions = React.createClass({
         // Get questions
         var questions = this.props.questions,
             preview   = this.props.preview,
-            errors    = this.state.errors;
+            errors    = this.state.errors,
+            counter   = 0;
 
         return (
             <div className="miit-component quiz-show-questions">
@@ -97,8 +98,10 @@ var QuizShowQuestions = React.createClass({
                     {questions.map(function(question) {
                         var key   = 'question-' + question.id,
                             error = errors.findBy('question', question.id);
+                        
+                        counter++;
 
-                        return <QuizShowQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} error={error} />;
+                        return <QuizShowQuestionsItem ref={key} key={key} counter={counter} question={question} quiz={this.props.quiz} error={error} />;
                     }, this)}
                 </div>
 

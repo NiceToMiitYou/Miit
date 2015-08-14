@@ -15,6 +15,7 @@ var QuizUpdateQuestionsItem = React.createClass({
         return {
             quiz:     '',
             question: {},
+            counter:  1,
             text: {
                 submit:   'Sauvegarder',
                 title:    'Intitulé',
@@ -140,7 +141,8 @@ var QuizUpdateQuestionsItem = React.createClass({
 
     render: function() {
         // Get question
-        var question = this.state.question;
+        var question = this.state.question,
+            counter  = this.props.counter;
 
         // Get values
         var value_title    = this.state.value_title,
@@ -156,7 +158,9 @@ var QuizUpdateQuestionsItem = React.createClass({
         return (
             <div className="miit-component quiz-update-questions-item mb30">
                 <span className="remove-question-item text-red"  onClick={this.handleRemoveQuestion}><i className="fa fa-times"></i></span>
-                <h4>{this.props.text.question}</h4>
+                
+                <h4>{counter} - {this.props.text.question}</h4>
+
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field">
                         {this.props.text.title}
