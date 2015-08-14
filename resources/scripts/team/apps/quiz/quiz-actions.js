@@ -226,5 +226,18 @@ module.exports = {
         });
 
         return true;
+    },
+
+    sendChoices: function(quiz, choices) {
+        if(!quiz || !choices) {
+            return false;
+        }
+
+        Realtime.send('quiz:choices', {
+            quiz:    quiz,
+            choices: choices
+        });
+
+        return true;
     }
 };

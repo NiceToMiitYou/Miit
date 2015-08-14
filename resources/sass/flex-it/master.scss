@@ -148,13 +148,14 @@ a {
         z-index: 9999;
         top:0;
         left: 220px;
-        width: 100%;
+        // width: 100%;
+        right: 0;
         color: #FFF;
         height: 55px;
-        -webkit-transition: left 500ms ease;
-        -moz-transition: left 500ms ease;
-        -o-transition: left 500ms ease;
-        transition: left 500ms ease;
+        -webkit-transition: left 500ms ease, right 500ms ease;
+        -moz-transition: left 500ms ease, right 500ms ease;
+        -o-transition: left 500ms ease, right 500ms ease;
+        transition: left 500ms ease, right 500ms ease;
           -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
           -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
@@ -637,7 +638,7 @@ a {
 
 /* ---------------- BEGIN INPUT CSS ---------------- */
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], textarea {
     width: 100%;
     border-radius: 0;
     border: 0;
@@ -657,6 +658,15 @@ input[type="text"], input[type="password"] {
         background: transparent;
         border-color: #1e2d3a;
     }
+}
+
+label {
+  display: block;
+  span {
+    font-size: .9em;
+    display: block;
+    margin-bottom: 8px;
+  }
 }
 
 .input-field {
@@ -1053,8 +1063,8 @@ click-wave { 0% {
 }
 /* line 118, ../sass/_buttons.scss */
 .btn.btn-lg, .btn-group-lg > .btn {
-  font-size: 1.5em;
-  padding: 6px 40px;
+    font-size: 16px;
+    padding: 8px 40px;
 }
 /* line 123, ../sass/_buttons.scss */
 .btn.btn-sm, .btn-group-sm > .btn {
@@ -1104,10 +1114,24 @@ click-wave { 0% {
       .modal-title {
         font-size: 1.5em;
         padding: 18px 25px;
-        margin: -1px -26px;
+        margin: -1px -25px;
         font-weight: 100;
         background-color: #FFF;
         margin-bottom: 25px;
+      }
+
+      .modal-footer {
+        padding: 10px 15px;
+        margin: 25px -25px 0;
+        font-weight: 100;
+        background-color: #FFF;
+      }
+
+      &.small {
+        width: 600px;
+        height: auto;
+        left: 50%;
+        margin-left: -300px;
       }
     }
 }

@@ -38,7 +38,8 @@ var QuizList = React.createClass({
 
     onClickCreate: function() {
         ModalActions.open('quiz-create-new', <QuizCreate />, {
-            title: this.props.text.create
+            title: this.props.text.create,
+            size:  'small'
         });
     },
 

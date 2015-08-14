@@ -10,6 +10,17 @@ function QuizzValidation(questions, choices) {
     this.valid  = false;
 }
 
+
+// Define new questions
+QuizzValidation.prototype.setQuestions = function(questions) {
+    this.questions = questions;
+};
+
+// Define new choices
+QuizzValidation.prototype.setChoices = function(choices) {
+    this.choices = choices;
+};
+
 // List errors
 QuizzValidation.prototype.getErrors = function() {
     return this.errors;

@@ -31,7 +31,19 @@ var QuizShowQuestions = React.createClass({
         };
     },
 
+    getInitialState: function () {
+        return {
+            errors:     [],
+            processing: false
+        };
+    },
+
     getAnswers: function() {
+        if(true === processing) {
+            return;
+        }
+
+        // Process the validation
         var refs      = this.refs,
             questions = this.props.questions,
             answers   = [];
@@ -49,14 +61,31 @@ var QuizShowQuestions = React.createClass({
 
         validation.validate();
 
-        console.log(validation.isValid(), validation.getChoices(), validation.getErrors());
+        // Stop the process if invalid
+        if(false === validation.isValid())
+        {
+            this.setState({
+                errors: validation.getErrors()
+            });
+        
+            return;
+        }
 
-        return answers;
+        // Get clean choices
+        var choices = validation.getChoices();
+
+        // Save the answer
+        var processing = QuizActions.sendChoices(this.props.quiz, choices);
+
+        this.setState({
+            processing: processing
+        });
     },
 
     render: function() {
         // Get questions
-        var questions = this.props.questions;
+        var questions = this.props.questions,
+            errors    = this.state.errors;
 
         return (
             <div className="miit-component quiz-show-questions">
@@ -64,9 +93,10 @@ var QuizShowQuestions = React.createClass({
                 
                 <div className="list">
                     {questions.map(function(question) {
-                        var key = 'question-' + question.id;
+                        var key   = 'question-' + question.id,
+                            error = errors.findBy('question', question.id);
 
-                        return <QuizShowQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} />;
+                        return <QuizShowQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} error={error} />;
                     }, this)}
                 </div>
 

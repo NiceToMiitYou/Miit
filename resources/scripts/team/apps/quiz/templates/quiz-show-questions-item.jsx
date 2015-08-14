@@ -15,12 +15,25 @@ var QuizShowQuestionsItem = React.createClass({
         return {
             quiz:     '',
             question: {},
+            error:    null,
             text: {
                 submit:   'Sauvegarder',
                 title:    'Intitulé',
                 subtitle: 'Complément'
             }
         };
+    },
+
+    getInitialState: function () {
+        return {
+            error: this.props.error  
+        };
+    },
+
+    componentWillReceiveProps: function (nextProps) {
+        this.setState({
+            error: nextProps.error
+        });  
     },
 
     getAnswers: function() {
@@ -40,6 +53,7 @@ var QuizShowQuestionsItem = React.createClass({
         // Get question
         var quiz     = this.props.quiz,
             question = this.props.question,
+            error    = this.state.error,
             answers  = question.answers || [];
 
         // If no answer, do not display
@@ -47,8 +61,10 @@ var QuizShowQuestionsItem = React.createClass({
             return null;
         }
 
+        var classes = classNames('miit-component quiz-show-questions-item', (error) ? 'invalid': '');
+
         return (
-            <div className="miit-component quiz-show-questions-item">
+            <div className={classes}>
                 {question.title}
 
                 <QuizShowAnswers ref="answers" quiz={quiz} question={question} answers={answers} />

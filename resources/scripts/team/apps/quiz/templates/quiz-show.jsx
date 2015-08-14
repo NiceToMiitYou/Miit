@@ -27,7 +27,8 @@ var QuizShow = React.createClass({
                 title:       'Questionnaire',
                 name:        'Nom',
                 description: 'Description'
-            }  
+            },
+            preview: false
         };
     },
 
