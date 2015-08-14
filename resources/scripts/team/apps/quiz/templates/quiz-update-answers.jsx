@@ -128,14 +128,14 @@ var QuizUpdateAnswers = React.createClass({
                     }, this)}
                 </div>
 
-                <div className="add-answer">
+                <div className="add-answer mt20 pl20 pr20">
                     <select name="kind" value={value_kind} onChange={this.handleChange}>
                         <option value="1">{this.props.text.types.classic}</option>
                         <option value="2">{this.props.text.types.open}</option>
                     </select>
 
-                    <button type="button" onClick={this.handleCreateAnswer}>
-                        {this.props.text.create_answer}
+                    <button type="button" className="btn btn-info ml10" onClick={this.handleCreateAnswer}>
+                        <i className="fa fa-plus mr5"></i> {this.props.text.create_answer}
                     </button>
                 </div>
             </div>
