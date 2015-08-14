@@ -12,7 +12,8 @@ var QuizActions = require('quiz-actions'),
 var If = MiitApp.require('templates/if.jsx');
 
 // Include templates
-var QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
+var QuizShow            = require('templates/quiz-show.jsx'),
+    QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
 
 var QuizUpdate = React.createClass({
     statics: {
@@ -138,6 +139,8 @@ var QuizUpdate = React.createClass({
 
                         <button className="btn btn-info mt20" type="submit">{this.props.text.submit}</button>
                     </form>
+
+                    <QuizShow quiz={quiz} preview={true} />
                 </div>
                 <div className="col-md-6">
                      <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />

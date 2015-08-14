@@ -27,7 +27,8 @@ var QuizShowQuestions = React.createClass({
                     open:     'Question ouverte'
                 }
             },
-            questions: []
+            questions: [],
+            preview:   false
         };
     },
 
@@ -85,6 +86,7 @@ var QuizShowQuestions = React.createClass({
     render: function() {
         // Get questions
         var questions = this.props.questions,
+            preview   = this.props.preview,
             errors    = this.state.errors;
 
         return (
@@ -100,11 +102,13 @@ var QuizShowQuestions = React.createClass({
                     }, this)}
                 </div>
 
-                <div className="actions">
-                    <button type="button" onClick={this.getAnswers}>
-                        {this.props.text.save}
-                    </button>
-                </div>
+                <If test={!preview}>
+                    <div className="actions">
+                        <button type="button" onClick={this.getAnswers}>
+                            {this.props.text.save}
+                        </button>
+                    </div>
+                </If>
             </div>
         );
     }

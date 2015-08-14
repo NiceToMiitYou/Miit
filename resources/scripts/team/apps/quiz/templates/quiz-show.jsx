@@ -34,7 +34,7 @@ var QuizShow = React.createClass({
 
     getInitialState: function () {
         return {
-            quiz: null
+            quiz: this.props.quiz
         };
     },
 
@@ -62,21 +62,24 @@ var QuizShow = React.createClass({
     },
 
     render: function() {
-        var quiz = this.state.quiz;
+        var quiz    = this.state.quiz,
+            preview = this.props.preview;
 
         if(!quiz) {
             return null;
         }
 
+        var classes = classNames('miit-component quiz-show', (preview) ? 'preview' : '');
+
         return (
-            <div className="miit-component quiz-show">
+            <div className={classes}>
                 <h2>{this.props.text.title} - {quiz.name}</h2>
 
                 <If test={quiz.description}>
                     <p>{quiz.description}</p>
                 </If>
 
-                <QuizShowQuestions quiz={quiz.id} questions={quiz.questions} />
+                <QuizShowQuestions quiz={quiz.id} questions={quiz.questions} preview={preview} />
             </div>
         );
     }
