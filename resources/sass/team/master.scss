@@ -629,14 +629,41 @@ a {
 			}
 		}
 	}
+
+	.quiz-update-questions-item {
+
+		padding: 10px;
+		background-color: #EFEFEF;
+		border-left: 2px solid #2980B9;
+		position: relative;
+
+		.remove-question-item {
+		    position: absolute;
+		    right: 20px;
+		    top: 15px;
+		    cursor: pointer;
+		    font-size: 1.2em;
+		}
+
+		.checkbox-field {
+			display: block;
+		}
+
+		form {
+			margin: 12px 0 13px;
+			padding: 0px 20px;
+
+		}
+
+		h4 {
+			font-weight: 600;
+			padding: 10px;
+		}
+	}
 }
 
 
-.quiz-create {
-	form {
-		textarea {
-			resize: none;
-			height: 120px;
-		}
-	}
+textarea {
+	resize: none;
+	height: 120px;
 }

@@ -121,15 +121,15 @@ var QuizUpdateAnswersItem = React.createClass({
         return (
             <div className="miit-component quiz-update-answers-item">
                 <form onSubmit={this.handleSubmit}>
-                    <label className="ml40">
+                    <label className="input-field">
                         {this.props.text.title}
                         <input type="text" name="title" value={value_title} onChange={this.handleChange} className={classesName} />
                     </label>
 
-                    <div className="actions">
-                        <button type="submit">{this.props.text.submit}</button>
+                    <div className="actions mt10">
+                        <button className="btn btn-info mr10" type="submit">{this.props.text.submit}</button>
 
-                        <button onClick={this.handleRemoveAnswer}>{this.props.text.delete}</button>
+                        <button className="btn btn-danger" onClick={this.handleRemoveAnswer}>{this.props.text.delete}</button>
                     </div>
                 </form>
             </div>

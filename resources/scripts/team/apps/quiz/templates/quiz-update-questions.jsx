@@ -118,7 +118,7 @@ var QuizUpdateQuestions = React.createClass({
 
         return (
             <div className="miit-component quiz-update-questions">
-                <h3>{this.props.text.title}</h3>
+                <h3 className="mb20">{this.props.text.title}</h3>
                 
                 <div className="list">
                     {questions.map(function(question) {
@@ -135,13 +135,13 @@ var QuizUpdateQuestions = React.createClass({
                         <option value="3">{this.props.text.types.open}</option>
                     </select>
 
-                    <button type="button" onClick={this.handleCreateQuestion}>
-                        {this.props.text.create_question}
+                    <button type="button"  className="btn btn-info" onClick={this.handleCreateQuestion}>
+                        <i className="fa fa-plus mr5"></i> {this.props.text.create_question}
                     </button>
                 </div>
 
-                <div className="actions">
-                    <button type="button" onClick={this.saveAll}>
+                <div className="actions mt20">
+                    <button type="button" className="btn btn-info" onClick={this.saveAll}>
                         {this.props.text.save}
                     </button>
                 </div>

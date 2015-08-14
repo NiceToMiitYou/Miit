@@ -643,11 +643,10 @@ input[type="text"], input[type="password"], textarea {
     border-radius: 0;
     border: 0;
     line-height: 28px;
-    padding: 5px 0;
+    padding: 5px 0 5px 15px;
     font-size: 0.9em;
     font-weight: 500;
-    background-color: transparent;
-    padding-left: 20px;
+    background-color: #FAFAFA;
     border: 1px solid #CBCBCB;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -655,12 +654,12 @@ input[type="text"], input[type="password"], textarea {
 
     &:focus  {
         outline: 0;
-        background: transparent;
         border-color: #1e2d3a;
     }
 }
 
-label {
+label.input-field {
+
   display: block;
   span {
     font-size: .9em;
@@ -671,12 +670,7 @@ label {
 
 .input-field {
     position: relative;
-    border: 1px solid #CBCBCB;
 
-
-    input {
-        border: 0;
-    }
 
     &.light {
 
@@ -713,6 +707,11 @@ label {
 
     &.left-icon {
         padding-left: 52px;
+        border: 1px solid #CBCBCB;
+
+        input {
+            border: 0;
+        }
 
         &.icon-transparent {
           padding-left: 45px;
@@ -903,19 +902,6 @@ click-wave { 0% {
 }
 }
 
-.input-field textarea {
-    background: transparent;
-    width: 100%;
-    border: 0;
-    font-size: 13px;
-    margin-top: 5px;
-    resize: none;
-}
-
-.input-field textarea:focus {
-    border: 0;
-    outline: none;
-}
 
 /* ---------------- END INPUT CSS ---------------- */
 

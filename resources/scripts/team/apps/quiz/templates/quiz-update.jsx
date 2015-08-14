@@ -124,21 +124,24 @@ var QuizUpdate = React.createClass({
         return (
             <div className="miit-component quiz-update">
                 <h2>{this.props.text.title} - {quiz.name}</h2>
+                <div className="col-md-6 mb30">
+                    <h3 className="mb20">Informations</h3>
+                    <form onSubmit={this.handleSubmit}>
+                        <label className="input-field">
+                            {this.props.text.name}
+                            <input type="text" name="name" value={value_name} onChange={this.handleChange} className={classesName}/>
+                        </label>
+                        <label className="input-field mt20">
+                            {this.props.text.description}
+                            <textarea type="text" name="description" onChange={this.handleChange}>{value_description}</textarea>
+                        </label>
 
-                <form onSubmit={this.handleSubmit}>
-                    <label className="ml40">
-                        {this.props.text.name}
-                        <input type="text" name="name"        value={value_name}        onChange={this.handleChange} className={classesName}/>
-                    </label>
-                    <label className="ml40">
-                        {this.props.text.description}
-                        <input type="text" name="description" value={value_description} onChange={this.handleChange} />
-                    </label>
-
-                    <button type="submit">{this.props.text.submit}</button>
-                </form>
-
-                <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                        <button className="btn btn-info mt20" type="submit">{this.props.text.submit}</button>
+                    </form>
+                </div>
+                <div className="col-md-6">
+                     <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                </div>
             </div>
         );
     }

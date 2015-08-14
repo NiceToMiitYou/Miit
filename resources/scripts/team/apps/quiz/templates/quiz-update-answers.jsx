@@ -118,7 +118,7 @@ var QuizUpdateAnswers = React.createClass({
 
         return (
             <div className="miit-component quiz-update-answers">
-                <h3>{this.props.text.title}</h3>
+                <h4>{this.props.text.title}</h4>
                 
                 <div className="list">
                     {answers.map(function(answer) {

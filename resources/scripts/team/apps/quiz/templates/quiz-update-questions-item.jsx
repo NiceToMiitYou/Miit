@@ -18,6 +18,7 @@ var QuizUpdateQuestionsItem = React.createClass({
             text: {
                 submit:   'Sauvegarder',
                 title:    'Intitulé',
+                question: 'Question',
                 subtitle: 'Complément',
                 required: 'Rendre cette question obligatoire',
                 delete:   'Supprimer' 
@@ -153,26 +154,26 @@ var QuizUpdateQuestionsItem = React.createClass({
         var classesName = classNames(this.state.error_title ? 'invalid' : '');
 
         return (
-            <div className="miit-component quiz-update-questions-item">
+            <div className="miit-component quiz-update-questions-item mb30">
+                <span className="remove-question-item text-red"  onClick={this.handleRemoveQuestion}><i className="fa fa-times"></i></span>
+                <h4>{this.props.text.question}</h4>
                 <form onSubmit={this.handleSubmit}>
-                    <label className="ml40">
+                    <label className="input-field">
                         {this.props.text.title}
                         <input type="text" name="title"    value={value_title}    onChange={this.handleChange} className={classesName}/>
                     </label>
-                    <label className="ml40">
+                    <label className="input-field mt20">
                         {this.props.text.subtitle}
                         <input type="text" name="subtitle" value={value_subtitle} onChange={this.handleChange} />
                     </label>
 
-                    <label>
-                        <input type="checkbox" name="required" checked={value_required} onChange={this.handleRequired} />
+                    <label className="checkbox-field mt20 mb20">
+                        <input className="option-input checkbox" type="checkbox" name="required" checked={value_required} onChange={this.handleRequired} />
                         {this.props.text.required}
                     </label>
 
                     <div className="actions">
-                        <button type="submit">{this.props.text.submit}</button>
-
-                        <button onClick={this.handleRemoveQuestion}>{this.props.text.delete}</button>
+                        <button className="btn btn-info" type="submit">{this.props.text.submit}</button>
                     </div>
                 </form>
 
