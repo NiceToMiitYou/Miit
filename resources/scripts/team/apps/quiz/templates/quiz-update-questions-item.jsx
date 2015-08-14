@@ -177,7 +177,7 @@ var QuizUpdateQuestionsItem = React.createClass({
                     </label>
 
                     <div className="actions">
-                        <button className="btn btn-info" type="submit">{this.props.text.submit}</button>
+                        <button className="btn btn-info" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
                     </div>
                 </form>
 

@@ -137,7 +137,7 @@ var QuizUpdate = React.createClass({
                             <textarea type="text" name="description" onChange={this.handleChange}>{value_description}</textarea>
                         </label>
 
-                        <button className="btn btn-info mt20" type="submit">{this.props.text.submit}</button>
+                        <button className="btn btn-info mt20" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
                     </form>
 
                     <QuizShow quiz={quiz} preview={true} />

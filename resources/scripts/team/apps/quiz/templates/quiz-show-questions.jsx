@@ -108,7 +108,7 @@ var QuizShowQuestions = React.createClass({
                 <If test={!preview}>
                     <div className="actions">
                         <button type="button" onClick={this.getAnswers}>
-                            {this.props.text.save}
+                            <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
                         </button>
                     </div>
                 </If>

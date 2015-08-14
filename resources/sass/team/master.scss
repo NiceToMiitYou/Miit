@@ -660,6 +660,47 @@ a {
 			padding: 10px;
 		}
 	}
+
+	.quiz-update-answers-item {
+		label {
+			position: relative;
+
+			input {
+				padding-right: 32px;
+			}
+
+			.remove-answer {
+				position: absolute;
+				right: 35px;
+				top: 0;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.quiz-show {
+		
+		.quiz-show-answers-item {
+			margin-top: 12px;
+		}
+
+		.quiz-show-questions-item {
+			background-color: #EFEFEF;
+			margin: 15px 0;
+			padding: 18px 15px;
+			border-left: 2px solid #2980B9;
+
+			&.kind-1, &.kind-2 {
+				.quiz-show-answers-item.kind-2 {
+					input[type=text] {
+						margin-top: 15px;
+					}
+				}
+			}
+
+		}
+
+	}
 }
 
 

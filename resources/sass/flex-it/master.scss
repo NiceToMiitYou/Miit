@@ -666,6 +666,8 @@ label.input-field {
     display: block;
     margin-bottom: 8px;
   }
+
+  cursor: pointer;
 }
 
 .input-field {
@@ -708,9 +710,19 @@ label.input-field {
     &.left-icon {
         padding-left: 52px;
         border: 1px solid #CBCBCB;
+        background-color: #FAFAFA;
 
         input {
             border: 0;
+        }
+
+        i {
+
+          &.no-icon {
+            font-size: .8em;
+            font-weight: bold;
+            font-style: normal;
+          }
         }
 
         &.icon-transparent {

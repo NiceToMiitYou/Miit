@@ -63,11 +63,11 @@ var QuizShowQuestionsItem = React.createClass({
             return null;
         }
 
-        var classes = classNames('miit-component quiz-show-questions-item', (error) ? 'invalid': '');
+        var classes = classNames('miit-component quiz-show-questions-item', (error) ? 'invalid': '', 'kind-' + question.kind);
 
         return (
             <div className={classes}>
-                {counter + ' - ' + question.title}
+                <h5 className="mb20">{counter + ' - ' + question.title}</h5>
 
                 <QuizShowAnswers ref="answers" quiz={quiz} question={question} answers={answers} />
             </div>
