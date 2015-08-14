@@ -35,16 +35,35 @@ var QuizUpdateAnswers = React.createClass({
 
         return {
             answers:    answers || [],
-            value_kind: 1
+            value_kind: 1,
+            to_create:  null,
+            asked_new:  false
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var answers = nextProps.answers;
+        var answers   = nextProps.answers,
+            to_create = this.state.to_create;
+
+        if(
+            to_create && Array.isArray(answers) && answers.length > 0
+        ) {
+            var latestAnswer = answers[answers.length - 1];
+
+            // If this is the same question, remove it
+            if(to_create.title.trim() === latestAnswer.title) {
+                to_create = null;
+            }
+        }
 
         this.setState({
-            answers: answers || []
+            answers:   answers || [],
+            to_create: to_create
         });
+
+        if(this.state.asked_new) {
+            setTimeout(this.handleCreateAnswer);
+        }
     },
 
     handleChange: function(e) {
@@ -60,43 +79,59 @@ var QuizUpdateAnswers = React.createClass({
     },
 
     handleCreateAnswer: function(e) {
-        e.preventDefault();
-
-        // Get all answers
-        var answers = this.state.answers;
+        if(e) {
+            e.preventDefault();
+        }
 
         // If the there is a not created answer
-        if(-1 !== answers.indexBy('id', 'new')) {
+        if(this.state.to_create) {
+
+            // Save all
+            this.saveAll();
+
+            // Remember choices
+            this.setState({
+                asked_new: true
+            });
             return;
         }
 
         // Define a new answer
         var answer = {
-            id:       'new',
-            title:    '',
-            kind:     +this.state.value_kind,
-            order:    answers.length
+            id:    'new',
+            title: '',
+            kind:  +this.state.value_kind,
+            order: this.state.answers.length
         };
-
-        // Add the answer to the bottom
-        answers.push(answer);
 
         // Refresh
         this.setState({
-            answers: answers
+            to_create: answer,
+            asked_new: false
+        });
+    },
+
+    handleToCreateChange: function(title) {
+        var to_create = this.state.to_create;
+
+        // If the latest question is not created, do not add more questions
+        if(!to_create) {
+            return;
+        }
+
+        // Define a new question
+        to_create.title = title;
+
+        // Refresh
+        this.setState({
+            to_create: to_create
         });
     },
 
     handleRemoveNotSaved: function() {
-        // Get the all answers
-        var answers = this.state.answers;
-
-        // Question with id "new" are not yet created
-        answers.removeBy('id', 'new');
-
         // Refresh
         this.setState({
-            answers: answers
+            to_create: null
         });
     },
 
@@ -111,24 +146,33 @@ var QuizUpdateAnswers = React.createClass({
     render: function() {
         // Get answers
         var answers    = this.state.answers,
+            to_create  = this.state.to_create,
             questionId = this.props.question,
             counter    = 0;
 
         // Get value
         var value_kind = this.state.value_kind;
 
+        // Generate new Key for react
+        var newKey = 'answer-' + questionId + '-new';
+
         return (
             <div className="miit-component quiz-update-answers">
                 <h4>{this.props.text.title}</h4>
                 
                 <div className="list">
+
                     {answers.map(function(answer) {
                         var key = 'answer-' + questionId + '-' + answer.id;
 
                         counter++;
 
-                        return <QuizUpdateAnswersItem ref={key} key={key} counter={counter} answer={answer} quiz={this.props.quiz} question={questionId} removeNew={this.handleRemoveNotSaved} />;
+                        return <QuizUpdateAnswersItem ref={key} key={key} counter={counter} answer={answer} quiz={this.props.quiz} question={questionId} />;
                     }, this)}
+
+                    <If test={to_create}>
+                        <QuizUpdateAnswersItem ref={newKey} key={newKey} counter={counter + 1} answer={to_create} quiz={this.props.quiz} question={questionId} removeNew={this.handleRemoveNotSaved} onChange={this.handleToCreateChange} />
+                    </If>
                 </div>
 
                 <div className="add-answer mt20 pl20 pr20">
