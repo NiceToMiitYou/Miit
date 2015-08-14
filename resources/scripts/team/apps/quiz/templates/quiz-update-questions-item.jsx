@@ -52,6 +52,23 @@ var QuizUpdateQuestionsItem = React.createClass({
         });
     },
 
+    sendToParent: function() {
+
+        if(!this.debounced) {
+
+            this.debounced = Debounce(function() {
+
+                var title    = this.state.value_title,
+                    subtitle = this.state.value_subtitle,
+                    required = this.state.value_required;
+
+                this.props.onChange(title, subtitle, required);
+            }.bind(this), 250)
+        }
+
+        this.debounced();
+    },
+    
     handleChange: function(e) {
         if(e.target && e.target.name) {
             var update = {};
@@ -61,6 +78,10 @@ var QuizUpdateQuestionsItem = React.createClass({
             update[name] = value;
 
             this.setState(update);
+
+            if('new' === this.state.question.id) {
+                this.sendToParent();
+            }
         }
     },
 
@@ -113,6 +134,7 @@ var QuizUpdateQuestionsItem = React.createClass({
 
         // Check for change
         if(
+            'new'    !== question.id &&
             title    === question.title &&
             subtitle === question.subtitle &&
             required === question.required
@@ -164,7 +186,7 @@ var QuizUpdateQuestionsItem = React.createClass({
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field">
                         {this.props.text.title}
-                        <input type="text" name="title"    value={value_title}    onChange={this.handleChange} className={classesName}/>
+                        <input type="text" name="title"    value={value_title}    onChange={this.handleChange} className={classesName} />
                     </label>
                     <label className="input-field mt20">
                         {this.props.text.subtitle}

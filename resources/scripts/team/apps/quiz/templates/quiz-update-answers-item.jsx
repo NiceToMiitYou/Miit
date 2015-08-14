@@ -41,6 +41,21 @@ var QuizUpdateAnswersItem = React.createClass({
         });
     },
 
+    sendToParent: function() {
+
+        if(!this.debounced) {
+
+            this.debounced = Debounce(function() {
+
+                var title = this.state.value_title;
+
+                this.props.onChange(title);
+            }.bind(this), 250)
+        }
+
+        this.debounced();
+    },
+    
     handleChange: function(e) {
         if(e.target && e.target.name) {
             var update = {};
@@ -50,6 +65,10 @@ var QuizUpdateAnswersItem = React.createClass({
             update[name] = value;
 
             this.setState(update);
+
+            if('new' === this.state.answer.id) {
+                this.sendToParent();
+            }
         }
     },
 
