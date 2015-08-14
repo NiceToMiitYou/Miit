@@ -127,7 +127,7 @@ var QuizUpdateQuestions = React.createClass({
 
                         counter++;
 
-                        return <QuizUpdateQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} />;
+                        return <QuizUpdateQuestionsItem ref={key} key={key} counter={counter} question={question} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} />;
                     }, this)}
                 </div>
 

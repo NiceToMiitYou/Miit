@@ -122,10 +122,12 @@ var QuizUpdateAnswersItem = React.createClass({
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field">
                         {counter + '.'}
-                        <input type="text" name="title" value={value_title} onChange={this.handleChange} className={classesName} onBlur={this.handleSubmit} />
+                        <input type="text" name="title" value={value_title} onChange={this.handleChange} className={classesName} />
                     </label>
 
                     <div className="actions mt10">
+                        <button className="btn btn-info mr10" type="submit">{this.props.text.submit}</button>
+
                         <button className="btn btn-danger" onClick={this.handleRemoveAnswer}>{this.props.text.delete}</button>
                     </div>
                 </form>
