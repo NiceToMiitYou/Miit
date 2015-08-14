@@ -848,7 +848,7 @@ click-wave { 0% {
  100% {
  width: 40px;
  height: 40px;
- margin-left: -14px;
+ margin-left: -13px;
  margin-top: -14px;
  opacity: 0.0;
 }
@@ -856,48 +856,48 @@ click-wave { 0% {
 
 @-moz-keyframes 
 click-wave { 0% {
- width: 20px;
- height: 20px;
+ width: 13px;
+ height: 13px;
  opacity: 0.35;
  position: relative;
 }
  100% {
  width: 40px;
  height: 40px;
- margin-left: -12px;
- margin-top: -12px;
+ margin-left: -13px;
+ margin-top: -14px;
  opacity: 0.0;
 }
 }
 
 @-o-keyframes 
 click-wave { 0% {
- width: 20px;
- height: 20px;
+ width: 13px;
+ height: 13px;
  opacity: 0.35;
  position: relative;
 }
  100% {
  width: 40px;
  height: 40px;
- margin-left: -12px;
- margin-top: -12px;
+ margin-left: -14px;
+ margin-top: -13px;
  opacity: 0.0;
 }
 }
 
 @keyframes 
 click-wave { 0% {
- width: 20px;
- height: 20px;
+ width: 13px;
+ height: 13px;
  opacity: 0.35;
  position: relative;
 }
  100% {
  width: 40px;
  height: 40px;
- margin-left: -12px;
- margin-top: -12px;
+ margin-left: -13px;
+ margin-top: -14px;
  opacity: 0.0;
 }
 }
