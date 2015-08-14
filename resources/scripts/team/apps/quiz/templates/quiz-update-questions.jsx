@@ -111,7 +111,8 @@ var QuizUpdateQuestions = React.createClass({
 
     render: function() {
         // Get questions
-        var questions = this.state.questions;
+        var questions = this.state.questions,
+            counter   = 0;
 
         // Get value
         var value_kind = this.state.value_kind;
@@ -123,6 +124,8 @@ var QuizUpdateQuestions = React.createClass({
                 <div className="list">
                     {questions.map(function(question) {
                         var key = 'question-' + question.id;
+
+                        counter++;
 
                         return <QuizUpdateQuestionsItem ref={key} key={key} question={question} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} />;
                     }, this)}
