@@ -35,16 +35,18 @@ var MenuTeamItem = React.createClass({
 
     render: function() {
         var application = this.props.application;
+        var apps = MiitApp.shared.get('applications');
 
         if(false === TeamStore.hasApplication(application.identifier)) {
             return null;
         }
-        console.log("AAAAAAA");
-        console.log(application);
         // Link information
         var activeName = application.identifier.replace('APP_', '').toLowerCase();
         var link       = '#/' + activeName + '/';
 
+        application.color = apps[application.identifier].color;
+        application.icon  = apps[application.identifier].icon;
+        
         var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, "pull-left");
 
         // Informations
