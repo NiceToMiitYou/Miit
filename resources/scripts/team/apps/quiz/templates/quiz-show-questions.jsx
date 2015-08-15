@@ -97,6 +97,11 @@ var QuizShowQuestions = React.createClass({
                         var key   = 'question-' + question.id,
                             error = errors.findBy('question', question.id);
                         
+                        // If no answer, do not display
+                        if(question.answers.length === 0) {
+                            return null;
+                        }
+
                         counter++;
 
                         return <QuizShowQuestionsItem ref={key} key={key} counter={counter} question={question} quiz={this.props.quiz} error={error} />;
