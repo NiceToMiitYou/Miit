@@ -98,6 +98,10 @@ module.exports = function LoginManager() {
             team:  team.id,
             email: email
         });
+        
+        if(!spark || !spark.request) {
+            return;
+        }
 
         // Register the email
         spark.request.user  = user;
@@ -198,6 +202,10 @@ module.exports = function LoginManager() {
             avatar: id.replace('ANONYM_', ''),
             roles:  ['ANONYM']
         };
+
+        if(!spark || !spark.request) {
+            return;
+        }
 
         // Store informations
         spark.request.user  = session;
