@@ -47,7 +47,7 @@ var MenuTeamItem = React.createClass({
         application.color = apps[application.identifier].color;
         application.icon  = apps[application.identifier].icon;
         
-        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, "pull-left");
+        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, 'pull-left');
 
         // Informations
         var label  = Translations[application.identifier];
