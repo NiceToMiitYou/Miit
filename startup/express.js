@@ -39,8 +39,8 @@ miitoo.register('MandrillRoutes', express.Router);
 
 // Define the middlewares
 var configurator = miitoo.resolve(
-    ['ExpressApp', 'Mongoose', 'WWWRoutes', 'TeamRoutes', 'MandrillRoutes', 'ImagesRoutes'],
-    function(app, mongoose, wwwRoutes, teamRoutes, mandrillRoutes, imagesRoutes) {
+    ['ExpressApp', 'Mongoose', 'i18n', 'WWWRoutes', 'TeamRoutes', 'MandrillRoutes', 'ImagesRoutes'],
+    function(app, mongoose, i18n, wwwRoutes, teamRoutes, mandrillRoutes, imagesRoutes) {
     
     app.engine('ejs', require('ejs').renderFile);
     
@@ -49,6 +49,9 @@ var configurator = miitoo.resolve(
     // parse application/json
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+
+    // Initialize i18n
+    app.use(i18n.init);
 
     // Handle Routes by subdomain
     app.use(subdomain('www', wwwRoutes));
