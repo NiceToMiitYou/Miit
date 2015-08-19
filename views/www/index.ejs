@@ -5,26 +5,26 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=530, user-scalable=no">
     
-    <meta name="description" content="Miit est une application web qui va changer motre manière de communiquer au sein de vos équipes ou de votre audience. Venez vite la découvrir!">
+    <meta name="description" content="<%= __('www.description') %>">
     <meta name="keywords" content="miit,communication,application,applications,audience,projets,espace,équipes,simplement">
     <meta name="author" content="ITEvents">
     <meta name="language" content="fr-FR">
     
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
-    <meta property="og:title" content="Miit - Améliorez votre communication">
+    <meta property="og:title" content="<%= __('www.title') %>">
     <meta property="og:image" content="https://www.miit.fr/img/facebook-opengraph.jpg">
-    <meta property="og:site_name" content="Miit - Améliorez votre communication">
-    <meta property="og:description" content="Miit est une application web qui va changer motre manière de communiquer au sein de vos équipes ou de votre audience.">
+    <meta property="og:site_name" content="<%= __('www.title') %>">
+    <meta property="og:description" content="<%= __('www.description') %>">
     <meta property="og:locale" content="FR_fr">
     <meta property="og:video" content="https://www.facebook.com/video.php?v=849562615096753">
     <meta property="article:author" content="https://www.facebook.com/NiceToMiitYou">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@NiceToMiitYou">
-    <meta name="twitter:title" content="Miit - Améliorez votre communication">
+    <meta name="twitter:title" content="<%= __('www.title') %>">
     <meta name="twitter:image" content="https://www.miit.fr/img/facebook-opengraph.jpg">
-    <meta name="twitter:description" content="Miit est une application web qui va changer motre manière de communiquer au sein de vos équipes ou de votre audience.">
+    <meta name="twitter:description" content="<%= __('www.description') %>">
 
     <link rel="author" href="https://plus.google.com/u/0/+MiitFrapp">
     <link rel="publisher" href="https://plus.google.com/u/0/+MiitFrapp">
@@ -42,7 +42,7 @@
         <nav class="menu" id="menu">
             <div class="container">
                 <span class="logo">
-                    <img src="/img/logo-miit-white.png" alt="Le logo de Miit"> <span>Miit</span>
+                    <img src="/img/logo-miit-white.png" alt="<%= __('www.miit.logo') %>"> <span><%= __('Miit') %></span>
                 </span>
                 <div class="pull-right sn">
                     <a href="https://twitter.com/NiceToMiitYou/" target="_blank"><i class="fa fa-twitter-square"></i></a>
@@ -56,8 +56,8 @@
             <div class="row valign">
                 <div class="fixed">
                     <div class="col-sm-12 pt20">
-                        <h1>Changez votre manière de communiquer</h1>
-                        <span class="mt20">avec Miit, une application web qui s'adapte à vos besoins</span>
+                        <h1><%= __('www.header.title') %></h1>
+                        <span class="mt20"><%= __('www.header.subtitle') %></span>
                     </div>
                 </div>
             </div>
@@ -68,57 +68,57 @@
     <div class="bg-blue-grey newsletter-block">
         <img src="/img/background-www.png" class="bg-separator" alt="Newsletter">
         <div class="container pt20">
-            <h2>Inscrivez-vous dès maintenant</h2>
-            <p class="pt10 text-100">Restez informés et bénéficiez d'une relation privilégiée avec nos équipes.</p>
+            <h2><%= __('www.subscribe.title') %></h2>
+            <p class="pt10 text-100"><%= __('www.subscribe.subtitle') %></p>
             <div id="create-team">
                 <form class="miit-component news-letter">
                     <div class="row pt30 pb20">
                         <div class="col-md-8 mb10">
                             <div class="input-field bg-transparent left-icon icon-transparent push0 pt5 pb5">
                                 <i class="fa fa-envelope-o pt5 pl5 pb5"></i>
-                                <input type="text" placeholder="Votre adresse mail" />
+                                <input type="text" placeholder="<%= __('input.your.email') %>" />
                             </div>
                         </div>
                         <div class="col-md-4 mb10">
-                            <button type="submit" class="btn btn-info pl10 pr10 pt15 pb15">S'inscrire à la Newsletter</button>
+                            <button type="submit" class="btn btn-info pl10 pr10 pt15 pb15"><%= __('www.subscribe.newsletter') %></button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="row beta-row pb20">
                 <div class="col-xs-2">
-                    <img src="/img/beta.png" alt="Inscription aux beta-test">
+                    <img src="/img/beta.png" alt="<%= __('www.beta.access') %>">
                 </div>
                 <div class="col-xs-10">
-                    <p class="text-100"><strong>Miit</strong> est toujours en développement, et pour que nous puissions répondre le mieux possible à vos besoins et à votre envie de communiquer, nous avons besoin de <strong>votre aide.</strong></p><br>
-                    <p class="text-100"><strong>Inscrivez-vous à la newsletter</strong> pour recevoir des accès bêta à la plateforme dès son ouverture. Vous aurez la possibilité d'échanger autant que vous le souhaitez avec nos équipes sur tous les sujets.</p>
+                    <p class="text-100"><%- __('www.beta.access.development') %></p>
+                    <p class="text-100 mt20"><%- __('www.beta.access.subscribe') %></p>
                 </div>
             </div>
         </div>
-        <img src="/img/background-www-bottom.png" class="bg-separator bg-bot" alt="Un espace personnalisé">
+        <img src="/img/background-www-bottom.png" class="bg-separator bg-bot" alt="<%= __('www.build.custom.space.alt') %>">
     </div>
     
     <div class="content">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-4">
-                    <img src="/img/illustration2.png" alt="Espace qui répond aux besoins" class="mb20" style="max-width:100%;"/>
+                    <img src="/img/illustration2.png" alt="<%= __('www.build.space.alt') %>" class="mb20" style="max-width:100%;"/>
                 </div>
 
                 <div class="col-md-8 col-sm-8">
-                    <h2 class="large">Construisez un espace unique</h2>
-                    <p class="mt10 mb30">Installez autant d'applications que vous le souhaitez pour créer un espace qui répond exactement à vos besoins.</p>
+                    <h2 class="large"><%= __('www.build.space.title') %></h2>
+                    <p class="mt10 mb30"><%= __('www.build.space.subtitle') %></p>
                 </div>
             </div>
         </div>
 
         <div>
-            <img src="/img/background-www-top.png" class="bg-separator" alt="Les applications de Miit">
+            <img src="/img/background-www-top.png" class="bg-separator" alt="<%= __('www.apps.alt') %>">
             <div class="bg-blue-grey">
 
                 <div class="container pt50 pb50">
-                    <h2>Plusieurs applications déjà disponibles</h2>
-                    <p id="apps-desc" class="mt20 text-100">Miit a choisi de séparer chacune de ses fonctionnalités en <strong>Applications</strong> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement de communication comme vous le souhaitez.</p>
+                    <h2><%= __('www.apps.title') %></h2>
+                    <p id="apps-desc" class="mt20 text-100"><%- __('www.apps.description') %></p>
 
                     <div class="apps row mt30">
                         <div class="app done col-md-2 col-sm-4 col-xs-6" id="app1">
@@ -294,7 +294,7 @@
 
         <footer>
 
-            <img src="/img/background-www-top.png" class="bg-separator" alt="A bientôt sur Miit">
+            <img src="/img/background-www-top.png" class="bg-separator" alt="<%= __('www.footer.seeyousoon.alt') %>">
             <div class="bg-blue-grey">
                 <div class="container pt30 pb30">
                     <span class="text-white">© Copyright ITEvents 2015</span>

@@ -1,3 +1,32 @@
 {
-    "www.title": "Miit - Améliorez votre communication rapidement et simplement!"
+    "Miit": "Miit",
+    
+    "www.title": "Miit - Améliorez votre communication rapidement et simplement!",
+    "www.description": "Miit est une application web qui va changer motre manière de communiquer au sein de vos équipes ou de votre audience. Venez vite la découvrir!",
+
+    "www.miit.logo": "Le logo de Miit",
+    "www.header.title": "Changez votre manière de communiquer",
+    "www.header.subtitle": "avec Miit, une application web qui s'adapte à vos besoins",
+    
+    "www.subscribe.title": "Inscrivez-vous dès maintenant",
+    "www.subscribe.subtitle": "Restez informés et bénéficiez d'une relation privilégiée avec nos équipes.",
+    "www.subscribe.newsletter": "S'inscrire à la Newsletter",
+
+    "www.beta.access": "Inscription aux beta-tests",
+    "www.beta.access.development": "<strong>Miit</strong> est toujours en développement, et pour que nous puissions répondre le mieux possible à vos besoins et à votre envie de communiquer, nous avons besoin de <strong>votre aide.</strong>",
+    "www.beta.access.subscribe": "<strong>Inscrivez-vous à la newsletter</strong> pour recevoir des accès bêta à la plateforme dès son ouverture. Vous aurez la possibilité d'échanger autant que vous le souhaitez avec nos équipes sur tous les sujets.",
+
+    "www.build.custom.space.alt": "Un espace personnalisé",
+    "www.build.space.alt": "Espace qui répond aux besoins",
+    "www.build.space.title": "Construisez un espace unique",
+    "www.build.space.subtitle": "Installez autant d'applications que vous le souhaitez pour créer un espace qui répond exactement à vos besoins.",
+
+    "www.apps.alt": "Les applications de Miit",
+    "www.apps.title": "Plusieurs applications déjà disponibles",
+    "www.apps.description": "Miit a choisi de séparer chacune de ses fonctionnalités en <strong>Applications</strong> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement de communication comme vous le souhaitez.",
+    "www.apps.alt": "Les applications de Miit",
+
+    "www.footer.seeyousoon": "A bientôt sur Miit",
+
+    "input.your.email": "Votre adresse mail"
 }
