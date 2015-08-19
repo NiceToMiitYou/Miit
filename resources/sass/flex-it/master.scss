@@ -712,6 +712,12 @@ label.input-field {
 
     }
 
+    &.bg-transparent {
+        input {
+            background-color: transparent;
+        }
+    }
+
     &.left-icon {
         padding-left: 52px;
         border: 1px solid #CBCBCB;
@@ -1241,6 +1247,10 @@ click-wave { 0% {
 
 
 /* ---------------- BEGIN BACKGROUND COLOR CSS ---------------- */
+
+.bg-transparent {
+    background-color: transparent!important;
+}
 
 .bg-white {
     background-color: #FFF!important;
