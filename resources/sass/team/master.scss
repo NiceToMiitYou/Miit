@@ -120,6 +120,21 @@ a {
 	      top: 20px;
 	      right: 25px;
 	    }
+
+	    .user-login {
+	    	max-width: 450px;
+	    	margin: auto;
+	    	display: block;
+
+
+	    	.panel-content {
+	    		background-color: #F5F5F5;
+	    	}
+
+	    	.input-field:focus {
+	    		border: 1px solid #000;
+	    	}
+	    }
 	}
 }
 
