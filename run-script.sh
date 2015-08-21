@@ -67,7 +67,7 @@ function start-watchify() {
 }
 
 function watch-lib() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/lib start-watchify lib.js lib.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/lib start-watchify lib.js lib.min.js
 }
 
 function watch-www() {
@@ -95,7 +95,7 @@ function start-build() {
 }
 
 function build-lib() {
-    NODE_PATH=$NODE_PATH:$SCRIPTS_FOLDER/lib start-build lib.js lib.min.js
+    NODE_PATH=$NODE_PATH:$SHARED_FOLDER:$SCRIPTS_FOLDER/lib start-build lib.js lib.min.js
 }
 
 function build-www() {

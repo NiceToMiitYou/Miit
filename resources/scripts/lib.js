@@ -10,7 +10,9 @@ global.KeyMirror    = require('key-mirror');
 global.ObjectAssign = require('object-assign');
 global.MiitUtils    = require('utils');
 
+// Extensions from shared
+require('lib/array-extensions');
+
 // Extensions
-require('array-extensions');
 require('event-emitter-extensions');
 require('string-extensions');

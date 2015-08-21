@@ -1,5 +1,9 @@
 'use strict';
 
+// Extend array for quizz validation
+require('../../shared/lib/array-extensions')
+
+
 module.exports = function QuizApp() {
     this.identifier = function() {
         return 'APP_QUIZ';
@@ -7,7 +11,8 @@ module.exports = function QuizApp() {
 
     var app = this;
 
-    var QuizStore = miitoo.get('QuizStore');
+    var QuizStore      = miitoo.get('QuizStore');
+    var QuzzValidation = require('../../shared/apps/quiz/validation');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -221,6 +226,32 @@ module.exports = function QuizApp() {
 
         QuizStore.removeAnswer(quizId, questionId, answerId, team, function(err, quiz) {
             sendRefreshAction(team);
+        });
+    });
+
+    // Remove an answer to a quiz
+    Dispatcher.register('quiz:choices', 'USER', app.identifier(), function onSendChoices(spark, data, team, user) {
+        var quizId  = data.quiz,
+            choices = data.choices;
+
+        if(!quizId || !choices) {
+            return;
+        }
+
+        QuizStore.findQuiz(team, quizId, function(err, quiz) {
+            if(err || !quiz) {
+                return;
+            }
+
+            var validation = new QuzzValidation(quiz.questions, choices);
+
+            validation.validate();
+
+            console.log('Quiz is', (true === validation.isValid()) ? 'valid' : 'invalid' );
+
+            if(false === validation.isValid()) {
+                console.log(validation.getErrors());
+            }
         });
     });
 };
