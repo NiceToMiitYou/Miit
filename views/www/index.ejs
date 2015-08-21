@@ -122,7 +122,7 @@
 
                     <div class="apps row mt30">
                         <div class="app done col-md-2 col-sm-4 col-xs-6" id="app1">
-                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
+                            <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-comments-o"></i>
                             <div class="odd">
                                 Chat
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="app done col-md-2 col-sm-4 col-xs-6" id="app2">
-                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
+                            <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-check-square-o"></i>
                             <div>
                                 Questionnaires
@@ -140,7 +140,7 @@
                         </div>
 
                         <div class="app done col-md-2 col-sm-4 col-xs-6" id="app3">
-                            <span><i class="fa fa-circle-o stat-open"></i> Disponible</span>
+                            <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-folder-open-o"></i>
                             <div class="odd">
                                 Partage de documents
@@ -149,7 +149,7 @@
                         </div>
 
                         <div class="app  col-md-2 col-sm-4 col-xs-6" id="app4">
-                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
+                            <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-question-circle"></i>
                             <div> 
                                 Mur de questions
@@ -158,7 +158,7 @@
                         </div>
 
                         <div class="app col-md-2 col-sm-4 col-xs-6" id="app5">
-                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
+                            <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-tasks"></i>
                             <div class="odd">To-do list
                                 <p>Suivez et gérez les tâches de votre groupe.</p>
@@ -166,7 +166,7 @@
                         </div>
 
                         <div class="app col-md-2 col-sm-4 col-xs-6" id="app6">
-                            <span><i class="fa fa-circle-o stat-config"></i> Bientôt disponible</span>
+                            <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-calendar"></i>
                             <div>
                                 Calendrier
@@ -231,7 +231,7 @@
                     </div>
                 </div>
             </div>
-            <img src="/img/background-www-bottom-2.png" class="bg-separator bg-bot"  alt="Restez en contact">
+            <img src="/img/background-www-bottom-2.png" class="bg-separator bg-bot"  alt="<%= __('www.contact.alt') %>">
         </div>
 
         <div class="keep-contact">
@@ -244,26 +244,26 @@
                     </div>
 
                     <div class="col-md-6">
-                        <h2>Gardez le contact</h2>
-                        <p class="mt20">Restez au courant de nos dernières nouveautés en vous inscrivant à la newsletter.</p>
+                        <h2><%= __('www.contact.title') %></h2>
+                        <p class="mt20"><%= __('www.contact.subtitle') %></p>
                         <div id="keep-contact">
                             <form class="miit-component news-letter">
                                 <div class="row pt30">
                                     <div class="col-md-8 mb10">
                                         <div class="input-field left-icon icon-transparent push0 pt5 pb5">
                                             <i class="fa fa-envelope-o pt5 pl5 pb5"></i>
-                                            <input type="text" placeholder="Votre adresse mail" />
+                                            <input type="text" placeholder="<%= __('input.your.email') %>" />
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb10">
-                                        <button type="submit" style="width:100%;" class="btn btn-dark pl10 pr10 pt15 pb15">S'inscrire</button>
+                                        <button type="submit" style="width:100%;" class="btn btn-dark pl10 pr10 pt15 pb15"><%= __('www.subscribe.newsletter') %></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
 
-                        <p class="mt20 mb10">Ou suivez-nous sur les réseaux sociaux.</p>
+                        <p class="mt20 mb10"><%= __('www.contact.social') %></p>
                         <div class="row">
                             <a class="social col-sm-3 col-xs-6 center" href="https://twitter.com/NiceToMiitYou/" target="_blank">
                                 <i class="fa fa-twitter-square mr5"></i>
