@@ -125,8 +125,8 @@
                             <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-comments-o"></i>
                             <div class="odd">
-                                Chat
-                                <p>Communiquez en direct avec vos équipes ou votre public.</p>
+                                <%= __('www.apps.chat.title') %>
+                                <p><%= __('www.apps.chat.description') %></p>
                             </div>
                         </div>
 
@@ -134,8 +134,8 @@
                             <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-check-square-o"></i>
                             <div>
-                                Questionnaires
-                                <p>Interrogez simplement votre audience.</p>
+                                <%= __('www.apps.quiz.title') %>
+                                <p><%= __('www.apps.quiz.description') %></p>
                             </div>
                         </div>
 
@@ -143,25 +143,26 @@
                             <span><i class="fa fa-circle-o stat-open"></i> <%= __('www.apps.available') %></span>
                             <i class="fa fa-folder-open-o"></i>
                             <div class="odd">
-                                Partage de documents
-                                <p>Distribuez facilement vos fichiers.</p>
+                                <%= __('www.apps.documents.title') %>
+                                <p><%= __('www.apps.documents.description') %></p>
                             </div>
                         </div>
 
-                        <div class="app  col-md-2 col-sm-4 col-xs-6" id="app4">
+                        <div class="app col-md-2 col-sm-4 col-xs-6" id="app4">
                             <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-question-circle"></i>
                             <div> 
-                                Mur de questions
-                                <p>Offrez à votre audience la possibilité de vous poser des questions.</p>
+                                <%= __('www.apps.wall.title') %>
+                                <p><%= __('www.apps.wall.description') %></p>
                             </div>
                         </div>
 
                         <div class="app col-md-2 col-sm-4 col-xs-6" id="app5">
                             <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-tasks"></i>
-                            <div class="odd">To-do list
-                                <p>Suivez et gérez les tâches de votre groupe.</p>
+                            <div class="odd">
+                                <%= __('www.apps.tasks.title') %>
+                                <p><%= __('www.apps.tasks.description') %></p>
                             </div>
                         </div>
 
@@ -169,8 +170,8 @@
                             <span><i class="fa fa-circle-o stat-config"></i> <%= __('www.apps.soon.available') %></span>
                             <i class="fa fa-calendar"></i>
                             <div>
-                                Calendrier
-                                <p>Partagez un emploi du temps avec vos utilisateurs.</p>
+                                <%= __('www.apps.calendar.title') %>
+                                <p><%= __('www.apps.calendar.description') %></p>
                             </div>
                         </div>
 
@@ -182,49 +183,57 @@
         <div>
             <div class="bg-blue-grey">
                 <div class="container pb30">
-                    <h2>Quelques cas d'utilisation</h2>
+                    <h2><%= __('www.cases.title') %></h2>
                     <div class="row mt10">
                         <div class="col-md-12 case mt30">
                             <div>
                                 <div class="case-header">
-                                    <img src="/img/face1.png" alt="Maitre de conférence" class="pull-left mr20"> 
-                                    <div class="slider" onclick="openApp(1, 2, 4)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'intéressent</p></div>
+                                    <img src="/img/face1.png" alt="<%= __('www.cases.1.alt') %>" class="pull-left mr20"> 
+                                    <div class="slider" onclick="openApp(1, 2, 4)">
+                                        <i class="fa fa-eye fa-2x"></i> <p><%= __('www.cases.seeapps') %></p>
+                                    </div>
                                 </div>
-                                <h3>Vous organisez des conférences ?</h3>
-                                <p class="mt10 text-100 desc">Améliorez l'interactivité de vos conférences en recueillant les questions de votre public sans perturber votre présentation. Répondez-y le moment venu sans même avoir à faire passer de micro. Vous pouvez également inverser les rôles en sondant votre public pour adapter au mieux votre discours à votre audience.</p>
+                                <h3><%= __('www.cases.1.title') %></h3>
+                                <p class="mt10 text-100 desc"><%- __('www.cases.1.description') %></p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                         <div class="col-md-12 case mt30">
                             <div>
                                 <div class="case-header">
-                                    <img src="/img/face2.png" alt="Animateur de réunion" class="pull-left mr20"> 
-                                    <div class="odd slider" onclick="openApp(1, 2, 3, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'intéressent</p></div>
+                                    <img src="/img/face2.png" alt="<%= __('www.cases.2.alt') %>" class="pull-left mr20"> 
+                                    <div class="odd slider" onclick="openApp(1, 2, 3, 6)">
+                                        <i class="fa fa-eye fa-2x"></i> <p><%= __('www.cases.seeapps') %></p>
+                                    </div>
                                 </div>
-                                <h3>Vous faîtes beaucoup de réunions ?</h3>
-                                <p class="mt10 text-100 desc">Il n'est pas toujours simple de donner la parole à tout le monde pendant vos réunions ou d'arriver à definir des solutions claires à la fin. Miit va permettre à tout le monde de donner son avis, de voter pour des solutions précises, d'avoir accès aux documents que vous souhaitez partager et, une fois terminée, de garder une image claire de votre réunion pour y revenir quand vous le désirez.</p>
+                                <h3><%= __('www.cases.2.title') %></h3>
+                                <p class="mt10 text-100 desc"><%- __('www.cases.2.description') %></p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                         <div class="col-md-12 case mt30">
                             <div>
                                 <div class="case-header">
-                                    <img src="/img/face3.png" alt="Chef de projet" class="pull-left mr20"> 
-                                    <div class="slider"  onclick="openApp(1, 3, 5, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'intéressent</p></div>
+                                    <img src="/img/face3.png" alt="<%= __('www.cases.3.alt') %>" class="pull-left mr20"> 
+                                    <div class="slider"  onclick="openApp(1, 3, 5, 6)">
+                                        <i class="fa fa-eye fa-2x"></i> <p><%= __('www.cases.seeapps') %></p>
+                                    </div>
                                 </div>
-                                <h3>Vous gérez des projets toujours plus compliqués ?</h3>
-                                <p class="mt10 text-100 desc">Suivez l'évolution de vos différents projets ainsi que l'avancement de vos équipes tâche après tâche. Organisez et partagez vos calendriers avec qui vous le souhaitez en contrôlant les droits d'accès et de modification de chacun en quelques clics.</p>
+                                <h3><%= __('www.cases.3.title') %></h3>
+                                <p class="mt10 text-100 desc"><%- __('www.cases.3.description') %></p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                         <div class="col-md-12 case mt30">
                             <div>
                                 <div class="case-header">
-                                    <img src="/img/face4.png" alt="Personne qui souhaite améliorer sa communication" class="pull-left mr20"> 
-                                    <div class="odd slider" onclick="openApp(1, 2, 3, 4, 5, 6)"><i class="fa fa-eye fa-2x"></i> <p>Voir les applications qui m'intéressent</p></div>
+                                    <img src="/img/face4.png" alt="<%= __('www.cases.4.alt') %>" class="pull-left mr20"> 
+                                    <div class="odd slider" onclick="openApp(1, 2, 3, 4, 5, 6)">
+                                        <i class="fa fa-eye fa-2x"></i> <p><%= __('www.cases.seeapps') %></p>
+                                    </div>
                                 </div>
-                                <h3>Vous avez d'autres besoins ?</h3>
-                                <p class="mt10 text-100 desc">La force de Miit réside dans son pouvoir de personnalisation. Vous pouvez composer votre espace en fonction de vos besoins du moment et enregistrer votre modèle pour le réutiliser plus tard.</p>
+                                <h3><%= __('www.cases.4.title') %></h3>
+                                <p class="mt10 text-100 desc"><%- __('www.cases.4.description') %></p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
@@ -262,27 +271,26 @@
                             </form>
                         </div>
 
-
                         <p class="mt20 mb10"><%= __('www.contact.social') %></p>
                         <div class="row">
                             <a class="social col-sm-3 col-xs-6 center" href="https://twitter.com/NiceToMiitYou/" target="_blank">
                                 <i class="fa fa-twitter-square mr5"></i>
-                                Twitter
+                                <%= __('www.contact.social.twitter') %>
                                 <div class="clearfix"></div>
                             </a>
                             <a class="social col-sm-3 col-xs-6 center" href="https://www.facebook.com/NiceToMiitYou" target="_blank">
                                 <i class="fa fa-facebook-square mr5"></i>
-                                Facebook
+                                <%= __('www.contact.social.facebook') %>
                                 <div class="clearfix"></div>
                             </a>
                             <a class="social col-sm-3 col-xs-6 center" href="https://plus.google.com/u/0/+MiitFrapp/about" target="_blank">
                                 <i class="fa fa-google-plus-square mr5"></i>
-                                Google+
+                                <%= __('www.contact.social.googleplus') %>
                                 <div class="clearfix"></div>
                             </a>
                             <a class="social col-sm-3 col-xs-6 center" href="https://www.youtube.com/channel/UCHiEdBJHbVu0chhVZrsFMkA" target="_blank">
                                 <i class="fa fa-youtube-square mr5"></i>
-                                Youtube
+                                <%= __('www.contact.social.youtube') %>
                                 <div class="clearfix"></div>
                             </a>
                         </div>
@@ -293,14 +301,12 @@
         </div>
 
         <footer>
-
             <img src="/img/background-www-top.png" class="bg-separator" alt="<%= __('www.footer.seeyousoon.alt') %>">
             <div class="bg-blue-grey">
                 <div class="container pt30 pb30">
-                    <span class="text-white">© Copyright ITEvents 2015</span>
+                    <span class="text-white"><%= __('www.footer.copy') %></span>
                 </div>
             </div>
-
         </footer>
 
     </div>
