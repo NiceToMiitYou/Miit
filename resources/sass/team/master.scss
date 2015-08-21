@@ -152,6 +152,24 @@ a {
 			}
 		}
 	}
+
+	.sl-logout {
+		color: #FFF;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		padding: 15px 20px;
+		background-color: #1A2631;
+		cursor: pointer;
+		transition: background-color .4s ease;
+		-webkit-transition: background-color .4s ease;
+		-moz-transition: background-color .4s ease;
+		-o-transition: background-color .4s ease;
+
+		&:hover {
+			background-color: #2B3C4C;
+		}
+	}
 }
 
 .user-list {

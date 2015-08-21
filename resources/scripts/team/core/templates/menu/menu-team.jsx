@@ -72,6 +72,18 @@ var MenuTeam = React.createClass({
                             </li>
                         </ul>
                     </If>
+
+                    <If test={UserStore.isUser()}>
+                        <div onClick="" className="sl-logout">
+                            <i className="fa fa-power-off mr10"></i> {this.props.text.disconnect}
+                        </div>
+                    </If>
+                    <If test={!UserStore.isUser()}>
+                        <div onClick="" className="sl-logout">
+                            <i className="fa fa-power-off mr10"></i> {this.props.text.connect}
+                        </div>
+                    </If>
+
                 </div>
             </div>
         );
