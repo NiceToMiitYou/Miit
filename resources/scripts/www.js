@@ -36,3 +36,10 @@ React.render(<NewsLetter variant={false} />, document.getElementById('create-tea
 
 // Keep contact field
 React.render(<NewsLetter variant={true} />, document.getElementById('keep-contact'));
+
+global.onload = function() {
+
+    // Load the iframe at the end
+    var iframe = document.getElementById('youtube-teaser');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/ctujCxl7xic?rel=0&amp;showinfo=0';
+};
