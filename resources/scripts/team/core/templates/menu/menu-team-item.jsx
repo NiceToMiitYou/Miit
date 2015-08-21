@@ -8,7 +8,7 @@ var TeamStore          = require('core/stores/team-store'),
 var Translations = require('core/translation');
 
 // Include common
-var If   = require('templates/if.jsx');
+var If = require('templates/if.jsx');
 
 // Include components
 var Link = require('core/templates/components/link.jsx')

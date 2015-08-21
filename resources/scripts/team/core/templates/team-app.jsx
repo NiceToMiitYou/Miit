@@ -8,6 +8,9 @@ var UserStore            = require('core/stores/user-store'),
     PageActions          = require('core/actions/page-actions'),
     SubscriptionsActions = require('core/actions/subscriptions-actions');
 
+// Include common
+var If = require('templates/if.jsx');
+
 // Include components
 var MenuTeam              = require('core/templates/menu/menu-team.jsx'),
     ModalContainer        = require('core/templates/modal/modal-container.jsx'),
@@ -73,7 +76,9 @@ var TeamApp = React.createClass({
                 <MenuTeam />
 
                 <div className="main container-fluid">
-                    <Page />
+                    <If test={!!Page}>
+                        <Page />
+                    </If>
                 </div>
             
                 <ModalContainer />
