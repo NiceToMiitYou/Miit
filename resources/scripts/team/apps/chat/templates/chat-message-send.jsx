@@ -9,7 +9,8 @@ var ChatMessageSend = React.createClass({
             placeholder: {
                 message: 'Votre message...'
             },
-            submit: 'Envoyez'
+            submit: 'Envoyez',
+            message: 'Message'
         };
     },
 
@@ -49,7 +50,10 @@ var ChatMessageSend = React.createClass({
 
         return (
             <form className="miit-component chat-message-send" onSubmit={this.handleSubmit}>
-                <input type="text" value={message} placeholder={this.props.placeholder.message} onChange={this.handleChange} />
+                <label>
+                    {this.props.message}
+                    <input type="text" value={message} placeholder={this.props.placeholder.message} onChange={this.handleChange} />
+                </label>
                 <button type="submit" className="btn btn-info pull-right"><i className="fa fa-arrow-circle-o-right"></i></button>
             </form>
         );

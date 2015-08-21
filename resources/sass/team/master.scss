@@ -468,6 +468,10 @@ a {
 					margin-right: 6px;
 					margin-top: 16px;
 				}
+
+				.dropdown:hover {
+					color: #2980b9;
+				}
 			}
 
 			.create-room {
@@ -521,7 +525,7 @@ a {
 
 		.chat-message-list {
 			overflow-y: scroll;
-			height: calc(100% - 165px);
+			height: calc(100% - 192px);
 
 			.chat-message-list-item {
 				margin-top: 20px;
@@ -557,6 +561,19 @@ a {
 		}
 
 		.chat-message-send {
+			background-color: #EFEFEF;
+			margin: -20px -25px;
+			margin-top: 0;
+			padding: 20px;
+
+		    label {
+		    	span {
+		    		font-size: .85em;
+		    		margin-bottom: 15px;
+		    		line-height: 10px;
+		    		display: block;
+		    	}
+		    }
 			 input {
 			 	padding-right: 80px;
 			 }
