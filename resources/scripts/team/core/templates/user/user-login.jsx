@@ -127,9 +127,16 @@ var UserLogin = React.createClass({
                     <h2 className="panel-title"><i className="fa fa-lock pull-left "></i> {this.props.text.title}</h2>
                     <div className="panel-content">
                         <form onSubmit={this.handleSubmit}>
-                            <input type="text"     className={classes_email + " mb15"}    value={value_email}    placeholder={this.props.placeholder.email}    onChange={this.handleChange} name="email" />
-                            <input type="password" className={classes_password + " mb15"} value={value_password} placeholder={this.props.placeholder.password} onChange={this.handleChange} name="password" />
-                            <button className="btn btn-warning" type="submit">{this.props.submit}</button>     
+                        <div className="input-field left-icon mb20">
+                            <i className="fa fa-envelope-o"></i>
+                            <input type="text"     className={classes_email}    value={value_email}    placeholder={this.props.placeholder.email}    onChange={this.handleChange} name="email" />
+                        </div>
+                        <div className="input-field left-icon mb25">
+                            <i className="fa fa-lock"></i>
+                            <input type="password" className={classes_password} value={value_password} placeholder={this.props.placeholder.password} onChange={this.handleChange} name="password" />
+                        </div>
+
+                            <button className="btn btn-info" type="submit">{this.props.submit}</button>     
                         </form>
                     </div>
                 </div>

@@ -1,7 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600');
-
 @import 'variables';
 @import 'mixins';
 @import 'grid';
@@ -651,6 +648,10 @@ input[type="text"], input[type="password"], textarea {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-transition: border-color 500ms ease;
+    -moz-transition: border-color 500ms ease;
+    -o-transition: border-color 500ms ease;
+    transition: border-color 500ms ease;
 
     &:focus  {
         outline: 0;
@@ -712,13 +713,17 @@ label.input-field {
 
     }
 
+    &.bg-transparent {
+        input {
+            background-color: transparent;
+        }
+    }
+
     &.left-icon {
-        padding-left: 52px;
-        border: 1px solid #CBCBCB;
         background-color: #FAFAFA;
 
         input {
-            border: 0;
+            padding-left: 52px;
         }
 
         i {
@@ -740,12 +745,11 @@ label.input-field {
 
     i {
       position: absolute;
-      bottom: 13px;
-      left: 0;
+      left: 1px;
       width: 38px;
       text-align: center;
-      top: 0;
-      bottom: 0;
+      top: 1px;
+      bottom: 1px;
       line-height:38px;
       background: #E8E8E8;
     }
@@ -1241,6 +1245,10 @@ click-wave { 0% {
 
 
 /* ---------------- BEGIN BACKGROUND COLOR CSS ---------------- */
+
+.bg-transparent {
+    background-color: transparent!important;
+}
 
 .bg-white {
     background-color: #FFF!important;

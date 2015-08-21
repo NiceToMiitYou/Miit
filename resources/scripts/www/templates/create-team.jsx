@@ -97,14 +97,14 @@ var CreateTeam = React.createClass({
             <form className="miit-component create-team" onSubmit={this.handleSubmit}>
                     <div className="row pt20 pb20">
                         <div className="col-md-5 mb10">
-                            <div className="input-field left-icon icon-transparent pt5 pb5 push0">
+                            <div className="input-field left-icon bg-transparent icon-transparent pt5 pb5 push0">
                                 <i className="fa fa-envelope-o pt5 pb5"></i>
                                 <input type="text" className={classes_email} placeholder={this.props.placeholder.email} ref="email" />
                             </div>
                         </div>
 
                         <div className="col-md-4 mb10">
-                            <div className="input-field left-icon icon-transparent pt5 pb5 col5">
+                            <div className="input-field left-icon icon-transparent bg-transparent pt5 pb5 col5">
                                 <i className="fa fa-users pt5 pb5"></i>
                                 <input type="text" className={classes_team}  placeholder={this.props.placeholder.team}  ref="team" />
                             </div>

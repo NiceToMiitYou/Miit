@@ -83,7 +83,7 @@ var NewsLetter = React.createClass({
                 <If test={!done}>
                     <div className="row pt30">
                         <div className="col-md-8 mb10">
-                            <div className={classes_email + " input-field left-icon icon-transparent push0 pt5 pb5" }>
+                            <div className={classes_email + " input-field bg-transparent left-icon icon-transparent push0 pt5 pb5" }>
                                 <i className="fa fa-envelope-o pt5 pl5 pb5"></i>
                                 <input type="text" placeholder={this.props.placeholder.email} ref="email" />
                             </div>
