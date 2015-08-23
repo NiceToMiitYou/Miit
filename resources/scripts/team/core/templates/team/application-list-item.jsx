@@ -11,6 +11,7 @@ var If = require('templates/if.jsx');
 var Translations = {
     APP_CHAT:      'Chat',
     APP_QUIZ:      'Quiz',
+    APP_WALL:      'Mur de questions',
     APP_DOCUMENTS: 'Documents',
 };
 

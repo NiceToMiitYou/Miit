@@ -20,6 +20,24 @@ config['APP_CHAT'] = {
     icon: 'weixin'
 };
 
+// Definition of the Wall
+config['APP_WALL'] = {
+    // The identifier of the app
+    identifier: 'APP_WALL',
+
+    // Pricing applied for User
+    userPricing: 0.1,
+
+    // Pricing applied for Anonym (1euro for 1000 anonyms)
+    anonymPricing: 0.001,
+
+    // Background color
+    color: 'purple',
+
+    // The icon
+    icon: 'question-circle'
+};
+
 // Definition of the Quiz
 config['APP_QUIZ'] = {
     // The identifier of the app

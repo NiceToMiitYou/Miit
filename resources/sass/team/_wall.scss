@@ -1,0 +1,137 @@
+
+.wall-app {
+	.wall-list {
+		.wall-list-item {
+			position: relative;
+			padding: 15px;
+			padding-left: 65px;
+			margin-bottom: 25px;
+			background-color: #FFF;
+			border: 1px solid #EDEDED;
+
+			.wall-item-avatar {
+				display: inline-table;
+				float: left;
+				position: absolute;
+				left: 15px;
+
+				img {
+					width: 50px;
+				}
+			}
+
+			.wall-item-question {
+				display: inline-table;
+				padding: 5px 20px;
+				padding-bottom: 0;
+
+				span.wall-item-author {
+					font-weight: normal;
+
+					span.wall-item-date {
+						font-size: 12px;
+						margin-left: 5px;
+						color: #848383
+					}
+				}
+
+				p {
+					font-size: 14px;
+				    margin-top: 8px;
+				    line-height: 1.5em;
+				}
+			}
+
+			.wall-list-item-actions {
+				font-size: 13px;
+				margin-top: 10px;
+				display: block;
+				padding: 0 20px;
+
+				.wall-item-actions-likes {
+					i {
+						color: rgb(249, 93, 82);
+						margin-right: 4px;
+					}
+				}
+
+				.wall-item-actions-like-button {
+					text-transform: none;
+					color: #1EB3C5;
+					text-decoration: none;
+					margin-left: 20px;
+					cursor: pointer;
+				}
+			}
+
+			.wall-list-item-comment-list {
+				position: relative;
+				padding-left: 50px;
+				margin-left: 20px;
+				margin-top: 10px;
+				padding-top: 15px;
+				border-top: 1px solid #EDEDED;
+
+				.wall-list-item-comment-list-item {
+					margin-bottom: 15px;
+					position: relative;
+
+					.wall-comment-avatar {
+						display: inline-table;
+						float: left;
+						position: absolute;
+						left: -50px;
+
+						img {
+							width: 40px;
+						}
+					}
+
+					.wall-comment-message {
+
+						.wall-comment-author {
+							font-weight: normal;
+							font-size: 14px;
+							line-height: 1.3em;
+
+							.wall-comment-date {
+								font-size: 12px;
+							    margin-left: 5px;
+							    color: #848383;
+							}
+						}
+
+						p {
+							font-size: 13px;
+						    margin-top: 3px;
+						    line-height: 1.5em;
+						}
+					}
+				}
+			}
+
+			.wall-list-item-comment-send {
+				position: relative;
+
+				.wall-comment-send-avatar {
+					display: inline-table;
+					float: left;
+					position: absolute;
+					left: -50px;
+
+					img {
+						width: 40px;
+					}
+				}
+
+				button {
+					padding-top: 10px;
+					padding-bottom: 10px;
+					margin-top: -39px;
+					margin-right: 1px;
+					border-radius: 0;
+				}
+			}
+		}
+	}
+}
