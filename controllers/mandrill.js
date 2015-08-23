@@ -22,7 +22,12 @@ var controller = miitoo.resolve(
 
                 var data = event.msg;
 
-                // Proceed maila
+                // If no content, do not send the mail
+                if(!data || !data.text) {
+                    return;
+                }
+
+                // Proceed mail
                 var receivedBy = data.email;
                 var from       = data.from_email;
                 var to         = data.to;
