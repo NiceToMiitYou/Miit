@@ -1,7 +1,8 @@
 
 // Load express-session
-var bodyParser = require('body-parser');
-var subdomain  = require('miitoo/lib/middleware/subdomain');
+var bodyParser   = require('body-parser');
+var cookieParser = require('cookie-parser')
+var subdomain    = require('miitoo/lib/middleware/subdomain');
 
 // Load express dependency
 var express = miitoo.get('Express');
@@ -49,6 +50,9 @@ var configurator = miitoo.resolve(
     // parse application/json
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+
+    // parse cookie for i18n
+    app.use(cookieParser());
 
     // Initialize i18n
     app.use(i18n.init);

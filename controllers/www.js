@@ -10,7 +10,17 @@ var controller = miitoo.resolve(
     // Index route
     app.get('/', function(req, res) {
 
-        res.render('www/index');
+        return res.render('www/index');
+    });
+
+    // Change locale of the visitor
+    app.get(/^\/lang\/?(fr|en)?$/, function(req, res) {
+
+        var locale = req.params[0] || 'fr';
+
+        res.cookie('miit-locale', locale, { maxAge: 900000, httpOnly: true });
+
+        return res.redirect('/');
     });
 
     // Create register route

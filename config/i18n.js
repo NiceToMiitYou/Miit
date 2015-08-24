@@ -7,6 +7,9 @@ var config = {
     // you may alter a site wide default locale
     defaultLocale: 'fr',
 
+    // sets a custom cookie name to parse locale settings from
+    cookie: 'miit-locale',
+
     // where to store json files - defaults to './locales' relative to modules directory
     directory: __dirname + '/../locales',
 

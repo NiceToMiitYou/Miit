@@ -1,0 +1,77 @@
+{
+    "Miit": "Miit fuck yeah",
+    
+    "www.title": "OKOKOK - Améliorez votre communication rapidement et simplement!",
+    "www.description": "Miit est une application web qui va changer motre manière de communiquer au sein de vos équipes ou de votre audience. Venez vite la découvrir!",
+
+    "www.miit.logo": "Le logo de Miit",
+    "www.header.title": "Changez votre manière de communiquer",
+    "www.header.subtitle": "avec Miit, une application web qui s'adapte à vos besoins",
+    
+    "www.subscribe.alt": "Inscrivez-vous pour recevoir des informations sur Miit",
+    "www.subscribe.title": "Inscrivez-vous dès maintenant",
+    "www.subscribe.subtitle": "Restez informés et bénéficiez d'une relation privilégiée avec nos équipes.",
+    "www.subscribe.newsletter": "S'inscrire à la Newsletter",
+
+    "www.beta.access": "Inscription aux beta-tests",
+    "www.beta.access.development": "<strong>Miit</strong> est toujours en développement, et pour que nous puissions répondre le mieux possible à vos besoins et à votre envie de communiquer, nous avons besoin de <strong>votre aide.</strong>",
+    "www.beta.access.subscribe": "<strong>Inscrivez-vous à la newsletter</strong> pour recevoir des accès bêta à la plateforme dès son ouverture. Vous aurez la possibilité d'échanger autant que vous le souhaitez avec nos équipes sur tous les sujets.",
+
+    "www.build.custom.space.alt": "Un espace personnalisé",
+    "www.build.space.alt": "Espace qui répond aux besoins",
+    "www.build.space.title": "Construisez un espace unique",
+    "www.build.space.subtitle": "Installez autant d'applications que vous le souhaitez pour créer un espace qui répond exactement à vos besoins.",
+
+    "www.apps.alt": "Les applications de Miit",
+    "www.apps.title": "Plusieurs applications déjà disponibles",
+    "www.apps.description": "Miit a choisi de séparer chacune de ses fonctionnalités en <strong>Applications</strong> pour vous fournir un maximum de flexibilité et vous permettre de personnaliser votre environnement de communication comme vous le souhaitez.",
+
+    "www.apps.available": "Disponible",
+    "www.apps.soon.available": "Bientôt disponible",
+
+    "www.apps.chat.title": "Chat",
+    "www.apps.chat.description": "Communiquez en direct avec vos équipes ou votre public.",
+    "www.apps.quiz.title": "Questionnaires",
+    "www.apps.quiz.description": "Interrogez simplement votre audience.",
+    "www.apps.documents.title": "Partage de documents",
+    "www.apps.documents.description": "Distribuez facilement vos fichiers.",
+    "www.apps.wall.title": "Mur de questions",
+    "www.apps.wall.description": "Offrez à votre audience la possibilité de vous poser des questions.",
+    "www.apps.tasks.title": "To-do list",
+    "www.apps.tasks.description": "Suivez et gérez les tâches de votre groupe.",
+    "www.apps.calendar.title": "Calendrier",
+    "www.apps.calendar.description": "Partagez un emploi du temps avec vos utilisateurs.",
+
+    "www.cases.title": "Quelques cas d'utilisation",
+    "www.cases.seeapps": "Voir les applications qui m'intéressent",
+    
+    "www.cases.1.title": "Vous organisez des conférences ?",
+    "www.cases.1.alt": "Maitre de conférence",
+    "www.cases.1.description": "Améliorez l'interactivité de vos <strong>conférences</strong> en recueillant les questions de votre public sans perturber votre <strong>présentation</strong>. Répondez-y le moment venu sans même avoir à faire passer de micro. Vous pouvez également inverser les rôles en sondant votre public pour adapter au mieux votre discours à votre audience.",
+    
+    "www.cases.2.title": "Vous faîtes beaucoup de réunions ?",
+    "www.cases.2.alt": "Animateur de réunion",
+    "www.cases.2.description": "Il n'est pas toujours simple de donner la parole à tout le monde pendant vos <strong>réunions</strong> ou d'arriver à definir des solutions claires à la fin. <strong>Miit</strong> va permettre à tout le monde de donner son avis, de voter pour des solutions précises, d'avoir accès aux documents que vous souhaitez partager et, une fois terminée, de garder une image claire de votre réunion pour y revenir quand vous le désirez.",
+    
+    "www.cases.3.title": "Vous gérez des projets toujours plus compliqués ?",
+    "www.cases.3.alt": "Chef de projet",
+    "www.cases.3.description": "Suivez l'évolution de vos différents <strong>projets</strong> ainsi que l'avancement de vos <strong>équipes</strong> tâche après tâche. Organisez et partagez vos calendriers avec qui vous le souhaitez en contrôlant les droits d'accès et de modification de chacun en quelques clics.",
+    
+    "www.cases.4.title": "Vous avez d'autres besoins ?",
+    "www.cases.4.alt": "Personne qui souhaite améliorer sa communication",
+    "www.cases.4.description": "La force de <strong>Miit</strong> réside dans son pouvoir de <strong>personnalisation</strong>. Vous pouvez composer votre espace en fonction de vos besoins du moment et enregistrer votre modèle pour le réutiliser plus tard.",
+
+    "www.contact.alt": "Restez en contact",
+    "www.contact.title": "Gardez le contact",
+    "www.contact.subtitle": "Restez au courant de nos dernières nouveautés en vous inscrivant à la newsletter.",
+    "www.contact.social": "Ou suivez-nous sur les réseaux sociaux.",
+    "www.contact.social.twitter": "Twitter",
+    "www.contact.social.facebook": "Facebook",
+    "www.contact.social.googleplus": "Google+",
+    "www.contact.social.youtube": "Youtube",
+
+    "www.footer.seeyousoon": "A bientôt sur Miit",
+    "www.footer.copy": "© Copyright ITEvents 2015",
+
+    "input.your.email": "Votre adresse mail"
+}
