@@ -2,8 +2,6 @@
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
-    var ObjectId = mongoose.Schema.Types.ObjectId;
-
     // The schema of the Chatroom
     var schema = new mongoose.Schema({
         team: String,
