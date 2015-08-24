@@ -5,7 +5,8 @@ var UserStore = MiitApp.require('core/stores/user-store'),
     TeamStore  = MiitApp.require('core/stores/team-store');
 
 // Include common templates
-var If = MiitApp.require('templates/if.jsx');
+var If = MiitApp.require('templates/if.jsx'),
+    Dropdown = MiitApp.require('templates/dropdown.jsx');
 
 //Include template
 var WallListItemActions = require('templates/wall-list-item-actions.jsx'),
@@ -17,9 +18,18 @@ var WallListItem = React.createClass({
             question: {},
             user:     '',
             text: {
-                
+                remove:              'Supprimer',
+                anchor:              'Ancrer en haut',
+                tags:                'Tags',
+                allowComments:       'Autoriser les commentaires',
+                notAllowComments:    'Interdire les commentaires',
+                answered:            'marquer comme repondu'
             }
         };
+    },
+
+    onClickRemove: function() {
+        
     },
 
     render: function() {
@@ -46,6 +56,24 @@ var WallListItem = React.createClass({
                         <WallListItemCommentsList comments={question.comments} />
                     </If>
                 </div>
+                <If test={UserStore.isAdmin()}>
+                    <Dropdown className="wall-list-item-config">
+                        <span onClick={this.onClickAnchor}><i className="fa fa-anchor pull-left"></i> {this.props.text.anchor}</span>
+                        <If test={allowComments}>
+                            <span onClick={this.onClickAllowComments}><i className="fa fa-comment pull-left"></i> {this.props.text.allowComments}</span>
+                        </If>
+                        <If test={!allowComments}>
+                            <span onClick={this.onClickNotAllowComments}><i className="fa fa-comment pull-left"></i> {this.props.text.notAllowComments}</span>
+                        </If>
+                        <span onClick={this.onClickAnswered}><i className="fa fa-check pull-left"></i> {this.props.text.answered}</span>
+                        <ul className="tag-names">
+                            <li className="label"><i className="fa fa-tag"></i>{this.props.text.tags}</li>
+                            <li><i className="fa fa-circle stat-open"></i><span>Libele 1</span></li>
+                            <li><i className="fa fa-circle stat-ready"></i><span>Libele 2</span></li>
+                        </ul>
+                        <span onClick={this.onClickRemove}><i className="fa fa-trash pull-left"></i> {this.props.text.remove}</span>
+                    </Dropdown>
+                </If>
             </div>
         );
     }

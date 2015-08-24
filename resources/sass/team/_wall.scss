@@ -9,6 +9,13 @@
 			background-color: #FFF;
 			border: 1px solid #EDEDED;
 
+			.wall-list-item-config {
+				position: absolute;
+				right: 15px;
+				top: 12px;
+				cursor: pointer;
+			}
+
 			.wall-item-avatar {
 				display: inline-table;
 				float: left;
@@ -66,21 +73,41 @@
 
 			.wall-list-item-comment-list {
 				position: relative;
-				padding-left: 50px;
+				padding-left: 40px;
 				margin-left: 20px;
 				margin-top: 10px;
 				padding-top: 15px;
 				border-top: 1px solid #EDEDED;
 
 				.wall-list-item-comment-list-item {
-					margin-bottom: 15px;
+					padding: 7px;
 					position: relative;
+
+					&:hover {
+						.wall-comment-remove {
+							color: #d73e4d;
+						}
+						background-color: #FAFAFA;
+					}
+
+					.wall-comment-remove {
+						position: absolute;
+						right: 8px;
+						top: 8px;
+						font-size:.9em;
+						color: #EEE;
+						cursor: pointer;
+						transition: color .4s ease;
+						-webkit-transition: color .4s ease;
+						-moz-transition: color .4s ease;
+						-o-transition: color .4s ease;
+					}
 
 					.wall-comment-avatar {
 						display: inline-table;
 						float: left;
 						position: absolute;
-						left: -50px;
+						left: -45px;
 
 						img {
 							width: 40px;
@@ -117,7 +144,7 @@
 					display: inline-table;
 					float: left;
 					position: absolute;
-					left: -50px;
+					left: -45px;
 
 					img {
 						width: 40px;
@@ -132,6 +159,63 @@
 					border-radius: 0;
 				}
 			}
+
+			.dropdown-inner {
+				position: absolute;
+				border: 1px solid #EEE;
+				background-color: #FFF;
+				top: 100%;
+				margin-top: 1px;
+				padding: 5px 0;
+				right: 0;
+				width: 250px;
+				font-size: .9em;
+				z-index: 9;
+
+				& > span {
+					display: block;
+					padding: 10px;
+					width: 100%;
+
+					i {
+						margin-left: 5px;
+						margin-right: 8px;
+					}
+
+					&:hover {
+						background-color: #EFEFEF;
+					}
+				}
+
+				ul {
+
+					display: block;
+
+					li {
+						padding: 10px 20px;
+
+						i {
+							margin-left: 5px;
+							margin-right: 8px;
+						}
+
+						&.label {
+							display: block;
+							padding: 10px;
+						}
+
+						&:not(.label) {
+							background-color: #FAFAFA;
+							font-size: .8em;
+
+							&:hover {
+								color: #2980b9;
+							}
+						}
+					}
+				}
+			}
+
 		}
 	}
 }
