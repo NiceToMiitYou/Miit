@@ -80,9 +80,9 @@ var ApplicationListItem = React.createClass({
                     </span>
                 </div>
                 <div className="application-actions">
-                    <span className="checkbox-field">
+                    <label className="checkbox-field">
                         <input type="checkbox" className="option-input checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
-                    </span>
+                    </label>
                     <span>
                         <button className='btn btn-info ml20'>
                             <i className="fa fa-cog"></i>
