@@ -80,9 +80,11 @@ var ApplicationListItem = React.createClass({
                     </span>
                 </div>
                 <div className="application-actions">
-                    <label className="checkbox-field">
-                        <input type="checkbox" className="option-input checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
-                    </label>
+                    <If test={TeamStore.isPublic()}>
+                        <label className="checkbox-field">
+                            <input type="checkbox" className="option-input checkbox" checked={application.public} readOnly onClick={this.togglePublic} /> {this.props.text.public}
+                        </label>
+                    </If>
                     <span>
                         <button className='btn btn-info ml20'>
                             <i className="fa fa-cog"></i>
