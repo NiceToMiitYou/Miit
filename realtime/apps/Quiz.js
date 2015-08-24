@@ -12,7 +12,7 @@ module.exports = function QuizApp() {
     var app = this;
 
     var QuizStore      = miitoo.get('QuizStore');
-    var QuzzValidation = require('../../shared/apps/quiz/validation');
+    var QuizValidation = require('../../shared/apps/quiz/validation');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -23,23 +23,37 @@ module.exports = function QuizApp() {
         });
     }
 
-    // List quizzes
-    Dispatcher.register('quiz:quizzes', 'USER', app.identifier(), function onListQuizzes(spark, data, team, user, roles) {
+    function optionsQuiz(team, roles) {
         // Check for roles
         var isAdmin = -1 !== roles.indexOf('ADMIN');
         var isUser  = -1 !== roles.indexOf('USER');
 
-        // Display private if admin or if user and team public
-        var privat = isAdmin || team.public && isUser;
+        return {
+            // Display private if admin or if user and team public
+            private:     isAdmin || team.public && isUser,
+            
+            // Display unpublished, closed if admin
+            unpublished: isAdmin,
+            closed:      isAdmin
+        };
+    }
 
-        // Display unpublished, closed if admin
-        var unpublished = isAdmin,
-            closed      = isAdmin;
+    // List quizzes
+    Dispatcher.register('quiz:quizzes', 'USER', app.identifier(), function onListQuizzes(spark, data, team, user, roles) {
 
-        QuizStore.findQuizzes(team, privat, unpublished, closed, function(err, quizzes) {
-            spark.write({
-                event:   'quiz:quizzes',
-                quizzes: quizzes
+        // Get options
+        var options = optionsQuiz(team, roles);
+
+        // Retreive quiz based on options
+        QuizStore.findQuizzes(team, options, function(err, quizzes) {
+
+            // Retreive choices based on options
+            QuizStore.findChoices(team, user, options, function(err, choices) {
+                spark.write({
+                    event:   'quiz:quizzes',
+                    quizzes: quizzes,
+                    choices: choices
+                });
             });
         });
     });
@@ -230,7 +244,7 @@ module.exports = function QuizApp() {
     });
 
     // Remove an answer to a quiz
-    Dispatcher.register('quiz:choices', 'USER', app.identifier(), function onSendChoices(spark, data, team, user) {
+    Dispatcher.register('quiz:choices', 'USER', app.identifier(), function onSendChoices(spark, data, team, user, roles) {
         var quizId  = data.quiz,
             choices = data.choices;
 
@@ -238,12 +252,16 @@ module.exports = function QuizApp() {
             return;
         }
 
-        QuizStore.findQuiz(team, quizId, function(err, quiz) {
+        // Get options
+        var options = optionsQuiz(team, roles);
+
+        // Retreive quiz based on options
+        QuizStore.findQuiz(team, quizId, options, function(err, quiz) {
             if(err || !quiz) {
                 return;
             }
 
-            var validation = new QuzzValidation(quiz.questions, choices);
+            var validation = new QuizValidation(quiz.questions, choices);
 
             validation.validate();
 
@@ -251,7 +269,20 @@ module.exports = function QuizApp() {
 
             if(false === validation.isValid()) {
                 console.log(validation.getErrors());
+
+                return;
             }
+
+            // Retreive clean choices
+            var clean = validation.getChoices();
+
+            QuizStore.saveChoices(quiz, user, clean, team, function(err) {
+                if(err) {
+                    return;
+                }
+
+                sendRefreshAction(team);
+            });
         });
     });
 };

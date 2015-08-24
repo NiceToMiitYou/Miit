@@ -64,7 +64,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
                 order: Number,
                 // Choices model
                 choices: [{
-                    userId: {
+                    user: {
                         type:     String,
                         required: true
                     },

@@ -15,7 +15,8 @@ var ActionTypes = require('quiz-constants').ActionTypes;
 Realtime.on('quiz:quizzes', function(data) {
     var action = {
         type:    ActionTypes.REFRESH_QUIZZES,
-        quizzes: data.quizzes
+        quizzes: data.quizzes,
+        choices: data.choices
     };
 
     // Dispatch the action

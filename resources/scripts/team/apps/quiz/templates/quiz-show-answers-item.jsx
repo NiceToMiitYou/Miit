@@ -26,11 +26,15 @@ var QuizShowAnswersItem = React.createClass({
 
         var inputType = (1 === question.kind) ? 'radio' : 'checkbox';
 
+        var classes      = classNames('miit-component quiz-show-answers-item', 'kind-' + answer.kind),
+            classesLabel = classNames((1 === question.kind || 2 === question.kind) ? 'checkbox-field' : ''),
+            classesInput = classNames('option-input', inputType);
+
         return (
-            <div className={"miit-component quiz-show-answers-item kind-"+answer.kind}>
-                <label className={(1 === question.kind || 2 === question.kind) ? "checkbox-field" : ''}>
+            <div className={classes}>
+                <label className={classesLabel}>
                     <If test={1 === question.kind || 2 === question.kind}>
-                        <input className={inputType + " option-input"} name={'choice-' + question.id} value={answer.id} checked={selected} onChange={this.props.onChange} type={inputType} />
+                        <input className={classesInput} name={'choice-' + question.id} value={answer.id} checked={selected} onChange={this.props.onChange} type={inputType} />
                     </If>
 
                     {answer.title}

@@ -21,18 +21,54 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
         });
     }
 
+    function updateConditions(conditions, options) {
+        var userId = (options || {});
+
+        if(!options) {
+            return;
+        }
+
+        if(true !== options.private) {
+            conditions['private'] = false;
+
+            console.log('Request public quizzes.');
+        }
+
+        if(true !== options.unpublished) {
+            conditions['published'] = true;
+
+            console.log('Request published quizzes.');
+        }
+
+        if(true !== options.closed) {
+            conditions['closed'] = false;
+            conditions['start']  = { $lte: Date.now() };
+            conditions['end']    = { $gte: Date.now() };
+
+            console.log('Request opened quizzes.');
+        }
+    }
+
     return {
-        findQuiz: function(team, quiz, cb) {
+        findQuiz: function(team, quiz, options, cb) {
             var teamId = getId(team),
                 quizId = getId(quiz);
 
+            if(typeof options === 'function') {
+                cb      = options;
+                options = null;
+            }
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            // define specific conditions
+            updateConditions(conditions, options);
+
             Quiz
-                .findOne({
-                    _id:  quizId,
-                    team: teamId
-                }, {
-                    'questions.answers.choices' : false
-                })
+                .findOne(conditions)
                 .exec(function(err, quiz) {
                     // Log the error
                     if(err) {
@@ -46,36 +82,18 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                 });
         },
 
-        findQuizzes: function(team, privat, unpublished, closed, cb) {
+        findQuizzes: function(team, options, cb) {
             var teamId = getId(team);
 
             var conditions = {
                 team: teamId
             };
 
-            if(true !== privat) {
-                conditions['private'] = false;
-
-                console.log('Request public quizzes.');
-            }
-
-            if(true !== unpublished) {
-                conditions['published'] = true;
-
-                console.log('Request published quizzes.');
-            }
-
-            if(true !== closed) {
-                conditions['closed'] = false;
-                conditions['start']  = { $lte: Date.now() };
-                conditions['end']    = { $gte: Date.now() };
-
-                console.log('Request opened quizzes.');
-            }
+            // define specific conditions
+            updateConditions(conditions, options);
 
             Quiz
                 .find(conditions)
-                .select('-questions.answers.choices')
                 .exec(function(err, quizzes) {
                     // Log the error
                     if(err) {
@@ -85,6 +103,74 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
 
                     if(typeof cb === 'function') {
                         cb(err, quizzes);
+                    }
+                });
+        },
+
+        findChoices: function(team, user, options, cb) {
+            var teamId = getId(team).toString(),
+                userId = getId(user);
+
+            var conditions = {
+                team: teamId
+            };
+
+            // Get choices if can display the quiz
+            updateConditions(conditions, options);
+
+            var aggregate = [
+                { 
+                    '$match': conditions
+                },
+                {
+                    '$unwind': '$questions'
+                },
+                {
+                    '$unwind': '$questions.answers'
+                },
+                {
+                    '$unwind': '$questions.answers.choices'
+                },
+                {
+                    '$match': {
+                        'questions.answers.choices.user': userId
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': '$_id',
+                        'answer': {
+                            'id':    '$questions.answers._id',
+                            'extra': '$questions.answers.choices.extra'
+                        }
+                    }
+                },
+                {
+                    '$group': {
+                        '_id': '$_id',
+                        'choices': {
+                            '$push': '$answer'
+                        }
+                    }
+                },
+                {
+                    '$project': {
+                        'id':      '$_id',
+                        'choices': '$choices',
+                        '_id':     0
+                    }
+                }
+            ];
+
+            Quiz
+                .aggregate(aggregate, function(err, choices) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, choices);
                     }
                 });
         },
@@ -288,7 +374,6 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                     }
                 }
             });
-
         },
 
         removeAnswer: function(quiz, question, answer, team, cb) {
@@ -312,6 +397,142 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
             };
 
             updateQuiz(conditions, update, cb);
+        },
+
+        saveChoices: function(quiz, user, choices, team, cb) {
+            var quizId = getId(quiz),
+                userId = getId(user),
+                teamId = getId(team);
+
+            this.removeChoices(quiz, user, team, function(errRemove) {
+                if(errRemove) {
+                    return;
+                }
+
+                this.findQuiz(team, quiz, function(err, instance) {
+                    if(err) {
+                        return;
+                    }
+
+                    // Prepare update
+                    var conditions = {
+                        _id:  quizId,
+                        team: teamId
+                    };
+
+                    var update = {
+                        $addToSet: {}
+                    };
+
+                    var found = false;
+
+                    // Foreach choice
+                    choices.forEach(function(question) {
+                        var questionId    = question.id;
+                        var foundQuestion = -1;
+
+                        // Find the question
+                        for(var i = 0; i < instance.questions.length; i++) {
+                            if(instance.questions[i].id == questionId) {
+                                foundQuestion = i;
+                                break;
+                            }
+                        }
+
+                        // If exist
+                        if(-1 !== foundQuestion) {
+
+                            // Foreach answer choiced
+                            question.choices.forEach(function(answer) {
+
+                                var answerId    = answer.id;
+                                var foundAnswer = -1;
+
+                                // Find the answer
+                                for(var i = 0; i < instance.questions[foundQuestion].answers.length; i++) {
+                                    if(instance.questions[foundQuestion].answers[i].id == answerId) {
+                                        foundAnswer = i;
+                                        break;
+                                    }
+                                }
+
+                                // If exist proceed to the update
+                                if(-1 !== foundAnswer) {
+                                    var key = 'questions.' + foundQuestion + '.answers.' + foundAnswer + '.choices';
+
+                                    update['$addToSet'][key] = {
+                                        user: userId
+                                    };
+
+                                    // Check for extra
+                                    if(answer.extra) {
+                                        // Define extra
+                                        var extra = [];
+
+                                        // Add each extra
+                                        for(var index in answer.extra) {
+                                            // Add extra field
+                                            extra.push({
+                                                key:   index,
+                                                value: answer.extra[index]
+                                            });
+                                        }
+
+                                        // Add extra data if exist
+                                        if(0 !== extra.length) {
+                                            update['$addToSet'][key]['extra'] = extra;
+                                        }
+                                    }
+
+                                    found = true;
+                                }
+                            });
+                        }
+                    });
+
+                    // Save choices if match found
+                    if(true === found) {
+                        updateQuiz(conditions, update, cb);
+                    }
+                });
+            }.bind(this));
+        },
+
+        removeChoices: function(quiz, user, team, cb) {
+            var quizId = getId(quiz),
+                userId = getId(user),
+                teamId = getId(team);
+
+            this.findQuiz(team, quiz, function(err, instance) {
+                if(err || !instance) {
+                    return;
+                }
+
+                // Prepare update
+                var conditions = {
+                    _id:  quizId,
+                    team: teamId
+                };
+
+                var update = {
+                    $pull: {}
+                };
+
+                // Foreach questions
+                for(var i = 0; i < instance.questions.length; i++) {
+                    // Find the answer
+                    for(var j = 0; j < instance.questions[i].answers.length; j++) {
+
+                        var key = 'questions.' + i + '.answers.' + j + '.choices';
+                        
+                        update['$pull'][key] = {
+                            user: userId
+                        };
+                    }
+                }
+
+                updateQuiz(conditions, update, cb);
+            });
         }
     };
 });

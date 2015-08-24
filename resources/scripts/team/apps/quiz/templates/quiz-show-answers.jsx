@@ -30,8 +30,35 @@ var QuizShowAnswers = React.createClass({
     },
 
     getInitialState: function () {
+        var quiz    = this.props.quiz,
+            choices = [];
+
+        this.props.answers.forEach(function(answer) {
+            // Check if selected
+            if(QuizStore.isChoiced(quiz, answer.id)) {
+
+                var choice = QuizStore.getChoice(quiz, answer.id),
+                    result = {
+                        id: choice.id
+                    },
+                    extra  = false;
+
+                if(-1 !== choice.extra.indexBy('key', 'text')) {
+                    extra = {
+                        text: choice.extra.findBy('key', 'text')
+                    };
+                }
+
+                if(false !== extra) {
+                    result.extra = extra;
+                }
+
+                choices.push(result);
+            }
+        });
+
         return {
-            choices: []
+            choices: choices
         };
     },
 

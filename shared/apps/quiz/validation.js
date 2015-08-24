@@ -1,8 +1,8 @@
 
 
-function QuizzValidation(questions, choices) {
+function QuizValidation(questions, choices) {
     this.questions = questions || [];
-    this.choices   = choices || [];
+    this.choices   = choices   || [];
 
     // Default values
     this.clean  = []; // Store cleaned choices
@@ -12,31 +12,31 @@ function QuizzValidation(questions, choices) {
 
 
 // Define new questions
-QuizzValidation.prototype.setQuestions = function(questions) {
+QuizValidation.prototype.setQuestions = function(questions) {
     this.questions = questions;
 };
 
 // Define new choices
-QuizzValidation.prototype.setChoices = function(choices) {
+QuizValidation.prototype.setChoices = function(choices) {
     this.choices = choices;
 };
 
 // List errors
-QuizzValidation.prototype.getErrors = function() {
+QuizValidation.prototype.getErrors = function() {
     return this.errors;
 };
 
 // List of cleaned choices
-QuizzValidation.prototype.getChoices = function() {
+QuizValidation.prototype.getChoices = function() {
     return this.clean;
 };
 
 // Is choices valid
-QuizzValidation.prototype.isValid = function() {
+QuizValidation.prototype.isValid = function() {
     return this.valid;
 };
 
-QuizzValidation.prototype.addError = function(error) {
+QuizValidation.prototype.addError = function(error) {
     this.errors.push(error);
 
     this.valid = false;
@@ -215,7 +215,7 @@ function handleOpenQuestion(question, choices) {
 }
 
 // Process the validation
-QuizzValidation.prototype.validate = function() {
+QuizValidation.prototype.validate = function() {
     this.valid  = true;
     this.errors = [];
     this.clean  = [];
@@ -290,4 +290,4 @@ QuizzValidation.prototype.validate = function() {
     }, this);
 };
 
-module.exports = QuizzValidation;
+module.exports = QuizValidation;

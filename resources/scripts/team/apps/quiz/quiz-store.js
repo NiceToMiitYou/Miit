@@ -17,10 +17,11 @@ var events = KeyMirror({
 });
 
 // Global variables
-var Quizzes = [];
+var Quizzes = [], Choices = [];
 
-function _refreshQuizzes(quizzes) {
-    Quizzes = quizzes || [];    
+function _refreshQuizzes(quizzes, choices) {
+    Quizzes = quizzes || [];
+    Choices = choices || [];
 }
 
 function _addQuiz(quiz) {
@@ -43,6 +44,26 @@ var QuizStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getQuiz: function(id) {
         return Quizzes.findBy('id', id);
+    },
+
+    isAnswered: function(quiz) {
+        return !!this.getChoices(quiz);
+    },
+
+    getChoices: function(quiz) {
+        return Choices.findBy('id', quiz);
+    },
+
+    isChoiced: function(quiz, answer) {
+        var list = this.getChoices(quiz) || { choices: [] };
+
+        return -1 !== list.choices.indexBy('id', answer);
+    },
+
+    getChoice: function(quiz, answer) {
+        var list = this.getChoices(quiz) || { choices: [] };
+
+        return list.choices.findBy('id', answer);
     }
 });
 
@@ -54,7 +75,7 @@ QuizStore.generateNamedFunctions(events.QUIZZES_REFRESHED);
 QuizStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
         case ActionTypes.REFRESH_QUIZZES:
-            _refreshQuizzes(action.quizzes);
+            _refreshQuizzes(action.quizzes, action.choices);
             QuizStore.emitQuizzesRefreshed();
             break;
         
