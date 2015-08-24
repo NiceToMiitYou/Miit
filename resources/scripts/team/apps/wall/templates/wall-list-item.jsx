@@ -56,7 +56,7 @@ var WallListItem = React.createClass({
                         <WallListItemCommentsList comments={question.comments} />
                     </If>
                 </div>
-                <If test={UserStore.isAdmin()}>
+                <If test={UserStore.isItMe(comment.author) || UserStore.isAdmin()}>
                     <Dropdown className="wall-list-item-config">
                         <span onClick={this.onClickAnchor}><i className="fa fa-anchor pull-left"></i> {this.props.text.anchor}</span>
                         <If test={allowComments}>
