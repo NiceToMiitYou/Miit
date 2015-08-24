@@ -6,6 +6,9 @@ var UserStore = MiitApp.require('core/stores/user-store'),
 
 var Tooltip = MiitApp.require('templates/tooltip.jsx');
 
+// Include common templates
+var If = MiitApp.require('templates/if.jsx');
+
 var WallListItemCommentListItem = React.createClass({
     getDefaultProps: function () {
         return {
@@ -34,9 +37,11 @@ var WallListItemCommentListItem = React.createClass({
                     <span className="wall-comment-author">{name}<span className="wall-comment-date">à 22h12</span></span>
                     <p>{comment.text}</p>
                 </div>
-                <Tooltip position="left" content={tooltip} className="wall-comment-remove">
-                    <span><i className="fa fa-times mr5"></i></span>
-                </Tooltip>
+                <If test={UserStore.isItMe(comment.author) || UserStore.isAdmin()}>
+                    <Tooltip position="left" content={tooltip} className="wall-comment-remove">
+                        <span><i className="fa fa-times mr5"></i></span>
+                    </Tooltip>
+                </If>
             </div>
         );
     }
