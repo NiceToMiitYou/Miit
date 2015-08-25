@@ -63,7 +63,7 @@ var TeamUpdate = React.createClass({
     _onChanged: function() {
         if(this.isMounted()) {
             // Be sure that is set
-            var team  = TeamStore.getTeam();
+            var team = TeamStore.getTeam();
 
             this.setState({
                 value_name:   team.name,

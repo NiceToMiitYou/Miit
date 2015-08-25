@@ -55,6 +55,16 @@ function refreshApplicationsScripts(fromLogin) {
     }
 }
 
+function updateTitle() {
+    // get team and update title of the document
+    var team = TeamStore.getTeam();
+
+    document.title = team.name + ' - Miit'
+}
+
+// Change page title on update
+TeamStore.addTeamUpdatedListener(updateTitle);
+
 // Handle team update and user login
 TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);
 UserStore.addLoggedInListener(refreshApplicationsScripts.bind({}, true));
