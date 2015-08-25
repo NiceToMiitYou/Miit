@@ -31,6 +31,14 @@ var PageStorage = new DataStore('pages');
 
 // The PageStore Object
 var PageStore = ObjectAssign({}, EventEmitter.prototype, {
+    getCurrentMainPageIdentifier: function() {
+        return CurrentMainPage;
+    },
+
+    getCurrentApplicationPageIdentifier: function() {
+        return CurrentApplicationPage;
+    },
+    
     getCurrentMainPage: function() {
         var page = CurrentMainPage;
 

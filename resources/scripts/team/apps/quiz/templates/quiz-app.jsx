@@ -36,7 +36,7 @@ var QuizApp = React.createClass({
     },
 
     _onChange: function() {
-        if(this.isMounted()) {
+        if(this.isMounted() && 'quiz' === PageStore.getCurrentMainPageIdentifier()) {
             var page = PageStore.getCurrentApplicationPage();
 
             this.setState({
