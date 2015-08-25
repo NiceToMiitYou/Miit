@@ -89,11 +89,9 @@ var QuizCreate = React.createClass({
     },
 
     _onCreated: function(quizId) {
-        // Change the page of the app
-        setTimeout(function() {
-            // Set the route as quiz update
-            Router.setRoute('/quiz/update/' + quizId);
-        });
+
+        // Set the route as quiz update
+        Router.setRoute('/quiz/update/' + quizId);
 
         // Delay the closure of the modal
         setTimeout(function() {
@@ -122,11 +120,11 @@ var QuizCreate = React.createClass({
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field">
                         {this.props.text.name}
-                        <input type="text" name="name"        value={value_name}        onChange={this.handleChange} className={classesName}/>
+                        <input type="text" name="name" value={value_name} onChange={this.handleChange} className={classesName}/>
                     </label>
                     <label className="mt20 input-field">
                         {this.props.text.description}
-                        <textarea name="description" onChange={this.handleChange}>{value_description}</textarea>
+                        <textarea name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                     </label>
                     <div className="modal-footer right">
                          <button type="submit" className="btn-info btn btn-lg">{this.props.text.submit}</button>

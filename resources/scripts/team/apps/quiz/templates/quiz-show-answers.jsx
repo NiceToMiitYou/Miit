@@ -34,19 +34,24 @@ var QuizShowAnswers = React.createClass({
             choices = [];
 
         this.props.answers.forEach(function(answer) {
+
+            var choice = QuizStore.getChoice(quiz, answer.id);
+
             // Check if selected
-            if(QuizStore.isChoiced(quiz, answer.id)) {
+            if(choice) {
 
-                var choice = QuizStore.getChoice(quiz, answer.id),
-                    result = {
-                        id: choice.id
-                    };
+                var result = {
+                    id: choice.id
+                };
 
-                // Find a text
-                var text = choice.extra.findBy('key', 'text');
+                // If any extra informations
+                if(choice.extra) {
+                    // Find a text
+                    var text = choice.extra.findBy('key', 'text');
 
-                if(text) {
-                    result.text = text.value;
+                    if(text) {
+                        result.text = text.value;
+                    }
                 }
 
                 choices.push(result);

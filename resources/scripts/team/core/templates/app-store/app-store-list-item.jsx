@@ -15,7 +15,7 @@ var AppStoreListItem = React.createClass({
         return {
             application: {},
             text: {
-                public: 'Publique'
+                public: 'Public'
             }
         };
     },

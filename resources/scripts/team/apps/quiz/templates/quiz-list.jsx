@@ -52,9 +52,9 @@ var QuizList = React.createClass({
             // Get the first id
             var quizId = quizzes[0].id || '';
 
-            setTimeout(function() {
-                Router.setRoute('/quiz/show/' + quizId);
-            });
+            var delay = (typeof window.onpopstate !== 'function') ? 600: 0;
+
+            Router.setRoute('/quiz/show/' + quizId);
 
             return null;
         }

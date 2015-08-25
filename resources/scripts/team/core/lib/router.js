@@ -20,6 +20,10 @@ module.exports = {
     routes: routes,
 
     setRoute: function(path) {
-        router.setRoute(path);
+        var delay = (typeof window.onpopstate !== 'function') ? 600: 0;
+
+        setTimeout(function() {
+            router.setRoute(path);
+        }, delay);
     }
 };

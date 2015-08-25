@@ -8,9 +8,9 @@ var Dispatcher  = require('core/lib/dispatcher'),
 module.exports = {
     new: function(type, text) {
         var action = {
-            type: ActionTypes.NEW_NOTIFICATION,
+            type:     ActionTypes.NEW_NOTIFICATION,
             category: type || 'info',
-            text: text
+            text:     text
         };
 
         Dispatcher.dispatch(action);
