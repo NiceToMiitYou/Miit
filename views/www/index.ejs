@@ -49,8 +49,19 @@
                     <a href="https://www.facebook.com/NiceToMiitYou" target="_blank"><i class="fa fa-facebook-square"></i></a>
                     <a href="https://plus.google.com/u/0/+MiitFrapp/about" target="_blank"><i class="fa fa-google-plus-square"></i></a>
                     <a href="https://www.youtube.com/channel/UCHiEdBJHbVu0chhVZrsFMkA" target="_blank"><i class="fa fa-youtube-square"></i></a>
+                    <div class="lang">
+                        <span class="active"><%= locale %> <i class="fa fa-angle-down"></i></span>
+                        <div>
+                            <% for(var i = 0; i < locales.length; i++) { %>
+                                <% if(locales[i] !== locale) { %>
+                                    <a href="/lang/<%= locales[i] %>"><%= locales[i] %></a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </nav>
         <div class="container banner valign-wrapper">
             <div class="row valign">

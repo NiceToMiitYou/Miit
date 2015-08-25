@@ -127,6 +127,43 @@ h3 {
 			}
 		}
 
+		.lang {
+			display: inline;
+			position: relative;
+
+			a, span {
+				font-size: .9em;
+				font-weight: 100;
+				text-transform: uppercase;
+				margin: 0;
+				margin-top: -13px;
+				vertical-align: 9px;
+				cursor: pointer;
+			}
+
+			i {
+				font-size: .9em;
+				margin-left: 2px;
+			}
+
+			div {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				display: none;
+			}
+
+			&:hover {
+				div {
+					display: block;
+
+					a {
+						line-height: 1em;
+					}
+				}
+			}
+		}
+
 	}
 
 	.banner {
