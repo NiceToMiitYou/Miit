@@ -1,8 +1,9 @@
 'use strict';
 
-var ApplicationLoader = require('core/lib/application-loader'),
-    UserStore         = require('core/stores/user-store'),
-    TeamStore         = require('core/stores/team-store');
+var ApplicationLoader  = require('core/lib/application-loader'),
+    UserStore          = require('core/stores/user-store'),
+    TeamStore          = require('core/stores/team-store'),
+    SubscriptionsStore = require('core/stores/subscriptions-store');
 
 var Loaded = {};
 
@@ -57,13 +58,20 @@ function refreshApplicationsScripts(fromLogin) {
 
 function updateTitle() {
     // get team and update title of the document
-    var team = TeamStore.getTeam();
+    var team   = TeamStore.getTeam(),
+        unread = SubscriptionsStore.getUnread(),
+        prefix = '';
 
-    document.title = team.name + ' - Miit'
+    if(0 < unread) {
+        prefix = '(' + unread + ') ';
+    }
+
+    document.title = prefix + team.name + ' - Miit'
 }
 
 // Change page title on update
 TeamStore.addTeamUpdatedListener(updateTitle);
+SubscriptionsStore.addSubscriptionsUpdatedListener(updateTitle);
 
 // Handle team update and user login
 TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);

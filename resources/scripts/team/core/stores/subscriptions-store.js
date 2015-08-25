@@ -29,6 +29,15 @@ function _deleteBySender(sender) {
 
 // The SubscriptionsStore Object
 var SubscriptionsStore = ObjectAssign({}, EventEmitter.prototype, {
+    getUnread: function() {
+        return Subscriptions.map(function(subscription) {
+            return subscription.unread || 0;
+        }).reduce(function(prev, next) {
+            // Sum values
+            return prev + next;
+        }, 0);
+    },
+
     getUnreadByApplication: function(application) {
         return Subscriptions.map(function(subscription) {
             // If not the good application
