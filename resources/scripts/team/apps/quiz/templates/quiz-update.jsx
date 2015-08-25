@@ -32,6 +32,7 @@ var QuizUpdate = React.createClass({
                 submit:       'Sauvegarder',
                 publish:      'Publier',
                 close:        'Cloturer',
+                reopen:       'Ré-ouvrir',
                 published:    'Publié',
                 closed:       'Cloturé'
             }  
@@ -119,6 +120,12 @@ var QuizUpdate = React.createClass({
         QuizActions.close(quiz.id);
     },
 
+    onReopen: function() {
+        var quiz = this.state.quiz;
+
+        QuizActions.reopen(quiz.id);
+    },
+
     onPublish: function() {
         var quiz = this.state.quiz;
 
@@ -173,6 +180,10 @@ var QuizUpdate = React.createClass({
 
                         <If test={quiz.published && !quiz.closed}>
                             <button className="btn btn-danger mt20" onClick={this.onClose} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.close}</button>
+                        </If>
+
+                        <If test={quiz.published && quiz.closed}>
+                            <button className="btn btn-warning mt20" onClick={this.onReopen} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}</button>
                         </If>
                     </form>
 

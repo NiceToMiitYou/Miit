@@ -117,6 +117,19 @@ module.exports = function QuizApp() {
         });
     });
 
+    // Reopen a quiz
+    Dispatcher.register('quiz:reopen', 'ADMIN', app.identifier(), function onCloseQuiz(spark, data, team, user) {
+        var quizId = data.id;
+
+        if(!quizId) {
+            return;
+        }
+
+        QuizStore.reopenQuiz(quizId, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
     // Update a quiz
     Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
         var quizId      = data.id,

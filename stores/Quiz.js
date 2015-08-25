@@ -231,6 +231,22 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
             updateQuiz(conditions, update, cb);
         },
 
+        reopenQuiz: function(quiz, team, cb) {
+            var quizId = getId(quiz),
+                teamId = getId(team);
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            var update = {
+                closed: false
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
         updateQuiz: function(quiz, name, description, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);

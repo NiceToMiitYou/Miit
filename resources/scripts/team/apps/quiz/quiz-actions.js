@@ -90,6 +90,22 @@ module.exports = {
         return true;
     },
 
+    reopen: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('quiz:reopen', {
+            id: id
+        });
+
+        return true;
+    },
+
     publish: function(id) {
         if(false === UserStore.isAdmin()) {
             return;
