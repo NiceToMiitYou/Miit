@@ -21,7 +21,8 @@ var QuizShow = React.createClass({
                 title:       'Questionnaire',
                 name:        'Nom',
                 preview:     'Aperçu',
-                description: 'Description'
+                description: 'Description',
+                answered:    'Complété'
             },
             preview: false
         };
@@ -64,11 +65,21 @@ var QuizShow = React.createClass({
             return null;
         }
 
+        // get informations of the quiz
+        var isAnswered = QuizStore.isAnswered(quiz.id);
+
+        // define classes
         var classes = classNames('miit-component quiz-show', (preview) ? 'preview' : '');
 
         return (
             <div className={classes}>
-                <h2 className="mb10">{(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}</h2>
+                <h2 className="mb10">
+                    {(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}
+
+                    <If test={isAnswered}>
+                        <span className="ml15 text-green">{this.props.text.answered}</span>
+                    </If>
+                </h2>
 
                 <If test={quiz.description}>
                     <p className="mb20">{quiz.description}</p>
