@@ -31,8 +31,6 @@ var QuizShowAnswersItem = React.createClass({
         // Get the default value
         var value = '';
 
-        console.log(choice);
-
         // If there is a choice
         if(choice && choice.text) {
             value = choice.text;
