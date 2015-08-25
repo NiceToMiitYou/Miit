@@ -53,7 +53,7 @@ var QuizApp = React.createClass({
         }
 
         return (
-            <div className="miit-component quiz-app">
+            <div className="miit-component miit-app quiz-app">
                 <Page ref="page" />
             </div>
         );

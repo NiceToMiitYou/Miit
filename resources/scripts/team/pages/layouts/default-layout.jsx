@@ -7,17 +7,9 @@ var PageActions = require('core/actions/page-actions');
 var Clock = require('templates/clock.jsx');
 
 var DefaultLayout = React.createClass({
-    getDefaultProps: function () {
-        return {
-            fullheight: false  
-        };
-    },
-
     render: function() {
-        var classes = classNames((this.props.fullheight) ? 'fullheight' : '');
-
         return (
-            <div className={classes}>
+            <div className="default-layout">
                 <div className="page-header">
                     <a className="minimize-menu" onClick={PageActions.toggleMenu}>
                         <i className="fa fa-bars"></i>

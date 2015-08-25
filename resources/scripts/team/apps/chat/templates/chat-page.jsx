@@ -26,7 +26,7 @@ var ChatPage = React.createClass({
         }
 
         return (
-            <Layout title={this.props.title} fullheight={true}>
+            <Layout title={this.props.title}>
                 <ChatApp />
             </Layout>
         );

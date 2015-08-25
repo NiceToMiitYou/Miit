@@ -44,7 +44,7 @@ var ChatApp = React.createClass({
         }
 
         return (
-            <div className="miit-component chat-app fullheight">
+            <div className="miit-component miit-app chat-app">
                 <Page ref="page" />
             </div>
         );

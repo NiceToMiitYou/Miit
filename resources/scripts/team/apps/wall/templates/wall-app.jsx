@@ -44,7 +44,7 @@ var WallApp = React.createClass({
         }
 
         return (
-            <div className="miit-component wall-app fullheight">
+            <div className="miit-component miit-app wall-app">
                 <Page ref="page" />
             </div>
         );
