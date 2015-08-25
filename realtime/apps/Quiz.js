@@ -91,6 +91,32 @@ module.exports = function QuizApp() {
         });
     });
 
+    // Publish a quiz
+    Dispatcher.register('quiz:publish', 'ADMIN', app.identifier(), function onPubishQuiz(spark, data, team, user) {
+        var quizId = data.id;
+
+        if(!quizId) {
+            return;
+        }
+
+        QuizStore.publishQuiz(quizId, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
+    // Close a quiz
+    Dispatcher.register('quiz:close', 'ADMIN', app.identifier(), function onCloseQuiz(spark, data, team, user) {
+        var quizId = data.id;
+
+        if(!quizId) {
+            return;
+        }
+
+        QuizStore.closeQuiz(quizId, team, function(err, quiz) {
+            sendRefreshAction(team);
+        });
+    });
+
     // Update a quiz
     Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
         var quizId      = data.id,

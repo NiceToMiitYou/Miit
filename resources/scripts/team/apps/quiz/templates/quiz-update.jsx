@@ -25,10 +25,15 @@ var QuizUpdate = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:       'Modifer',
-                name:        'Nom',
-                description: 'Description',
-                submit:      'Sauvegarder'
+                informations: 'Informations',
+                title:        'Modifier',
+                name:         'Nom',
+                description:  'Description',
+                submit:       'Sauvegarder',
+                publish:      'Publier',
+                close:        'Cloturer',
+                published:    'Publié',
+                closed:       'Cloturé'
             }  
         };
     },
@@ -108,6 +113,18 @@ var QuizUpdate = React.createClass({
         var result = QuizActions.update(quizId, name, description);
     },
 
+    onClose: function() {
+        var quiz = this.state.quiz;
+
+        QuizActions.close(quiz.id);
+    },
+
+    onPublish: function() {
+        var quiz = this.state.quiz;
+
+        QuizActions.publish(quiz.id);
+    },
+
     render: function() {
         var quiz = this.state.quiz;
 
@@ -124,26 +141,48 @@ var QuizUpdate = React.createClass({
 
         return (
             <div className="miit-component quiz-update">
-                <h2>{this.props.text.title} - {quiz.name}</h2>
+                <h2>{this.props.text.title} - {quiz.name}
+
+
+                    <If test={quiz.published && !quiz.closed}>
+                        <span className="ml15 text-green">{this.props.text.published}</span>
+                    </If>
+                    <If test={quiz.published && quiz.closed}>
+                        <span className="ml15 text-red">{this.props.text.closed}</span>
+                    </If>
+                </h2>
+
                 <div className="col-md-6 mb30">
-                    <h3 className="mb20">Informations</h3>
+                    <h3 className="mb20">{this.props.text.informations}</h3>
                     <form onSubmit={this.handleSubmit}>
                         <label className="input-field">
                             {this.props.text.name}
                             <input type="text" name="name" value={value_name} onChange={this.handleChange} className={classesName}/>
                         </label>
+
                         <label className="input-field mt20">
                             {this.props.text.description}
                             <textarea type="text" name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                         </label>
 
                         <button className="btn btn-info mt20" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
+
+                        <If test={!quiz.published}>
+                            <button className="btn btn-success mt20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
+                        </If>
+
+                        <If test={quiz.published && !quiz.closed}>
+                            <button className="btn btn-danger mt20" onClick={this.onClose} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.close}</button>
+                        </If>
                     </form>
 
                     <QuizShow quiz={quiz} preview={true} />
                 </div>
+
                 <div className="col-md-6">
-                     <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                    <If test={!quiz.closed}>
+                        <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                    </If>
                 </div>
             </div>
         );

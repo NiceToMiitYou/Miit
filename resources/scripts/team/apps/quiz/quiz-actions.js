@@ -74,6 +74,38 @@ module.exports = {
         return true;
     },
 
+    close: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('quiz:close', {
+            id: id
+        });
+
+        return true;
+    },
+
+    publish: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('quiz:publish', {
+            id: id
+        });
+
+        return true;
+    },
+
     update: function(id, name, description) {
         if(false === UserStore.isAdmin()) {
             return;

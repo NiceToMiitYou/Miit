@@ -35,6 +35,10 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             type:    Boolean,
             default: true
         },
+        closed: {
+            type:    Boolean,
+            default: false
+        },
         published: {
             type:    Boolean,
             default: false

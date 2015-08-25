@@ -199,6 +199,38 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
             });
         },
 
+        publishQuiz: function(quiz, team, cb) {
+            var quizId = getId(quiz),
+                teamId = getId(team);
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            var update = {
+                published: true
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
+        closeQuiz: function(quiz, team, cb) {
+            var quizId = getId(quiz),
+                teamId = getId(team);
+
+            var conditions = {
+                _id:  quizId,
+                team: teamId
+            };
+
+            var update = {
+                closed: true
+            };
+
+            updateQuiz(conditions, update, cb);
+        },
+
         updateQuiz: function(quiz, name, description, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);
