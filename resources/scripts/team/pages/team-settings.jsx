@@ -60,20 +60,23 @@ var TeamSettings = React.createClass({
 
         return (
             <Layout title={team.name}>
-                <Panel icon="info" title={this.props.text.informations}>
-                    <TeamUpdate />
-                </Panel>
 
-                <Panel icon="th" title={this.props.text.applications}>
-                    <ApplicationList />
-                    <button className="btn btn-info" onClick={this.openAppStore}>
-                        Application Store
-                    </button>
-                </Panel>
+                <div className="container-fluid">
+                    <Panel icon="info" title={this.props.text.informations}>
+                        <TeamUpdate />
+                    </Panel>
 
-                <Panel icon="users" title={this.props.text.users}>
-                    <UserList autoload={true} headers={false} status={true}/>
-                </Panel>
+                    <Panel icon="th" title={this.props.text.applications}>
+                        <ApplicationList />
+                        <button className="btn btn-info" onClick={this.openAppStore}>
+                            Application Store
+                        </button>
+                    </Panel>
+
+                    <Panel icon="users" title={this.props.text.users}>
+                        <UserList autoload={true} headers={false} status={true}/>
+                    </Panel>
+                </div>
             </Layout>
         );
     }

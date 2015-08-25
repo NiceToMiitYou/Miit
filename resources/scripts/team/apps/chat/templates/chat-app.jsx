@@ -44,7 +44,7 @@ var ChatApp = React.createClass({
         }
 
         return (
-            <div className="miit-component miit-app chat-app">
+            <div className="miit-component miit-app chat-app container-fluid">
                 <Page ref="page" />
             </div>
         );

@@ -153,7 +153,7 @@ var QuizUpdate = React.createClass({
                     </If>
                 </h2>
 
-                <div className="col-md-6 mb30">
+                <div className="mb30">
                     <h3 className="mb20">{this.props.text.informations}</h3>
                     <form onSubmit={this.handleSubmit}>
                         <label className="input-field">
@@ -165,28 +165,26 @@ var QuizUpdate = React.createClass({
                             {this.props.text.description}
                             <textarea type="text" name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                         </label>
-
-                        <button className="btn btn-info mt20" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
-
-                        <If test={!quiz.published}>
-                            <button className="btn btn-success mt20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
-                        </If>
-
-                        <If test={quiz.published && !quiz.closed}>
-                            <button className="btn btn-danger mt20" onClick={this.onClose} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.close}</button>
-                        </If>
-
-                        <If test={quiz.published && quiz.closed}>
-                            <button className="btn btn-warning mt20" onClick={this.onReopen} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}</button>
-                        </If>
                     </form>
 
-                    <QuizShow quiz={quiz} preview={true} />
-                </div>
-
-                <div className="col-md-6">
                     <If test={!quiz.closed}>
                         <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                    </If>
+                </div>
+
+                <div className="quiz-update-actions">
+                    <button className="btn btn-info mr20" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
+
+                    <If test={!quiz.published}>
+                        <button className="btn btn-success mr20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
+                    </If>
+
+                    <If test={quiz.published && !quiz.closed}>
+                        <button className="btn btn-danger mr20" onClick={this.onClose} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.close}</button>
+                    </If>
+
+                    <If test={quiz.published && quiz.closed}>
+                        <button className="btn btn-warning mr20" onClick={this.onReopen} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}</button>
                     </If>
                 </div>
             </div>

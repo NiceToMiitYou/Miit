@@ -44,7 +44,7 @@ var WallApp = React.createClass({
         }
 
         return (
-            <div className="miit-component miit-app wall-app">
+            <div className="miit-component miit-app wall-app container-fluid">
                 <Page ref="page" />
             </div>
         );

@@ -75,7 +75,7 @@ var TeamApp = React.createClass({
             <div className={classes}>
                 <MenuTeam />
 
-                <div className="main container-fluid">
+                <div className="main">
                     <If test={!!Page}>
                         <Page />
                     </If>
