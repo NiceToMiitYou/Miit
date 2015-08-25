@@ -131,7 +131,12 @@ function handleMultipleQuestion(question, choices) {
             var text = choice.text;
 
             // No text and answer required
-            if(!text && true === question.required) {
+            if(
+                (
+                    !text || typeof text !== 'string' || !text.trim()
+                ) &&
+                true === question.required
+            ) {
 
                 this.addError({
                     question: question.id,
@@ -145,7 +150,7 @@ function handleMultipleQuestion(question, choices) {
 
             // If there is a text, save it
             if(text) {
-                cleanedChoice['text'] = text;
+                cleanedChoice['text'] = text.trim();
             }
         }
 
@@ -188,7 +193,7 @@ function handleOpenQuestion(question, choices) {
     var text = choice.text;
 
     // No text ignore it
-    if(!text) {
+    if(!text || typeof text !== 'string' || !text.trim()) {
 
         // But check if required
         if(true === question.required) {
@@ -206,7 +211,7 @@ function handleOpenQuestion(question, choices) {
         id:      question.id,
         choices: [{
             id:   answer.id,
-            text: text
+            text: text.trim()
         }]
     };
 

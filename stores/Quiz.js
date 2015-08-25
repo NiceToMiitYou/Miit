@@ -513,23 +513,14 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
                                     };
 
                                     // Check for extra
-                                    if(answer.extra) {
+                                    if(answer.text) {
                                         // Define extra
-                                        var extra = [];
+                                        var extra = [{
+                                            key:   'text',
+                                            value: answer.text
+                                        }];
 
-                                        // Add each extra
-                                        for(var index in answer.extra) {
-                                            // Add extra field
-                                            extra.push({
-                                                key:   index,
-                                                value: answer.extra[index]
-                                            });
-                                        }
-
-                                        // Add extra data if exist
-                                        if(0 !== extra.length) {
-                                            update['$addToSet'][key]['extra'] = extra;
-                                        }
+                                        update['$addToSet'][key]['extra'] = extra;
                                     }
 
                                     found = true;

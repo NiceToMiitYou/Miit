@@ -40,17 +40,13 @@ var QuizShowAnswers = React.createClass({
                 var choice = QuizStore.getChoice(quiz, answer.id),
                     result = {
                         id: choice.id
-                    },
-                    extra  = false;
-
-                if(-1 !== choice.extra.indexBy('key', 'text')) {
-                    extra = {
-                        text: choice.extra.findBy('key', 'text')
                     };
-                }
 
-                if(false !== extra) {
-                    result.extra = extra;
+                // Find a text
+                var text = choice.extra.findBy('key', 'text');
+
+                if(text) {
+                    result.text = text.value;
                 }
 
                 choices.push(result);
@@ -124,10 +120,10 @@ var QuizShowAnswers = React.createClass({
                         // Generate the key of the answer
                         var key = 'answer-' + question.id + '-' + answer.id;
                         
-                        // Is the answer selected
-                        var isSelected = -1 !== choices.indexBy('id', answer.id);
+                        // Extract choice
+                        var choice = choices.findBy('id', answer.id);
 
-                        return <QuizShowAnswersItem ref={key} key={key} answer={answer} quiz={quizId} question={question} selected={isSelected} onChange={this.handleChange} />;
+                        return <QuizShowAnswersItem ref={key} key={key} answer={answer} quiz={quizId} question={question} choice={choice} onChange={this.handleChange} />;
                     }, this)}
                 </div>
             </div>

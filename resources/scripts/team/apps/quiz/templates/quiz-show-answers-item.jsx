@@ -13,8 +13,11 @@ var QuizShowAnswersItem = React.createClass({
             quiz:     '',
             question: {},
             answer:   {},
-            selected: false,
-            onChange: function(){}
+            choice:   null,
+            onChange: function(){},
+            text: {
+                your_answer: 'Votre réponse'
+            }
         };
     },
 
@@ -22,7 +25,18 @@ var QuizShowAnswersItem = React.createClass({
         // Get answer
         var answer   = this.props.answer,
             question = this.props.question,
-            selected = this.props.selected;
+            choice   = this.props.choice,
+            selected = !!choice;
+
+        // Get the default value
+        var value = '';
+
+        console.log(choice);
+
+        // If there is a choice
+        if(choice && choice.text) {
+            value = choice.text;
+        }
 
         var inputType = (1 === question.kind) ? 'radio' : 'checkbox';
 
@@ -41,7 +55,7 @@ var QuizShowAnswersItem = React.createClass({
                 </label>
 
                 <If test={2 === answer.kind}>
-                    <input placeholder={answer.title} type="text" name={'answer-' + question.id + '-' + answer.id} onChange={this.props.onChange} />
+                    <input placeholder={this.props.text.your_answer} type="text" defaultValue={value} name={'answer-' + question.id + '-' + answer.id} onChange={this.props.onChange} />
                 </If>
             </div>
         );
