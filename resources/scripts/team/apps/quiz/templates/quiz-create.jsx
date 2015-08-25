@@ -93,11 +93,8 @@ var QuizCreate = React.createClass({
         // Set the route as quiz update
         Router.setRoute('/quiz/update/' + quizId);
 
-        // Delay the closure of the modal
-        setTimeout(function() {
-            // Close the modal
-            ModalActions.close('quiz-create-new');
-        }, 25);
+        // Close the modal
+        ModalActions.close('quiz-create-new');
     },
 
     render: function() {
