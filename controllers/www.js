@@ -4,13 +4,13 @@ var RegexEmail    = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]
 
 // The controller for public part of the site
 var controller = miitoo.resolve(
-    ['Slugify', 'RestResponse', 'WWWRoutes', 'UserManager', 'TeamManager', 'MailChimp', 'MailChimpConfig'],
-    function(slugify, response, app, UserManager, TeamManager, MailChimp, MailChimpConfig) {
+    ['Slugify', 'RestResponse', 'WWWRoutes', 'UserManager', 'TeamManager', 'MailChimp', 'MailChimpConfig', 'i18nConfig'],
+    function(slugify, response, app, UserManager, TeamManager, MailChimp, MailChimpConfig, i18nConfig) {
     
     // Index route
     app.get('/', function(req, res) {
-
-        var locales = ['en', 'fr'];
+        // Extract local from config
+        var locales = i18nConfig.locales;
 
         return res.render('www/index', {
             locales: locales
