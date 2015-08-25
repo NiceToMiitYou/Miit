@@ -15,14 +15,21 @@ html, body {
 
 
 .main {
-  overflow: auto;
-  height: 100%;
-  padding-bottom: 20px;
+  	overflow: auto;
+	height: 100%;
+	padding-bottom: 20px;
 
-  & > .user-list {
-  	margin-right: 250px;
-  }
+	& > .default-layout {
+		height: 100%;
 
+		& > .miit-app {
+			height: 100%;
+
+			& > div {
+				height: 100%;
+			}
+		}
+  	}
 }
 
 .bg-cover-img {
