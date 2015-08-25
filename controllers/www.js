@@ -10,11 +10,9 @@ var controller = miitoo.resolve(
     // Index route
     app.get('/', function(req, res) {
 
-        var locale  = req.getLocale() | 'en';
-        var locales = req.getCatalog() || ['en', 'fr'];
+        var locales = ['en', 'fr'];
 
         return res.render('www/index', {
-            locale:  locale,
             locales: locales
         });
     });
