@@ -10,13 +10,19 @@ var controller = miitoo.resolve(
     // Index route
     app.get('/', function(req, res) {
 
-        return res.render('www/index');
+        var locale  = req.getLocale() | 'en';
+        var locales = req.getCatalog() || ['en', 'fr'];
+
+        return res.render('www/index', {
+            locale:  locale,
+            locales: locales
+        });
     });
 
     // Change locale of the visitor
     app.get(/^\/lang\/?(fr|en)?$/, function(req, res) {
 
-        var locale = req.params[0] || 'fr';
+        var locale = req.params[0] || 'en';
 
         res.cookie('miit-locale', locale, { maxAge: 900000, httpOnly: true });
 

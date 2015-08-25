@@ -5,7 +5,7 @@ var config = {
     locales: ['fr', 'en'],
  
     // you may alter a site wide default locale
-    defaultLocale: 'fr',
+    defaultLocale: 'en',
 
     // sets a custom cookie name to parse locale settings from
     cookie: 'miit-locale',
