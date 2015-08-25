@@ -52,17 +52,8 @@ var QuizApp = React.createClass({
             return null;
         }
 
-        var links = [];
-
-        if(typeof Page.getLinkList === 'function') {
-            links = Page.getLinkList();
-        }
-
         return (
             <div className="miit-component quiz-app">
-                <If test={-1 !== links.indexOf('return')}>
-                    <Link href="#/quiz/">Retour</Link>
-                </If>
                 <Page ref="page" />
             </div>
         );

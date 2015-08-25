@@ -16,12 +16,6 @@ var QuizShow            = require('templates/quiz-show.jsx'),
     QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
 
 var QuizUpdate = React.createClass({
-    statics: {
-        getLinkList: function() {
-            return ['return'];
-        }
-    },
-
     getDefaultProps: function () {
         return {
             text: {

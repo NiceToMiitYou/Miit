@@ -1,7 +1,8 @@
 'use strict';
 
 // Include core requirements
-var UserStore    = MiitApp.require('core/stores/user-store'),
+var Router       = MiitApp.require('core/lib/router'),
+    UserStore    = MiitApp.require('core/stores/user-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
@@ -45,6 +46,18 @@ var QuizList = React.createClass({
 
     render: function() {
         var quizzes = QuizStore.getQuizzes();
+
+        if(1 === quizzes.length && false === UserStore.isAdmin()) {
+
+            // Get the first id
+            var quizId = quizzes[0].id || '';
+
+            setTimeout(function() {
+                Router.setRoute('/quiz/show/' + quizId);
+            });
+
+            return null;
+        }
 
         return (
             <div className="miit-component quiz-list">

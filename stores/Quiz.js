@@ -29,7 +29,7 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
         }
 
         if(true !== options.private) {
-            conditions['private'] = false;
+            conditions['public'] = true;
 
             console.log('Request public quizzes.');
         }
@@ -42,8 +42,8 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
 
         if(true !== options.closed) {
             conditions['closed'] = false;
-            conditions['start']  = { $lte: Date.now() };
-            conditions['end']    = { $gte: Date.now() };
+            //conditions['start']  = { $gte: Date.now() };
+            //conditions['end']    = { $lte: Date.now() };
 
             console.log('Request opened quizzes.');
         }

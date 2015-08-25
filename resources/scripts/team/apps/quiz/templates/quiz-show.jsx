@@ -15,12 +15,6 @@ var If = MiitApp.require('templates/if.jsx');
  var QuizShowQuestions = require('templates/quiz-show-questions.jsx');
 
 var QuizShow = React.createClass({
-    statics: {
-        getLinkList: function() {
-            return ['return'];
-        }
-    },
-
     getDefaultProps: function () {
         return {
             text: {

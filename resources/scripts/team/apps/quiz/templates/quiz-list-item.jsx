@@ -27,7 +27,7 @@ var QuizListItem = React.createClass({
     render: function() {
         var quiz = this.props.quiz;
 
-        var classes = classNames('miit-component quiz-list-item col-md-6', (QuizStore.isAnswered(quiz.id))? 'done' : '');
+        var classes = classNames('miit-component quiz-list-item col-md-6', (QuizStore.isAnswered(quiz.id))? 'done' : '', (quiz.closed) ? 'closed' : '');
  
         return (
             <div className={classes}>
