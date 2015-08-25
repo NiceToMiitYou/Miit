@@ -60,7 +60,7 @@ var QuizList = React.createClass({
         }
 
         return (
-            <div className="miit-component quiz-list">
+            <div className="miit-component quiz-list container-fluid">
                 <h2>{this.props.text.title}</h2>
                 <If test={UserStore.isAdmin()}>
                     <div className="page-actions">
