@@ -20,12 +20,7 @@ var QuizShowQuestions = React.createClass({
             quiz: '',
             text: {
                 title: 'Questions',
-                save:  'Tout sauvegarder',
-                types: {
-                    unique:   'Question à choix unique',
-                    multiple: 'Question à choix multiple',
-                    open:     'Question ouverte'
-                }
+                save:  'Soumettre'
             },
             questions: [],
             preview:   false

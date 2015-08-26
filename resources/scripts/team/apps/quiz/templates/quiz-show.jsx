@@ -12,7 +12,7 @@ var QuizActions = require('quiz-actions'),
 var If = MiitApp.require('templates/if.jsx');
 
 // Include templates
- var QuizShowQuestions = require('templates/quiz-show-questions.jsx');
+var QuizShowQuestions = require('templates/quiz-show-questions.jsx');
 
 var QuizShow = React.createClass({
     getDefaultProps: function () {

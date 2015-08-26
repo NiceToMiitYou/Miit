@@ -16,12 +16,7 @@ var QuizShowQuestionsItem = React.createClass({
             quiz:     '',
             question: {},
             counter:  1,
-            error:    null,
-            text: {
-                submit:   'Sauvegarder',
-                title:    'Intitulé',
-                subtitle: 'Complément'
-            }
+            error:    null
         };
     },
 

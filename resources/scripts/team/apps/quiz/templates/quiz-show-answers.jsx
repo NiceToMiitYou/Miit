@@ -18,14 +18,7 @@ var QuizShowAnswers = React.createClass({
         return {
             quiz:     '',
             question: {},
-            text: {
-                title: 'Réponses',
-                types: {
-                    classic: 'Réponse classique',
-                    open:    'Réponse ouverte'
-                }
-            },
-            answers: []
+            answers:  []
         };
     },
 
