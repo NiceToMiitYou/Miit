@@ -13,15 +13,29 @@ var ActionTypes = QuizConstants.ActionTypes;
 var events = KeyMirror({
     // Events on quiz event
     QUIZ_CREATED: null,
-    QUIZZES_REFRESHED: null
+    QUIZZES_REFRESHED: null,
+    STATS_REFRESHED: null
 });
 
 // Global variables
-var Quizzes = [], Choices = [];
+var Quizzes = [], Choices = [], Stats = [];
 
 function _refreshQuizzes(quizzes, choices) {
     Quizzes = quizzes || [];
     Choices = choices || [];
+}
+
+function _refreshStats(quiz, stats) {
+    var temp = {
+        id:    quiz,
+        stats: stats
+    };
+
+    // Remove stats from the list and re-add it
+    Stats.removeBy('id', temp.id);
+
+    // Add the quiz
+    Stats.mergeBy('id', temp);
 }
 
 function _addQuiz(quiz) {
@@ -44,6 +58,16 @@ var QuizStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getQuiz: function(id) {
         return Quizzes.findBy('id', id);
+    },
+
+    getStats: function(id) {
+        return Stats.findBy('id', id) || {};
+    },
+
+    getStatsOfAnswer: function(id, answer) {
+        var stats = this.getStats(id).stats || [];
+
+        return stats.findBy('id', answer) || { count: 0, extra: [] };
     },
 
     isAnswered: function(quiz) {
@@ -70,6 +94,7 @@ var QuizStore = ObjectAssign({}, EventEmitter.prototype, {
 // Register Functions based on event
 QuizStore.generateNamedFunctions(events.QUIZ_CREATED);
 QuizStore.generateNamedFunctions(events.QUIZZES_REFRESHED);
+QuizStore.generateNamedFunctions(events.STATS_REFRESHED);
 
 // Handle actions
 QuizStore.dispatchToken = Dispatcher.register(function(action){
@@ -77,6 +102,11 @@ QuizStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.REFRESH_QUIZZES:
             _refreshQuizzes(action.quizzes, action.choices);
             QuizStore.emitQuizzesRefreshed();
+            break;
+
+        case ActionTypes.REFRESH_STATS:
+            _refreshStats(action.quiz, action.stats);
+            QuizStore.emitStatsRefreshed(action.quiz);
             break;
         
         case ActionTypes.ADD_QUIZ:

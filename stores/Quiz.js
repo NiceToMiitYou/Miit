@@ -1,6 +1,8 @@
 
 // Define the store
 var store = miitoo.resolve(['QuizModel'], function(Quiz) {
+    var mongoose = miitoo.get('Mongoose');
+    var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
         return object._id || object.id || object;
@@ -171,6 +173,64 @@ var store = miitoo.resolve(['QuizModel'], function(Quiz) {
 
                     if(typeof cb === 'function') {
                         cb(err, choices);
+                    }
+                });
+        },
+
+        getStats: function(team, quiz, cb) {
+            var teamId = getId(team).toString(),
+                quizId = getId(quiz);
+                
+            quizId = new ObjectId(quizId);
+
+            var conditions = {
+                team: teamId,
+                _id:  quizId
+            };
+
+            var aggregate = [
+                { 
+                    '$match': conditions
+                },
+                {
+                    '$unwind': '$questions'
+                },
+                {
+                    '$unwind': '$questions.answers'
+                },
+                {
+                    '$unwind': '$questions.answers.choices'
+                },
+                {
+                    '$group': {
+                        '_id': '$questions.answers._id',
+                        'count': { 
+                            '$sum': 1
+                        },
+                        'extra': {
+                            '$push': '$questions.answers.choices.extra'
+                        }
+                    }
+                },
+                {
+                    '$project': {
+                        'id':    '$_id',
+                        'count': '$count',
+                        'extra': '$extra',
+                        '_id':     0
+                    }
+                }
+            ];
+
+            Quiz
+                .aggregate(aggregate, function(err, stats) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, stats);
                     }
                 });
         },

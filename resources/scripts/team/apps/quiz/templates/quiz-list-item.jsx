@@ -18,6 +18,7 @@ var QuizListItem = React.createClass({
         return {
             quiz: {},
             text: {
+                stats:    'Statistiques',
                 update:   'Modifier',
                 answered: 'Répondre'
             }
@@ -37,6 +38,9 @@ var QuizListItem = React.createClass({
                     <p>{quiz.description}</p>
 
                     <div className="actions hover-layer-content">
+                        <If test={UserStore.isAdmin()}>
+                            <Link href={'#/quiz/stats/' + quiz.id} className="mr25"><i className="fa fa-bar-chart mr5"></i>{this.props.text.stats}</Link>
+                        </If>
                         <If test={UserStore.isAdmin()}>
                             <Link href={'#/quiz/update/' + quiz.id} className="mr25"><i className="fa fa-pencil mr5"></i>{this.props.text.update}</Link>
                         </If>

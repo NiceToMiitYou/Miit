@@ -1,6 +1,6 @@
 'use strict';
 
-// Extend array for quizz validation
+// Extend array for quiz validation
 require('../../shared/lib/array-extensions')
 
 
@@ -19,7 +19,14 @@ module.exports = function QuizApp() {
 
     function sendRefreshAction(team) {
         primus.in(team.id + ':' + app.identifier()).write({
-            event: 'quiz:refresh'
+            event: 'quiz:refresh:quizzes'
+        });
+    }
+
+    function sendRefreshStatsAction(team, quiz) {
+        primus.in(team.id + ':' + app.identifier() + ':ADMIN').write({
+            event: 'quiz:refresh:stats',
+            quiz:  quiz
         });
     }
 
@@ -44,7 +51,7 @@ module.exports = function QuizApp() {
         // Get options
         var options = optionsQuiz(team, roles);
 
-        // Retreive quiz based on options
+        // Retreive quizzes based on options
         QuizStore.findQuizzes(team, options, function(err, quizzes) {
 
             // Retreive choices based on options
@@ -54,6 +61,25 @@ module.exports = function QuizApp() {
                     quizzes: quizzes,
                     choices: choices
                 });
+            });
+        });
+    });
+
+    // get Stats of a quiz
+    Dispatcher.register('quiz:stats', 'ADMIN', app.identifier(), function onGetStats(spark, data, team, user) {
+        var quizId = data.id;
+
+        if(!quizId) {
+            return;
+        }
+
+        // Retreive stats of a quiz based on options
+        QuizStore.getStats(team, quizId, function(err, stats) {
+
+            spark.write({
+                event: 'quiz:stats',
+                quiz:  quizId,
+                stats: stats
             });
         });
     });
@@ -321,6 +347,7 @@ module.exports = function QuizApp() {
                 }
 
                 sendRefreshAction(team);
+                sendRefreshStatsAction(team, quizId);
             });
         });
     });

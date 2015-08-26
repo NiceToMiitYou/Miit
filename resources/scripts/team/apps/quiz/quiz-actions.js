@@ -23,6 +23,17 @@ Realtime.on('quiz:quizzes', function(data) {
     Dispatcher.dispatch(action);
 });
 
+Realtime.on('quiz:stats', function(data) {
+    var action = {
+        type:  ActionTypes.REFRESH_STATS,
+        quiz:  data.quiz,
+        stats: data.stats
+    };
+
+    // Dispatch the action
+    Dispatcher.dispatch(action);
+});
+
 Realtime.on('quiz:create', function(data) {
     var action = {
         type: ActionTypes.ADD_QUIZ,
@@ -44,17 +55,60 @@ Realtime.on('quiz:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
-var refresh = Debounce(function() {
+// Debounces quizzes refresh to avoid flood
+var refreshQuizzes = Debounce(function() {
     Realtime.send('quiz:quizzes');
 }, 250);
 
+// Accumulator for deferent value of debounce
+var quizzesStatsDebounced = {};
+
+// Basic refresh stats function
+function refreshStatsBasic(quiz) {
+    Realtime.send('quiz:stats', {
+        id: quiz
+    });
+}
+
+// Debounces stats refresh to avoid flood
+function refreshStats(data) {
+    var quiz = data.quiz;
+
+    // Quiz specifiv debounce function
+    if(quiz && typeof quizzesStatsDebounced[quiz] !== 'function') {
+        // Default binding of the function
+        var func = refreshStatsBasic.bind(null, quiz);
+
+        // Save the function
+        quizzesStatsDebounced[quiz] = Debounce(func, 250);
+    }
+
+    // Call the function
+    quizzesStatsDebounced[quiz]();
+};
+
 // Ask for refresh on the notification from the server
-Realtime.on('quiz:refresh', refresh);
+Realtime.on('quiz:refresh:quizzes', refreshQuizzes);
+Realtime.on('quiz:refresh:stats',   refreshStats);
 
 // Expose the actions
 module.exports = {
     refresh: function() {
         Realtime.send('quiz:quizzes');
+    },
+
+    stats: function(quiz) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!quiz) {
+            return;
+        }
+
+        Realtime.send('quiz:stats', {
+            id: quiz
+        });
     },
 
     create: function(name, description) {
