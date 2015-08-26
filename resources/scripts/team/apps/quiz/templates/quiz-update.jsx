@@ -175,8 +175,9 @@ var QuizUpdate = React.createClass({
                         </div>
                     </div>
                 </div>
+
                 <div className="quiz-update-actions">
-                    <button className="btn btn-info mr20" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
+                    <button className="btn btn-info mr20" onClick={this.handleSubmit} type="button"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
 
                     <If test={!quiz.published}>
                         <button className="btn btn-success mr20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
