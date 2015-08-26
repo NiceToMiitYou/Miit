@@ -4,5 +4,8 @@ module.exports = {
     DIST:      './public/dist/',
 
     // Folder of resources
-    RESOURCES: './resources/'
+    RESOURCES: './resources/',
+
+    // Folder of views
+    VIEWS:     './views/'
 };

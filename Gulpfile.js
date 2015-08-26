@@ -25,9 +25,10 @@ gulp.task('sass', function () {
 
     var list = {};
 
-    list[path.SASS_WWW_MASTER]     = path.SASS_WWW_DIST;
-    list[path.SASS_TEAM_MASTER]    = path.SASS_TEAM_DIST;
-    list[path.SASS_IE8_MASTER]     = path.SASS_IE8_DIST;
+    list[path.SASS_WWW_MASTER]  = path.SASS_WWW_DIST;
+    list[path.SASS_TEAM_MASTER] = path.SASS_TEAM_DIST;
+    list[path.SASS_IE8_MASTER]  = path.SASS_IE8_DIST;
+    list[path.SASS_MAIL_MASTER] = path.SASS_MAIL_DIST;
 
     for(var src in list) {
         var dest = list[src];

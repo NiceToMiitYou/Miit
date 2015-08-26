@@ -16,11 +16,14 @@ module.exports = {
     // Sass files
     SASS_ALL: [
         config.RESOURCES + 'sass/**/*.scss',
+        config.VIEWS + 'mail/sass/**/*.scss',
     ],
     SASS_WWW_MASTER:     config.RESOURCES + 'sass/www/master.scss',
     SASS_TEAM_MASTER:    config.RESOURCES + 'sass/team/master.scss',
     SASS_IE8_MASTER:     config.RESOURCES + 'sass/ie8/master.scss',
+    SASS_MAIL_MASTER:    config.VIEWS + 'mail/sass/master.scss',
     SASS_WWW_DIST:       config.DIST + 'css/www/',
     SASS_TEAM_DIST:      config.DIST + 'css/team/',
-    SASS_IE8_DIST:       config.DIST + 'css/ie8/'
+    SASS_IE8_DIST:       config.DIST + 'css/ie8/',
+    SASS_MAIL_DIST:      config.VIEWS + 'mail/css/'
 };
