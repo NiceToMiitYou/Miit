@@ -18,18 +18,30 @@ Array.prototype.findBy = function(prop, value) {
     return null;
 };
 
-Array.prototype.sortBy = function(prop, order) {
+Array.prototype.sortBy = function(prop, order, strict) {
     this.sort(function(a, b){
         var result;
 
         if(!a || !b)
             return;
 
-        if(a[prop] < b[prop])
+        var propA = a[prop];
+        var propB = b[prop];
+
+        if(false === strict) {
+            if(typeof propA === 'string') {
+                propA = propA.toLowerCase();
+            }
+            if(typeof propB === 'string') {
+                propB = propB.toLowerCase();
+            }
+        }
+
+        if(propA < propB)
         {
             return (order === 'desc') ? 1 : -1;
         } 
-        else if(a[prop] > b[prop])
+        else if(propA > propB)
         {
             return (order === 'desc') ? -1 : 1;
         }

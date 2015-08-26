@@ -47,7 +47,7 @@ var UserList = React.createClass({
         }
 
         this.setState({
-            users: list.sortBy('name')
+            users: list.sortBy('name', 1, false)
         });
     },
 
@@ -96,7 +96,7 @@ var UserList = React.createClass({
             }
 
             this.setState({
-                users:  list.sortBy('name'),
+                users:  list.sortBy('name', 1, false),
                 loaded: true
             });
         }
