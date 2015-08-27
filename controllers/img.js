@@ -33,24 +33,23 @@ function getFromCacheOrUrl(res, filename, link) {
 
             return res.status(500).end();
         });
-        
     });
 }
 
 function getFromUrl(res, filename, link, cb) {
 
-    var fileStream = fs.createWriteStream(filename)
+    var fileStream = fs.createWriteStream(filename);
 
     // Get the avatar and save it to
     http.get(link, function(response) {
-        response.pipe(fileStream);
 
         fileStream.on('finish', function() {
-            fileStream.close(function() {
-                // On load, save the file
-                sendFile(res, filename);
-            });
+            // On load, save the file
+            sendFile(res, filename);
         });
+
+        response.pipe(fileStream);
+
     }).on('error', function(err) {
         if(err) {
             miitoo.logger.error(err.message);
@@ -67,7 +66,7 @@ function sendFile(res, filename) {
 
     var file = path.resolve(filename);
 
-    res.sendFile(file, function (err) {
+    res.sendFile(file, function(err) {
         if (err) {
             miitoo.logger.error(err.message);
             return res.status(err.status).end();
