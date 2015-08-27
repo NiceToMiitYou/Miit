@@ -37,8 +37,11 @@ var QuizStatsAnswers = React.createClass({
             return null;
         }
 
-        var data = answers.map(function(answer, index) {
+        var total = 0;
+        var data  = answers.map(function(answer, index) {
             var stats = QuizStore.getStatsOfAnswer(quizId, answer.id);
+
+            total += stats.count;
 
             return {
                 id:        answer.id,
@@ -49,13 +52,21 @@ var QuizStatsAnswers = React.createClass({
             };
         });
 
+        var options = {
+            animateScale:    true,
+            animationSteps:  60,
+            animationEasing: 'easeOutQuart'
+        };
+
         return (
             <div className="miit-component quiz-stats-answers">
                 
                 <If test={3 !== question.kind}>
                     <div className="chart-container row">
                         <div className="chart-holder col-sm-5">
-                            <Doughnut ref="chart" data={data} redraw />
+                            <If test={0 !== total}>
+                                <Doughnut data={data} options={options} />
+                            </If>
                         </div>
 
                         <ul className="chart-legend col-sm-7">
