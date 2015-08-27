@@ -18,9 +18,9 @@ var QuizUpdateQuestionsItem = React.createClass({
             counter:  1,
             text: {
                 submit:   'Sauvegarder',
-                title:    'Intitulé',
+                title:    'Entrez l\'intitulé de votre question ici',
                 question: 'Question',
-                subtitle: 'Complément',
+                subtitle: 'Ajoutez ici un complément à la question (optionnel)',
                 required: 'Rendre cette question obligatoire',
                 delete:   'Supprimer' 
             },
@@ -180,17 +180,13 @@ var QuizUpdateQuestionsItem = React.createClass({
         return (
             <div className="miit-component quiz-update-questions-item mb30">
                 <span className="remove-question-item text-red"  onClick={this.handleRemoveQuestion}><i className="fa fa-times"></i></span>
-                
-                <h4>{counter} - {this.props.text.question}</h4>
 
                 <form onSubmit={this.handleSubmit}>
-                    <label className="input-field">
-                        {this.props.text.title}
-                        <input type="text" name="title"    value={value_title}    onChange={this.handleChange} className={classesName} />
+                    <label className="input-field question-title">
+                        <input type="text" name="title" placeholder={this.props.text.title}   value={value_title}    onChange={this.handleChange} className={classesName} />
                     </label>
-                    <label className="input-field mt20">
-                        {this.props.text.subtitle}
-                        <input type="text" name="subtitle" value={value_subtitle} onChange={this.handleChange} />
+                    <label className="input-field question-subtitle">
+                        <input type="text" name="subtitle" value={value_subtitle} placeholder={this.props.text.subtitle}  onChange={this.handleChange} />
                     </label>
 
                     <label className="checkbox-field mt20 mb20">
@@ -198,9 +194,6 @@ var QuizUpdateQuestionsItem = React.createClass({
                         {this.props.text.required}
                     </label>
 
-                    <div className="actions">
-                        <button className="btn btn-info" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
-                    </div>
                 </form>
 
                 <If test={isCreated && 3 !== question.kind}>

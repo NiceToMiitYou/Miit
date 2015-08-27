@@ -15,6 +15,7 @@ var QuizUpdateAnswersItem = React.createClass({
             answer:   {},
             text: {
                 submit: 'Sauvegarder',
+                placeholder: 'Entrez ici votre réponse',
                 delete: 'Supprimer'
             },
             removeNew: function(){}
@@ -142,13 +143,9 @@ var QuizUpdateAnswersItem = React.createClass({
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field left-icon">
                         <i className="no-icon">{counter}</i>
-                        <input type="text" name="title" value={value_title} onChange={this.handleChange} className={classesName} />
+                        <input type="text" name="title" value={value_title} onChange={this.handleChange} placeholder={this.props.text.placeholder} className={classesName} />
                         <span className="remove-answer" onClick={this.handleRemoveAnswer}><i className="fa fa-trash text-red"></i></span>
                     </label>
-
-                    <div className="actions mt10">
-                        <button className="btn btn-info mr10" type="submit"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
-                    </div>
                 </form>
             </div>
         );

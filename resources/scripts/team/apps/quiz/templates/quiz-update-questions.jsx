@@ -19,7 +19,6 @@ var QuizUpdateQuestions = React.createClass({
             quiz: '',
             text: {
                 title:           'Questions',
-                create_question: 'Ajouter une question',
                 save:            'Tout sauvegarder',
                 types: {
                     unique:   'Question à choix unique',
@@ -176,23 +175,6 @@ var QuizUpdateQuestions = React.createClass({
                     </If>
                 </div>
 
-                <div className="add-question">
-                    <select name="kind" value={value_kind} onChange={this.handleChange}>
-                        <option value="1">{this.props.text.types.unique}</option>
-                        <option value="2">{this.props.text.types.multiple}</option>
-                        <option value="3">{this.props.text.types.open}</option>
-                    </select>
-
-                    <button type="button"  className="btn btn-info" onClick={this.handleCreateQuestion}>
-                        <i className="fa fa-plus mr5"></i> {this.props.text.create_question}
-                    </button>
-                </div>
-
-                <div className="actions mt20">
-                    <button type="button" className="btn btn-success" onClick={this.saveAll}>
-                        <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
-                    </button>
-                </div>
             </div>
         );
     }

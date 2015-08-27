@@ -99,10 +99,90 @@
 
 		.quiz-update-questions-item {
 
-			padding: 10px;
+			padding: 15px 10px;
 			background-color: #EFEFEF;
 			border-left: 2px solid #2980B9;
 			position: relative;
+
+			.btn-dropdown {
+				display: inline-block;
+				background-color: #3498DB;
+				color: #FFF;
+				font-size: .9em;
+				cursor: pointer;
+				position: relative;
+
+				span.dropdown-label {
+					padding: 10px;
+					display: inline-block;
+
+					& > i {
+					    background-color: #2D8DCE;
+					    padding: 10px;
+					    margin: -10px;
+					    margin-left: 10px;
+					}
+				}
+
+				.dropdown-inner {
+					position: absolute;
+					top: 100%;
+					z-index: 99999;
+					color: #000;
+					background-color: #FAFAFA;
+					left: 0;
+					border: 1px solid #3498DB;
+					min-width: 100%;
+
+					ul {
+						li {
+							padding: 10px;
+							cursor: pointer;
+							&:hover {
+								background-color: #EFEFEF;
+							}
+						}
+					}
+				}
+			}
+
+			.question-title {
+				input {
+					border: none;
+					font-size: 1.1em;
+					background-color: transparent;
+					padding-left: 0px;
+				}
+
+				& > div {
+					position: absolute;
+					line-height: 36px;
+					span {
+						display: inline;
+						font-size: 1.2em;
+						font-weight: bold;
+					}
+				}
+			}
+
+			.question-subtitle {
+				input {
+					border: none;
+					// font-size: 1.1em;
+					background-color: transparent;
+					padding-left: 0;
+				}
+
+				& > div {
+					position: absolute;
+					line-height: 36px;
+					span {
+						display: inline;
+						font-size: 1.2em;
+						font-weight: bold;
+					}
+				}
+			}
 
 			.remove-question-item {
 			    position: absolute;
@@ -114,10 +194,24 @@
 
 			.checkbox-field {
 				display: block;
+				opacity: 0;
+				position: absolute;
+				bottom: 0;
+				right: 20px;
+				font-size: .85em;
+				transition: opacity .4s ease;
+				-webkit-transition: opacity .4s ease;
+				-moz-transition: opacity .4s ease;
+				-o-transition: opacity .4s ease;
+
+
+				input {
+					vertical-align: -3.5px;
+				}
 			}
 
 			form {
-				margin: 12px 0 13px;
+				margin-bottom: 13px;
 				padding: 0px 20px;
 
 			}
@@ -125,6 +219,12 @@
 			h4 {
 				font-weight: 600;
 				padding: 10px;
+			}
+
+			&:hover {
+				.checkbox-field {
+					opacity: 1;
+				}
 			}
 		}
 

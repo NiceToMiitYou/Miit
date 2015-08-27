@@ -8,7 +8,8 @@ var QuizActions = require('quiz-actions'),
     QuizStore   = require('quiz-store');
 
 // Include common templates
-var If = MiitApp.require('templates/if.jsx');
+var If = MiitApp.require('templates/if.jsx'),
+    Dropdown = MiitApp.require('templates/dropdown.jsx');
 
 // Include templates
 var QuizUpdateAnswersItem = require('templates/quiz-update-answers-item.jsx');
@@ -35,7 +36,7 @@ var QuizUpdateAnswers = React.createClass({
 
         return {
             answers:    answers || [],
-            value_kind: 1,
+            kind:       1,
             to_create:  null,
             asked_new:  false
         };
@@ -62,23 +63,11 @@ var QuizUpdateAnswers = React.createClass({
         });
 
         if(this.state.asked_new) {
-            setTimeout(this.handleCreateAnswer);
+            setTimeout(this.handleCreateAnswer.bind(this, this.state.kind));
         }
     },
 
-    handleChange: function(e) {
-        if(e.target && e.target.name) {
-            var update = {};
-            var name   = 'value_' + e.target.name;
-            var value  = e.target.value || '';
-
-            update[name] = value;
-
-            this.setState(update);
-        }
-    },
-
-    handleCreateAnswer: function(e) {
+    handleCreateAnswer: function(kind, e) {
         if(e) {
             e.preventDefault();
         }
@@ -91,6 +80,7 @@ var QuizUpdateAnswers = React.createClass({
 
             // Remember choices
             this.setState({
+                kind:      kind,
                 asked_new: true
             });
             return;
@@ -100,12 +90,13 @@ var QuizUpdateAnswers = React.createClass({
         var answer = {
             id:    'new',
             title: '',
-            kind:  +this.state.value_kind,
+            kind:  kind,
             order: this.state.answers.length
         };
 
         // Refresh
         this.setState({
+            kind:      kind,
             to_create: answer,
             asked_new: false
         });
@@ -150,15 +141,11 @@ var QuizUpdateAnswers = React.createClass({
             questionId = this.props.question,
             counter    = 0;
 
-        // Get value
-        var value_kind = this.state.value_kind;
-
         // Generate new Key for react
         var newKey = 'answer-' + questionId + '-new';
 
         return (
             <div className="miit-component quiz-update-answers">
-                <h4>{this.props.text.title}</h4>
                 
                 <div className="list">
 
@@ -175,16 +162,12 @@ var QuizUpdateAnswers = React.createClass({
                     </If>
                 </div>
 
-                <div className="add-answer mt20 pl20 pr20">
-                    <select name="kind" value={value_kind} onChange={this.handleChange}>
-                        <option value="1">{this.props.text.types.classic}</option>
-                        <option value="2">{this.props.text.types.open}</option>
-                    </select>
-
-                    <button type="button" className="btn btn-info ml10" onClick={this.handleCreateAnswer}>
-                        <i className="fa fa-plus mr5"></i> {this.props.text.create_answer}
-                    </button>
-                </div>
+                    <Dropdown label={this.props.text.create_answer} className="btn-dropdown ml20">
+                        <ul>
+                            <li onClick={this.handleCreateAnswer.bind(this, 1)} >{this.props.text.types.classic} <i className="pull-right fa fa-info-circle"></i></li>
+                            <li onClick={this.handleCreateAnswer.bind(this, 2)}>{this.props.text.types.open} <i className="pull-right fa fa-info-circle"></i></li>
+                        </ul>
+                    </Dropdown>
             </div>
         );
     }

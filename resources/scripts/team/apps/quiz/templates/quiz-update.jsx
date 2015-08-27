@@ -19,16 +19,17 @@ var QuizUpdate = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                informations: 'Informations',
-                title:        'Modifier',
-                name:         'Nom',
-                description:  'Description',
-                submit:       'Sauvegarder',
-                publish:      'Publier',
-                close:        'Cloturer',
-                reopen:       'Ré-ouvrir',
-                published:    'Publié',
-                closed:       'Cloturé'
+                informations:     'Informations',
+                title:            'Modifier',
+                name:             'Nom',
+                create_question:  'Ajouter une question',
+                description:      'Description',
+                submit:           'Sauvegarder',
+                publish:          'Publier',
+                close:            'Cloturer',
+                reopen:           'Ré-ouvrir',
+                published:        'Publié',
+                closed:           'Cloturé'
             }  
         };
     },
@@ -177,10 +178,15 @@ var QuizUpdate = React.createClass({
                 </div>
 
                 <div className="quiz-update-actions">
-                    <button className="btn btn-info mr20" onClick={this.handleSubmit} type="button"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
+
+                    <button type="button"  className="btn btn-info pull-left ml20">
+                        <i className="fa fa-plus mr5"></i> {this.props.text.create_question}
+                    </button>
+
+                    <button className="btn btn-success mr20" onClick={this.handleSubmit} type="button"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
 
                     <If test={!quiz.published}>
-                        <button className="btn btn-success mr20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
+                        <button className="btn btn-info mr20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
                     </If>
 
                     <If test={quiz.published && !quiz.closed}>
