@@ -78,24 +78,30 @@ Array.prototype.add = function(value) {
     return this;
 };
 
-Array.prototype.mergeBy = function(prop, values) {
+Array.prototype.mergeBy = function(prop, values, erase) {
     if(!Array.isArray(values)) {
         values = [values];
     }
 
     values.forEach(function(value){
+        if(erase && value) {
+            this.removeBy(prop, value[prop]);
+        }
         this.addBy(prop, value);
     }.bind(this));
 
     return this;
 };
 
-Array.prototype.merge = function(values) {
+Array.prototype.merge = function(values, erase) {
     if(!Array.isArray(values)) {
         values = [values];
     }
 
     values.forEach(function(value){
+        if(erase) {
+            this.remove(value);
+        }
         this.add(value);
     }.bind(this));
 

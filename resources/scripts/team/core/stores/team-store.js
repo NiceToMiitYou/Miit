@@ -87,11 +87,7 @@ function _updateUser(id, name) {
 }
 
 function _removeUser(id) {
-    var index = Users.indexBy('id', id);
-    
-    if(-1 !== index) {
-        delete Users[index];
-    }
+    Users.removeBy('id', id);
 }
 
 function _promoteUser(id, roles) {
@@ -113,21 +109,13 @@ function _demoteUser(id, roles) {
 }
 
 function _addApplication(identifier, publix) {
-    var index = Team.applications.indexBy('identifier', identifier);
-
     // The application
     var application = {
         identifier: identifier,
         public:     publix
     };
 
-    if(-1 !== index) {
-        Team.applications[index] = application;
-    }
-    else 
-    {
-        Team.applications.push(application);
-    }
+    Team.applications.mergeBy('identifier', application, true);
 }
 
 function _updateApplication(identifier, publix) {
