@@ -37,8 +37,8 @@ var QuizUpdateAnswers = React.createClass({
         return {
             answers:    answers || [],
             kind:       1,
-            to_create:  null,
-            asked_new:  false
+            asked_new:  0,
+            to_create:  null
         };
     },
 
@@ -62,7 +62,10 @@ var QuizUpdateAnswers = React.createClass({
             to_create: to_create
         });
 
-        if(this.state.asked_new) {
+        if(
+            1 === this.state.asked_new || 
+            0  <  this.state.asked_new && !to_create
+        ) {
             setTimeout(this.handleCreateAnswer.bind(this, this.state.kind));
         }
     },
@@ -81,7 +84,7 @@ var QuizUpdateAnswers = React.createClass({
             // Remember choices
             this.setState({
                 kind:      kind,
-                asked_new: true
+                asked_new: this.state.asked_new + 1
             });
             return;
         }
@@ -98,7 +101,7 @@ var QuizUpdateAnswers = React.createClass({
         this.setState({
             kind:      kind,
             to_create: answer,
-            asked_new: false
+            asked_new: 0
         });
     },
 
