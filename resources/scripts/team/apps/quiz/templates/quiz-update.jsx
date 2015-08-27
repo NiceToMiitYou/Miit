@@ -87,6 +87,13 @@ var QuizUpdate = React.createClass({
             return;
         }
 
+        // Save all questions
+        var questions = this.refs['questions'];
+
+        if(questions) {
+            questions.saveAll();
+        }
+
         // Reset error
         this.setState({
             error_name: false
@@ -171,7 +178,7 @@ var QuizUpdate = React.createClass({
                             </form>
 
                             <If test={!quiz.closed}>
-                                <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                                <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
                             </If>
                         </div>
                     </div>
