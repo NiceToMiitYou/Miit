@@ -32,8 +32,8 @@ var QuizStatsQuestionsItem = React.createClass({
         }
 
         return (
-            <div className="miit-component quiz-stats-questions-item">
-                <h5 className="mb20">{counter + ' - ' + question.title}</h5>
+            <div className="miit-component quiz-stats-questions-item panel mb20">
+                <h3 className="panel-title">{counter + ' - ' + question.title}</h3>
 
                 <QuizStatsAnswers quiz={quiz} question={question} answers={answers} />
             </div>

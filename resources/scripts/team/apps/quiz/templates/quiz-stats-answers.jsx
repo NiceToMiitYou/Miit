@@ -50,42 +50,45 @@ var QuizStatsAnswers = React.createClass({
         });
 
         return (
-            <div className="miit-component quiz-stats-answers">
+            <div className="miit-component quiz-stats-answers panel-content">
                 
                 <If test={3 !== question.kind}>
                     <div className="chart-container row">
-                        <div className="chart-holder col-sm-5">
+                        <div className="chart-holder col-sm-5 col-md-4 col-lg-3">
                             <Doughnut ref="chart" data={data} redraw />
                         </div>
 
-                        <ul className="chart-legend col-sm-7">
-                            {data.map(function(infos) {
+                        <div className="col-sm-7 col-md-8 col-lg-7">
+                            <ul className="chart-legend">
+                                {data.map(function(infos) {
 
-                                var key   = question.id + '-' + infos.id,
-                                    style = {
-                                        backgroundColor: infos.color
-                                    };
+                                    var key   = question.id + '-' + infos.id,
+                                        style = {
+                                            backgroundColor: infos.color
+                                        };
 
-                                return (
-                                    <li key={key}> <div className="colored-square" style={style}></div> {infos.label}</li>
-                                );
-                            })}
-                        </ul>
+                                    return (
+                                        <li key={key}> <div className="colored-square" style={style}></div> {infos.label}</li>
+                                    );
+                                })}
+                            </ul>
+
+                            <div className="answers-list">
+                                {answers.map(function(answer) {
+                                    if(2 !== answer.kind) {
+                                        return null;
+                                    }
+
+                                    // Generate the key of the answer
+                                    var key = 'answer-' + question.id + '-' + answer.id;
+                                    
+                                    return <QuizStatsAnswersItem ref={key} key={key} answer={answer} quiz={quizId} question={question} />;
+                                }, this)}
+                            </div>
+
+                        </div>
                     </div>
                 </If>
-
-                <div className="answers-list">
-                    {answers.map(function(answer) {
-                        if(2 !== answer.kind) {
-                            return null;
-                        }
-
-                        // Generate the key of the answer
-                        var key = 'answer-' + question.id + '-' + answer.id;
-                        
-                        return <QuizStatsAnswersItem ref={key} key={key} answer={answer} quiz={quizId} question={question} />;
-                    }, this)}
-                </div>
             </div>
         );
     }

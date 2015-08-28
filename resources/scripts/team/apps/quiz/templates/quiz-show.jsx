@@ -69,7 +69,7 @@ var QuizShow = React.createClass({
         var isAnswered = QuizStore.isAnswered(quiz.id);
 
         // define classes
-        var classes = classNames('miit-component quiz-show', (preview) ? 'preview' : '');
+        var classes = classNames('miit-component quiz-show container-fluid', (preview) ? 'preview' : '');
 
         return (
             <div className={classes}>
@@ -77,7 +77,7 @@ var QuizShow = React.createClass({
                     {(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}
 
                     <If test={isAnswered}>
-                        <span className="ml15 text-green">{this.props.text.answered}</span>
+                        <span className="quiz-status ml15 text-green pull-right"><i className="fa fa-check-square-o mr10"></i>{this.props.text.answered}</span>
                     </If>
                 </h2>
 
