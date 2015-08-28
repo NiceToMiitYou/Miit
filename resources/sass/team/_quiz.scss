@@ -264,6 +264,11 @@
 			line-height: 1.3em;
 		}
 
+		.quiz-status {
+			font-size: 16px;
+			font-weight: bold;
+		}
+
 		&.preview {
 			margin-top: 30px;
 			
@@ -292,5 +297,26 @@
 
 		}
 
+	}
+
+	.quiz-stats {
+		.quiz-stats-questions {
+			.quiz-stats-answers {
+				.chart-legend {
+					margin-bottom: 10px;
+					li {
+						padding:5px;
+
+						.colored-square {
+							width: 15px;
+							height: 15px;
+							float: left;
+							margin-right: 6px;
+							vertical-align: top;
+						}
+					}
+				}
+			}
+		}
 	}
 }
