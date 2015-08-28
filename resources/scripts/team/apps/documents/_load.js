@@ -6,7 +6,7 @@ var plugin = {
     onRegister: function() {
         //require('documents-actions');
         //require('documents-store');
-        //require('templates/documents-page.jsx');
+        require('templates/documents-page.jsx');
     },
 
     onRemove: function() {
