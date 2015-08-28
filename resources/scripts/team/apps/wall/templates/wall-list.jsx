@@ -102,8 +102,6 @@ var WallList = React.createClass({
 
         var questions = this.props.questions;
 
-        console.log(questions);
-
         return (
             <div className="miit-component wall-list">
                 <h2 className="mt25 mb20">{this.props.text.title}</h2>
