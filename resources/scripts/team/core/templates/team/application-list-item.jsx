@@ -16,9 +16,8 @@ var ApplicationListItem = React.createClass({
         return {
             application: {},
             text: {
-                public:    'Publique',
-                app_del:   'Supprimer',
-                app_conf:  'Configurer',
+                public: 'Public',
+                remove: 'Enlever'
             }
         };
     },
@@ -86,13 +85,9 @@ var ApplicationListItem = React.createClass({
                         </label>
                     </If>
                     <span>
-                        <button className='btn btn-info ml20'>
-                            <i className="fa fa-cog"></i>
-                            {this.props.text.app_conf}
-                        </button>
                         <button className='btn btn-danger ml20' onClick={this.handleRemove}>
                             <i className="fa fa-trash-o"></i>
-                            {this.props.text.app_del}
+                            {this.props.text.remove}
                         </button>
                     </span>
                 </div>

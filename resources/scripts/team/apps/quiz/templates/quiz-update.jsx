@@ -12,7 +12,8 @@ var QuizActions = require('quiz-actions'),
 var If = MiitApp.require('templates/if.jsx');
 
 // Include templates
-var QuizShow            = require('templates/quiz-show.jsx'),
+var QuizList            = require('templates/quiz-list.jsx'),
+    QuizShow            = require('templates/quiz-show.jsx'),
     QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
 
 var QuizUpdate = React.createClass({
@@ -87,6 +88,13 @@ var QuizUpdate = React.createClass({
             return;
         }
 
+        // Save all questions
+        var questions = this.refs['questions'];
+
+        if(questions) {
+            questions.saveAll();
+        }
+
         // Reset error
         this.setState({
             error_name: false
@@ -128,9 +136,13 @@ var QuizUpdate = React.createClass({
     },
 
     render: function() {
+        if(false === UserStore.isAdmin()) {
+            return <QuizList />
+        }
+
         var quiz = this.state.quiz;
 
-        if(false === UserStore.isAdmin() || !quiz) {
+        if(!quiz) {
             return null;
         }
 
@@ -171,7 +183,7 @@ var QuizUpdate = React.createClass({
                             </form>
 
                             <If test={!quiz.closed}>
-                                <QuizUpdateQuestions quiz={quiz.id} questions={quiz.questions} />
+                                <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
                             </If>
                         </div>
                     </div>

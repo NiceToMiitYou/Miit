@@ -60,18 +60,18 @@ var QuizStatsAnswersItem = React.createClass({
 
         return (
             <div className="miit-component quiz-stats-answers-item">
-                <div className="user-answers-header">
+                <div className="user-answers-header mt15 mb10">
                     {title}
                 </div>
                 {extra.map(function(infos, index) {
                     var key = 'question-' + question.id + '-answer-' + answer.id + '-' + index;
 
                     return (
-                        <div key={key} >{infos.text}</div>
+                        <div className="mb5 ml10" key={key} >{infos.text}</div>
                     );
                 })}
                 <If test={0 === extra.length}>
-                    <div className="user-answers-empty">
+                    <div className="mb5 ml10 user-answers-empty">
                         {this.props.text.no_answer}
                     </div>
                 </If>

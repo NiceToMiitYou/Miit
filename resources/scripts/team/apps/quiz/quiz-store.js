@@ -31,11 +31,8 @@ function _refreshStats(quiz, stats) {
         stats: stats
     };
 
-    // Remove stats from the list and re-add it
-    Stats.removeBy('id', temp.id);
-
     // Add the quiz
-    Stats.mergeBy('id', temp);
+    Stats.mergeBy('id', temp, true);
 }
 
 function _addQuiz(quiz) {
@@ -44,10 +41,7 @@ function _addQuiz(quiz) {
 
 function _updateQuiz(quiz) {
     // Remove the quiz from the list and re-add it
-    Quizzes.removeBy('id', quiz.id);
-
-    // Re-add the quiz
-    _addQuiz(quiz)
+    Quizzes.mergeBy('id', quiz, true);
 }
 
 // The QuizStore Object

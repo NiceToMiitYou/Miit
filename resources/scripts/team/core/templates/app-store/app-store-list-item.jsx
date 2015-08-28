@@ -13,10 +13,7 @@ var Translations = require('core/translation');
 var AppStoreListItem = React.createClass({
     getDefaultProps: function () {
         return {
-            application: {},
-            text: {
-                public: 'Public'
-            }
+            application: {}
         };
     },
     
@@ -52,11 +49,11 @@ var AppStoreListItem = React.createClass({
 
         var isInstalled = TeamStore.hasApplication(application.identifier);
 
-        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color);
-        var installedClass = (isInstalled) ? 'installed' : 'not-installed';
+        var classes    = classNames('miit-component app-store-list-item', (isInstalled) ? 'installed' : 'not-installed'),
+            appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color);
 
         return (
-            <div className={ "miit-component app-store-list-item " + installedClass }>
+            <div className={classes}>
                 <span onClick={this.handleAdd} className="app-icon">
                     <i className={appClasses}></i>
                 </span>

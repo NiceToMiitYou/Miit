@@ -12,7 +12,8 @@ var QuizActions = require('quiz-actions'),
 var If = MiitApp.require('templates/if.jsx');
 
 // Include templates
-var QuizStatsQuestions = require('templates/quiz-stats-questions.jsx');
+var QuizList           = require('templates/quiz-list.jsx'),
+    QuizStatsQuestions = require('templates/quiz-stats-questions.jsx');
 
 var QuizStats = React.createClass({
     getDefaultProps: function () {
@@ -63,6 +64,10 @@ var QuizStats = React.createClass({
     },
 
     render: function() {
+        if(false === UserStore.isAdmin()) {
+            return <QuizList />
+        }
+
         var quiz = this.state.quiz;
 
         if(!quiz) {
