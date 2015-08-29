@@ -1,8 +1,8 @@
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['Slugify', 'MiitConfig', 'TeamStore', 'TeamModel', 'ChatroomStore'],
-    function(slugify, config, TeamStore, Team, ChatroomStore) {
+    ['Slugify', 'MiitConfig', 'TeamStore', 'TeamModel', 'ChatroomStore', 'MailManager'],
+    function(slugify, config, TeamStore, Team, ChatroomStore, MailManager) {
 
     function onCreate(team, user, cb) {
 
@@ -54,8 +54,38 @@ var manager = miitoo.resolve(
                     return cb(err);
                 }
 
-                // If there is no problem, then create things for the team
-                onCreate(team, user, cb);
+                var url = 'https://' + slug + '.miit.fr/';
+                
+                MailManager.sendMail(user.email, 'mail.new_miit.object', './views/mail/new_miit.ejs', {
+                    name: name,
+                    url:  url
+                }, function(error) {
+                    
+                    // If there is no problem, then create things for the team
+                    onCreate(team, user, cb);
+                });
+            });
+        },
+
+        invite: function(team, user, roles, cb) {
+
+            // Add the user to the team
+            TeamStore.addUser(team, user, roles, function(err) {
+                if(err) {
+                    return cb(err);
+                }
+
+                var url = 'https://' + team.slug + '.miit.fr/';
+
+                MailManager.sendMail(user.email, 'mail.invite.object', './views/mail/invite.ejs', {
+                    name: team.name,
+                    url:  url
+                }, function(error) {
+                    
+                    if(typeof cb === 'function') {
+                        cb(error);
+                    }
+                });
             });
         }
     };

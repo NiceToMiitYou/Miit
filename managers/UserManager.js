@@ -1,14 +1,14 @@
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['UserStore', 'UserModel'],
-    function(UserStore, User) {
+    ['UserStore', 'UserModel', 'MailManager'],
+    function(UserStore, User, MailManager) {
 
     function generatePassword() {
         var password = '';
 
         // Loop for password length
-        for(var i = 0; i <= 1; i++) {
+        for(var i = 0; i < 1; i++) {
             password += Math.random().toString(36).slice(-8);
         }
 
@@ -17,7 +17,6 @@ var manager = miitoo.resolve(
 
     return {
         findUserByEmailOrCreate: function(email, cb) {
-
             if(!email) {
                 return cb(new Error('No email provided.'));
             }
@@ -29,14 +28,13 @@ var manager = miitoo.resolve(
                 }
 
                 if(!user) {
+                    var password = generatePassword();
+
                     // Create the user
                     user = new User({
                         email:    email,
-                        password: generatePassword()
+                        password: password
                     });
-
-                    // Log the user informations
-                    miitoo.logger.debug(user);
 
                     // save it
                     user.save(function(errUser) {
@@ -44,8 +42,14 @@ var manager = miitoo.resolve(
                             return cb(errUser);
                         }
 
-                        // Callback
-                        cb(null, user);
+                        MailManager.sendMail(email, 'mail.new_account.object', './views/mail/new_account.ejs', {
+                            email:    email,
+                            password: password
+                        }, function(error) {
+                            
+                            // Callback
+                            cb(null, user);
+                        });
                     });
                 }
                 else

@@ -6,6 +6,7 @@ module.exports = function TeamManager() {
 
     // Get the store of the team
     var TeamStore   = miitoo.get('TeamStore');
+    var TeamManager = miitoo.get('TeamManager');
     var UserManager = miitoo.get('UserManager');
     
     // Get the dispatcher
@@ -122,7 +123,7 @@ module.exports = function TeamManager() {
 
             var roles = ['USER'];
 
-            TeamStore.addUser(team, user, roles, function(errAdd) {
+            TeamManager.invite(team, user, roles, function(errAdd) {
                 if(errAdd) 
                 {
                     return;
