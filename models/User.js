@@ -20,7 +20,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
     var schema = new mongoose.Schema({
         email: {
             type:   String,
-            unique: true,
+            unique: true
         },
         name:     String,
         password: String,
