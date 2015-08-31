@@ -4,8 +4,11 @@ module.exports = function TeamManager() {
     // Load the configuration of applications
     var ApplicationsConfig = miitoo.get('ApplicationsConfig');
 
-    // Get the store of the team
-    var TeamStore   = miitoo.get('TeamStore');
+    // Get the stores for the team
+    var TeamStore         = miitoo.get('TeamStore');
+    var SubscriptionStore = miitoo.get('SubscriptionStore');
+
+    // Get the managers for the team
     var TeamManager = miitoo.get('TeamManager');
     var UserManager = miitoo.get('UserManager');
     
@@ -104,9 +107,12 @@ module.exports = function TeamManager() {
 
         TeamStore.removeApplication(team, identifier, function(err) {
             
-            primus.in(team.id).write({
-                event:      'team:application:remove',
-                identifier: identifier
+            SubscriptionStore.resetAllByApplication(identifier, team, function() {
+                
+                primus.in(team.id).write({
+                    event:      'team:application:remove',
+                    identifier: identifier
+                }); 
             });
         });
     });

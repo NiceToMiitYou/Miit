@@ -75,8 +75,7 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
         getSubscriptionsToSend: function(limit, cb) {
             Subscription.find({
-                alert:  false,
-                unread: { $gt: 0 }
+                alert:  false
             })
             .limit(limit)
             .exec(function(err, subscriptions) {
@@ -148,6 +147,31 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
             });
         },
 
+        resetAllByApplication: function(application, team, cb) {
+            var teamId   = getId(team);
+
+            var subscription = {
+                team:        teamId,
+                application: application
+            };
+
+            Subscription.update(subscription, {
+                alert:  false,
+                unread: 0
+            }, { 
+                multi: true
+            }, function(err) {
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err);
+                }
+            });
+        },
+
         resetBySender: function(team, user, sender, cb) {
             var teamId   = getId(team);
             var userId   = getId(user);
@@ -156,6 +180,32 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
             var subscription = {
                 team:   teamId,
                 user:   userId,
+                sender: senderId
+            };
+
+            Subscription.update(subscription, {
+                alert:  false,
+                unread: 0
+            }, { 
+                multi: true
+            }, function(err) {
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err);
+                }
+            });
+        },
+
+        resetAllBySender: function(team, sender, cb) {
+            var teamId   = getId(team);
+            var senderId = getId(sender);
+
+            var subscription = {
+                team:   teamId,
                 sender: senderId
             };
 
