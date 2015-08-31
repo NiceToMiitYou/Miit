@@ -165,12 +165,12 @@ var QuizUpdateAnswers = React.createClass({
                     </If>
                 </div>
 
-                    <Dropdown label={this.props.text.create_answer} className="btn-dropdown ml20">
-                        <ul>
-                            <li onClick={this.handleCreateAnswer.bind(this, 1)} >{this.props.text.types.classic} <i className="pull-right fa fa-info-circle"></i></li>
-                            <li onClick={this.handleCreateAnswer.bind(this, 2)}>{this.props.text.types.open} <i className="pull-right fa fa-info-circle"></i></li>
-                        </ul>
-                    </Dropdown>
+                <Dropdown label={this.props.text.create_answer} className="btn-dropdown ml20">
+                    <ul>
+                        <li onClick={this.handleCreateAnswer.bind(this, 1)} >{this.props.text.types.classic} <i className="pull-right fa fa-info-circle"></i></li>
+                        <li onClick={this.handleCreateAnswer.bind(this, 2)}>{this.props.text.types.open} <i className="pull-right fa fa-info-circle"></i></li>
+                    </ul>
+                </Dropdown>
             </div>
         );
     }

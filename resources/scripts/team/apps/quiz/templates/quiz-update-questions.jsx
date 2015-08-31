@@ -32,10 +32,10 @@ var QuizUpdateQuestions = React.createClass({
 
     getInitialState: function () {
         return {
-            questions:  this.props.questions || [],
-            to_create:  null,
-            value_kind: 1,
-            asked_new:  false
+            questions: this.props.questions || [],
+            to_create: null,
+            asked_new: 0,
+            kind:      1
         };
     },
 
@@ -59,24 +59,16 @@ var QuizUpdateQuestions = React.createClass({
             to_create: to_create
         });
 
-        if(this.state.asked_new) {
-            setTimeout(this.handleCreateQuestion);
+
+        if(
+            1 === this.state.asked_new || 
+            0  <  this.state.asked_new && !to_create
+        ) {
+            setTimeout(this.handleCreateQuestion.bind(this, this.state.kind));
         }
     },
 
-    handleChange: function(e) {
-        if(e.target && e.target.name) {
-            var update = {};
-            var name   = 'value_' + e.target.name;
-            var value  = e.target.value || '';
-
-            update[name] = value;
-
-            this.setState(update);
-        }
-    },
-
-    handleCreateQuestion: function(e) {
+    handleCreateQuestion: function(kind, e) {
         if(e) {
             e.preventDefault();
         }
@@ -89,7 +81,8 @@ var QuizUpdateQuestions = React.createClass({
             
             // Remember choices
             this.setState({
-                asked_new: true
+                kind:      kind,
+                asked_new: this.state.asked_new + 1
             });
             return;
         }
@@ -99,7 +92,7 @@ var QuizUpdateQuestions = React.createClass({
             id:       'new',
             title:    '',
             subtitle: '',
-            kind:     +this.state.value_kind,
+            kind:     kind,
             required: false,
             answers:  [],
             order:    this.state.questions.length
@@ -108,7 +101,8 @@ var QuizUpdateQuestions = React.createClass({
         // Refresh
         this.setState({
             to_create: question,
-            asked_new: false
+            asked_new: false,
+            kind:      kind
         });
     },
 
@@ -152,9 +146,6 @@ var QuizUpdateQuestions = React.createClass({
         var questions = this.state.questions,
             to_create = this.state.to_create,
             counter   = 0;
-
-        // Get value
-        var value_kind = this.state.value_kind;
 
         return (
             <div className="miit-component quiz-update-questions">

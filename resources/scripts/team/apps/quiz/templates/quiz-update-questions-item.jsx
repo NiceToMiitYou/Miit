@@ -183,7 +183,7 @@ var QuizUpdateQuestionsItem = React.createClass({
 
                 <form onSubmit={this.handleSubmit}>
                     <label className="input-field question-title">
-                        <input type="text" name="title" placeholder={this.props.text.title}   value={value_title}    onChange={this.handleChange} className={classesName} />
+                        <input type="text" name="title"    value={value_title}    placeholder={this.props.text.title}     onChange={this.handleChange} className={classesName} />
                     </label>
                     <label className="input-field question-subtitle">
                         <input type="text" name="subtitle" value={value_subtitle} placeholder={this.props.text.subtitle}  onChange={this.handleChange} />
@@ -193,11 +193,16 @@ var QuizUpdateQuestionsItem = React.createClass({
                         <input className="option-input checkbox" type="checkbox" name="required" checked={value_required} onChange={this.handleRequired} />
                         {this.props.text.required}
                     </label>
-
                 </form>
 
                 <If test={isCreated && 3 !== question.kind}>
                     <QuizUpdateAnswers ref="answers" quiz={this.props.quiz} question={this.props.question.id} answers={question.answers} />
+                </If>
+
+                <If test={!isCreated || 3 === question.kind}>
+                    <button className="btn btn-success ml20" onClick={this.handleSubmit} type="button">
+                        <i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}
+                    </button>
                 </If>
             </div>
         );

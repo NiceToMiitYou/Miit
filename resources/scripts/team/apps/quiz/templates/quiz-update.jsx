@@ -5,16 +5,18 @@ var UserStore    = MiitApp.require('core/stores/user-store'),
     PageStore    = MiitApp.require('core/stores/page-store');
 
 // Include requirements
-var QuizActions = require('quiz-actions'),
-    QuizStore   = require('quiz-store');
+var QuizActions  = require('quiz-actions'),
+    QuizStore    = require('quiz-store'),
+    ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
 
 // Include templates
-var QuizList            = require('templates/quiz-list.jsx'),
-    QuizShow            = require('templates/quiz-show.jsx'),
-    QuizUpdateQuestions = require('templates/quiz-update-questions.jsx');
+var QuizList              = require('templates/quiz-list.jsx'),
+    QuizShow              = require('templates/quiz-show.jsx'),
+    QuizUpdateQuestions   = require('templates/quiz-update-questions.jsx'),
+    QuizUpdateAddQuestion = require('templates/quiz-update-add-question.jsx');
 
 var QuizUpdate = React.createClass({
     getDefaultProps: function () {
@@ -120,9 +122,10 @@ var QuizUpdate = React.createClass({
     onCreateQuestion: function(e) {
         var questions = this.refs['questions'];
 
-        if(questions && typeof questions.handleCreateQuestion === 'function') {
-            questions.handleCreateQuestion(e);
-        }
+        ModalActions.open('quiz-update-add-question', <QuizUpdateAddQuestion questions={questions} />, {
+            title: this.props.text.create_question,
+            size:  'small'
+        });
     },
 
     onClose: function() {
