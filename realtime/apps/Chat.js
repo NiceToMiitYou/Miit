@@ -48,7 +48,11 @@ module.exports = function ChatApp() {
         }
 
         ChatroomStore.delete(team, chatroom, function(err) {
-            sendRooms(team);
+            
+            SubscriptionStore.resetAllBySender(team, chatroom, function() {
+
+                sendRooms(team);
+            });
         });
     });
 
