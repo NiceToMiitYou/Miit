@@ -62,10 +62,12 @@
         <script type="text/javascript" src="/dist/js/lib.min.js"></script>
         <script type="text/javascript" src="/dist/js/team.min.js"></script>
         <script type="text/javascript">
-            // Set default value to initialize the storage
-            MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
-            MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
-            MiitApp.shared.set('applications', <%- JSON.stringify(apps) %>);
+            window.onload = function() {
+                // Set default value to initialize the storage
+                MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
+                MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
+                MiitApp.shared.set('applications', <%- JSON.stringify(apps) %>);
+            };
         </script>
     </body>
 </html>
