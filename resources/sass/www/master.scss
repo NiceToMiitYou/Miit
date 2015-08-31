@@ -109,7 +109,7 @@ h3 {
 			}
 
 			.sn {
-				a {
+				& > a {
 					color: #FFF;
 					font-size: 34px;
 					margin-right: 8px;
@@ -140,7 +140,7 @@ h3 {
 				font-weight: 100;
 				text-transform: uppercase;
 				margin: 0;
-				margin-top: -13px;
+				margin-top: -11px;
 				vertical-align: 9px;
 				cursor: pointer;
 			}
@@ -236,6 +236,10 @@ h3 {
  		img {
  			max-width: 65%
  		}
+ 	}
+
+ 	input:focus {
+ 		border-color: #FFF;
  	}
 }
 
@@ -713,11 +717,11 @@ h3 {
 		}
 	}
 
-	.case>div .slider p {
+	.case>div .case-header > .slider > p {
     	left: 80px;
 	}
 
-	.case>div .slider i {
+	.case>div .case-header > .slider > i {
 	    left: 28px;
 	}
 
