@@ -4,7 +4,7 @@ var WallListItemCommentSend = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                placeholder  : 'Votre commentaire',
+                placeholder  : 'Votre commentaire'
             }
         };
     },
