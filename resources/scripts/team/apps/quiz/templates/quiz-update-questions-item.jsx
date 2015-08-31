@@ -21,8 +21,7 @@ var QuizUpdateQuestionsItem = React.createClass({
                 title:    'Entrez l\'intitulé de votre question ici',
                 question: 'Question',
                 subtitle: 'Ajoutez ici un complément à la question (optionnel)',
-                required: 'Rendre cette question obligatoire',
-                delete:   'Supprimer' 
+                required: 'Rendre cette question obligatoire'
             },
             removeNew: function(){}
         };

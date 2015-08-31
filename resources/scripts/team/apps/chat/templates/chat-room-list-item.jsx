@@ -42,7 +42,7 @@ var ChatRoomListItem = React.createClass({
     onRemove: function() {
         var chatroomId = this.props.chatroom.id;
 
-        ChatActions.delete(chatroomId);
+        ChatActions.remove(chatroomId);
     },
 
     onChange: function() {

@@ -76,7 +76,7 @@ module.exports = {
         return true;
     },
 
-    delete: function(chatroom) {
+    remove: function(chatroom) {
         if(false === UserStore.isAdmin()) {
             return;
         }
