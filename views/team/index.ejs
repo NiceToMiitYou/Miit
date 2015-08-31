@@ -11,6 +11,16 @@
             <link rel="stylesheet" href="/dist/css/ie8/master.min.css">
         <![endif]-->
         <title><%= team.name %> - Miit</title>
+        <script>
+            // ie8 polyfill for html5 elements
+            document.createElement('header');
+            document.createElement('footer');
+            document.createElement('section');
+            document.createElement('aside');
+            document.createElement('nav');
+            document.createElement('article');
+            document.createElement('figure');
+        </script>
     </head>
     <body>
         <div id="content">
