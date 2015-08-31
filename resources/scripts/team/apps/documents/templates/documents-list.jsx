@@ -23,25 +23,33 @@ var DocumentsList = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:  'Documents'
+                title:      'Documents',
+                name :      'Nom', 
+                size :      'Taille', 
+                type :      'Type', 
+                actions :   'Actions'
             },
             documents: [
                 {
-                    id:          "1",
-                    author:      UserStore.getUser(),
-                    name:        "Fichier 1",
-                    description: "Cours sur le php",
-                    public:      true,
-                    type:        "pdf"
+                    id:             "1",
+                    author:         UserStore.getUser(),
+                    name:           "sensors-14-03188.pdf",
+                    size:           "1,26 Mo",
+                    allowDownload:  true,
+                    description:    "Cours sur le php",
+                    public:         true,
+                    type:           "pdf"
                 },
 
                 {
                     id:   "2",
-                    author:      UserStore.getUser(),
-                    name:        "Fichier 2",
-                    description: "Carte de la zone",
-                    public:      false,
-                    type:        "png"
+                    author:         UserStore.getUser(),
+                    name:           "file-text_1e2d3a_100.png",
+                    size:           "132 Ko",
+                    allowDownload:  false,
+                    description:    "Carte de la zone",
+                    public:         false,
+                    type:           "png"
                 }
             ]
         };
@@ -56,6 +64,15 @@ var DocumentsList = React.createClass({
                 <h2 className="mt25 mb20">{this.props.text.title}</h2>
                 
                 <div className="list">
+
+                    <div className="documents-list-header">
+                        <span></span>
+                        <span className="document-name">{this.props.text.name}</span>
+                        <span className="document-size">{this.props.text.size}</span>
+                        <span className="document-type">{this.props.text.type}</span>
+                        <span className="document-actions pl25">{this.props.text.actions}</span>
+                    </div>
+
                     {documents.map(function(document) {
                         return <DocumentsListItem key={'doc-' + document.id} document={document} />;
                     })}
