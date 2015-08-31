@@ -6,7 +6,7 @@ var Dispatcher  = require('core/lib/dispatcher'),
 
 // Expose the actions
 module.exports = {
-    new: function(type, text) {
+    notify: function(type, text) {
         var action = {
             type:     ActionTypes.NEW_NOTIFICATION,
             category: type || 'info',

@@ -32,7 +32,7 @@ var PageActions = {
 
 // Get the router and handle page change
 Router.routes.set('/([a-zA-Z0-9_\-]{0,})/?([a-zA-Z0-9_\-]{0,})?/?([a-zA-Z0-9_\-]{0,})?', function(mainPage, appPage, argument) {
-    var page = mainPage || config.default;
+    var page = mainPage || config['default'];
 
     // Set the current active page of the menu
     ActiveGroups['menu-team'] = page;

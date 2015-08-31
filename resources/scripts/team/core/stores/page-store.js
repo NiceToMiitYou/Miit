@@ -17,7 +17,7 @@ var events = KeyMirror({
 var config = require('pages/_config');
 
 // The default page
-var defaultPage  = config.default;
+var defaultPage  = config['default'];
 var notFoundPage = config['404'];
 
 // All needed pages variables
