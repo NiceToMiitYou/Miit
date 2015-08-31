@@ -4,7 +4,7 @@
   "description": "The Miit application",
   "main": "index.js",
   "scripts": {
-    "postinstall": "mkdir -p ./public/dist/js/apps/ && mkdir -p ./public/dist/fonts/ && mkdir -p ./public/dist/css/ && mkdir -p ./views/mail/css/ && mkdir -p ./cache/avatar/",
+    "postinstall": "mkdir -p ./public/dist/{css,fonts,js}/apps/ && mkdir -p ./views/mail/css/ && mkdir -p ./upload/ && mkdir -p ./cache/avatar/",
     "start": "node index",
     "watch": "./run-script.sh watch",
     "build": "./run-script.sh build",

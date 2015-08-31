@@ -97,7 +97,7 @@ var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
                 .find({
                     team: teamId
                 }, {
-                    messages:      false
+                    messages: false
                 })
                 .exec(function(err, chatrooms) {
                     if(err) {
