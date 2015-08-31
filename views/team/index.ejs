@@ -64,9 +64,9 @@
         <script type="text/javascript">
             window.onload = function() {
                 // Set default value to initialize the storage
-                MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
-                MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
-                MiitApp.shared.set('applications', <%- JSON.stringify(apps) %>);
+                window.MiitApp.shared.set('user', <%- JSON.stringify(user) %>);
+                window.MiitApp.shared.set('team', <%- JSON.stringify(team) %>);
+                window.MiitApp.shared.set('applications', <%- JSON.stringify(apps) %>);
             };
         </script>
     </body>
