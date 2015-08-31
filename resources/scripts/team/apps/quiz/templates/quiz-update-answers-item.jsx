@@ -131,9 +131,6 @@ var QuizUpdateAnswersItem = React.createClass({
         // Get values
         var value_title = this.state.value_title;
 
-        // Is the answer already created
-        var isCreated = ('new' !== answer.id);
-
         // Get errors
         var classesName = classNames(this.state.error_title ? 'invalid' : '');
 
