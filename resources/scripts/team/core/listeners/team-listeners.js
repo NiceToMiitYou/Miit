@@ -66,7 +66,7 @@ function updateTitle() {
         prefix = '(' + unread + ') ';
     }
 
-    document.title = prefix + team.name + ' - Miit'
+    document.title = prefix + team.name + ' - Miit';
 }
 
 // Change page title on update

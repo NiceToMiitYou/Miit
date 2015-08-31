@@ -199,7 +199,7 @@ var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
 });
 
 TeamStore.generateNamedFunctions(events.REFRESHED);
-TeamStore.generateNamedFunctions(events.TEAM_UPDATED);;
+TeamStore.generateNamedFunctions(events.TEAM_UPDATED);
 
 TeamStore.generateNamedFunctions(events.PROMOTED);
 TeamStore.generateNamedFunctions(events.DEMOTED);

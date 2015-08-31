@@ -85,7 +85,7 @@ function refreshStats(data) {
 
     // Call the function
     quizzesStatsDebounced[quiz]();
-};
+}
 
 // Ask for refresh on the notification from the server
 Realtime.on('quiz:refresh:quizzes', refreshQuizzes);
