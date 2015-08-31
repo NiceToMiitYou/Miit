@@ -117,6 +117,14 @@ var QuizUpdate = React.createClass({
         var result = QuizActions.update(quizId, name, description);
     },
 
+    onCreateQuestion: function(e) {
+        var questions = this.refs['questions'];
+
+        if(questions && typeof questions.handleCreateQuestion === 'function') {
+            questions.handleCreateQuestion(e);
+        }
+    },
+
     onClose: function() {
         var quiz = this.state.quiz;
 
@@ -191,22 +199,30 @@ var QuizUpdate = React.createClass({
 
                 <div className="quiz-update-actions">
 
-                    <button type="button"  className="btn btn-info pull-left ml20">
+                    <button type="button"  className="btn btn-info pull-left ml20" onClick={this.onCreateQuestion} >
                         <i className="fa fa-plus mr5"></i> {this.props.text.create_question}
                     </button>
 
-                    <button className="btn btn-success mr20" onClick={this.handleSubmit} type="button"><i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}</button>
+                    <button className="btn btn-success mr20" onClick={this.handleSubmit} type="button">
+                        <i className="fa fa-floppy-o mr5"></i> {this.props.text.submit}
+                    </button>
 
                     <If test={!quiz.published}>
-                        <button className="btn btn-info mr20" onClick={this.onPublish} type="button"><i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}</button>
+                        <button className="btn btn-info mr20" onClick={this.onPublish} type="button">
+                            <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}
+                        </button>
                     </If>
 
                     <If test={quiz.published && !quiz.closed}>
-                        <button className="btn btn-danger mr20" onClick={this.onClose} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.close}</button>
+                        <button className="btn btn-danger mr20" onClick={this.onClose} type="button">
+                            <i className="fa fa-lock-o mr5"></i> {this.props.text.close}
+                        </button>
                     </If>
 
                     <If test={quiz.published && quiz.closed}>
-                        <button className="btn btn-warning mr20" onClick={this.onReopen} type="button"><i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}</button>
+                        <button className="btn btn-warning mr20" onClick={this.onReopen} type="button">
+                            <i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}
+                        </button>
                     </If>
                 </div>
             </div>

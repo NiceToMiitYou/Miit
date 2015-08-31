@@ -174,11 +174,6 @@ var QuizUpdateQuestions = React.createClass({
                         <QuizUpdateQuestionsItem ref='question-new' key='question-new' counter={counter + 1} question={to_create} quiz={this.props.quiz} removeNew={this.handleRemoveNotSaved} onChange={this.handleToCreateChange} />
                     </If>
                 </div>
-
-                <button type="button"  className="btn btn-info pull-left ml20" onClick={this.handleCreateQuestion}>
-                    <i className="fa fa-plus mr5"></i> {this.props.text.create_question}
-                </button>
-
             </div>
         );
     }
