@@ -130,7 +130,7 @@ h3 {
 		}
 
 		.lang {
-			display: inline;
+			display: inline-block;
 			position: relative;
 
 			a, span {
@@ -152,6 +152,7 @@ h3 {
 				position: absolute;
 				top: 100%;
 				left: 0;
+				width: 100%;
 				display: none;
 			}
 
