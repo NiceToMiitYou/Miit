@@ -11,8 +11,8 @@ var Loading = React.createClass({
       return (
           <div className="miit-component loading-container">
               <div className="loading">
-                  <img src="/img/logo-miit-outter.png"/>
-                  <img className="inner" src="/img/logo-miit-inner.png"/>
+                  <img src="/img/logo-miit-black-outter.png" alt="" />
+                  <img src="/img/logo-miit-black-inner.png"  alt="" className="inner"/>
               </div>
               {this.props.loading}
           </div>

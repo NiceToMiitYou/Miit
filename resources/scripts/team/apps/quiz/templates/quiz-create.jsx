@@ -13,7 +13,8 @@ var QuizActions = require('quiz-actions'),
     QuizStore   = require('quiz-store');
 
 // Include common templates
-var If = MiitApp.require('templates/if.jsx');
+var If      = MiitApp.require('templates/if.jsx'),
+    Loading = MiitApp.require('templates/loading.jsx');
 
 var QuizCreate = React.createClass({
     getDefaultProps: function () {
@@ -130,7 +131,7 @@ var QuizCreate = React.createClass({
                 </form>
                 <If test={processing}>
                     <div className="overlay">
-                        <div className="loading"><i className="spin fa fa-spin icon-logo-miit"></i> {this.props.text.loading}</div>
+                        <Loading />
                     </div>
                 </If>
             </div>

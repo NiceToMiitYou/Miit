@@ -165,29 +165,30 @@ module.exports = function LoginManager() {
     });
 
     Dispatcher.register('login:token', 'ANONYM', function onTokenUser(spark, data, team) {
-        if(!data.token || data.token == "null") {
+        if(!data.token || data.token === 'null') {
             return;
         }
 
         jwt.verify(data.token, function(err, payload) {
-            if(!err) {
-                var userId = payload.user;
-
-                TeamStore.findUser(team, userId, function(errUser, session) {
-                    if(!errUser && session) {
-                        // Send login token
-                        rigthLogin(spark, 'login:token', team, session, session.email);
-                    }
-                    else
-                    {
-                        miitoo.logger.error(errUser || new Error('No user found with JWT.'));
-                    }
-                });
-            }
-            else
+            if(err) 
             {
-                miitoo.logger.error(err);
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
+                return;
             }
+            
+            var userId = payload.user;
+
+            TeamStore.findUser(team, userId, function(errUser, session) {
+                if(!errUser && session) {
+                    // Send login token
+                    rigthLogin(spark, 'login:token', team, session, session.email);
+                }
+                else
+                {
+                    miitoo.logger.error(errUser || new Error('No user found with JWT.'));
+                }
+            });
         });
     });
 
@@ -228,7 +229,7 @@ module.exports = function LoginManager() {
     Dispatcher.register('login:anonym', 'ANONYM', function onTokenAnonym(spark, data, team) {
         
         // if there is no token
-        if(!data.token || data.token == "null") {
+        if(!data.token || data.token === 'null') {
             var id = generateId();
 
             var token = jwt.sign({
@@ -240,9 +241,10 @@ module.exports = function LoginManager() {
         else
         {
             jwt.verify(data.token, function(err, payload) {
-                if(err)
+                if(err) 
                 {
-                    miitoo.logger.error(err);
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
                     return;
                 }
                 

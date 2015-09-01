@@ -12,7 +12,7 @@ var UserAvatar = React.createClass({
             avatar = 'http://img.miit.fr/avatar/' + user.avatar;
         }
 
-        avatar = avatar || '/img/logo-miit-light.png';
+        avatar = avatar || '/img/logo-miit-white.png';
 
         return (
             <span className="miit-component user-avatar">
