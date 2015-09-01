@@ -135,6 +135,34 @@ function Dispatcher() {
         this.on(event, callback);
     };
 
+    // Register 
+    this.standalone = function(event, callback)
+    {
+        if(!event || !callback) {
+            return;
+        }
+
+        // Bind event
+        this.on('standalone:' + event, callback);
+    };
+
+    // Dispacth an event for standalone mode
+    this.play = function(event, teamId, data)
+    {
+        if(!teamId) {
+            return;
+        }
+
+        TeamStore.findTeam(teamId, function(err, team) {
+            // Check if the team exist
+            if(err || !team) {
+                return;
+            }
+
+            this.emit('standalone:' + event, data, team);
+        }.bind(this));
+    };
+
     // Dispacth an event
     this.dispatch = function(spark, event, data, replayed)
     {

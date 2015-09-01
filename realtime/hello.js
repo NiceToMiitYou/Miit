@@ -1,20 +1,10 @@
 
 var realtime = miitoo.resolve(['Primus'], function(primus) {
 
-    // Load all Apps
-    var apps = miitoo.load({
-        dirname:  __dirname + '/apps',
-        resolve: function (App) {
-            return new App();
-        }
-    });
-
-    // register Applictions
-    miitoo.register('Applications', apps, true);
-
     // Load all managers
     var managers = miitoo.load({
-        dirname:  __dirname + '/managers',
+        dirname:  __dirname + '/managers/',
+        filter:  /(.+Manager)\.js$/,
         resolve: function (Manager) {
             return new Manager();
         }
@@ -22,6 +12,18 @@ var realtime = miitoo.resolve(['Primus'], function(primus) {
 
     // register Managers
     miitoo.register('Managers', managers, true);
+
+    // Load all Apps
+    var apps = miitoo.load({
+        dirname:  __dirname + '/apps/',
+        filter:  /(.+App)\.js$/,
+        resolve: function (App) {
+            return new App();
+        }
+    });
+
+    // register Applictions
+    miitoo.register('Applications', apps, true);
 
     // Handle primus connections
     primus.on('connection', function(spark) {

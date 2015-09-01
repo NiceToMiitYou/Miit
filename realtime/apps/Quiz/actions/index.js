@@ -1,18 +1,11 @@
 'use strict';
 
 // Extend array for quiz validation
-require('../../shared/lib/array-extensions')
+require('../../../../shared/lib/array-extensions');
 
-
-module.exports = function QuizApp() {
-    this.identifier = function() {
-        return 'APP_QUIZ';
-    }
-
-    var app = this;
-
+module.exports = function QuizActions(app) {
     var QuizStore      = miitoo.get('QuizStore');
-    var QuizValidation = require('../../shared/apps/quiz/validation');
+    var QuizValidation = require('../../../../shared/apps/quiz/validation');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -330,10 +323,8 @@ module.exports = function QuizApp() {
 
             validation.validate();
 
-            console.log('Quiz is', (true === validation.isValid()) ? 'valid' : 'invalid' );
-
             if(false === validation.isValid()) {
-                console.log(validation.getErrors());
+                miitoo.logger.debug(validation.getErrors());
 
                 return;
             }

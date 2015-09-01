@@ -1,12 +1,6 @@
 'use strict';
 
-module.exports = function ChatApp() {
-    this.identifier = function() {
-        return 'APP_CHAT';
-    }
-
-    var app = this;
-
+module.exports = function ChatActions(app) {
     var ChatroomStore     = miitoo.get('ChatroomStore');
     var SubscriptionStore = miitoo.get('SubscriptionStore');
 

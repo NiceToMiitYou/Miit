@@ -1,3 +1,4 @@
+'use strict';
 
 // Define the store
 var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mongoose) {
