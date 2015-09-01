@@ -14,7 +14,7 @@ var config = {
 
     tokenSecret: 'MyNameIsMiitJamesMiit',
 
-    upload: path.resolve(__dirname + '../upload/')
+    upload: path.resolve(__dirname + '/../upload/')
 };
 
 miitoo.register('MiitConfig', config, true);
