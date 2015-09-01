@@ -40,3 +40,4 @@ resources/scripts/team/core-require.js
 
 # ignore cache folder
 cache
+upload
