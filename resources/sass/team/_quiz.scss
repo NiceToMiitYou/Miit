@@ -336,14 +336,24 @@
 		background-color: rgba(250, 250, 250, 0.65);
 	}
 
-	.loading {
+	.loading-container {
 		line-height: 56px;
-		width: 100%;
 		text-align: center;
 		position: absolute;
+		width: 100%;
 		top: 50%;
-		margin-top: -35px;
+		margin-top: -42px;
 		font-size: 1.4em;
 		font-weight: 100;
+
+		.loading {
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 20px;
+
+			img {
+				image-rendering: optimizeSpeed; 
+			}
+		}
 	}
 }
