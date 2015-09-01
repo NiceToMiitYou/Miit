@@ -44,6 +44,7 @@ h3 {
 	position: relative;
 	background-color: rgb(54, 140, 192);
 	padding-top: 9%;
+	-webkit-transform: translate3d(0,0,0);
 }
 
 .header {
@@ -205,6 +206,7 @@ h3 {
 	color: #FFF;
 	margin-top: -220px;
 	z-index: 999;
+	-webkit-transform: translate3d(0,0,0);
 	position: relative;
 
 	.bg-separator {
