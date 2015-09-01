@@ -40,12 +40,22 @@ miitoo.register('MandrillRoutes', express.Router);
 
 // Define the middlewares
 var configurator = miitoo.resolve(
-    ['ExpressApp', 'Mongoose', 'i18n', 'WWWRoutes', 'TeamRoutes', 'MandrillRoutes', 'ImagesRoutes'],
-    function(app, mongoose, i18n, wwwRoutes, teamRoutes, mandrillRoutes, imagesRoutes) {
+    ['ExpressApp', 'MiitConfig', 'Mongoose', 'i18n', 'WWWRoutes', 'TeamRoutes', 'MandrillRoutes', 'ImagesRoutes'],
+    function(app, config, mongoose, i18n, wwwRoutes, teamRoutes, mandrillRoutes, imagesRoutes) {
     
     app.engine('ejs', require('ejs').renderFile);
     
     app.set('view engine', 'ejs');
+    
+    // https redirect
+    app.use(function(req, res, next) {
+        // Force https if in production
+        if('miit.fr' === config.domain && !req.secure) {
+            return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        }
+
+        next();
+    });
     
     // parse application/json
     app.use(bodyParser.json());
