@@ -21,6 +21,7 @@ var QuizCreate = React.createClass({
             text: {
                 name:        'Nom',
                 description: 'Description',
+                loading:     'Loading',
                 submit:      'Créer'
             }  
         };
@@ -128,7 +129,9 @@ var QuizCreate = React.createClass({
                     </div>
                 </form>
                 <If test={processing}>
-                    <div className="overlay">This &lt;DIV&gt; should overlay the form</div>
+                    <div className="overlay">
+                        <div className="loading"><i className="spin fa fa-spin icon-logo-miit"></i> {this.props.text.loading}</div>
+                    </div>
                 </If>
             </div>
         );
