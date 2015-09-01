@@ -25,7 +25,7 @@ var DocumentsListItem = React.createClass({
             text: {
                 title:      'Documents',
                 download:   'Télecharger',
-                delete:     'Supprimer'
+                remove:     'Supprimer'
             }
         };
     },
@@ -59,7 +59,7 @@ var DocumentsListItem = React.createClass({
                     <If test={document.allowDownload}>
                         <span className="mr20 action-download text-blue"><i className="fa fa-download mr5"></i>{this.props.text.download}</span>
                     </If>
-                    <span className="action-delete text-red"><i className="fa fa-trash mr5"></i>{this.props.text.delete}</span>
+                    <span className="action-delete text-red"><i className="fa fa-trash mr5"></i>{this.props.text.remove}</span>
                 </span>
             </div>
         );
