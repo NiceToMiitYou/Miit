@@ -87,7 +87,7 @@ var UserStore = ObjectAssign({}, EventEmitter.prototype, {
 
     getUser: function() {
         if(!Me) {
-            Me = MiitApp.shared.get('user');
+            Me = { roles: ['ANONYM'] };
         }
         return Me;
     },

@@ -37,9 +37,9 @@ var controller = miitoo.resolve(
 
     // Catch all others request
     app.all('*', function(req, res) {
+        
         return res.render('team/index', {
             team: req.team,
-            user: req.user || { roles: ['ANONYM'] },
             apps: applications
         });
     });
