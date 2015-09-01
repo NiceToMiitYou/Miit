@@ -177,7 +177,7 @@ var QuizUpdateQuestionsItem = React.createClass({
         var classesName = classNames(this.state.error_title ? 'invalid' : '');
 
         return (
-            <div className="miit-component quiz-update-questions-item mb30">
+            <div className={"miit-component quiz-update-questions-item mb30 kind-" + question.kind}>
                 <span className="remove-question-item text-red"  onClick={this.handleRemoveQuestion}><i className="fa fa-times"></i></span>
 
                 <form onSubmit={this.handleSubmit}>

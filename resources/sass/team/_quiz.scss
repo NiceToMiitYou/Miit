@@ -105,6 +105,18 @@
 			border-left: 2px solid #2980B9;
 			position: relative;
 
+			&.kind-1 {
+				border-color: #1abc9c;
+			}
+
+			&.kind-2 {
+				
+			}
+
+			&.kind-3 {
+				border-color: #9b59b6;
+			}
+
 			.btn-dropdown {
 				display: inline-block;
 				background-color: #3498DB;
