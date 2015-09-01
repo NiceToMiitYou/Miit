@@ -276,10 +276,14 @@ a {
 		display: none;
 	}
 
+	.application-list-item:nth-child(odd) {
+		border-top: 1px solid #E8E8E8;
+		border-bottom: 1px solid #E8E8E8;
+	}
+
 	.application-list-item {
 
 		padding: 5px 0;
-		border-top: 1px solid #E8E8E8;
 
 		&:hover {
 			background-color:#EFEFEF;

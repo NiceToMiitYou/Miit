@@ -108,6 +108,13 @@ a {
         font-size: 2em;
         font-weight: 100;
         line-height: 1em;
+
+        .subtitle {
+          font-size: .45em; 
+          color: #888;
+          margin-top: 10px;
+          display: block;
+        }
     }
 
     h3 {

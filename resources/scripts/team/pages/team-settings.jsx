@@ -26,6 +26,11 @@ var TeamSettings = React.createClass({
             text: {
                 applications: 'Applications',
                 informations: 'Informations',
+                userlist:     'Liste des utilisateurs', 
+                appstore:     'Ajouter une application', 
+                applist:      'Liste des applications', 
+                title:        'Configuration', 
+                subtitle:     'Configurer les informations et la confidentialité de votre miit', 
                 users:        'Utilisateurs'
             }
         };
@@ -62,18 +67,28 @@ var TeamSettings = React.createClass({
             <Layout title={team.name}>
 
                 <div className="container-fluid">
+
+                    <h2 className="mt30">
+                        <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
+                        <span className="subtitle">{this.props.text.subtitle}</span>
+                    </h2>
+
                     <Panel icon="info" title={this.props.text.informations}>
                         <TeamUpdate />
                     </Panel>
 
                     <Panel icon="th" title={this.props.text.applications}>
+                        <h3 className="mb20">{this.props.text.applist} </h3>
                         <ApplicationList />
+
+                        <h3 className="mb20 mt30">{this.props.text.appstore} </h3>
                         <button className="btn btn-info" onClick={this.openAppStore}>
                             Application Store
                         </button>
                     </Panel>
 
                     <Panel icon="users" title={this.props.text.users}>
+                        <h3 className="mb20">{this.props.text.userlist} </h3>   
                         <UserList autoload={true} headers={false} status={true}/>
                     </Panel>
                 </div>

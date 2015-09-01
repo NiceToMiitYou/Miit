@@ -18,9 +18,11 @@ var TeamUpdate = React.createClass({
                 public:    'Public',
                 isPublic:  'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
                 private:   'Privé',
+                name:      'Nom de votre Miit', 
+                privacy:   'Confidentialité', 
                 isPrivate: 'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
-            submit: 'Modifier'
+            submit: 'Sauvegarder'
         };
     },
 
@@ -152,9 +154,14 @@ var TeamUpdate = React.createClass({
 
         return (
             <form className="miit-component user-update" onSubmit={this.handleSubmit}>
+
+                <h3 className="mb20">{this.props.text.name}</h3>
+
                 <div className="mb20">
                     <input type="text" className={classes_name} value={value_name} placeholder={this.props.placeholder.name} onChange={this.handleChange} name="name" />           
                 </div>
+
+                <h3 className="mb20 mt30">{this.props.text.privacy}</h3>
 
                 <div className="checkbox-field mb20">
                     <label>
@@ -171,7 +178,7 @@ var TeamUpdate = React.createClass({
                     <div className="mb20">
                         <p className="mb10">{this.props.text.isPublic}</p>
                         
-                        <div className="col8 col16-md">
+                        <div>
                             <div className="input-field left-icon">
                                 <i className="fa fa-link"></i>
                                 <input value={this.generateUrl()} type="text" disabled />
@@ -185,8 +192,8 @@ var TeamUpdate = React.createClass({
                 </If>
 
                 <div>
-                    <button type="submit" className="btn btn-info mt20">
-                        {this.props.submit}
+                    <button type="submit" className="btn btn-success mt10">
+                        <i className="fa fa-save mr5"></i> {this.props.submit}
                     </button>
                 </div>
             </form>
