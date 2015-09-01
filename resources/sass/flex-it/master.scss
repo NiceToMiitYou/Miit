@@ -652,6 +652,10 @@ input[type="text"], input[type="password"], textarea {
         outline: 0;
         border-color: #1e2d3a;
     }
+
+    &.invalid {
+      border-color: #c0392b;
+    }
 }
 
 textarea {
@@ -662,6 +666,7 @@ textarea {
 label.input-field {
 
   display: block;
+
   span {
     font-size: .9em;
     display: block;
@@ -704,6 +709,7 @@ label.input-field {
         &:-ms-input-placeholder {  
            color: #FFF;  
         }
+
       }
 
     }
@@ -1259,6 +1265,9 @@ click-wave { 0% {
 
 .bg-green {
     background-color: #2ecc71!important;
+    &.darken-5 {
+        background-color: #27ae60!important;
+    }
 }
 
 .bg-red {
@@ -1274,15 +1283,23 @@ click-wave { 0% {
 }
 
 .bg-blue-grey.darken-1  {
-    background-color: #1A2631!important;
+      
+}
+
+.bg-blue-green {
+    background-color: #1abc9c!important;
+
+    .darken-5 {
+        background-color: #16a085!important;
+    }
 }
 
 .bg-grey {
   background-color: #F7F4F4!important;
-}
 
-.bg-grey.lighten-5 {
-    background-color: #fafafa!important;
+  &.lighten-5 {
+      background-color: #fafafa!important;
+  }
 }
 
 .text-red {
