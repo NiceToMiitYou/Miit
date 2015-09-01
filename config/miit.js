@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 var config = {
     domain: (process.env.NODE_ENV === 'production') ? 'miit.fr' : 'miit.dev',
     port:   8080,
@@ -10,7 +12,9 @@ var config = {
 
     gravatar: 'http://www.gravatar.com/avatar/{hash}?s=128&d=identicon',
 
-    tokenSecret: 'MyNameIsMiitJamesMiit'
+    tokenSecret: 'MyNameIsMiitJamesMiit',
+
+    upload: path.resolve(__dirname + '../upload/')
 };
 
 miitoo.register('MiitConfig', config, true);

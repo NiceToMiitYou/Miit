@@ -1,7 +1,6 @@
 
 // Define the store
-var store = miitoo.resolve(['ChatroomModel'], function(Chatroom) {
-    var mongoose = miitoo.get('Mongoose');
+var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {

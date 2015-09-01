@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 var config = {
     // setup some locales - other locales default to en silently
     locales: ['fr', 'en'],
@@ -11,7 +13,7 @@ var config = {
     cookie: 'miit-locale',
 
     // where to store json files - defaults to './locales' relative to modules directory
-    directory: __dirname + '/../locales',
+    directory: path.resolve(__dirname + '/../locales/'),
 
     // whether to write new locale information to disk
     updateFiles: false

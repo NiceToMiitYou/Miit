@@ -1,7 +1,6 @@
 
 // Define the store
-var store = miitoo.resolve(['QuizModel'], function(Quiz) {
-    var mongoose = miitoo.get('Mongoose');
+var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
