@@ -46,6 +46,17 @@ var configurator = miitoo.resolve(
     app.engine('ejs', require('ejs').renderFile);
     
     app.set('view engine', 'ejs');
+    app.set('trust proxy', true);
+    
+    // https redirect
+    app.use(function(req, res, next) {
+        // Force https if in production
+        if('miit.fr' === config.domain && 'http' === req.protocol) {
+            return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        }
+
+        next();
+    });
     
     // parse application/json
     app.use(bodyParser.json());
