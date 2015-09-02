@@ -50,8 +50,8 @@ var configurator = miitoo.resolve(
     // https redirect
     app.use(function(req, res, next) {
         // Force https if in production
-        if('miit.fr' === config.domain && !req.secure) {
-            return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        if('miit.fr' === config.domain && 'http' === req.protocol) {
+            // return res.redirect(['https://', req.get('Host'), req.url].join(''));
         }
 
         next();
