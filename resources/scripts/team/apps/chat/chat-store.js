@@ -4,10 +4,7 @@
 var Dispatcher = MiitApp.require('core/lib/dispatcher');
 
 // Include requirement
-var ChatConstants = require('chat-constants');
-
-// Shortcut
-var ActionTypes = ChatConstants.ActionTypes;
+var ActionTypes = require('chat-constants').ActionTypes;
 
 // List of events
 var events = KeyMirror({

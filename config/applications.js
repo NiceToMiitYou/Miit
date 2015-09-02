@@ -7,12 +7,6 @@ config['APP_CHAT'] = {
     // The identifier of the app
     identifier: 'APP_CHAT',
 
-    // Pricing applied for User
-    userPricing: 0.1,
-
-    // Pricing applied for Anonym (1euro for 1000 anonyms)
-    anonymPricing: 0.001,
-
     // Background color
     color: 'blue',
 
@@ -24,12 +18,6 @@ config['APP_CHAT'] = {
 config['APP_WALL'] = {
     // The identifier of the app
     identifier: 'APP_WALL',
-
-    // Pricing applied for User
-    userPricing: 0.1,
-
-    // Pricing applied for Anonym (1euro for 1000 anonyms)
-    anonymPricing: 0.001,
 
     // Background color
     color: 'purple',
@@ -43,12 +31,6 @@ config['APP_QUIZ'] = {
     // The identifier of the app
     identifier: 'APP_QUIZ',
     
-    // Pricing applied for User
-    userPricing: 0.1,
-
-    // Pricing applied for Anonym (1euro for 1000 anonyms)
-    anonymPricing: 0.001,
-
     // Background color
     color: 'green',
 
@@ -61,12 +43,6 @@ config['APP_DOCUMENTS'] = {
     // The identifier of the app
     identifier: 'APP_DOCUMENTS',
     
-    // Pricing applied for User
-    userPricing: 0.1,
-
-    // Pricing applied for Anonym (1euro for 1000 anonyms)
-    anonymPricing: 0.001,
-
     // Background color
     color: 'red',
 

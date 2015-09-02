@@ -94,7 +94,7 @@ Realtime.on('quiz:refresh:stats',   refreshStats);
 // Expose the actions
 module.exports = {
     refresh: function() {
-        Realtime.send('quiz:quizzes');
+        refreshQuizzes();
     },
 
     stats: function(quiz) {

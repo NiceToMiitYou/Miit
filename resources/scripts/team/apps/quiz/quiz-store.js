@@ -4,10 +4,7 @@
 var Dispatcher = MiitApp.require('core/lib/dispatcher');
 
 // Include requirement
-var QuizConstants = require('quiz-constants');
-
-// Shortcut
-var ActionTypes = QuizConstants.ActionTypes;
+var ActionTypes = require('quiz-constants').ActionTypes;
 
 // List of events
 var events = KeyMirror({
