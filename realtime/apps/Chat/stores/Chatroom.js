@@ -29,7 +29,7 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
             });
         },
 
-        delete: function(team, chatroom, cb) {
+        remove: function(team, chatroom, cb) {
             var chatroomId = getId(chatroom);
             var teamId     = getId(team);
 

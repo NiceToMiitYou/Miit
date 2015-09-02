@@ -85,7 +85,7 @@ module.exports = {
             return false;
         }
 
-        Realtime.send('chat:delete', {
+        Realtime.send('chat:remove', {
             chatroom: chatroom
         });
 

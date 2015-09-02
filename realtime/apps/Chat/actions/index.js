@@ -34,14 +34,14 @@ module.exports = function ChatActions(app) {
     });
 
     // Delete a chatroom
-    Dispatcher.register('chat:delete', 'ADMIN', app.identifier(), function onCreateChatroom(spark, data, team, user) {
+    Dispatcher.register('chat:remove', 'ADMIN', app.identifier(), function onCreateChatroom(spark, data, team, user) {
         var chatroom = data.chatroom;
 
         if(!chatroom) {
             return;
         }
 
-        ChatroomStore.delete(team, chatroom, function(err) {
+        ChatroomStore.remove(team, chatroom, function(err) {
             
             SubscriptionStore.resetAllBySender(team, chatroom, function() {
 
