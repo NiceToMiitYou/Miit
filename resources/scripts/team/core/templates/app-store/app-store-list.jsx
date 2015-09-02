@@ -25,8 +25,6 @@ var AppStoreList = React.createClass({
 
         return (
             <div className="miit-component app-store-list">
-                <AppStoreListHeader />
-
                 {applications.map(function(application) {
                     return (<AppStoreListItem key={'app-store-' + application.identifier} application={application} />);
                 })}

@@ -82,9 +82,8 @@ var TeamSettings = React.createClass({
                         <ApplicationList />
 
                         <h3 className="mb20 mt30">{this.props.text.appstore} </h3>
-                        <button className="btn btn-info" onClick={this.openAppStore}>
-                            Application Store
-                        </button>
+                        <AppStoreList />
+                        <div className="clearfix"></div>
                     </Panel>
 
                     <Panel icon="users" title={this.props.text.users}>

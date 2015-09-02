@@ -62,7 +62,7 @@ var ApplicationListItem = React.createClass({
         var application = this.props.application;
 
         // Add extra informations
-        application.name  = Translations[application.identifier];
+        application.name  = Translations[application.identifier].name;
         application.color = apps[application.identifier].color;
         application.icon  = apps[application.identifier].icon;
 

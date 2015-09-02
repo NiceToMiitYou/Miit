@@ -45,7 +45,8 @@ var AppStoreListItem = React.createClass({
         var application = this.props.application;
 
         // Add extra informations
-        application.name  = Translations[application.identifier];
+        application.name  = Translations[application.identifier].name;
+        application.description  = Translations[application.identifier].description;
 
         var isInstalled = TeamStore.hasApplication(application.identifier);
 
@@ -54,13 +55,17 @@ var AppStoreListItem = React.createClass({
 
         return (
             <div className={classes}>
-                <span onClick={this.handleAdd} className="app-icon">
+                <span className="app-icon">
                     <i className={appClasses}></i>
                 </span>
                 <div className="app-desc">
                     <span>
                         {application.name}
                     </span>
+                    <p>
+                        {application.description}
+                    </p>
+                    <button onClick={this.handleAdd} className="btn btn-info btn-sm"><i className="fa fa-plus mr5"></i> Ajouter</button>
                 </div>
             </div>
         );

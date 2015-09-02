@@ -50,7 +50,7 @@ var MenuTeamItem = React.createClass({
         var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, 'pull-left');
 
         // Informations
-        var label  = Translations[application.identifier];
+        var label  = Translations[application.identifier].name;
         var unread = SubscriptionsStore.getUnreadByApplication(application.identifier);
 
         return (
