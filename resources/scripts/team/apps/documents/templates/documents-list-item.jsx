@@ -1,37 +1,38 @@
 'use strict';
 
 // Include core requirements
-var UserStore    = MiitApp.require('core/stores/user-store');
+var filesize  = MiitApp.require('core/lib/filesize'),
+    UserStore = MiitApp.require('core/stores/user-store');
 
 // Include requirements
-//var DocumentsStore = require('documents-store');
+var DocumentsActions = require('documents-actions');
 
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
 
 var DocumentsListItem = React.createClass({
-    componentDidMount: function() {
-    },
-
-    componentWillUnmount: function() {
-    },
-
-    _onChange: function() {
-        this.forceUpdate();
-    },
-
     getDefaultProps: function () {
         return {
             text: {
-                title:      'Documents',
-                download:   'Télecharger',
-                remove:     'Supprimer'
-            }
+                title:    'Documents',
+                download: 'Télecharger',
+                remove:   'Supprimer'
+            },
+            document: {}
         };
     },
 
-    render: function() {
+    onRemove: function() {
+        var document = this.props.document;
+        
+        DocumentsActions.remove(document.id);
+    },
 
+    onDownload: function() {
+
+    },
+
+    render: function() {
         var document = this.props.document;
         var icon = "fa ";
 
@@ -46,20 +47,29 @@ var DocumentsListItem = React.createClass({
                 break;
         }
 
+        var name = document.file.name;
+        var type = document.file.type;
+
+        // Add {suffixes: {B: 'o', KB: 'Ko', MB: 'Mo', GB: 'Go'}} to translate in french (later)
+        var size = filesize(document.file.size);
+
         return (
             <div className="miit-component documents-list-item">
-
-            <span className="document-icon mr15"><i className={icon} ></i></span>
-                <span className="document-name">
-                    {document.name}
-                </span>
-                <span className="document-size">{document.size}</span>
-                <span className="document-type">{document.type}</span>
+                <span className="document-icon mr15"><i className={icon}></i></span>
+                
+                <span className="document-name">{name}</span>
+                <span className="document-size">{size}</span>
+                <span className="document-type">{type}</span>
+                
                 <span className="document-actions right">
-                    <If test={document.allowDownload}>
-                        <span className="mr20 action-download text-blue"><i className="fa fa-download mr5"></i>{this.props.text.download}</span>
+                    <span className="action-download text-blue mr20" onClick={this.onDownload}>
+                        <i className="fa fa-download mr5"></i>{this.props.text.download}
+                    </span>
+                    <If test={UserStore.isAdmin()}>
+                        <span className="action-delete text-red" onClick={this.onRemove}>
+                            <i className="fa fa-trash mr5"></i>{this.props.text.remove}
+                        </span>
                     </If>
-                    <span className="action-delete text-red"><i className="fa fa-trash mr5"></i>{this.props.text.remove}</span>
                 </span>
             </div>
         );

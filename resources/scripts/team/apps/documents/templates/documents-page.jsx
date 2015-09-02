@@ -26,7 +26,7 @@ var DocumentsPage = React.createClass({
         }
 
         return (
-            <Layout title={this.props.title} fullheight={true}>
+            <Layout title={this.props.title}>
                 <DocumentsApp />
             </Layout>
         );

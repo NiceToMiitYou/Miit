@@ -4,8 +4,8 @@
 var PageStore = MiitApp.require('core/stores/page-store');
 
 // Include requirements
-//var DocumentsStore   = require('Documents-store'),
-//    DocumentsActions = require('Documents-actions');
+var DocumentsStore   = require('documents-store'),
+    DocumentsActions = require('documents-actions');
 
 // Include templates
 var DocumentsList = require('templates/documents-list.jsx');
@@ -15,6 +15,10 @@ var DocumentsApp = React.createClass({
         return {
             page: null
         };
+    },
+
+    componentWillMount: function () {
+        DocumentsActions.refresh();  
     },
 
     componentDidMount: function() {
