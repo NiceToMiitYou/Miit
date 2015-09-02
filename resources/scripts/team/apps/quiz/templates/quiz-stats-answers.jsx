@@ -21,7 +21,8 @@ var QuizStatsAnswers = React.createClass({
             quiz:     '',
             question: {},
             text: {
-                title: 'Réponses'
+                title:    'Réponses',
+                openInfo: 'Ceci est une question ouverte vous trouverez ci-dessous la liste des réponses'
             },
             answers: []
         };
@@ -60,7 +61,11 @@ var QuizStatsAnswers = React.createClass({
 
         return (
             <div className="miit-component quiz-stats-answers panel-content">
-                
+
+                <If test={question.kind == 3}>
+                    <p className="pb10 text-blue"><i className="fa fa-info-circle mr5"></i> {this.props.text.openInfo}</p>
+                </If>
+
                 <If test={3 !== question.kind}>
                     <div className="chart-container row">
                         <div className="chart-holder col-sm-5 col-md-4 col-lg-3">

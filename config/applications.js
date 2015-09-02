@@ -11,7 +11,7 @@ config['APP_CHAT'] = {
     color: 'blue',
 
     // The icon
-    icon: 'weixin'
+    icon: 'comments-o'
 };
 
 // Definition of the Wall
@@ -35,7 +35,7 @@ config['APP_QUIZ'] = {
     color: 'green',
 
     // The icon
-    icon: 'question'
+    icon: 'check-square-o'
 };
 
 // Definition of the Document
@@ -47,7 +47,7 @@ config['APP_DOCUMENTS'] = {
     color: 'red',
 
     // The icon
-    icon: 'file-text'
+    icon: 'folder-open-o'
 };
 
 miitoo.register('ApplicationsConfig', config, true);

@@ -76,13 +76,13 @@ var QuizStats = React.createClass({
 
         return (
             <div className="miit-component quiz-stats container-fluid">
-                <h2 className="mb10">
+                <h2 className="mb10 mt25">
                     {this.props.text.title + ' - ' + quiz.name}
+                
+                    <If test={quiz.description}>
+                        <span className="mb20 subtitle">{quiz.description}</span>
+                    </If>
                 </h2>
-
-                <If test={quiz.description}>
-                    <p className="mb20">{quiz.description}</p>
-                </If>
 
                 <QuizStatsQuestions quiz={quiz.id} questions={quiz.questions} />
             </div>

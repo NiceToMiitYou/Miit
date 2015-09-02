@@ -82,6 +82,10 @@
 		div.app-desc {
 			margin-top: 15px;
 		}
+
+		&.installed {
+			display: none;
+		}
 	}
 
 }
