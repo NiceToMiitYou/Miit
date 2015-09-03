@@ -39,5 +39,5 @@ views/mail/css
 resources/scripts/team/core-require.js
 
 # ignore cache folder
-cache
-upload
+/cache/
+/upload/

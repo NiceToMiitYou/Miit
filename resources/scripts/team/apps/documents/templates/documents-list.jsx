@@ -9,7 +9,10 @@ var UserStore     = MiitApp.require('core/stores/user-store'),
 // Include requirements
 var DocumentsStore = require('documents-store');
 
-//Include template
+// Include core template
+var UploadList = MiitApp.require('core/templates/upload/upload-list.jsx');
+
+// Include template
 var DocumentsListItem = require('templates/documents-list-item.jsx'),
     DocumentsUpload   = require('templates/documents-upload.jsx');
 
@@ -70,6 +73,8 @@ var DocumentsList = React.createClass({
                 <button type="button"  className="btn btn-info pull-left ml20" onClick={this.onUpload} >
                     <i className="fa fa-plus mr5"></i> {this.props.text.upload}
                 </button>
+
+                <UploadList application={this.props.identifier} />
 
                 <div className="list">
 
