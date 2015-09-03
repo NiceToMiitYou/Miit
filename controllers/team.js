@@ -166,7 +166,7 @@ var controller = miitoo.resolve(
             var userId = payload.user;
 
             // Find the original file instruction
-            UploadStore.getUploaded(uploadId, team, userId, application, function(err, upload) {
+            UploadStore.getForDownload(uploadId, team, application, function(err, upload) {
                 if(err || !upload)
                 {
                     return handleErr(res, err);

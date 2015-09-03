@@ -82,6 +82,30 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                 });
         },
 
+        getForDownload: function(upload, team, application, cb) {
+            var teamId   = getId(team),
+                uploadId = new ObjectId(getId(upload));
+
+            Upload
+                .findOne({
+                    _id:         uploadId,
+                    team:        teamId,
+                    application: application,
+                    uploaded:    true,
+                    deleted:     false
+                })
+                .exec(function(err, upload) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, upload);
+                    }
+                });
+        },
+
         setUploaded: function(upload, path, name, size, type, cb) {
             var uploadId = new ObjectId(getId(upload));
 
