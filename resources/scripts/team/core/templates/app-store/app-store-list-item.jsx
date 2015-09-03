@@ -54,20 +54,22 @@ var AppStoreListItem = React.createClass({
             appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color);
 
         return (
-            <div className={classes}>
-                <span className="app-icon">
-                    <i className={appClasses}></i>
-                </span>
-                <div className="app-desc">
-                    <span>
-                        {application.name}
+            <If test={!isInstalled}>
+                <div className={classes}>
+                    <span className="app-icon">
+                        <i className={appClasses}></i>
                     </span>
-                    <p>
-                        {application.description}
-                    </p>
-                    <button onClick={this.handleAdd} className="btn btn-info btn-sm"><i className="fa fa-plus mr5"></i> Ajouter</button>
+                    <div className="app-desc">
+                        <span>
+                            {application.name}
+                        </span>
+                        <p>
+                            {application.description}
+                        </p>
+                        <button onClick={this.handleAdd} className="btn btn-info btn-sm"><i className="fa fa-plus mr5"></i> Ajouter</button>
+                    </div>
                 </div>
-            </div>
+            </If>
         );
     }
 });

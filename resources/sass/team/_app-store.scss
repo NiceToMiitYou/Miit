@@ -53,7 +53,7 @@
 
 			button {
 				position: absolute;
-				bottom: -40px;
+				bottom: -80px;
 				padding: 5px 10px;
 				right: 10px;
 				opacity: 0;
@@ -76,9 +76,6 @@
 			}
 		}
 
-		&.installed {
-			display: none;
-		}
 	}
 
 }
