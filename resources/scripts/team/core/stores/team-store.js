@@ -79,10 +79,10 @@ function _getUserById(id) {
 }
 
 function _updateUser(id, name) {
-    var index = Users.indexBy('id', id);
+    var user = Users.findBy('id', id);
     
-    if(-1 !== index) {
-        Users[index].name = name;
+    if(user) {
+        user.name = name;
     }
 }
 

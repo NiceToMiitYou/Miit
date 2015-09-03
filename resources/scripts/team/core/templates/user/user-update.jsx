@@ -9,7 +9,7 @@ var UserUpdate = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                name:              'Votre nom'
+                name: 'Votre nom'
             },
             submit:            'Modifier',
             changeNameSuccess: 'Votre nom a été changé avec succès',
@@ -50,17 +50,25 @@ var UserUpdate = React.createClass({
         UserStore.removeUserUpdatedListener(this._onChanged);
     },
 
+    _onChangedDebounce: null,
+
     _onChanged: function() {
-        if(this.isMounted()) {
-            var user = UserStore.getUser();
+        if(!this._onChangedDebounce) {
+            this._onChangedDebounce = Debounce(function() {
+                if(this.isMounted()) {
+                    var user = UserStore.getUser();
 
-            NotificationsActions.notify('success', this.props.changeNameSuccess);
+                    NotificationsActions.notify('success', this.props.changeNameSuccess);
 
-            // Reset value
-            this.setState({
-                value_name: user.name
-            });
+                    // Reset value
+                    this.setState({
+                        value_name: user.name
+                    });
+                }
+            }.bind(this), 250);
         }
+
+        this._onChangedDebounce();
     },
     
     handleChange: function(e) {
