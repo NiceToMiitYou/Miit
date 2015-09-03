@@ -91,7 +91,7 @@ UploadStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.PROGRESS_UPLOAD:
             _updateUpload(action.id, action.current, action.total);
-            UploadStore.emitProgress();
+            UploadStore.emitProgress(action.id);
             break;
 
         case ActionTypes.DONE_UPLOAD:

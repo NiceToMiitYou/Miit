@@ -9,7 +9,13 @@ var UserStore     = MiitApp.require('core/stores/user-store'),
 // Include requirements
 var DocumentsStore = require('documents-store');
 
-//Include template
+// Include common
+var If = require('templates/if.jsx');
+
+// Include core template
+var UploadList = MiitApp.require('core/templates/upload/upload-list.jsx');
+
+// Include template
 var DocumentsListItem = require('templates/documents-list-item.jsx'),
     DocumentsUpload   = require('templates/documents-upload.jsx');
 
@@ -67,9 +73,13 @@ var DocumentsList = React.createClass({
             <div className="miit-component documents-list">
                 <h2 className="mt25 mb20">{this.props.text.title}</h2>
                 
-                <button type="button"  className="btn btn-info pull-left ml20" onClick={this.onUpload} >
-                    <i className="fa fa-plus mr5"></i> {this.props.text.upload}
-                </button>
+                <If test={UserStore.isAdmin()}>
+                    <button type="button"  className="btn btn-info pull-left ml20" onClick={this.onUpload} >
+                        <i className="fa fa-plus mr5"></i> {this.props.text.upload}
+                    </button>
+                </If>
+
+                <UploadList application={this.props.identifier} />
 
                 <div className="list">
 
