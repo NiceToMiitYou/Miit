@@ -12,7 +12,7 @@ var UserLogin = React.createClass({
             text: {
                 title:          'Connexion au Miit',
                 loginSuccess:   'Bienvenue',
-                loginError:     'une erreur s\'est produite lors de votre connexion a Miit'
+                loginError:     'Votre adresse mail ou votre mot de passe est incorrect(e)'
             },
             placeholder: {
                 email:    'Adresse email',
