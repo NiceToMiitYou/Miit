@@ -1,8 +1,9 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    UserActions = require('core/actions/user-actions');
+var UserStore            = require('core/stores/user-store'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    UserActions         = require('core/actions/user-actions');
 
 var UserChangePassword = React.createClass({
     getDefaultProps: function() {
@@ -12,7 +13,9 @@ var UserChangePassword = React.createClass({
                 first:  'Le nouveau mot de passe',
                 second: 'Entrez le mot de passe à nouveau'
             },
-            submit: 'Changer le mot de passe'
+            submit:                'Changer le mot de passe',
+            changePasswordSuccess: 'Votre mot de passe a été changé avec succès',
+            changePasswordError:   'Une erreur s\'est produite lors du chargement de votre mot de passe'
         };
     },
 
@@ -50,6 +53,7 @@ var UserChangePassword = React.createClass({
 
     _onChanged: function() {
         if(this.isMounted()) {
+            NotificationsActions.notify('success', this.props.changePasswordSuccess);
             // Reset value
             this.setState({
                 value_old:    '',
@@ -60,7 +64,7 @@ var UserChangePassword = React.createClass({
     },
 
     _onError: function() {
-        console.log('password not changed.');
+        NotificationsActions.notify('danger', this.props.changePasswordError);
     },
     
     handleChange: function(e) {
