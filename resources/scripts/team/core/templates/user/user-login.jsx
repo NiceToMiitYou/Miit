@@ -10,7 +10,9 @@ var UserLogin = React.createClass({
     getDefaultProps: function() {
         return {
             text: {
-                title: 'Connexion au Miit'
+                title:          'Connexion au Miit',
+                loginSuccess:   'Bienvenue',
+                loginError:     'une erreur s\'est produite lors de votre connexion a Miit'
             },
             placeholder: {
                 email:    'Adresse email',
@@ -49,14 +51,16 @@ var UserLogin = React.createClass({
     },
 
     _onLoggedIn: function() {
-        if(this.isMounted()) {
-            NotificationsActions.notify('success', "test");
+        if(this.isMounted()) { 
+            var notifLogin = this.props.text.loginSuccess + '  ' + UserStore.getName();
+            NotificationsActions.notify('success', notifLogin);
             this.forceUpdate();
         }
     },
 
     _onError: function() {
         if(this.isMounted()) {
+            NotificationsActions.notify('danger', this.props.text.loginError);
             this.setState({
                 login_error:    true,
                 value_password: ''
