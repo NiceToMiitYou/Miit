@@ -92,8 +92,8 @@ var DocumentsList = React.createClass({
                     </div>
 
                     {documents.map(function(document) {
-                        return <DocumentsListItem key={'documents-document-' + document.id} document={document} />;
-                    })}
+                        return <DocumentsListItem key={'documents-document-' + document.id} document={document} identifier={this.props.identifier} />;
+                    }, this)}
                 </div>
             </div>
         );

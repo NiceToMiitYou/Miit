@@ -14,6 +14,10 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         name: String,
         size: Number,
         type: String,
+        downloads: {
+            type:    Number,
+            default: 0
+        },
         uploaded: {
             type:    Boolean,
             default: false

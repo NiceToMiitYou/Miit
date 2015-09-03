@@ -34,9 +34,9 @@ function randomString() {
     return str;
 }
 
-function createIframe(application, upload) {
+function createIframe(action, application, upload) {
     // Define the id
-    var id = 'upload-iframe-' + application + '-' + upload + '-' + randomString();
+    var id = action + '-iframe-' + application + '-' + upload + '-' + randomString();
     
     // Define the element
     var ifr = document.createElement('iframe');
@@ -127,7 +127,7 @@ module.exports = {
         addField(form, 'token',       UserStore.getToken());
 
         // If no error, submit the form in the iframe
-        form.target = createIframe(application, upload);
+        form.target = createIframe('upload', application, upload);
         form.submit();
 
         // Register the upload
@@ -139,6 +139,30 @@ module.exports = {
         };
 
         Dispatcher.dispatch(action);
+
+        return true;
+    },
+
+    download: function(application, upload) {
+        if(!UserStore.isUser() || !application || !upload) {
+            return false;
+        }
+
+        // Create the form
+        var form = document.createElement('form');
+        
+        form.setAttribute('method', 'POST');
+        form.setAttribute('action', '/download');
+        form.setAttribute('enctype', 'application/x-www-form-urlencoded');
+
+        // Add a hidden field before download
+        addField(form, 'application', application);
+        addField(form, 'upload',      upload);
+        addField(form, 'token',       UserStore.getToken());
+
+        // Create an iframe download
+        form.target = createIframe('download', application, upload);
+        form.submit();
 
         return true;
     },
