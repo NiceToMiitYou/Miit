@@ -3,9 +3,6 @@
 // Include requirements
 var UploadStore = require('core/stores/upload-store');
 
-// Include common
-var If = require('templates/if.jsx');
-
 // Include components
 var UploadListItem = require('./upload-list-item.jsx');
 
