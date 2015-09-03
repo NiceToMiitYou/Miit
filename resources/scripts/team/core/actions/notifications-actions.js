@@ -7,12 +7,14 @@ var Dispatcher  = require('core/lib/dispatcher'),
 // Expose the actions
 module.exports = {
     notify: function(type, text) {
-        var action = {
-            type:     ActionTypes.NEW_NOTIFICATION,
-            category: type || 'info',
-            text:     text
-        };
+        setTimeout(function() {
+            var action = {
+                type:     ActionTypes.NEW_NOTIFICATION,
+                category: type || 'info',
+                text:     text
+            };
 
-        Dispatcher.dispatch(action);
+            Dispatcher.dispatch(action);
+        });
     }
 };
