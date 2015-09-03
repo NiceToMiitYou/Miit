@@ -1,9 +1,10 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    UserActions = require('core/actions/user-actions'),
-    TeamStore   = require('core/stores/team-store');
+var UserStore            = require('core/stores/user-store'),
+    UserActions          = require('core/actions/user-actions'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    TeamStore            = require('core/stores/team-store');
 
 var UserLogin = React.createClass({
     getDefaultProps: function() {
@@ -49,6 +50,7 @@ var UserLogin = React.createClass({
 
     _onLoggedIn: function() {
         if(this.isMounted()) {
+            NotificationsActions.notify('success', "test");
             this.forceUpdate();
         }
     },
