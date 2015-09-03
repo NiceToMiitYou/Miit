@@ -91,6 +91,15 @@ function handleEnd(res, files, err) {
     });
 }
 
+function handleErr(res, err) {
+    if(err) {
+        miitoo.logger.error(err.message);
+        miitoo.logger.error(err.stack);
+    }
+
+    return res.end();
+}
+
 var controller = miitoo.resolve(
     ['Jwt', 'MiitConfig', 'ApplicationsConfig', 'TeamRoutes', 'TeamStore', 'UploadStore', 'RealtimeDispatcher'],
     function(jwt, config, applications, app, TeamStore, UploadStore, RealtimeDispatcher) {
@@ -126,6 +135,58 @@ var controller = miitoo.resolve(
             req.team = team;
 
             next();
+        });
+    });
+
+    // Handle download of files
+    app.post('/download', function(req, res) {
+
+        if(
+            !req.body ||
+            !req.body.upload      || typeof req.body.upload      !== 'string' ||
+            !req.body.application || typeof req.body.application !== 'string' ||
+            !req.body.token       || typeof req.body.token       !== 'string' || 'null' === req.body.token
+        ) {
+            return res.end();
+        }
+
+        // Prepare variables
+        var application = req.body.application,
+            uploadId    = req.body.upload,
+            token       = req.body.token,
+            team        = req.team;
+        
+        // Check the token
+        jwt.verify(token, function(err, payload) {
+            if(err || !payload)
+            {
+                return handleErr(res, err);
+            }
+
+            var userId = payload.user;
+
+            // Find the original file instruction
+            UploadStore.getUploaded(uploadId, team, userId, application, function(err, upload) {
+                if(err || !upload)
+                {
+                    return handleErr(res, err);
+                }
+
+                // Save informations
+                UploadStore.incrementDownloads(upload, function(err) {
+                    if(err)
+                    {
+                        return handleErr(res, err);
+                    }
+
+                    return res.download(upload.path, upload.name, function(err){
+                        if(err) {
+                            miitoo.logger.error(err.message);
+                            miitoo.logger.error(err.stack);
+                        }
+                    });
+                });
+            });
         });
     });
 

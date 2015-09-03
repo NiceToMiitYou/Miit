@@ -1,8 +1,9 @@
 'use strict';
 
 // Include core requirements
-var filesize  = MiitApp.require('core/lib/filesize'),
-    UserStore = MiitApp.require('core/stores/user-store');
+var filesize      = MiitApp.require('core/lib/filesize'),
+    UserStore     = MiitApp.require('core/stores/user-store'),
+    UploadActions = MiitApp.require('core/actions/upload-actions');
 
 // Include requirements
 var DocumentsActions = require('documents-actions');
@@ -18,7 +19,8 @@ var DocumentsListItem = React.createClass({
                 download: 'Télecharger',
                 remove:   'Supprimer'
             },
-            document: {}
+            document: {},
+            identifier: ''
         };
     },
 
@@ -29,33 +31,24 @@ var DocumentsListItem = React.createClass({
     },
 
     onDownload: function() {
+        var document   = this.props.document,
+            identifier = this.props.identifier;
 
+        UploadActions.download(identifier, document.file.id);
     },
 
     render: function() {
         var document = this.props.document;
-        var icon = "fa ";
 
-        switch(document.type) {
-
-            case 'pdf' :
-                icon += "fa-file-pdf-o";
-                break;
-
-            default:
-                icon += "fa-file-o";
-                break;
-        }
-
-        var name = document.file.name;
-        var type = document.file.type;
+        var name = document.file.name,
+            type = document.file.type;
 
         // Add {suffixes: {B: 'o', KB: 'Ko', MB: 'Mo', GB: 'Go'}} to translate in french (later)
         var size = filesize(document.file.size);
 
         return (
             <div className="miit-component documents-list-item">
-                <span className="document-icon mr15"><i className={icon}></i></span>
+                <span className="document-icon mr15"><i className="fa fa-file-o"></i></span>
                 
                 <span className="document-name">{name}</span>
                 <span className="document-size">{size}</span>

@@ -41,7 +41,8 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                     user:        userId,
                     team:        teamId,
                     application: application,
-                    uploaded: false
+                    uploaded:    false,
+                    deleted:     false
                 })
                 .exec(function(err, upload) {
                     if(err) {
@@ -66,7 +67,8 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                     user:        userId,
                     team:        teamId,
                     application: application,
-                    uploaded: true
+                    uploaded:    true,
+                    deleted:     false
                 })
                 .exec(function(err, upload) {
                     if(err) {
@@ -92,6 +94,27 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                     size:     size,
                     type:     type,
                     uploaded: true
+                }, function(err, upload) {
+                    // Log the error
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, upload);
+                    }
+                });
+        },
+
+        incrementDownloads: function(upload, cb) {
+            var uploadId = new ObjectId(getId(upload));
+
+            Upload
+                .update({
+                    _id: uploadId
+                }, {
+                    $inc:  { downloads: 1 }
                 }, function(err, upload) {
                     // Log the error
                     if(err) {
