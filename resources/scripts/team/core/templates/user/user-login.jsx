@@ -112,13 +112,15 @@ var UserLogin = React.createClass({
 
         var value_email    = this.state.value_email;
         var classes_email  = classNames({
-            'invalid': this.state.missing_email ||
-                       this.state.invalid_format
+            'invalid': this.state.missing_email  ||
+                       this.state.invalid_format ||
+                       this.state.login_error
         });
 
         var value_password   = this.state.value_password;
         var classes_password = classNames({
-            'invalid': this.state.missing_password
+            'invalid': this.state.missing_password ||
+                       this.state.login_error
         });
 
         return (
