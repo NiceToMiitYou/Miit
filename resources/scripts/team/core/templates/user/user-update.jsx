@@ -1,16 +1,19 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    UserActions = require('core/actions/user-actions');
+var UserStore            = require('core/stores/user-store'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    UserActions          = require('core/actions/user-actions');
 
 var UserUpdate = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                name: 'Votre nom'
+                name:              'Votre nom'
             },
-            submit: 'Modifier'
+            submit:            'Modifier',
+            changeNameSuccess: 'Votre nom a été changé avec succès',
+            changeNameError:   'Une erreur s\'est produite lors du chargement de votre nom'
         };
     },
 
@@ -50,6 +53,8 @@ var UserUpdate = React.createClass({
     _onChanged: function() {
         if(this.isMounted()) {
             var user = UserStore.getUser();
+
+            NotificationsActions.notify('success', this.props.changeNameSuccess);
 
             // Reset value
             this.setState({
