@@ -15,7 +15,7 @@ var UserChangePassword = React.createClass({
             },
             submit:                'Changer le mot de passe',
             changePasswordSuccess: 'Votre mot de passe a été changé avec succès',
-            changePasswordError:   'Une erreur s\'est produite lors du chargement de votre mot de passe'
+            changePasswordError:   'Une erreur s\'est produite lors du changement de votre mot de passe'
         };
     },
 

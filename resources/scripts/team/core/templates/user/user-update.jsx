@@ -13,7 +13,7 @@ var UserUpdate = React.createClass({
             },
             submit:            'Modifier',
             changeNameSuccess: 'Votre nom a été changé avec succès',
-            changeNameError:   'Une erreur s\'est produite lors du chargement de votre nom'
+            changeNameError:   'Une erreur s\'est produite lors du changement de votre nom'
         };
     },
 
