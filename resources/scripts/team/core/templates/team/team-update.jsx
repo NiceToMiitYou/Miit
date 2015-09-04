@@ -21,8 +21,7 @@ var TeamUpdate = React.createClass({
                 private:                'Privé',
                 name:                   'Nom de votre Miit', 
                 privacy:                'Confidentialité', 
-                changePrivacyPublic:    'Votre Miit est maintenant un espace public', 
-                changePrivacyPrivate:   'Votre Miit est maintenant un espace privé',
+                changeInformations:     'Les informations de votre miit ont bien été modifiés', 
                 isPrivate:              'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
             submit: 'Sauvegarder'
@@ -70,11 +69,7 @@ var TeamUpdate = React.createClass({
             // Be sure that is set
             var team = TeamStore.getTeam();
 
-            if (team.public) {
-                NotificationsActions.notify('success', this.props.text.changePrivacyPublic);
-            } else if (!team.public) {
-                NotificationsActions.notify('success', this.props.text.changePrivacyPrivate);
-            }
+            NotificationsActions.notify('success', this.props.text.changeInformations);
 
             this.setState({
                 value_name:   team.name,
