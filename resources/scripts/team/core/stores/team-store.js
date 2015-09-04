@@ -221,22 +221,22 @@ TeamStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.UPDATE_TEAM:
             _update(action.name, action.public);
-            TeamStore.emitTeamUpdated();
+            TeamStore.emitTeamUpdated('TEAM');
             break;
 
         case ActionTypes.ADD_APPLICATION:
             _addApplication(action.identifier, action.public);
-            TeamStore.emitTeamUpdated();
+            TeamStore.emitTeamUpdated('APPLICATIONS');
             break;
 
         case ActionTypes.UPDATE_APPLICATION:
             _updateApplication(action.identifier, action.public);
-            TeamStore.emitTeamUpdated();
+            TeamStore.emitTeamUpdated('APPLICATIONS');
             break;
 
         case ActionTypes.REMOVE_APPLICATION:
             _removeApplication(action.identifier);
-            TeamStore.emitTeamUpdated();
+            TeamStore.emitTeamUpdated('APPLICATIONS');
             break;
 
         case ActionTypes.INVITE_USER:
