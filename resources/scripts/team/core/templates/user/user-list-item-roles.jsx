@@ -1,15 +1,17 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    TeamStore   = require('core/stores/team-store'),
-    TeamActions = require('core/actions/team-actions');
+var UserStore            = require('core/stores/user-store'),
+    TeamStore            = require('core/stores/team-store'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    TeamActions          = require('core/actions/team-actions');
 
 var UserListItemRoles = React.createClass({
     getDefaultProps: function() {
         return {
             text: {
                 admin:  'Administrateur',
+                chnageUser:  'La modification a bien été prise en compte pour l\'utilisateur ',
                 remove: 'Supprimer'
             },
             user: {
@@ -39,8 +41,13 @@ var UserListItemRoles = React.createClass({
         TeamStore.removeDemotedListener(this._onChanged);
     },
 
-    _onChanged: function() {
-        this.forceUpdate();
+    _onChanged: function(id) {
+        if (this.props.user.id === id) {
+            var user = this.props.user;
+
+            NotificationsActions.notify('success', this.props.text.chnageUser + user.name);
+            this.forceUpdate();
+        }
     },
 
     toggleRole: function(role, cb) {
