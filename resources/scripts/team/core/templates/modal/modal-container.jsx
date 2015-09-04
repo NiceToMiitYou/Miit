@@ -4,7 +4,8 @@
 var ModalStore = require('core/stores/modal-store');
 
 // Include component
-var Modal = require('./modal.jsx');
+var Modal      = require('./modal.jsx'),
+    AlertPopin = require('./alert-popin.jsx');
 
 var ModalContainer = React.createClass({
     getInitialState: function () {
@@ -14,13 +15,26 @@ var ModalContainer = React.createClass({
     },
 
     componentDidMount: function() {
-        ModalStore.addOpenModalListener(this._onOpen);
-        ModalStore.addCloseModalListener(this._onClose);
+        ModalStore.addAlertedListener(this._onAlert);
+        ModalStore.addOpenedListener(this._onOpen);
+        ModalStore.addClosedListener(this._onClose);
     },
 
     componentWillUnmount: function() {
-        ModalStore.removeOpenModalListener(this._onOpen);
-        ModalStore.removeCloseModalListener(this._onClose);
+        ModalStore.removeAlertedListener(this._onAlert);
+        ModalStore.removeOpenedListener(this._onOpen);
+        ModalStore.removeClosedListener(this._onClose);
+    },
+
+    _onAlert: function(name, options) {
+        // Initialize options
+        options = options || {};
+
+        var element = (
+            <AlertPopin content={options.content} onClick={options.on_click} onAgree={options.on_agree} onCancel={options.on_cancel} />
+        );
+
+        this._onOpen(name, element, options);
     },
 
     _onOpen: function(name, element, options) {

@@ -27,12 +27,10 @@ var Modal = React.createClass({
     },
 
     render: function() {
-        var overlay = false !== this.props.options.overlay;
-        var title = this.props.options.title || this.props.name;
+        var overlay = false !== this.props.options.overlay,
+            title   = this.props.options.title || this.props.name;
 
         var colorClass = '';
-
-        console.log(this.props)
 
         switch(this.props.options.color) {
             case 'dark' :

@@ -3,6 +3,7 @@
 // Include core requirements
 var filesize      = MiitApp.require('core/lib/filesize'),
     UserStore     = MiitApp.require('core/stores/user-store'),
+    ModalActions  = MiitApp.require('core/actions/modal-actions'),
     UploadActions = MiitApp.require('core/actions/upload-actions');
 
 // Include requirements
@@ -17,17 +18,29 @@ var DocumentsListItem = React.createClass({
             text: {
                 title:    'Documents',
                 download: 'Télecharger',
-                remove:   'Supprimer'
+                remove:   'Supprimer',
+                alert: {
+                    title:   'Suppression d\'un document',
+                    content: 'Voulez-vous vraiment supprimer le document?'
+                }
             },
             document: {},
             identifier: ''
         };
     },
 
-    onRemove: function() {
+    _onRemove: function() {
         var document = this.props.document;
         
         DocumentsActions.remove(document.id);
+    },
+
+    onRemove: function() {
+        var title    = this.props.text.alert.title,
+            content  = this.props.text.alert.content,
+            onAgree  = this._onRemove;
+
+        ModalActions.alert(title, content, onAgree);
     },
 
     onDownload: function() {

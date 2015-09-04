@@ -7,26 +7,32 @@ var Dispatcher  = require('core/lib/dispatcher'),
 // List of events
 var events = KeyMirror({
     // Events on modal open or close
-    CLOSE_MODAL: null,
-    OPEN_MODAL: null
+    ALERTED: null,
+    CLOSED: null,
+    OPENED: null
 });
 
 // The ModalStore Object
 var ModalStore = ObjectAssign({}, EventEmitter.prototype, {});
 
 // Register Functions based on event
-ModalStore.generateNamedFunctions(events.OPEN_MODAL);
-ModalStore.generateNamedFunctions(events.CLOSE_MODAL);
+ModalStore.generateNamedFunctions(events.ALERTED);
+ModalStore.generateNamedFunctions(events.OPENED);
+ModalStore.generateNamedFunctions(events.CLOSED);
 
 // Handle actions
 ModalStore.dispatchToken = Dispatcher.register(function(action){
     switch(action.type) {
+        case ActionTypes.ALERT_MODAL:
+            ModalStore.emitAlerted(action.name, action.options);
+            break;
+
         case ActionTypes.OPEN_MODAL:
-            ModalStore.emitOpenModal(action.name, action.element, action.options);
+            ModalStore.emitOpened(action.name, action.element, action.options);
             break;
 
         case ActionTypes.CLOSE_MODAL:
-            ModalStore.emitCloseModal(action.name);
+            ModalStore.emitClosed(action.name);
             break;
     }
 });

@@ -20,6 +20,34 @@ module.exports = {
         });
     },
 
+    alert: function(title, content, onAgree, onCancel) {
+        var self    = this,
+            name    = 'alert-popin',
+            onClick = function() {
+                self.close(name);
+            };
+
+        var options = {
+            title:             title,
+            content:           content,
+            size:              'small',
+            on_agree:          onAgree,
+            on_cancel:         onCancel,
+            on_click:          onClick,
+            overlay_closeable: false
+        };
+
+        setTimeout(function() {
+            var action = {
+                type:    ActionTypes.ALERT_MODAL,
+                name:    name,
+                options: options
+            };
+
+            Dispatcher.dispatch(action);
+        });
+    },
+
     close: function(name) {
         
         setTimeout(function() {
