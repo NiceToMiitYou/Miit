@@ -1,9 +1,10 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    TeamStore   = require('core/stores/team-store'),
-    TeamActions = require('core/actions/team-actions');
+var UserStore            = require('core/stores/user-store'),
+    TeamStore            = require('core/stores/team-store'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    TeamActions          = require('core/actions/team-actions');
 
 // Include common
 var If = require('templates/if.jsx');
@@ -15,12 +16,14 @@ var TeamUpdate = React.createClass({
                 name: 'Nom du Miit'
             },
             text: {
-                public:    'Public',
-                isPublic:  'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
-                private:   'Privé',
-                name:      'Nom de votre Miit', 
-                privacy:   'Confidentialité', 
-                isPrivate: 'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
+                public:                 'Public',
+                isPublic:               'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
+                private:                'Privé',
+                name:                   'Nom de votre Miit', 
+                privacy:                'Confidentialité', 
+                changePrivacyPublic:    'Votre Miit est maintenant un espace public', 
+                changePrivacyPrivate:   'Votre Miit est maintenant un espace privé',
+                isPrivate:              'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
             submit: 'Sauvegarder'
         };
@@ -66,6 +69,12 @@ var TeamUpdate = React.createClass({
         if(this.isMounted()) {
             // Be sure that is set
             var team = TeamStore.getTeam();
+
+            if (team.public) {
+                NotificationsActions.notify('success', this.props.text.changePrivacyPublic);
+            } else if (!team.public) {
+                NotificationsActions.notify('success', this.props.text.changePrivacyPrivate);
+            }
 
             this.setState({
                 value_name:   team.name,
