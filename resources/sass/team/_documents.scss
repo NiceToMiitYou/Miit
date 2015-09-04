@@ -3,6 +3,12 @@
 
 	.documents-list {
 
+		.btn-upload {
+			position: absolute;
+			top: 25px;
+			right: 25px;
+		}
+
 		.list {
 			display: table;
 			width: 100%;
@@ -20,6 +26,7 @@
 
 			 		& > span {
 				 		border-top: 1px solid #EEE;
+				 		border-bottom: 1px solid #EEE;
 				 	}
 
 			 	}
@@ -40,11 +47,15 @@
 			 	}
 
 			 	.document-size {
-			 		width: 90px;
+			 		width: 110px;
 			 	}
 
 			 	.document-type {
 			 		width: 50px;
+			 	}
+
+			 	.document-name {
+			 		line-height: 1.4em;
 			 	}
 
 			 	.document-actions {
