@@ -3,6 +3,9 @@
 // Include requirements
 var UploadStore = require('core/stores/upload-store');
 
+// Include templated
+var ProgressBar = require('templates/progress-bar.jsx');
+
 var UploadListItem = React.createClass({
     getDefaultProps: function() {
         return {
@@ -31,7 +34,7 @@ var UploadListItem = React.createClass({
         return (
             <div className="miit-component upload-list-item">
                 <div>{upload.name}</div>
-                <div>{progress + '%'}</div>
+                <div><ProgressBar current={progress} /></div>
             </div>
         );
     }
