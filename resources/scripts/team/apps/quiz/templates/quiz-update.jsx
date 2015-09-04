@@ -1,8 +1,9 @@
 'use strict';
 
 // Include core requirements
-var UserStore    = MiitApp.require('core/stores/user-store'),
-    PageStore    = MiitApp.require('core/stores/page-store');
+var UserStore            = MiitApp.require('core/stores/user-store'),
+    NotificationsActions = MiitApp.require('core/actions/notifications-actions'),
+    PageStore            = MiitApp.require('core/stores/page-store');
 
 // Include requirements
 var QuizActions  = require('quiz-actions'),
@@ -26,6 +27,7 @@ var QuizUpdate = React.createClass({
                 title:            'Modifier',
                 name:             'Nom',
                 create_question:  'Ajouter une question',
+                saveQuiz:         'Votre quiz a bien été sauvegarder',
                 description:      'Description',
                 submit:           'Sauvegarder',
                 publish:          'Publier',
@@ -117,6 +119,8 @@ var QuizUpdate = React.createClass({
 
         // Create the quiz
         var result = QuizActions.update(quizId, name, description);
+
+        NotificationsActions.notify('success', this.props.text.saveQuiz);
     },
 
     onCreateQuestion: function(e) {
