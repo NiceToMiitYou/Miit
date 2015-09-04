@@ -246,12 +246,12 @@ TeamStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.PROMOTE_USER:
             _promoteUser(action.id, action.roles);
-            TeamStore.emitPromoted();
+            TeamStore.emitPromoted(action.id);
             break;
 
         case ActionTypes.DEMOTE_USER:
             _demoteUser(action.id, action.roles);
-            TeamStore.emitDemoted();
+            TeamStore.emitDemoted(action.id);
             break;
 
         case ActionTypes.REMOVE_USER:
