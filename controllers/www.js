@@ -8,23 +8,17 @@ var controller = miitoo.resolve(
     function(slugify, response, app, UserManager, TeamManager, MailChimp, MailChimpConfig, i18nConfig) {
     
     // Index route
-    app.get('/', function(req, res) {
+    app.get(/^\/(fr|en)?\/?$/, function(req, res) {
         // Extract local from config
-        var locales = i18nConfig.locales;
+        var locales = i18nConfig.locales,
+            locale  = req.params[0] || req.getLocale();
+
+        res.cookie('miit-locale', locale, { maxAge: 900000, httpOnly: true });
+        req.setLocale(locale);
 
         return res.render('www/index', {
             locales: locales
         });
-    });
-
-    // Change locale of the visitor
-    app.get(/^\/lang\/?(fr|en)?$/, function(req, res) {
-
-        var locale = req.params[0] || 'en';
-
-        res.cookie('miit-locale', locale, { maxAge: 900000, httpOnly: true });
-
-        return res.redirect('/');
     });
 
     // Create register route
