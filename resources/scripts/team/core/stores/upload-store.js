@@ -26,6 +26,16 @@ function _addUpload(uploadId, name, application) {
     Uploads.addBy('id', upload);
 }
 
+function _getName(uploadId) {
+    var upload = Uploads.findBy('id', uploadId);
+
+    if(!upload) {
+        return;
+    }
+
+    return upload.name;
+}
+
 function _updateUpload(uploadId, current, total) {
     var previous = Uploads.findBy('id', uploadId);
 
@@ -95,8 +105,12 @@ UploadStore.dispatchToken = Dispatcher.register(function(action){
             break;
 
         case ActionTypes.DONE_UPLOAD:
+            // Save the name before remove it
+            var name = _getName(action.id);
+            // Remove the upload
             _removeUpload(action.id);
-            UploadStore.emitFinished();
+            // Emit the event with the name
+            UploadStore.emitFinished(name);
             break;
     }
 });
