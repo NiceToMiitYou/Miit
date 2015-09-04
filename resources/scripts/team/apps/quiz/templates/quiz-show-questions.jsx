@@ -1,7 +1,8 @@
 'use strict';
 
 // Include core requirements
-var UserStore = MiitApp.require('core/stores/user-store');
+var UserStore            = MiitApp.require('core/stores/user-store'),
+    NotificationsActions = MiitApp.require('core/actions/notifications-actions');
 
 // Include requirements
 var QuizValidation = require('apps/quiz/validation'),
@@ -19,8 +20,10 @@ var QuizShowQuestions = React.createClass({
         return {
             quiz: '',
             text: {
-                title: 'Questions',
-                save:  'Soumettre'
+                title:              'Questions',
+                save:               'Soumettre',
+                saveQuizSuccess:    'Vos réponses ont bien été sauvegardées',
+                saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires',
             },
             questions: [],
             preview:   false
@@ -34,7 +37,7 @@ var QuizShowQuestions = React.createClass({
         };
     },
 
-    getAnswers: function() {
+    saveAnswers: function() {
         if(true === processing) {
             return;
         }
@@ -63,9 +66,11 @@ var QuizShowQuestions = React.createClass({
             this.setState({
                 errors: validation.getErrors()
             });
+
+            NotificationsActions.notify('danger', this.props.text.saveQuizError);
         
             return;
-        }
+        } 
 
         // Get clean choices
         var choices = validation.getChoices();
@@ -76,6 +81,8 @@ var QuizShowQuestions = React.createClass({
         this.setState({
             processing: processing
         });
+
+        NotificationsActions.notify('success', this.props.text.saveQuizSuccess);
     },
 
     render: function() {
@@ -105,7 +112,7 @@ var QuizShowQuestions = React.createClass({
 
                 <If test={!preview}>
                     <div className="actions">
-                        <button type="button" className="btn btn-success" onClick={this.getAnswers}>
+                        <button type="button" className="btn btn-success" onClick={this.saveAnswers}>
                             <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
                         </button>
                     </div>
