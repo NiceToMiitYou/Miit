@@ -1,9 +1,10 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    TeamStore   = require('core/stores/team-store'),
-    TeamActions = require('core/actions/team-actions');
+var UserStore            = require('core/stores/user-store'),
+    TeamStore            = require('core/stores/team-store'),
+    NotificationsActions = require('core/actions/notifications-actions'),
+    TeamActions          = require('core/actions/team-actions');
 
 var UserListInvite = React.createClass({
     getDefaultProps: function() {
@@ -12,6 +13,7 @@ var UserListInvite = React.createClass({
                 email: 'Addresse mail'
             },
             submit: 'Inviter l\'utilisateur',
+            inviteUser: 'L\'invitation a bien été envoyé',
             title: 'Inviter un utilisateur'
         };
     },
@@ -79,6 +81,9 @@ var UserListInvite = React.createClass({
     },
 
     _onInvited: function() {
+
+        NotificationsActions.notify('success', this.props.inviteUser);
+
         this.setState({
             email: ''
         });
