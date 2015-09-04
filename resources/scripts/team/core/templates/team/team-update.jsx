@@ -22,6 +22,7 @@ var TeamUpdate = React.createClass({
                 name:                   'Nom de votre Miit', 
                 privacy:                'Confidentialité', 
                 changeInformations:     'Les informations de votre miit ont bien été modifiés', 
+                changeApplications:     'Les applications de votre miit ont bien été modifiés', 
                 isPrivate:              'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
             },
             submit: 'Sauvegarder'
@@ -64,12 +65,20 @@ var TeamUpdate = React.createClass({
         TeamStore.removeTeamUpdatedListener(this._onChanged);
     },
 
-    _onChanged: function() {
+    _onChanged: function(changeAction) {
         if(this.isMounted()) {
             // Be sure that is set
             var team = TeamStore.getTeam();
 
-            NotificationsActions.notify('success', this.props.text.changeInformations);
+            if ('TEAM' === changeAction) {
+
+                NotificationsActions.notify('success', this.props.text.changeInformations);
+
+            } else if ('APPLICATIONS' === changeAction) {
+
+                NotificationsActions.notify('success', this.props.text.changeApplications);
+
+            }
 
             this.setState({
                 value_name:   team.name,
