@@ -947,6 +947,7 @@ click-wave { 0% {
   font-size: .9em;
   line-height: 1.35;
   overflow: hidden;
+  display: inline-block;
   padding: 6px 20px;
   position: relative;
   text-decoration: none;
@@ -1096,6 +1097,49 @@ click-wave { 0% {
   padding: 2px 15px;
 }
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    color: #111;
+    border: 2px dashed #DDD;
+    width: 100%;
+    padding: 35px 0;
+    font-size: 1.2em;
+    font-weight: 100;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+    cursor: pointer;
+
+    &:hover {
+
+      border-color: #999;
+      background-color: #E5E6E7;
+
+    }
+
+
+    input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+    }
+
+  }
 
 /* ---------------- END BUTTONS CSS ---------------- */
 
