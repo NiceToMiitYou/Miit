@@ -105,8 +105,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         addUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
 
             var conditions = {
                 _id:          teamId,
@@ -126,8 +126,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         removeUser: function(team, user, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
 
             var conditions = {
                 _id: teamId
@@ -145,8 +145,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         promoteUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
 
             var conditions = {
                 _id:          teamId,
@@ -163,8 +163,8 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         demoteUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
 
             var conditions = {
                 _id:           teamId,

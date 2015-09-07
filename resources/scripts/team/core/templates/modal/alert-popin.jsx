@@ -45,6 +45,7 @@ var AlertPopin = React.createClass({
                     <button className="btn btn-success mr15" onClick={this._onAgree} type="button">
                         <i className="fa fa-check mr5"></i> {this.props.text.agree}
                     </button>
+
                     <button className="btn btn-danger" onClick={this._onCancel} type="button">
                         <i className="fa fa-times mr5"></i> {this.props.text.cancel}
                     </button>

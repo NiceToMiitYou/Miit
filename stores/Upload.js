@@ -33,7 +33,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         getNotUploaded: function(upload, team, user, application, cb) {
             var teamId   = getId(team),
                 userId   = getId(user),
-                uploadId = new ObjectId(getId(upload));
+                uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .findOne({
@@ -59,7 +64,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         getUploaded: function(upload, team, user, application, cb) {
             var teamId   = getId(team),
                 userId   = getId(user),
-                uploadId = new ObjectId(getId(upload));
+                uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .findOne({
@@ -84,7 +94,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
 
         getForDownload: function(upload, team, application, cb) {
             var teamId   = getId(team),
-                uploadId = new ObjectId(getId(upload));
+                uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .findOne({
@@ -107,7 +122,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         },
 
         setUploaded: function(upload, path, name, size, type, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .update({
@@ -132,7 +152,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         },
 
         incrementDownloads: function(upload, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .update({
@@ -153,7 +178,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         },
 
         remove: function(upload, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .remove({

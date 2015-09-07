@@ -72,10 +72,15 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
 
         remove: function(team, document, cb) {
             var teamId     = getId(team),
-                documentId = new ObjectId(getId(document));
+                documentId = getId(document);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(documentId)) {
+                return;
+            }
 
             Document
-                .findOne(documentId)
+                .findOne(new ObjectId(documentId))
                 .populate('file')
                 .exec(function(err, doc) {
                     if(err) {
