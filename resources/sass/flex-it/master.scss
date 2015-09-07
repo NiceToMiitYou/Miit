@@ -1223,7 +1223,7 @@ click-wave { 0% {
       border: 1px solid #E8E8E8;
 
       .modal-title {
-        font-size: 1.5em;
+        font-size: 1.45em;
         padding: 18px 25px;
         margin: -1px -25px;
         font-weight: 100;
@@ -1244,6 +1244,14 @@ click-wave { 0% {
         left: 50%;
         margin-left: -300px;
       }
+    }
+
+    .alert-popin {
+        .alert-message {
+          font-weight: 100;
+          padding: 6px 0 12px 0;
+          display: inline-block;
+        }
     }
 }
 
