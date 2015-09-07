@@ -78,7 +78,7 @@
 
     "mail.invite.object": "Miit - Invitation à rejoindre un Miit",
     "mail.invite.title": "Invitation à rejoindre <b>%s</b>",
-    "mail.invite.body": "Bonjour,<br/><br/>Vous avez été invité à rejoindre le Miit <b>%s</b>.<br/><br/>Pour vous connecter rendez-vous sur <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le boutton ci-dessous",
+    "mail.invite.body": "Bonjour,<br/><br/>Vous avez été invité à rejoindre le Miit <b>%s</b>.<br/><br/>Pour vous connecter rendez-vous sur <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le bouton ci-dessous.",
     "mail.invite.button": "Accéder au Miit",
 
     "mail.new_account.object": "Miit - Bienvenue sur Miit",
@@ -86,10 +86,11 @@
     "mail.new_account.body": "Bienvenue,<br/><br/>Votre compte Miit a bien été créé.",
     "mail.new_account.login": "Identifiant: <b>%s</b>",
     "mail.new_account.password": "Mot de passe: <b>%s</b>",
+    "mail.new_account.button": "Découvrir Miit",
 
     "mail.new_miit.object": "Miit - Nouveau Miit",
     "mail.new_miit.title": "Nouveau Miit",
-    "mail.new_miit.body": "Bonjour,<br/><br/>Votre espace Miit <b>%s</b> a bien été créé. Pour vous connecter rendez-vous sur votre page <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le boutton ci-dessous.",
+    "mail.new_miit.body": "Bonjour,<br/><br/>Votre espace Miit <b>%s</b> a bien été créé. Pour vous connecter rendez-vous sur votre page <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le bouton ci-dessous.",
     "mail.new_miit.invite": "Vous pouvez dès à present inviter des nouveaux utilsateurs et installer toutes les application dont vous avez besoin.",
     "mail.new_miit.button": "Accéder au Miit",
 

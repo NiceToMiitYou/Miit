@@ -23,18 +23,18 @@ var QuizUpdate = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                informations:     'Informations',
-                title:            'Modifier',
-                name:             'Nom',
-                create_question:  'Ajouter une question',
-                saveQuiz:         'Votre quiz a bien été sauvegarder',
-                description:      'Description',
-                submit:           'Sauvegarder',
-                publish:          'Publier',
-                close:            'Cloturer',
-                reopen:           'Ré-ouvrir',
-                published:        'Publié',
-                closed:           'Cloturé'
+                informations:    'Informations',
+                title:           'Modifier',
+                name:            'Nom',
+                create_question: 'Ajouter une question',
+                saveQuiz:        'Votre quiz a bien été sauvegardé',
+                description:     'Description',
+                submit:          'Sauvegarder',
+                publish:         'Publier',
+                close:           'Cloturer',
+                reopen:          'Ré-ouvrir',
+                published:       'Publié',
+                closed:          'Cloturé'
             }  
         };
     },

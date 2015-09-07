@@ -15,7 +15,7 @@
     var RegexTeamName = /^[a-z0-9]{4,}$/i;
 
     // Regex for password
-    var RegexPassword = /^.{6,32}$/;
+    var RegexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
     // Regex for user name
     var RegexUserName = /^[0-9a-zA-Z_\'\-\. ]{4,42}$/i;

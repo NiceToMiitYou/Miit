@@ -1,5 +1,7 @@
 'use strict';
 
+var Utils = require('../../shared/lib/utils');
+
 module.exports = function UserManager() {
     var UserStore = miitoo.get('UserStore');
     var TeamStore = miitoo.get('TeamStore');
@@ -36,7 +38,7 @@ module.exports = function UserManager() {
         var password_old = data.old;
         var password_new = data.new;
 
-        if(!password_old || !password_new || !session)
+        if(!password_old || !password_new || !session || !Utils.validator.password(password_new))
         {
             return;
         }
