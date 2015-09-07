@@ -7,24 +7,24 @@ var WallListItemCommentListItem = require('templates/wall-list-item-comment-list
 var WallListItemCommentList = React.createClass({
     getDefaultProps: function () {
         return {
-            comments: [],
-            text: {
-
-            }
+            question: '',
+            comments: []
         };
     },
 
     render: function() {
-        var comments = this.props.comments;
+        var question = this.props.question,
+            comments = this.props.comments;
 
         return (
             <div className="miit-component wall-list-item-comment-list">
-               <div className="list">
-                   {comments.map(function(comment) {
-                       return <WallListItemCommentListItem key={'comment-' + comment.id} comment={comment} />;
-                   })}
-               </div>
-               <WallListItemCommentSend />
+                <div className="list">
+                    {comments.map(function(comment) {
+                        return <WallListItemCommentListItem key={'wall-list-comments-comment-' + comment.id} question={question} comment={comment} />;
+                    })}
+                </div>
+                
+                <WallListItemCommentSend question={question} />
             </div>
         );
     }

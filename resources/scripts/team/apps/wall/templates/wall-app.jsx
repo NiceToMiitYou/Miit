@@ -18,6 +18,7 @@ var WallApp = React.createClass({
     },
 
     componentDidMount: function() {
+        WallActions.refresh();
         PageStore.addPageChangedListener(this._onChange);
         this._onChange();
     },

@@ -1,111 +1,65 @@
 'use strict';
 
 // Include core requirements
-var UserStore    = MiitApp.require('core/stores/user-store');
+var UserStore    = MiitApp.require('core/stores/user-store'),
+    ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
-var WallStore = require('wall-store');
+var WallStore   = require('wall-store'),
+    WallActions = require('wall-actions');
+
 //Include template
-var WallListItem = require('templates/wall-list-item.jsx');
+var WallListItem    = require('templates/wall-list-item.jsx'),
+    WallAddQuestion = require('templates/wall-add-question.jsx');
 
 var WallList = React.createClass({
-    componentDidMount: function() {
-    },
-
-    componentWillUnmount: function() {
-    },
-
-    _onChange: function() {
-        this.forceUpdate();
-    },
-
     getDefaultProps: function () {
         return {
             text: {
-                title:  'Mur de questions'
-            },
-            questions: [
-                {
-                    id:        "1",
-                    author:    UserStore.getUser(),
-                    text:      "Qui est Batman ?",
-                    likes:      1,
-                    allowComments : true,
-                    comments:  [
-                        {
-                            id:        "1",
-                            author:    UserStore.getUser(),
-                            text:      "C'est moi !"
-                        },
-                        {
-                            id:        "2",
-                            author:    UserStore.getUser(),
-                            text:      "Enfin je pense..."
-                        },
-                        {
-                            id:        "3",
-                            author:    UserStore.getUser(),
-                            text:      "Alors ? c'est moi ou pas ?"
-                        }
-                    ]
-                },
-
-                {
-                    id:   "3",
-                    author: UserStore.getUser(),
-                    text: "Et superman il fait quoi ?",
-                    likes:  2,
-                    allowComments : false,
-                    comments:  [
-                        {
-                            id:        "8",
-                            author:    UserStore.getUser(),
-                            text:      "Batman à mis de crypto dans son slip ! LoL"
-                        }
-                    ]
-                },
-
-                {
-                    id:   "2",
-                    author: UserStore.getUser(),
-                    text: "Robin est-il gay ?",
-                    likes:  912,
-                    allowComments : true,
-                    comments:  [
-                        {
-                            id:        "4",
-                            author:    UserStore.getUser(),
-                            text:      "Très bonne question !"
-                        },
-                        {
-                            id:        "5",
-                            author:    UserStore.getUser(),
-                            text:      "Enfin une question interessante !"
-                        },
-                        {
-                            id:        "6",
-                            author:    UserStore.getUser(),
-                            text:      "Oui, moi aussi je voudrais savoir"
-                        },
-                        {
-                            id:        "7",
-                            author:    UserStore.getUser(),
-                            text:      "Il serait temps qu'on nous dise la vérité !!"
-                        }
-                    ]
-                }
-            ]
+                title:        'Mur de questions',
+                ask_question: 'Poser une question'
+            }
         };
     },
 
-    render: function() {
+    getInitialState: function () {
+        return {
+            questions: WallStore.getQuestions()
+        };
+    },
+    
+    componentDidMount: function() {
+        WallStore.addQuestionsRefreshedListener(this._onChange);
+    },
 
-        var questions = this.props.questions;
+    componentWillUnmount: function() {
+        WallStore.removeQuestionsRefreshedListener(this._onChange);
+    },
+
+    _onChange: function() {
+        this.setState({
+            questions: WallStore.getQuestions()
+        });
+    },
+
+    _onAsk: function() {
+        ModalActions.open('wall-ask-question', <WallAddQuestion />, {
+            title: this.props.text.ask_question,
+            size:  'small'
+        });
+    },
+
+    render: function() {
+        var questions = this.state.questions;
 
         return (
             <div className="miit-component wall-list">
                 <h2 className="mt25 mb20">{this.props.text.title}</h2>
                 
+                <button type="button" className="btn btn-info ml20" onClick={this._onAsk} >
+                    <i className="fa fa-plus mr5"></i> {this.props.text.ask_question}
+                </button>
+
                 <div className="list">
                     {questions.map(function(question) {
                         return <WallListItem key={'wall-' + question.id} question={question} />;
