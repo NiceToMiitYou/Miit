@@ -22,7 +22,8 @@ var DocumentsUpload = React.createClass({
     getInitialState: function () {
         return {
             error_file: false,
-            files:      ''
+            files:      '',
+            dragOver:   false
         };
     },
 
@@ -62,9 +63,21 @@ var DocumentsUpload = React.createClass({
         });
     },
 
+    _onDragOver: function() {
+        this.setState({
+            dragOver: true
+        });
+    },
+
+    _onDragLeave: function() {
+        this.setState({
+            dragOver: false
+        });
+    },
+
     render: function() {
         var error = this.state.error_file;
-
+        var dragOver = this.state.dragOver;
         var filename = this.props.text.file;
 
         if(this.state.files) {
@@ -72,12 +85,13 @@ var DocumentsUpload = React.createClass({
         } 
 
         var classesInput = classNames('input', (error) ? 'invalid' : '');
+        var classesBtnFile = classNames((dragOver) ? 'hover' : '', 'btn-file');
 
         return (
             <div className="miit-component documents-upload">
                 <form method="post" encType="multipart/form-data" action="/upload" onSubmit={this.handleSubmit}>
                     <div className="center">
-                        <span className="btn-file">
+                        <span className={classesBtnFile} onDragOver={this._onDragOver} onDragLeave={this._onDragLeave}  onDrop={this._onDragLeave} >
                             {filename} 
                             <input  type="file" name="document" className={classesInput} onChange={this._onChange} />
                         </span>

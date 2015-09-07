@@ -1114,7 +1114,7 @@ click-wave { 0% {
     cursor: pointer;
     line-height: 1.6em;
 
-    &:hover {
+    &:hover, &.hover {
 
       border-color: #999;
       background-color: #E5E6E7;
