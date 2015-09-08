@@ -1,8 +1,10 @@
 'use strict';
 
 // Include core requirements
-var UserStore = MiitApp.require('core/stores/user-store'),
-    TeamStore  = MiitApp.require('core/stores/team-store');
+var UserStore            = MiitApp.require('core/stores/user-store'),
+    TeamStore            = MiitApp.require('core/stores/team-store'),
+    ModalActions         = MiitApp.require('core/actions/modal-actions'),
+    NotificationsActions = MiitApp.require('core/actions/notifications-actions');
 
 // Include common templates
 var If         = MiitApp.require('templates/if.jsx'),
@@ -21,16 +23,38 @@ var WallListItemCommentListItem = React.createClass({
             question: '',
             comment:  {},
             text: {
-                remove: 'Supprimer'
+                alert: {
+                    title:   'Suppression d\'un commentaire',
+                    content: 'Voulez-vous vraiment supprimer le commentaire?'
+                },
+                remove:  'Supprimer',
+                removed: 'Le commentaire a bien été supprimée.'
             }
         };
     },
 
-    _onRemoveComment: function() {
+    _onClickRemove: function() {
         var question = this.props.question,
             comment  = this.props.comment.id;
     
-        WallActions.uncomment(question, comment);
+        if(
+            true === UserStore.isItMe(question.user) ||
+            true === UserStore.isAdmin()
+        ) {
+            var result = WallActions.uncomment(question, comment);;
+
+            if(true === result) {
+                NotificationsActions.notify('success', this.props.text.removed);
+            }
+        }
+    },
+
+    onClickRemove: function() {
+        var title    = this.props.text.alert.title,
+            content  = this.props.text.alert.content,
+            onAgree  = this._onClickRemove;
+
+        ModalActions.alert(title, content, onAgree);
     },
 
     render: function() {
@@ -60,7 +84,7 @@ var WallListItemCommentListItem = React.createClass({
 
                 <If test={UserStore.isItMe(comment.author) || UserStore.isAdmin()}>
                     <Tooltip position="left" content={tooltip} className="wall-comment-remove">
-                        <span onClick={this._onRemoveComment}><i className="fa fa-times mr5"></i></span>
+                        <span onClick={this.onClickRemove}><i className="fa fa-times mr5"></i></span>
                     </Tooltip>
                 </If>
             </div>

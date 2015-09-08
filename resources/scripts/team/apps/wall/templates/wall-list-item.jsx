@@ -3,6 +3,7 @@
 // Include core requirements
 var UserStore            = MiitApp.require('core/stores/user-store'),
     TeamStore            = MiitApp.require('core/stores/team-store'),
+    ModalActions         = MiitApp.require('core/actions/modal-actions'),
     NotificationsActions = MiitApp.require('core/actions/notifications-actions');
 
 // Include common templates
@@ -27,10 +28,15 @@ var WallListItem = React.createClass({
             question: {},
             user:     '',
             text: {
+                alert: {
+                    title:   'Suppression d\'une question',
+                    content: 'Voulez-vous vraiment supprimer la question?'
+                },
                 tags:            'Tags',
                 remove:          'Supprimer',
                 removed:         'La question a bien été supprimée.',
                 anchor:          'Ancrer en haut',
+                unanchor:        'Remettre dans la liste',
                 allow:           'Autoriser les commentaires',
                 allowed:         'Les commentaires sont désormais autorisés.',
                 disallow:        'Interdire les commentaires',
@@ -39,7 +45,8 @@ var WallListItem = React.createClass({
                 answered:        'La question à bien été marquée comme répondue.',
                 mark_unanswered: 'Marquer comme non répondu',
                 unanswered:      'La question à bien été marquée comme non répondue.'
-            }
+            },
+            onAnchor: function() {}
         };
     },
 
@@ -60,6 +67,14 @@ var WallListItem = React.createClass({
     },
 
     onClickRemove: function() {
+        var title    = this.props.text.alert.title,
+            content  = this.props.text.alert.content,
+            onAgree  = this._onClickRemove;
+
+        ModalActions.alert(title, content, onAgree);
+    },
+
+    _onClickRemove: function() {
         var question = this.props.question;
 
         if(
@@ -134,8 +149,18 @@ var WallListItem = React.createClass({
         }
     },
 
+    onClickAnchor: function() {
+        var question = this.props.question,
+            onAnchor = this.props.onAnchor;
+
+        if(typeof onAnchor === 'function') {
+            onAnchor(question);
+        }
+    },
+
     render: function() {
         var question      = this.props.question,
+            anchored      = this.props.anchored,
             text          = question.text,
             allowComments = question.allowComments,
             answered      = question.answered,
@@ -144,7 +169,7 @@ var WallListItem = React.createClass({
         var user = TeamStore.getUser(question.user),
             name = UserStore.getName(user);
 
-        var classes = classNames('miit-component wall-list-item', (answered) ? 'answered' : '');
+        var classes = classNames('miit-component wall-list-item', (answered) ? 'answered' : '', (anchored) ? 'anchored' : '');
 
         return (
             <div className={classes}>
@@ -172,9 +197,17 @@ var WallListItem = React.createClass({
 
                 <If test={UserStore.isItMe(question.user) || UserStore.isAdmin()}>
                     <Dropdown className="wall-list-item-config">
-                        <span onClick={this.onClickAnchor}>
-                            <i className="fa fa-anchor pull-left"></i> {this.props.text.anchor}
-                        </span>
+                        <If test={!anchored}>
+                            <span onClick={this.onClickAnchor}>
+                                <i className="fa fa-anchor pull-left"></i> {this.props.text.anchor}
+                            </span>
+                        </If>
+
+                        <If test={anchored}>
+                            <span onClick={this.onClickAnchor}>
+                                <i className="fa fa-undo pull-left"></i> {this.props.text.unanchor}
+                            </span>
+                        </If>
                         
                         <If test={!allowComments}>
                             <span onClick={this.onClickAllow}>

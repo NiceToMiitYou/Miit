@@ -37,6 +37,7 @@ var store = miitoo.resolve(['WallQuestionModel', 'Mongoose'], function(Question,
 
             Question
                 .find(conditions)
+                .sort({ 'createdAt': -1 })
                 .exec(function(err, questions) {
                     // Log the error
                     if(err) {

@@ -104,7 +104,8 @@ function _removeComment(question, comment) {
 // The WallStore Object
 var WallStore = ObjectAssign({}, EventEmitter.prototype, {
     getQuestions: function() {
-        return Questions || [];
+        // Sort questions before return them
+        return (Questions || []).sortBy('createdAt', 'desc');
     },
 
     getQuestion: function(id) {

@@ -4,6 +4,9 @@
 var UserStore    = MiitApp.require('core/stores/user-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
+// Include common templates
+var If = MiitApp.require('templates/if.jsx');
+
 // Include requirements
 var WallStore   = require('wall-store'),
     WallActions = require('wall-actions');
@@ -17,17 +20,19 @@ var WallList = React.createClass({
         return {
             text: {
                 title:        'Mur de questions',
-                ask_question: 'Poser une question'
+                ask_question: 'Poser une question',
+                no_question:  'Aucune question n\'a été posée pour le moment.'
             }
         };
     },
 
     getInitialState: function () {
         return {
+            anchors:   [],
             questions: WallStore.getQuestions()
         };
     },
-    
+
     componentDidMount: function() {
         WallStore.addQuestionsRefreshedListener(this._onChange);
     },
@@ -37,7 +42,21 @@ var WallList = React.createClass({
     },
 
     _onChange: function() {
+        var questions = WallStore.getQuestions(),
+            anchors   = this.state.anchors,
+            clean     = [];
+
+        anchors.forEach(function(question) {
+            var id = question.id;
+
+            if(-1 !== questions.indexBy('id', id)) {
+                // add to anchors if found
+                clean.push(questions.findBy('id', id));
+            }
+        });
+
         this.setState({
+            anchors:   clean,
             questions: WallStore.getQuestions()
         });
     },
@@ -49,8 +68,29 @@ var WallList = React.createClass({
         });
     },
 
+    _onAnchor: function(question) {
+        var anchors = this.state.anchors;
+
+        anchors.mergeBy('id', question, true);
+
+        this.setState({
+            anchors: anchors
+        });
+    },
+
+    _onUnanchor: function(question) {
+        var anchors = this.state.anchors;
+
+        anchors.removeBy('id', question.id);
+
+        this.setState({
+            anchors: anchors
+        });
+    },
+
     render: function() {
-        var questions = this.state.questions;
+        var questions = this.state.questions,
+            anchors   = this.state.anchors;
 
         return (
             <div className="miit-component wall-list">
@@ -61,9 +101,19 @@ var WallList = React.createClass({
                 </button>
 
                 <div className="list">
+                    {anchors.map(function(question) {
+                        return <WallListItem key={'wall-list-questions-question-' + question.id} question={question} onAnchor={this._onUnanchor} anchored={true} />;
+                    }, this)}
                     {questions.map(function(question) {
-                        return <WallListItem key={'wall-' + question.id} question={question} />;
-                    })}
+                        if(-1 !== anchors.indexBy('id', question.id)) {
+                            return null;
+                        }
+
+                        return <WallListItem key={'wall-list-questions-question-' + question.id} question={question} onAnchor={this._onAnchor} anchored={false} />;
+                    }, this)}
+                    <If test={0 === questions.length}>
+                        <span>{this.props.text.no_question}</span>
+                    </If>
                 </div>
             </div>
         );
