@@ -79,7 +79,7 @@ var DocumentsList = React.createClass({
                 </div>
                 
                 <If test={UserStore.isAdmin()}>
-                    <button type="button"  className="btn btn-info btn-upload ml20" onClick={this.onUpload} >
+                    <button type="button" className="btn btn-info btn-upload ml20" onClick={this.onUpload} >
                         <i className="fa fa-plus mr5"></i> {this.props.text.upload}
                     </button>
                 </If>

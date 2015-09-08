@@ -1,15 +1,37 @@
 
+var Utils = require('../shared/lib/utils');
+
 // Define the manager
 var manager = miitoo.resolve(
     ['UserStore', 'UserModel', 'MailManager'],
     function(UserStore, User, MailManager) {
+
+    function upperLettersRandomly(str) {
+        var limit = Math.round(str.length / 2);
+
+        for(var i = 0; i < limit; i++) {
+            // Random letter to uppercase
+            var pos    = Math.floor(Math.random() * str.length),
+                letter = str.charAt(pos).toUpperCase();
+
+            str = str.slice(0, pos) + letter + str.slice(pos + 1);
+        }
+
+        return str;
+    }
 
     function generatePassword() {
         var password = '';
 
         // Loop for password length
         for(var i = 0; i < 1; i++) {
-            password += Math.random().toString(36).slice(-8);
+            var str   = Math.random().toString(36).slice(-10);
+            password += upperLettersRandomly(str);
+        }
+
+        // If wrong password regenerate
+        if(false === Utils.validator.password(password)) {
+            return generatePassword();
         }
 
         return password;

@@ -183,6 +183,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                 
             quizId = new ObjectId(quizId);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 team: teamId,
                 _id:  quizId

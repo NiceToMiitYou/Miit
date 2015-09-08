@@ -11,9 +11,7 @@ var Modal = React.createClass({
         return {
             name:   'Modal',
             element: null,
-            options: {
-
-            }
+            options: {}
         };
     },
 

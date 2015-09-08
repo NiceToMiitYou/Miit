@@ -123,11 +123,16 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
             var limit = (count > 100 ) ? 100 : count;
 
             // Get the id of the chatroom
-            var chatroomId = new ObjectId(getId(chatroom));
+            var chatroomId = getId(chatroom);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(chatroomId)) {
+                return;
+            }
 
             var aggregate = [
                 {
-                    '$match': { _id: chatroomId }
+                    '$match': { _id: new ObjectId(chatroomId) }
                 },
                 {
                     '$unwind': '$messages'
@@ -168,11 +173,16 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
             var limit = (count > 100 ) ? 100 : count;
 
             // Get the id of the chatroom
-            var chatroomId = new ObjectId(getId(chatroom));
+            var chatroomId = getId(chatroom);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(chatroomId)) {
+                return;
+            }
 
             var aggregate = [
                 {
-                    '$match': { _id: chatroomId }
+                    '$match': { _id: new ObjectId(chatroomId) }
                 },
                 {
                     '$unwind': '$messages'
