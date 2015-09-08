@@ -172,16 +172,17 @@ var QuizUpdate = React.createClass({
             <div className="miit-component quiz-update">
                 <div className="quiz-update-wrapper">
                     <div className="quiz-update-questions container-fluid">
-                        <h2>{this.props.text.title} - {quiz.name}
+                        <div className="page-title mb30">
+                            <h2>{this.props.text.title} - {quiz.name}
 
-
-                            <If test={quiz.published && !quiz.closed}>
-                                <span className="ml15 text-green">{this.props.text.published}</span>
-                            </If>
-                            <If test={quiz.published && quiz.closed}>
-                                <span className="ml15 text-red">{this.props.text.closed}</span>
-                            </If>
-                        </h2>
+                                <If test={quiz.published && !quiz.closed}>
+                                    <span className="ml15 text-green">{this.props.text.published}</span>
+                                </If>
+                                <If test={quiz.published && quiz.closed}>
+                                    <span className="ml15 text-red">{this.props.text.closed}</span>
+                                </If>
+                            </h2>
+                        </div>
 
                         <div>
                             <h3 className="mb20">{this.props.text.informations}</h3>

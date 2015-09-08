@@ -96,24 +96,38 @@ a {
     -moz-transition: margin-left 500ms ease, margin-right 500ms ease;
     -o-transition: margin-left 500ms ease, margin-right 500ms ease;
     transition: margin-left 500ms ease, margin-right 500ms ease;
-    margin-left: 220px;
-    padding-top:55px;
+    margin-left: 90px;
+    padding-top:50px;
     position: relative;
+    background-color: #EDEEEF;
+
+    .page-title {
+      border-bottom: 1px solid #d3d7db;
+      border-top: 1px solid #eee;
+      background: #f7f7f7;
+      padding: 20px;
+      margin: 0 -25px;
+    }
 
     &.fullwidth {
         padding-left: 0;
     }
 
     h2 {
-        font-size: 2em;
         font-weight: 100;
         line-height: 1em;
+        font-size: 1.6em;
 
         .subtitle {
-          font-size: .45em; 
+          font-size: .55em; 
           color: #888;
-          margin-top: 10px;
-          display: block;
+          margin-left: 5px;
+
+          &::before {
+            content: '/';
+            margin: 0 10px 0 5px;
+            color: #888;
+          }
         }
     }
 
@@ -153,11 +167,11 @@ a {
         position: fixed;
         z-index: 9999;
         top:0;
-        left: 220px;
+        left: 90px;
         // width: 100%;
         right: 0;
         color: #FFF;
-        height: 55px;
+        height: 50px;
         -webkit-transition: left 500ms ease, right 500ms ease;
         -moz-transition: left 500ms ease, right 500ms ease;
         -o-transition: left 500ms ease, right 500ms ease;
@@ -167,7 +181,7 @@ a {
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
 
           h1 {
-              line-height: 55px;
+              line-height: 50px;
               float: left;
               padding-left: 15px;
               font-size: 1.2em;
@@ -183,10 +197,11 @@ a {
           .minimize-menu {
             display: inline-block;
             float: left;
-            width: 55px;
+            width: 50px;
             text-align: center;
             font-size: 1.3em;
-            line-height: 55px;
+            line-height: 50px;
+            height: 50px;
             border-right: 1px solid #397399;
             color: #FFF;
 
@@ -249,7 +264,7 @@ a {
           }
 
       .sidr-left {
-          margin-left: -220px;
+          margin-left: -90px;
           z-index: 99999;
       }
 
@@ -263,7 +278,7 @@ a {
     top: 0;
     bottom: 0;
     left: 0;
-    width: 220px;
+    width: 90px;
     overflow: hidden;
 
     -webkit-transition: margin-left 500ms ease;
@@ -315,16 +330,23 @@ a {
         }
 
         i {
-            line-height: 55px;
+            line-height: 50px;
         }
     }
 
     .sl-label {
-        color: #5c798f;
-        line-height: 2.3em;
-        padding: 5px 10px;
+        color: #FFFFFF;
+        line-height: 50px;
+        /* padding: 5px 0; */
         display: block;
-        font-size: 13px;
+        font-size: 12pt;
+        text-align: center;
+        font-weight: 300;
+        background-color: #1A2631;
+
+        i {
+          margin-right: 10px;
+        }
         
     }
 
@@ -333,14 +355,13 @@ a {
         li {
             a {
                 color: #BBCFDD;
-                font-size: 14px;
                 position: relative;
                 display: block;
-                line-height: 2em;
                 font-weight: 300;
+                width: 100%;
                 text-decoration: none;
+                text-align: center;
                 position: relative;
-                padding: 7px 15px;
                 -webkit-transition: background-color 500ms ease;
                 -moz-transition: background-color 500ms ease;
                 -o-transition: background-color 500ms ease;
@@ -370,12 +391,34 @@ a {
                 }
 
                 i {
-                    width: 25px;
+                  text-align: center;
+                  border-radius: 2px;
+                  margin-right: 0;
+                  width: 42px;
+                  line-height: 42px;
+                  color: #FFF;
+                  margin-top: 15px;
                 }
 
                 span {
                   display: block;
+                  font-size: 12px;
+                  font-weight: 800;
+                  line-height: 1.3em;
+                  padding: 10px 0;
                 }
+            }
+
+            &.add-application {
+              i {
+                line-height: 24px;
+                font-size: 24px;
+              }
+
+              span {
+                padding-bottom: 13px;
+              }
+
             }
         }
     }
@@ -1704,11 +1747,16 @@ click-wave { 0% {
 
 .panel {
 
+    background-color: #fcfcfc;
+    border: 1px solid #e7e7e7;
+
     .panel-title {
-      padding: 12px 20px;
+      padding: 16px 20px;
       color: #000;
       font-size: 1.2em;
-      background-color: #E8E8E8;
+      background-color: #FFF;
+      border-bottom: 1px solid #e7e7e7;
+
       i {
         margin-right: 15px;
         margin-top: 1px;
@@ -1717,7 +1765,6 @@ click-wave { 0% {
 
     .panel-content {
       padding: 25px;
-      border: 1px solid #E8E8E8;
     }
 }
 
@@ -1730,7 +1777,7 @@ click-wave { 0% {
 .clock {
   position: absolute;
   right: 0;
-  line-height: 55px;
+  line-height: 50px;
   padding-right: 15px;
   font-weight: 100;
 }

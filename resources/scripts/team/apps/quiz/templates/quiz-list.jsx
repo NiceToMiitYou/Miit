@@ -61,7 +61,9 @@ var QuizList = React.createClass({
 
         return (
             <div className="miit-component quiz-list container-fluid">
-                <h2>{this.props.text.title}</h2>
+                <div className="page-title mb30">
+                    <h2><i className="fa fa-th-list mr15"></i>{this.props.text.title}</h2>
+                </div>
                 <If test={UserStore.isAdmin()}>
                     <div className="page-actions">
                         <button className="btn btn-info pull-right" onClick={this.onClickCreate}><i className="fa fa-plus mr5"></i> {this.props.text.create}</button>

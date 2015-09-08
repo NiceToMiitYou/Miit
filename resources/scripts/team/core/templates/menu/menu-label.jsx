@@ -2,7 +2,7 @@
 
 var MenuLabel = React.createClass({
     render: function() {
-        var classes = classNames('pull-left', 'fa', this.props.icon || '');
+        var classes = classNames('fa', this.props.icon || '');
         
         return (
             <span className="miit-component menu-label sl-label">

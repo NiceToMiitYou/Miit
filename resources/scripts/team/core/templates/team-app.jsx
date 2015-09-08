@@ -69,7 +69,7 @@ var TeamApp = React.createClass({
         var Page       = this.state.page;
         var MenuOpened = this.state.menu_opened;
 
-        var classes = classNames('team-app page bg-grey lighten-5', (true === MenuOpened) ? 'menu-open': 'menu-close');
+        var classes = classNames('team-app page', (true === MenuOpened) ? 'menu-open': 'menu-close');
 
         return (
             <div className={classes}>

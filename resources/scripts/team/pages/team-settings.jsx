@@ -67,11 +67,12 @@ var TeamSettings = React.createClass({
             <Layout title={team.name}>
 
                 <div className="container-fluid">
-
-                    <h2 className="mt30">
-                        <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
-                        <span className="subtitle">{this.props.text.subtitle}</span>
-                    </h2>
+                    <div className="page-title">
+                        <h2>
+                            <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
+                            <span className="subtitle">{this.props.text.subtitle}</span>
+                        </h2>
+                    </div>
 
                     <Panel icon="info" title={this.props.text.informations}>
                         <TeamUpdate />

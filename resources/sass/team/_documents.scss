@@ -5,13 +5,14 @@
 
 		.btn-upload {
 			position: absolute;
-			top: 25px;
+			top: 18px;
 			right: 25px;
 		}
 
 		.list {
 			display: table;
 			width: 100%;
+			border: 1px solid #e7e7e7;
 
 			.documents-list-item {
 				display: table-row;
@@ -79,7 +80,7 @@
 
 			.documents-list-header {
 				display: table-row;
-				background-color: #E6E6E6;
+				background-color: #FFF;
 
 				& > span {
 					display: table-cell;

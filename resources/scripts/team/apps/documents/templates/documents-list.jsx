@@ -71,7 +71,12 @@ var DocumentsList = React.createClass({
 
         return (
             <div className="miit-component documents-list">
-                <h2 className="mt25 mb20">{this.props.text.title}</h2>
+                <div className="page-title mb30">
+                    <h2>
+                        <i className="fa fa-folder-open-o mr15"></i>{this.props.text.title}
+                        <span className="subtitle">Distribuez facilement vos fichiers</span>
+                    </h2>
+                </div>
                 
                 <If test={UserStore.isAdmin()}>
                     <button type="button"  className="btn btn-info btn-upload ml20" onClick={this.onUpload} >
