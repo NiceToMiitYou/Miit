@@ -32,16 +32,11 @@ var QuizShowQuestions = React.createClass({
 
     getInitialState: function () {
         return {
-            errors:     [],
-            processing: false
+            errors: []
         };
     },
 
     saveAnswers: function() {
-        if(true === processing) {
-            return;
-        }
-
         // Process the validation
         var refs      = this.refs,
             questions = this.props.questions,
@@ -78,11 +73,9 @@ var QuizShowQuestions = React.createClass({
         // Save the answer
         var processing = QuizActions.sendChoices(this.props.quiz, choices);
 
-        this.setState({
-            processing: processing
-        });
-
-        NotificationsActions.notify('success', this.props.text.saveQuizSuccess);
+        if(true === processing) {
+            NotificationsActions.notify('success', this.props.text.saveQuizSuccess);
+        }
     },
 
     render: function() {
