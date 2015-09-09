@@ -18,7 +18,6 @@ function topPosition(domElt) {
 }
 
 var ChatMessageList = React.createClass({
-    IntervalId:     null,
     OldestMessage:  null,
     HasNewMessages: true,
     ScrollHeight:   0,
@@ -37,9 +36,6 @@ var ChatMessageList = React.createClass({
         // Attach scroll events
         this._stick();
         this.attachScrollListener();
-
-        // Refresh the list for date update
-        this.IntervalId = setInterval(this.forceUpdate.bind(this), 15000);
     },
 
     componentDidUpdate: function () {
@@ -60,9 +56,6 @@ var ChatMessageList = React.createClass({
     },
 
     componentWillUnmount: function() {
-        // Clear refresh of the date
-        clearInterval(this.IntervalId);
-
         // detach messages handler
         ChatStore.removeNewMessageListener(this._onChanged);
 
