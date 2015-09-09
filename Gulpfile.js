@@ -13,7 +13,7 @@ var config = require('./gulp_config.js');
 var path   = require('./gulp_path.js');
 
 // Default tasks
-gulp.task('default', ['copy', 'watch', 'sass']);
+gulp.task('default', ['copy', 'watch', 'sass-core', 'sass-apps']);
 
 gulp.task('copy', function() {
 
@@ -23,7 +23,7 @@ gulp.task('copy', function() {
         .pipe(gulp.dest(path.FONTS_DIST));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass-core', function () {
 
     var list = {};
 
@@ -61,6 +61,11 @@ gulp.task('sass', function () {
             .on('error', gutil.log);
     }
 
+    return gulp;
+});
+
+gulp.task('sass-apps', function () {
+
     var apps = glob.sync('./resources/sass/apps/*').map(function(appDir) {
         return pathlib.basename(appDir);
     });
@@ -91,18 +96,18 @@ gulp.task('sass', function () {
 
             .on('error', gutil.log);
     });
-
+    
     return gulp;
 });
 
-gulp.task('build', ['copy', 'sass']);
+gulp.task('build', ['copy', 'sass-core', 'sass-apps']);
 
-gulp.task('watch', ['sass'], function () {
+gulp.task('watch', ['sass-core', 'sass-apps'], function () {
 
     // Watch all files then compile them
     gulp.watch([
         path.SASS_ALL
-    ], ['copy', 'sass'])
+    ], ['copy', 'sass-core', 'sass-apps'])
 
         .on('change', function(evt) {
 
