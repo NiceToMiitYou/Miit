@@ -184,9 +184,9 @@ var QuizUpdate = React.createClass({
                             </h2>
                         </div>
 
-                        <div>
-                            <h3 className="mb20">{this.props.text.informations}</h3>
-                            <form onSubmit={this.handleSubmit} className="mb20">
+                        <div className="panel mb30">
+                            <h2 className="mb20 panel-title">{this.props.text.informations}</h2>
+                            <form onSubmit={this.handleSubmit} className="mb20 panel-content">
                                 <label className="input-field">
                                     {this.props.text.name}
                                     <input type="text" name="name" value={value_name} onChange={this.handleChange} className={classesName}/>
@@ -198,10 +198,11 @@ var QuizUpdate = React.createClass({
                                 </label>
                             </form>
 
-                            <If test={!quiz.closed}>
-                                <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
-                            </If>
                         </div>
+
+                        <If test={!quiz.closed}>
+                            <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
+                        </If>
                     </div>
                 </div>
 

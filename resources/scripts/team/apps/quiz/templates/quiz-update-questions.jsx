@@ -148,10 +148,10 @@ var QuizUpdateQuestions = React.createClass({
             counter   = 0;
 
         return (
-            <div className="miit-component quiz-update-questions">
-                <h3 className="mb20">{this.props.text.title}</h3>
+            <div className="miit-component quiz-update-questions panel">
+                <h2 className="panel-title">{this.props.text.title}</h2>
                 
-                <div className="list">
+                <div className="list panel-content">
 
                     {questions.map(function(question) {
                         var key = 'question-' + question.id;

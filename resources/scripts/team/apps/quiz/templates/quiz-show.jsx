@@ -73,14 +73,15 @@ var QuizShow = React.createClass({
 
         return (
             <div className={classes}>
-                <h2 className="mb10">
-                    {(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}
+                <div className="page-title mb20">
+                    <h2>
+                        {(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}
 
-                    <If test={isAnswered}>
-                        <span className="quiz-status ml15 text-green pull-right"><i className="fa fa-check-square-o mr10"></i>{this.props.text.answered}</span>
-                    </If>
-                </h2>
-
+                        <If test={isAnswered}>
+                            <span className="quiz-status ml15 text-green pull-right"><i className="fa fa-check-square-o mr10"></i>{this.props.text.answered}</span>
+                        </If>
+                    </h2>
+                </div>
                 <If test={quiz.description}>
                     <p className="mb20">{quiz.description}</p>
                 </If>
