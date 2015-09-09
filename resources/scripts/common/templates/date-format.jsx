@@ -17,7 +17,12 @@ var DateFormat = React.createClass({
 
     formatDate: function() {
         // Initialize variables
-        var date   = Moment(this.props.date);
+        var date = Moment(this.props.date);
+
+        // If there is an offset, apply it
+        if(global.ServerTimeOffset) {
+            date.add(global.ServerTimeOffset, 'milliseconds');
+        }
 
         // Display from now
         if(true === this.props.from) {
