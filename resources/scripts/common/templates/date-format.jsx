@@ -25,7 +25,7 @@ var DateFormat = React.createClass({
     },
 
     componentWillUnmount: function () {
-        if(null !== IntervalId) {
+        if(null !== this.IntervalId) {
             // Clear refresh of the date
             clearInterval(this.IntervalId);
         }
