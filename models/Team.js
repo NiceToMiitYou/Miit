@@ -15,7 +15,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             default: false
         },
         users: [{
-            user: { 
+            user: {
                 type: ObjectId,
                 ref: 'User'
             },
