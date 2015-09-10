@@ -21,7 +21,8 @@ var WallList = React.createClass({
             text: {
                 title:        'Mur de questions',
                 ask_question: 'Poser une question',
-                no_question:  'Aucune question n\'a été posée pour le moment.'
+                no_question:  'Aucune question n\'a été posée pour le moment.',
+                load_more:    'Charger plus de questions.'
             }
         };
     },
@@ -29,7 +30,8 @@ var WallList = React.createClass({
     getInitialState: function () {
         return {
             anchors:   [],
-            questions: WallStore.getQuestions()
+            questions: WallStore.getQuestions(),
+            loadMore:  true
         };
     },
 
@@ -41,7 +43,7 @@ var WallList = React.createClass({
         WallStore.removeQuestionsRefreshedListener(this._onChange);
     },
 
-    _onChange: function() {
+    _onChange: function(refreshed) {
         var questions = WallStore.getQuestions(),
             anchors   = this.state.anchors,
             clean     = [];
@@ -57,7 +59,8 @@ var WallList = React.createClass({
 
         this.setState({
             anchors:   clean,
-            questions: WallStore.getQuestions()
+            questions: questions,
+            loadMore:  0 !== refreshed
         });
     },
 
@@ -88,9 +91,20 @@ var WallList = React.createClass({
         });
     },
 
+    _onLoadMore: function() {
+        var questions = this.state.questions;
+
+        if(0 !== questions.length) {
+            var last = questions[questions.length - 1];
+
+            WallActions.questions(last.createdAt, 20);
+        }
+    },
+
     render: function() {
         var questions = this.state.questions,
-            anchors   = this.state.anchors;
+            anchors   = this.state.anchors,
+            loadMore  = this.state.loadMore;
 
         return (
             <div className="miit-component wall-list">
@@ -115,6 +129,9 @@ var WallList = React.createClass({
                     }, this)}
                     <If test={0 === questions.length}>
                         <span>{this.props.text.no_question}</span>
+                    </If>
+                    <If test={0 !== questions.length && loadMore}>
+                        <span className="load-more" onClick={this._onLoadMore}>{this.props.text.load_more}</span>
                     </If>
                 </div>
             </div>

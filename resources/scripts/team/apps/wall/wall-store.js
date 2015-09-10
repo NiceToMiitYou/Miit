@@ -21,6 +21,11 @@ function _refreshQuestions(questions, likes) {
     Likes     = likes || [];
 }
 
+function _loadMoreQuestions(questions, likes) {
+    Questions.mergeBy('id', questions, true);
+    Likes.merge(likes, true);
+}
+
 function _addQuestion(question) {
     Questions.mergeBy('id', question, true);
 }
@@ -146,7 +151,7 @@ WallStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.ADD_QUESTION:
             _addQuestion(action.question);
-            WallStore.emitQuestionsRefreshed();
+            WallStore.emitQuestionsRefreshed(1);
             break;
 
         case ActionTypes.LIKE_QUESTION:
@@ -181,12 +186,17 @@ WallStore.dispatchToken = Dispatcher.register(function(action){
 
         case ActionTypes.REMOVE_QUESTION:
             _removeQuestion(action.question);
-            WallStore.emitQuestionsRefreshed();
+            WallStore.emitQuestionsRefreshed(1);
             break;
 
         case ActionTypes.REFRESH_QUESTIONS:
             _refreshQuestions(action.questions, action.likes);
-            WallStore.emitQuestionsRefreshed();
+            WallStore.emitQuestionsRefreshed(action.questions.length);
+            break;
+
+        case ActionTypes.LOAD_MORE_QUESTIONS:
+            _loadMoreQuestions(action.questions, action.likes);
+            WallStore.emitQuestionsRefreshed(action.questions.length);
             break;
     }
 });

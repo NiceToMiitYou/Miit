@@ -13,8 +13,14 @@ var ActionTypes = require('wall-constants').ActionTypes;
 //
 
 Realtime.on('wall:questions:list', function(data) {
+    var action = ActionTypes.REFRESH_QUESTIONS;
+
+    if(false === data.refresh) {
+        action = ActionTypes.LOAD_MORE_QUESTIONS;
+    }
+
     var action = {
-        type:      ActionTypes.REFRESH_QUESTIONS,
+        type:      action,
         questions: data.questions,
         likes:     data.likes
     };
@@ -146,7 +152,7 @@ Realtime.on('wall:comments:remove', function(data) {
 });
 
 // Debounces documents refresh to avoid flood
-var refreshQuestions = Debounce(function() {
+var refreshQuestions = Debounce(function(last, count) {
     Realtime.send('wall:questions:list');
 }, 250);
 
@@ -170,6 +176,13 @@ function simpleAction(eventName) {
 module.exports = {
     refresh: function() {
         refreshQuestions();
+    },
+
+    questions: function(last, count) {
+        Realtime.send('wall:questions:list', {
+            last:  last  || new Date(),
+            count: count || 20
+        });
     },
 
     create: function(text) {
