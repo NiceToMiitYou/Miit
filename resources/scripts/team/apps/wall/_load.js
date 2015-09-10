@@ -4,9 +4,14 @@ var plugin = {
     identifier: 'APP_WALL',
 
     onRegister: function() {
-        require('wall-actions');
-        require('wall-store');
+        // Preload the page
         require('templates/wall-page.jsx');
+
+        // Load the store and actions
+        var actions = require('wall-actions'),
+            store   = require('wall-store');
+        
+        actions.refresh();
     },
 
     onRemove: function() {

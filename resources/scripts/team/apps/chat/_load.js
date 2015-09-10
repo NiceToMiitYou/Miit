@@ -4,9 +4,14 @@ var plugin = {
     identifier: 'APP_CHAT',
 
     onRegister: function() {
-        require('chat-actions');
-        require('chat-store');
+        // Preload the page
         require('templates/chat-page.jsx');
+
+        // Load the store and actions
+        var actions = require('chat-actions'),
+            store   = require('chat-store');
+        
+        actions.rooms();
     },
 
     onRemove: function() {
