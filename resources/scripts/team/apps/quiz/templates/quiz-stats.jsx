@@ -19,7 +19,7 @@ var QuizStats = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:       'Questionnaire',
+                title:       'Résultat du questionnaire',
                 name:        'Nom',
                 description: 'Description'
             }

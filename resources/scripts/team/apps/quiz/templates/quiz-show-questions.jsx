@@ -25,8 +25,7 @@ var QuizShowQuestions = React.createClass({
                 saveQuizSuccess:    'Vos réponses ont bien été sauvegardées',
                 saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires',
             },
-            questions: [],
-            preview:   false
+            questions: []
         };
     },
 
@@ -81,7 +80,6 @@ var QuizShowQuestions = React.createClass({
     render: function() {
         // Get questions
         var questions = this.props.questions,
-            preview   = this.props.preview,
             errors    = this.state.errors,
             counter   = 0;
 
@@ -103,13 +101,11 @@ var QuizShowQuestions = React.createClass({
                     }, this)}
                 </div>
 
-                <If test={!preview}>
-                    <div className="actions">
-                        <button type="button" className="btn btn-success" onClick={this.saveAnswers}>
-                            <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
-                        </button>
-                    </div>
-                </If>
+                <div className="actions">
+                    <button type="button" className="btn btn-success" onClick={this.saveAnswers}>
+                        <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
+                    </button>
+                </div>
             </div>
         );
     }
