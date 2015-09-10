@@ -1,3 +1,4 @@
+'use strict';
 
 // Define the store
 var store = miitoo.resolve(['TeamModel'], function(Team) {
@@ -180,7 +181,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        addApplication: function(team, identifier, public, cb) {
+        addApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
 
             var conditions = {
@@ -191,7 +192,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 $push: {
                     'applications': {
                         identifier: identifier,
-                        publix:     public
+                        publix:     publix
                     }
                 }
             };
@@ -199,7 +200,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        updateApplication: function(team, identifier, public, cb) {
+        updateApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
 
             var conditions = {
@@ -209,7 +210,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
 
             var update = {
                 $set: {
-                    'applications.$.public': public
+                    'applications.$.public': publix
                 }
             };
             

@@ -1,3 +1,4 @@
+'use strict';
 
 // Define the store
 var store = miitoo.resolve(['DownloadModel', 'UploadModel', 'Mongoose'], function(Download, Upload, mongoose) {
