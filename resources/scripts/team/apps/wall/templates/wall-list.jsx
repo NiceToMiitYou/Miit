@@ -5,7 +5,8 @@ var UserStore    = MiitApp.require('core/stores/user-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include common templates
-var If = MiitApp.require('templates/if.jsx');
+var If      = MiitApp.require('templates/if.jsx'),
+    Loading = MiitApp.require('templates/loading.jsx');
 
 // Include requirements
 var WallStore   = require('wall-store'),
@@ -31,7 +32,8 @@ var WallList = React.createClass({
         return {
             anchors:   [],
             questions: WallStore.getQuestions(),
-            loadMore:  true
+            loadMore:  true,
+            loading:   true
         };
     },
 
@@ -60,7 +62,8 @@ var WallList = React.createClass({
         this.setState({
             anchors:   clean,
             questions: questions,
-            loadMore:  0 !== refreshed
+            loadMore:  0 !== refreshed,
+            loading:   false
         });
     },
 
@@ -98,13 +101,18 @@ var WallList = React.createClass({
             var last = questions[questions.length - 1];
 
             WallActions.questions(last.createdAt, 20);
+
+            this.setState({
+                loading: true
+            });
         }
     },
 
     render: function() {
         var questions = this.state.questions,
             anchors   = this.state.anchors,
-            loadMore  = this.state.loadMore;
+            loadMore  = this.state.loadMore,
+            loading   = this.state.loading;
 
         return (
             <div className="miit-component wall-list">
@@ -130,8 +138,11 @@ var WallList = React.createClass({
                     <If test={0 === questions.length}>
                         <span>{this.props.text.no_question}</span>
                     </If>
-                    <If test={0 !== questions.length && loadMore}>
+                    <If test={0 !== questions.length && loadMore && !loading}>
                         <span className="load-more" onClick={this._onLoadMore}>{this.props.text.load_more}</span>
+                    </If>
+                    <If test={loading}>
+                        <span className="load-more"><Loading /></span>
                     </If>
                 </div>
             </div>
