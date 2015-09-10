@@ -76,7 +76,7 @@ var QuizStats = React.createClass({
 
         return (
             <div className="miit-component quiz-stats container-fluid">
-                <div className="page-title">
+                <div className="page-title mb30">
                     <h2>
                         {this.props.text.title + ' - ' + quiz.name}
                     

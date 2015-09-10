@@ -176,16 +176,16 @@ var QuizUpdate = React.createClass({
                             <h2>{this.props.text.title} - {quiz.name}
 
                                 <If test={quiz.published && !quiz.closed}>
-                                    <span className="ml15 text-green">{this.props.text.published}</span>
+                                    <span className="ml15 quiz-status text-green">{this.props.text.published}</span>
                                 </If>
                                 <If test={quiz.published && quiz.closed}>
-                                    <span className="ml15 text-red">{this.props.text.closed}</span>
+                                    <span className="ml15 quiz-status text-red">{this.props.text.closed}</span>
                                 </If>
                             </h2>
                         </div>
 
                         <div className="panel mb30">
-                            <h2 className="mb20 panel-title">{this.props.text.informations}</h2>
+                            <h2 className="panel-title">{this.props.text.informations}</h2>
                             <form onSubmit={this.handleSubmit} className="mb20 panel-content">
                                 <label className="input-field">
                                     {this.props.text.name}
