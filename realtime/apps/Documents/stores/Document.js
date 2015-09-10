@@ -5,7 +5,7 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     // Shortcut for update

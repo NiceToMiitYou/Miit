@@ -43,7 +43,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
     }
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {

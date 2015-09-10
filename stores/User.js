@@ -3,7 +3,7 @@
 var store = miitoo.resolve(['UserModel'], function(User) {
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {

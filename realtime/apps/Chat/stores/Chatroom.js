@@ -3,7 +3,7 @@
 // Define the store
 var store = miitoo.resolve(['ChatroomModel', 'ChatmessageModel', 'Mongoose'], function(Chatroom, Chatmessage, mongoose) {
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {

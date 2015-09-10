@@ -3,7 +3,7 @@
 var store = miitoo.resolve(['StatusModel'], function(Status) {
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     function updateStatus(status, user, team, cb) {

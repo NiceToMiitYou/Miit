@@ -4,7 +4,7 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
     var mongoose = miitoo.get('Mongoose');
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     // Map subscriptions
