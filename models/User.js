@@ -5,6 +5,8 @@ var crypto = require('crypto');
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
+    var ObjectId = mongoose.Schema.Types.ObjectId;
+
     function sha1(input) {
         // Create ShaSum
         var shasum = crypto.createHash('sha1');
@@ -24,7 +26,11 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         },
         name:     String,
         password: String,
-        avatar:   String
+        avatar:   String,
+        teams:    [{
+            type: ObjectId,
+            ref: 'Team'
+        }]
     });
 
     schema.pre('save', function (next) {

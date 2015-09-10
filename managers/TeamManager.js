@@ -1,20 +1,26 @@
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['Slugify', 'MiitConfig', 'TeamStore', 'TeamModel', 'ChatroomStore', 'MailManager'],
-    function(slugify, config, TeamStore, Team, ChatroomStore, MailManager) {
+    ['Slugify', 'MiitConfig', 'UserStore', 'TeamStore', 'TeamModel', 'ChatroomStore', 'MailManager'],
+    function(slugify, config, UserStore, TeamStore, Team, ChatroomStore, MailManager) {
 
     function onCreate(team, user, cb) {
 
-        // Add the user in the team
-        TeamStore.addUser(team, user, ['USER', 'ADMIN', 'OWNER'], function(err) {
-            if(!err) {
-
-                // Create a room in the team
-                ChatroomStore.create(team, 'Général');
+        UserStore.addTeam(user, team, function(err) {
+            if(err) {
+                return cb(err, team);
             }
 
-            return cb(err, team);
+            // Add the user in the team
+            TeamStore.addUser(team, user, ['USER', 'ADMIN', 'OWNER'], function(err) {
+                if(!err) {
+
+                    // Create a room in the team
+                    ChatroomStore.create(team, 'Général');
+                }
+
+                return cb(err, team);
+            });
         });
     }
 
