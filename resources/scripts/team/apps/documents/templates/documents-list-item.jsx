@@ -1,10 +1,9 @@
 'use strict';
 
 // Include core requirements
-var filesize      = MiitApp.require('core/lib/filesize'),
-    UserStore     = MiitApp.require('core/stores/user-store'),
-    ModalActions  = MiitApp.require('core/actions/modal-actions'),
-    UploadActions = MiitApp.require('core/actions/upload-actions');
+var filesize     = MiitApp.require('core/lib/filesize'),
+    UserStore    = MiitApp.require('core/stores/user-store'),
+    ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
 var DocumentsActions = require('documents-actions');
@@ -47,7 +46,7 @@ var DocumentsListItem = React.createClass({
         var document   = this.props.document,
             identifier = this.props.identifier;
 
-        UploadActions.download(identifier, document.file.id);
+        DocumentsActions.download(document.id);
     },
 
     render: function() {

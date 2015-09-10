@@ -44,6 +44,39 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
             });
         },
 
+        findDocument: function(team, document, options, cb) {
+            var teamId     = getId(team),
+                documentId = getId(document);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(documentId)) {
+                return;
+            }
+
+            var conditions = {
+                _id:  document,
+                team: teamId
+            };
+
+            if(true !== options.private) {
+                conditions['public'] = true;
+            }
+
+            Document
+                .findOne(conditions)
+                .populate('file')
+                .exec(function(err, document) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, document);
+                    }
+                });
+        },
+
         findDocuments: function(team, options, cb) {
             var teamId = getId(team);
 

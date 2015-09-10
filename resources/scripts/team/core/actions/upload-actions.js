@@ -143,8 +143,8 @@ module.exports = {
         return true;
     },
 
-    download: function(application, upload) {
-        if(!UserStore.isUser() || !application || !upload) {
+    download: function(application, download, upload) {
+        if(!UserStore.isUser() || !application || !download || !upload) {
             return false;
         }
 
@@ -157,6 +157,7 @@ module.exports = {
 
         // Add a hidden field before download
         addField(form, 'application', application);
+        addField(form, 'download',    download);
         addField(form, 'upload',      upload);
         addField(form, 'token',       UserStore.getToken());
 

@@ -3,6 +3,7 @@
 module.exports = function DocumentsActions(app) {
 
     var DocumentStore = miitoo.get('DocumentStore');
+    var UploadStore   = miitoo.get('UploadStore');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -35,10 +36,39 @@ module.exports = function DocumentsActions(app) {
     });
 
     // List documents
+    Dispatcher.register('documents:download', 'USER', app.identifier(), function onDownloadDocument(spark, data, team, user) {
+        var documentId = data.id,
+            options    = {};
+
+        if(!documentId) {
+            return;
+        }
+
+        DocumentStore.findDocument(team, documentId, options, function(err, document) {
+            if(err || !document) {
+                return;
+            }
+
+            var uploadId   = (document.file || {}).id,
+                identifier = app.identifier();
+
+            // Allow the download
+            UploadStore.allow(uploadId, user, team, identifier, function(err, download) {
+
+                spark.write({
+                    event:       'documents:download',
+                    application: identifier,
+                    download:    download.id,
+                    upload:      uploadId
+                });
+            });
+        });
+    });
+
+    // List documents
     Dispatcher.register('documents:list', 'USER', app.identifier(), function onListDocuments(spark, data, team, user) {
         var options = {};
 
-        // Retreive quizzes based on options
         DocumentStore.findDocuments(team, options, function(err, documents) {
 
             spark.write({
@@ -56,7 +86,6 @@ module.exports = function DocumentsActions(app) {
             return;
         }
 
-        // Retreive quizzes based on options
         DocumentStore.remove(team, documentId, function(err) {
 
             sendRefresh(team);

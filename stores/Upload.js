@@ -1,6 +1,6 @@
 
 // Define the store
-var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoose) {
+var store = miitoo.resolve(['DownloadModel', 'UploadModel', 'Mongoose'], function(Download, Upload, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
@@ -28,6 +28,30 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                     cb(err, upload);
                 }
             });
+        },
+
+        allow: function(upload, user, team, application, cb) {
+            var teamId     = getId(team),
+                userId     = getId(user),
+                uploadId   = getId(upload);
+
+                var download = new Download({
+                    application: application,
+                    team:        teamId,
+                    user:        userId,
+                    upload:      uploadId
+                });
+
+                download.save(function(err, upload) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, download);
+                    }
+                });
         },
 
         getNotUploaded: function(upload, team, user, application, cb) {
@@ -92,31 +116,43 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                 });
         },
 
-        getForDownload: function(upload, team, application, cb) {
-            var teamId   = getId(team),
-                uploadId = getId(upload);
+        getForDownload: function(download, upload, user, team, application, cb) {
+            var teamId     = getId(team),
+                userId     = getId(user),
+                downloadId = getId(download),
+                uploadId   = getId(upload);
 
             // Prevent crashes
-            if(!ObjectId.isValid(uploadId)) {
+            if(
+                !ObjectId.isValid(downloadId) ||
+                !ObjectId.isValid(uploadId)
+            ) {
                 return;
             }
 
-            Upload
+            Download
                 .findOne({
-                    _id:         uploadId,
-                    team:        teamId,
+                    _id:         downloadId,
                     application: application,
-                    uploaded:    true,
-                    deleted:     false
+                    team:        teamId,
+                    user:        userId
                 })
-                .exec(function(err, upload) {
+                .populate({
+                    path: 'upload',
+                    match: {
+                        _id:      uploadId,
+                        uploaded: true,
+                        deleted:  false
+                    }
+                })
+                .exec(function(err, download) {
                     if(err) {
                         miitoo.logger.error(err.message);
                         miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
-                        cb(err, upload);
+                        cb(err, download);
                     }
                 });
         },
