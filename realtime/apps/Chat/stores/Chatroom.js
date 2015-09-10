@@ -145,7 +145,7 @@ var store = miitoo.resolve(['ChatroomModel', 'ChatmessageModel', 'Mongoose'], fu
             var conditions = {
                 chatroom: chatroomId,
                 createdAt: {
-                    '$lte': new Date(last)
+                    $lt: new Date(last)
                 }
             };
 

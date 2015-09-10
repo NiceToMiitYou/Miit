@@ -14,7 +14,8 @@ var WallConstants = {
         ANSWERED_QUESTION: null,
         UNANSWERED_QUESTION: null,
         REMOVE_QUESTION: null,
-        REFRESH_QUESTIONS: null
+        REFRESH_QUESTIONS: null,
+        LOAD_MORE_QUESTIONS: null
     })
 };
 

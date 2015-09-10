@@ -5,7 +5,8 @@ var UserStore    = MiitApp.require('core/stores/user-store'),
     ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include common templates
-var If = MiitApp.require('templates/if.jsx');
+var If      = MiitApp.require('templates/if.jsx'),
+    Loading = MiitApp.require('templates/loading.jsx');
 
 // Include requirements
 var WallStore   = require('wall-store'),
@@ -21,7 +22,8 @@ var WallList = React.createClass({
             text: {
                 title:        'Mur de questions',
                 ask_question: 'Poser une question',
-                no_question:  'Aucune question n\'a été posée pour le moment.'
+                no_question:  'Aucune question n\'a été posée pour le moment.',
+                load_more:    'Charger plus de questions.'
             }
         };
     },
@@ -29,7 +31,9 @@ var WallList = React.createClass({
     getInitialState: function () {
         return {
             anchors:   [],
-            questions: WallStore.getQuestions()
+            questions: WallStore.getQuestions(),
+            loadMore:  true,
+            loading:   true
         };
     },
 
@@ -41,7 +45,7 @@ var WallList = React.createClass({
         WallStore.removeQuestionsRefreshedListener(this._onChange);
     },
 
-    _onChange: function() {
+    _onChange: function(refreshed) {
         var questions = WallStore.getQuestions(),
             anchors   = this.state.anchors,
             clean     = [];
@@ -57,7 +61,9 @@ var WallList = React.createClass({
 
         this.setState({
             anchors:   clean,
-            questions: WallStore.getQuestions()
+            questions: questions,
+            loadMore:  0 !== refreshed,
+            loading:   false
         });
     },
 
@@ -88,9 +94,25 @@ var WallList = React.createClass({
         });
     },
 
+    _onLoadMore: function() {
+        var questions = this.state.questions;
+
+        if(0 !== questions.length) {
+            var last = questions[questions.length - 1];
+
+            WallActions.questions(last.createdAt, 20);
+
+            this.setState({
+                loading: true
+            });
+        }
+    },
+
     render: function() {
         var questions = this.state.questions,
-            anchors   = this.state.anchors;
+            anchors   = this.state.anchors,
+            loadMore  = this.state.loadMore,
+            loading   = this.state.loading;
 
         return (
             <div className="miit-component wall-list">
@@ -115,6 +137,16 @@ var WallList = React.createClass({
                     }, this)}
                     <If test={0 === questions.length}>
                         <span>{this.props.text.no_question}</span>
+                    </If>
+                    <If test={0 !== questions.length && loadMore && !loading}>
+                        <div className="load-more">
+                            <button className="btn" onClick={this._onLoadMore}>
+                                <i className="fa fa-plus mr5"></i> {this.props.text.load_more}
+                            </button>
+                        </div>
+                    </If>
+                    <If test={loading}>
+                        <div className="load-more"><Loading /></div>
                     </If>
                 </div>
             </div>

@@ -24,11 +24,18 @@ var store = miitoo.resolve(['WallQuestionModel', 'Mongoose'], function(Question,
     }
 
     return {
-        findQuestions: function(team, privat, cb) {
+        findQuestions: function(team, privat, last, count, cb) {
             var teamId = getId(team);
 
+            // Define limitations
+            var count = Math.abs(count);
+            var limit = (count > 100 ) ? 100 : count;
+
             var conditions = {
-                team: teamId
+                team: teamId,
+                createdAt: {
+                    $lt: last
+                }
             };
 
             if(true === privat) {
@@ -37,7 +44,10 @@ var store = miitoo.resolve(['WallQuestionModel', 'Mongoose'], function(Question,
 
             Question
                 .find(conditions)
-                .sort({ 'createdAt': -1 })
+                .sort({
+                    'createdAt': -1
+                })
+                .limit(limit)
                 .exec(function(err, questions) {
                     // Log the error
                     if(err) {

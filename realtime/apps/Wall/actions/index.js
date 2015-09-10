@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function WallActions(app) {
-
     var WallQuestionStore = miitoo.get('WallQuestionStore');
 
     var primus     = miitoo.get('Primus');
@@ -9,8 +8,16 @@ module.exports = function WallActions(app) {
 
     // List questions
     Dispatcher.register('wall:questions:list', 'USER', app.identifier(), function onListQuestions(spark, data, team, user) {
+        var refresh = true;
 
-        WallQuestionStore.findQuestions(team, false, function(err, questions) {
+        if(data.last) {
+            refresh = false;
+        }
+
+        var last  = data.last  || new Date(),
+            count = data.count || 20;
+
+        WallQuestionStore.findQuestions(team, false, last, count, function(err, questions) {
 
             // Extract questions likes by user
             var likes = questions.filter(function(question) {
@@ -22,7 +29,8 @@ module.exports = function WallActions(app) {
             spark.write({
                 event:     'wall:questions:list',
                 questions: questions,
-                likes:     likes
+                likes:     likes,
+                refresh:   refresh
             });
         });
     });
