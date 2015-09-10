@@ -33,19 +33,23 @@ function _addQuestion(question) {
 function _likeQuestion(question) {
     var temp = Questions.findBy('id', question);
 
-    // Increase likes
-    temp.likes += 1;
+    if(temp) {
+        // Increase likes
+        temp.likes += 1;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _unlikeQuestion(question) {
     var temp = Questions.findBy('id', question);
 
-    // Decrease likes
-    temp.likes -= 1;
+    if(temp) {
+        // Decrease likes
+        temp.likes -= 1;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _iLikeQuestion(question) {
@@ -59,17 +63,21 @@ function _iUnlikeQuestion(question) {
 function _answeredQuestion(question) {
     var temp = Questions.findBy('id', question);
 
-    temp.answered = true;
+    if(temp) {
+        temp.answered = true;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _unansweredQuestion(question) {
     var temp = Questions.findBy('id', question);
 
-    temp.answered = false;
+    if(temp) {
+        temp.answered = false;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _removeQuestion(question) {
@@ -79,31 +87,39 @@ function _removeQuestion(question) {
 function _addComment(question, comment) {
     var temp = Questions.findBy('id', question);
 
-    temp.comments.addBy('id', comment);
+    if(temp) {
+        temp.comments.addBy('id', comment);
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _allowComment(question) {
     var temp = Questions.findBy('id', question);
 
-    temp.allowComments = true;
+    if(temp) {
+        temp.allowComments = true;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _disallowComment(question) {
     var temp = Questions.findBy('id', question);
 
-    temp.allowComments = false;
+    if(temp) {
+        temp.allowComments = false;
 
-    Questions.mergeBy('id', temp, true);
+        Questions.mergeBy('id', temp, true);
+    }
 }
 
 function _removeComment(question, comment) {
     var temp = Questions.findBy('id', question);
 
-    temp.comments.removeBy('id', comment);
+    if(temp) {
+        temp.comments.removeBy('id', comment);
+    }
 }
 
 // The WallStore Object
