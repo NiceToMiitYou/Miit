@@ -19,7 +19,7 @@ var ClockFace = React.createClass({
 
         return (
             <div className="miit-component clock">
-                <i className="fa fa-clock-o pull-left"></i>
+                <i className="fa fa-clock-o mr5"></i>
                 <span>{value}</span>
             </div>
         );

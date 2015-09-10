@@ -14,6 +14,7 @@ var Link = require('core/templates/components/link.jsx'),
     MenuHeader      = require('./menu-header.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
     MenuUserProfile = require('./menu-user-profile.jsx'),
+    Clock           = require('templates/clock.jsx'),
     MenuTeamItem    = require('./menu-team-item.jsx');
 
 var MenuTeam = React.createClass({
@@ -59,6 +60,7 @@ var MenuTeam = React.createClass({
                         </If>
                     </ul>
                 </div>
+                <Clock />
             </div>
         );
     }
