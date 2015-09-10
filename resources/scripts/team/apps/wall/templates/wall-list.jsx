@@ -96,7 +96,7 @@ var WallList = React.createClass({
             <div className="miit-component wall-list">
                 <h2 className="mt25 mb20">{this.props.text.title}</h2>
                 
-                <button type="button" className="btn btn-info ml20" onClick={this._onAsk} >
+                <button type="button" className="btn btn-info btn-create ml20" onClick={this._onAsk} >
                     <i className="fa fa-plus mr5"></i> {this.props.text.ask_question}
                 </button>
 

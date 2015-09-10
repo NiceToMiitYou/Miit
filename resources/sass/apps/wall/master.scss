@@ -1,6 +1,12 @@
 
 .wall-app {
     .wall-list {
+        .btn-create {
+            position: absolute;
+            top: 18px;
+            right: 25px;
+        }
+
         .wall-list-item {
             position: relative;
             padding: 15px;
