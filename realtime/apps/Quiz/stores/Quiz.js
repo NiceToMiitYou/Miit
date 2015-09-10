@@ -181,16 +181,14 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var teamId = getId(team).toString(),
                 quizId = getId(quiz);
                 
-            quizId = new ObjectId(quizId);
-
             // Prevent crashes
             if(!ObjectId.isValid(quizId)) {
                 return;
             }
-
+            
             var conditions = {
                 team: teamId,
-                _id:  quizId
+                _id:  new ObjectId(quizId)
             };
 
             var aggregate = [

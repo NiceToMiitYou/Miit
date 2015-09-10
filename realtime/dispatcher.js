@@ -169,12 +169,19 @@ function Dispatcher() {
         var teamId = getTeam(spark);
 
         if(!teamId) {
+            miitoo.logger.error('No team found for:', event);
             return;
         }
 
         TeamStore.findTeam(teamId, function(err, team) {
+            if(err) {
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
+            }
+
             // Check if the team exist
-            if(err || !team) {
+            if(!team) {
+                miitoo.logger.error('No team found for:', event);
                 return;
             }
 
