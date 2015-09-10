@@ -29,7 +29,8 @@ var UserListInvite = React.createClass({
     getDefaultErrors: function() {
         return {
             missing_email: false,
-            invalid_email: false
+            invalid_email: false,
+            invited:       false
         };
     },
 
@@ -77,19 +78,26 @@ var UserListInvite = React.createClass({
 
         TeamActions.invite(email);
 
+        this.setState({
+            invited: true
+        });
+
         return;
     },
 
     _onInvited: function() {
 
-        NotificationsActions.notify('success', this.props.inviteUser);
+        if(true === this.state.invited) {
+            NotificationsActions.notify('success', this.props.inviteUser);
 
-        this.setState({
-            email: ''
-        });
+            this.setState({
+                email:   '',
+                invited: false
+            });
 
-        if(typeof this.props.onInvite === 'function') {
-            this.props.onInvite(email);
+            if(typeof this.props.onInvite === 'function') {
+                this.props.onInvite(email);
+            }
         }
     },
 

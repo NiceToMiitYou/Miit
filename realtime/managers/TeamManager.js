@@ -135,12 +135,24 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id + ':ADMIN').write({
                     event: 'team:invite',
                     user: {
                         id:     user.id,
                         name:   user.name,
                         email:  user.email,
+                        avatar: user.avatar,
+                        roles:  roles
+                    }
+                });
+
+                var rooms = [team.id + ':USER', team.id + ':ANONYM'];
+
+                primus.in(rooms).write({
+                    event: 'team:invite',
+                    user: {
+                        id:     user.id,
+                        name:   user.name,
                         avatar: user.avatar,
                         roles:  roles
                     }
@@ -170,7 +182,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:remove',
                     id:    userId
                 });
@@ -200,7 +212,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:promote',
                     id:    userId,
                     roles: roles
@@ -232,7 +244,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:demote',
                     id:    userId,
                     roles: roles
