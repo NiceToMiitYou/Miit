@@ -6,8 +6,10 @@ module.exports = function WallActions(app) {
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
+    Dispatcher.load(app.identifier());
+
     // List questions
-    Dispatcher.register('wall:questions:list', 'USER', app.identifier(), function onListQuestions(spark, data, team, user) {
+    Dispatcher.register('wall:questions:list', 'USER', function onListQuestions(spark, data, team, user) {
         var refresh = true;
 
         if(data.last) {
@@ -36,7 +38,7 @@ module.exports = function WallActions(app) {
     });
 
     // Create a question
-    Dispatcher.register('wall:questions:create', 'USER', app.identifier(), function onCreateQuestion(spark, data, team, user) {
+    Dispatcher.register('wall:questions:create', 'USER', function onCreateQuestion(spark, data, team, user) {
         var text = data.text || '';
 
         if(!text || typeof text !== 'string' || !text.trim()) {
@@ -54,7 +56,7 @@ module.exports = function WallActions(app) {
     });
 
     // Like a question
-    Dispatcher.register('wall:questions:like', 'USER', app.identifier(), function onLikeQuestion(spark, data, team, user) {
+    Dispatcher.register('wall:questions:like', 'USER', function onLikeQuestion(spark, data, team, user) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -82,7 +84,7 @@ module.exports = function WallActions(app) {
     });
 
     // Unlike a question
-    Dispatcher.register('wall:questions:unlike', 'USER', app.identifier(), function onUnlikeQuestion(spark, data, team, user) {
+    Dispatcher.register('wall:questions:unlike', 'USER', function onUnlikeQuestion(spark, data, team, user) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -110,7 +112,7 @@ module.exports = function WallActions(app) {
     });
 
     // Mark answered a question
-    Dispatcher.register('wall:questions:answered', 'USER', app.identifier(), function onAnseweredQuestion(spark, data, team, user, roles) {
+    Dispatcher.register('wall:questions:answered', 'USER', function onAnseweredQuestion(spark, data, team, user, roles) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -134,7 +136,7 @@ module.exports = function WallActions(app) {
     });
 
     // Mark unanswered a question
-    Dispatcher.register('wall:questions:unanswered', 'USER', app.identifier(), function onUnanseweredQuestion(spark, data, team, user, roles) {
+    Dispatcher.register('wall:questions:unanswered', 'USER', function onUnanseweredQuestion(spark, data, team, user, roles) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -158,7 +160,7 @@ module.exports = function WallActions(app) {
     });
 
     // Mark unanswered a question
-    Dispatcher.register('wall:questions:remove', 'USER', app.identifier(), function onRemoveQuestion(spark, data, team, user, roles) {
+    Dispatcher.register('wall:questions:remove', 'USER', function onRemoveQuestion(spark, data, team, user, roles) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -182,7 +184,7 @@ module.exports = function WallActions(app) {
     });
 
     // Comment a question
-    Dispatcher.register('wall:comments:create', 'USER', app.identifier(), function onCommentQuestion(spark, data, team, user) {
+    Dispatcher.register('wall:comments:create', 'USER', function onCommentQuestion(spark, data, team, user) {
         var questionId = data.id,
             text       = data.text || '';
 
@@ -202,7 +204,7 @@ module.exports = function WallActions(app) {
     });
 
     // Allow comments on a question
-    Dispatcher.register('wall:comments:allow', 'USER', app.identifier(), function onAllowComment(spark, data, team, user, roles) {
+    Dispatcher.register('wall:comments:allow', 'USER', function onAllowComment(spark, data, team, user, roles) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -226,7 +228,7 @@ module.exports = function WallActions(app) {
     });
 
     // Disallow comments on a question
-    Dispatcher.register('wall:comments:disallow', 'USER', app.identifier(), function onDisallowComment(spark, data, team, user, roles) {
+    Dispatcher.register('wall:comments:disallow', 'USER', function onDisallowComment(spark, data, team, user, roles) {
         var questionId = data.id;
 
         if(!questionId) {
@@ -250,7 +252,7 @@ module.exports = function WallActions(app) {
     });
 
     // Uncomment a question
-    Dispatcher.register('wall:comments:remove', 'USER', app.identifier(), function onRemoveComment(spark, data, team, user, roles) {
+    Dispatcher.register('wall:comments:remove', 'USER', function onRemoveComment(spark, data, team, user, roles) {
         var questionId = data.id,
             commentId  = data.comment;
 
@@ -274,4 +276,6 @@ module.exports = function WallActions(app) {
             });
         });
     });
+
+    Dispatcher.reset();
 };

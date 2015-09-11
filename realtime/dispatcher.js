@@ -79,7 +79,7 @@ function Dispatcher() {
     var roles = {};
 
     // Application of the event
-    var applications = {};
+    var applications = {}, tempApplication;
 
     // Define the emitter to this
     EventEmitter.call(this);
@@ -110,9 +110,22 @@ function Dispatcher() {
         return allowed;
     }
 
+    this.load = function(application) {
+        tempApplication = application;
+    };
+
+    this.reset = function() {
+        tempApplication = null;
+    };
+
     // Register 
     this.register = function(event, role, application, callback)
     {
+        // Define gloabal application
+        if(tempApplication) {
+            applications[event] = tempApplication;
+        }
+
         // If no application define
         if(typeof callback === 'undefined') {
             callback = application;

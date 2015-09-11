@@ -35,8 +35,10 @@ module.exports = function DocumentsActions(app) {
         });
     });
 
+    Dispatcher.load(app.identifier());
+
     // List documents
-    Dispatcher.register('documents:download', 'USER', app.identifier(), function onDownloadDocument(spark, data, team, user) {
+    Dispatcher.register('documents:download', 'USER', function onDownloadDocument(spark, data, team, user) {
         var documentId = data.id,
             options    = {};
 
@@ -66,7 +68,7 @@ module.exports = function DocumentsActions(app) {
     });
 
     // List documents
-    Dispatcher.register('documents:list', 'USER', app.identifier(), function onListDocuments(spark, data, team, user) {
+    Dispatcher.register('documents:list', 'USER', function onListDocuments(spark, data, team, user) {
         var options = {};
 
         DocumentStore.findDocuments(team, options, function(err, documents) {
@@ -79,7 +81,7 @@ module.exports = function DocumentsActions(app) {
     });
 
     // Remove documents
-    Dispatcher.register('documents:remove', 'ADMIN', app.identifier(), function onRemoveDocument(spark, data, team) {
+    Dispatcher.register('documents:remove', 'ADMIN', function onRemoveDocument(spark, data, team) {
         var documentId = data.id;
 
         if(!documentId) {
@@ -91,4 +93,6 @@ module.exports = function DocumentsActions(app) {
             sendRefresh(team);
         });
     });
+
+    Dispatcher.reset();
 };

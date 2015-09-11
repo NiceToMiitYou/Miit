@@ -38,8 +38,10 @@ module.exports = function QuizActions(app) {
         };
     }
 
+    Dispatcher.load(app.identifier());
+
     // List quizzes
-    Dispatcher.register('quiz:quizzes', 'USER', app.identifier(), function onListQuizzes(spark, data, team, user, roles) {
+    Dispatcher.register('quiz:quizzes', 'USER', function onListQuizzes(spark, data, team, user, roles) {
 
         // Get options
         var options = optionsQuiz(team, roles);
@@ -59,7 +61,7 @@ module.exports = function QuizActions(app) {
     });
 
     // get Stats of a quiz
-    Dispatcher.register('quiz:stats', 'ADMIN', app.identifier(), function onGetStats(spark, data, team, user) {
+    Dispatcher.register('quiz:stats', 'ADMIN', function onGetStats(spark, data, team, user) {
         var quizId = data.id;
 
         if(!quizId) {
@@ -78,7 +80,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Create a quiz
-    Dispatcher.register('quiz:create', 'ADMIN', app.identifier(), function onCreateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:create', 'ADMIN', function onCreateQuiz(spark, data, team, user) {
         var name        = data.name || '',
             description = data.description || '';
 
@@ -111,7 +113,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Publish a quiz
-    Dispatcher.register('quiz:publish', 'ADMIN', app.identifier(), function onPubishQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:publish', 'ADMIN', function onPubishQuiz(spark, data, team, user) {
         var quizId = data.id;
 
         if(!quizId) {
@@ -124,7 +126,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Close a quiz
-    Dispatcher.register('quiz:close', 'ADMIN', app.identifier(), function onCloseQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:close', 'ADMIN', function onCloseQuiz(spark, data, team, user) {
         var quizId = data.id;
 
         if(!quizId) {
@@ -137,7 +139,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Reopen a quiz
-    Dispatcher.register('quiz:reopen', 'ADMIN', app.identifier(), function onCloseQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:reopen', 'ADMIN', function onCloseQuiz(spark, data, team, user) {
         var quizId = data.id;
 
         if(!quizId) {
@@ -150,7 +152,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Update a quiz
-    Dispatcher.register('quiz:update', 'ADMIN', app.identifier(), function onUpdateQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:update', 'ADMIN', function onUpdateQuiz(spark, data, team, user) {
         var quizId      = data.id,
             name        = data.name || '',
             description = data.description || '';
@@ -173,7 +175,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Add a question to a quiz
-    Dispatcher.register('quiz:questions:add', 'ADMIN', app.identifier(), function onAddQuestion(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:add', 'ADMIN', function onAddQuestion(spark, data, team, user) {
         var quizId   = data.quiz,
             title    = data.title || '',
             subtitle = data.subtitle || '',
@@ -200,7 +202,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Update a question to a quiz
-    Dispatcher.register('quiz:questions:update', 'ADMIN', app.identifier(), function onUpdateQuestion(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:update', 'ADMIN', function onUpdateQuestion(spark, data, team, user) {
         var questionId = data.question,
             quizId     = data.quiz,
             title      = data.title || '',
@@ -226,7 +228,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Remove a question to a quiz
-    Dispatcher.register('quiz:questions:remove', 'ADMIN', app.identifier(), function onRemoveQuestion(spark, data, team, user) {
+    Dispatcher.register('quiz:questions:remove', 'ADMIN', function onRemoveQuestion(spark, data, team, user) {
         var questionId = data.question,
             quizId     = data.quiz;
 
@@ -240,7 +242,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Add an answer to a quiz
-    Dispatcher.register('quiz:answers:add', 'ADMIN', app.identifier(), function onAddAnswer(spark, data, team, user) {
+    Dispatcher.register('quiz:answers:add', 'ADMIN', function onAddAnswer(spark, data, team, user) {
         var quizId     = data.quiz,
             questionId = data.question,
             title      = data.title || '',
@@ -264,7 +266,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Update an answer to a quiz
-    Dispatcher.register('quiz:answers:update', 'ADMIN', app.identifier(), function onUpdateAnswer(spark, data, team, user) {
+    Dispatcher.register('quiz:answers:update', 'ADMIN', function onUpdateAnswer(spark, data, team, user) {
         var answerId   = data.answer,
             questionId = data.question,
             quizId     = data.quiz,
@@ -287,7 +289,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Remove an answer to a quiz
-    Dispatcher.register('quiz:answers:remove', 'ADMIN', app.identifier(), function onRemoveAnswer(spark, data, team, user) {
+    Dispatcher.register('quiz:answers:remove', 'ADMIN', function onRemoveAnswer(spark, data, team, user) {
         var answerId   = data.answer,
             questionId = data.question,
             quizId     = data.quiz;
@@ -302,7 +304,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Remove an answer to a quiz
-    Dispatcher.register('quiz:choices', 'USER', app.identifier(), function onSendChoices(spark, data, team, user, roles) {
+    Dispatcher.register('quiz:choices', 'USER', function onSendChoices(spark, data, team, user, roles) {
         var quizId  = data.quiz,
             choices = data.choices;
 
@@ -342,4 +344,6 @@ module.exports = function QuizActions(app) {
             });
         });
     });
+
+    Dispatcher.reset();
 };
