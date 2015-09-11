@@ -133,7 +133,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -158,7 +159,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -186,7 +188,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -212,7 +215,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {

@@ -23,7 +23,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         }
     });
 
-    // The model of the Upload
+    // The model of the Download
     return mongoose.model('Download', schema);
 });
 

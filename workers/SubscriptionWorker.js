@@ -30,7 +30,7 @@ function endOfWorker(subscriptionsDone) {
     // Recalculate waiting time
     recalculateTime(subscriptionsDone);
 
-    miitoo.logger.debug('Notification send:', subscriptionsDone, 'Next check in:', currentWait + 'ms')
+    miitoo.logger.debug('Notification send:', subscriptionsDone, 'Next check in:', currentWait + 'ms');
 
     // restart the worker after 5sec
     timeoutId = setTimeout(SubscriptionWorker, currentWait);
