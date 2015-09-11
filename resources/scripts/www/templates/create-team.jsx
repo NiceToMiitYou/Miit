@@ -8,14 +8,16 @@ function getDomainName(hostName)
     return hostName.substring(hostName.lastIndexOf('.', hostName.lastIndexOf('.') - 1) + 1);
 }
 
+var MiitTranslations = global.MiitTranslations;
+
 var CreateTeam = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                email: 'Votre addresse mail',
-                team:  'Le nom de votre équipe'
+                email: MiitTranslations['input.your.email'],
+                team:  MiitTranslations['input.your.miit']
             },
-            submit: 'Créer une équipe'
+            submit: MiitTranslations['submit.create.miit']
         };
     },
 

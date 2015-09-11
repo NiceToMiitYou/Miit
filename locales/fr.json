@@ -6,12 +6,13 @@
 
     "www.miit.logo": "Le logo de Miit",
     "www.header.title": "Changez votre manière de communiquer",
-    "www.header.subtitle": "avec Miit, une application web qui s'adapte à vos besoins",
+    "www.header.subtitle": "avec <strong>Miit</strong>, une application web qui s'adapte à vos besoins",
     
     "www.subscribe.alt": "Inscrivez-vous pour recevoir des informations sur Miit",
     "www.subscribe.title": "Inscrivez-vous dès maintenant",
     "www.subscribe.subtitle": "Restez informés et bénéficiez d'une relation privilégiée avec nos équipes.",
     "www.subscribe.newsletter": "S'inscrire à la Newsletter",
+    "www.subscribe.newsletter_short": "S'inscrire",
 
     "www.beta.access": "Inscription aux beta-tests",
     "www.beta.access.development": "<strong>Miit</strong> est toujours en développement, et pour que nous puissions répondre le mieux possible à vos besoins et à votre envie de communiquer, nous avons besoin de <strong>votre aide.</strong>",
@@ -100,5 +101,7 @@
     "team.loading": "Chargement...",
     
 
-    "input.your.email": "Votre adresse mail"
+    "input.your.email": "john.doe@miit.fr",
+    "input.your.miit": "Le nom de votre Miit",
+    "input.create.miit": "Créer votre Miit"
 }
