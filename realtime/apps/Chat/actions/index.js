@@ -20,7 +20,13 @@ module.exports = function ChatActions(app) {
         });
     }
 
-    Dispatcher.load(app.identifier());
+    Dispatcher.load(app.identifier(), {
+        writes: [
+            'chat:create',
+            'chat:remove',
+            'chat:send'
+        ]
+    });
 
     // Create a chatroom
     Dispatcher.register('chat:create', 'ADMIN', function onCreateChatroom(spark, data, team, user) {

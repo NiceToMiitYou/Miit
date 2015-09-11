@@ -131,6 +131,10 @@ var controller = miitoo.resolve(
                 return res.redirect(url);
             }
 
+            if(true === team.locked && -1 !== req.url.indexOf('/upload')) {
+                return res.end();
+            }
+
             // Define values for the request
             req.team = team;
 

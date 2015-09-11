@@ -76,7 +76,8 @@ function isApplicationAllowed(team, application, userRoles) {
 function Dispatcher() {
 
     // Roles needed to call this event
-    var roles = {};
+    var roles  = {},
+        writes = [];
 
     // Application of the event
     var applications = {}, tempApplication;
@@ -110,8 +111,25 @@ function Dispatcher() {
         return allowed;
     }
 
-    this.load = function(application) {
+    this.load = function(application, options) {
         tempApplication = application;
+
+        // load options
+        if(options) {
+            // Check for write access
+            if(Array.isArray(options.writes)) {
+                // concat informations
+                writes.merge(options.writes);
+            }
+        }
+    };
+
+    this.writes = function(tmp) {
+        // Check for write access
+        if(Array.isArray(tmp)) {
+            // concat informations
+            writes.merge(tmp);
+        }
     };
 
     this.reset = function() {
@@ -195,6 +213,11 @@ function Dispatcher() {
             // Check if the team exist
             if(!team) {
                 miitoo.logger.error('No team found for:', event);
+                return;
+            }
+
+            // Check for read-only
+            if(true === team.locked && -1 !== writes.indexOf(event)) {
                 return;
             }
 

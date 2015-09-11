@@ -1,8 +1,5 @@
 'use strict';
 
-// Extend array for quiz validation
-require('../../../../shared/lib/array-extensions');
-
 module.exports = function QuizActions(app) {
     var QuizStore      = miitoo.get('QuizStore');
     var QuizValidation = require('../../../../shared/apps/quiz/validation');
@@ -38,7 +35,21 @@ module.exports = function QuizActions(app) {
         };
     }
 
-    Dispatcher.load(app.identifier());
+    Dispatcher.load(app.identifier(), {
+        writes: [
+            'quiz:create',
+            'quiz:publish',
+            'quiz:reopen',
+            'quiz:update',
+            'quiz:questions:add',
+            'quiz:questions:update',
+            'quiz:questions:remove',
+            'quiz:answers:add',
+            'quiz:answers:update',
+            'quiz:answers:remove',
+            'quizz:choices'
+        ]
+    });
 
     // List quizzes
     Dispatcher.register('quiz:quizzes', 'USER', function onListQuizzes(spark, data, team, user, roles) {

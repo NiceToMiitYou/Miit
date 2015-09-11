@@ -6,7 +6,18 @@ module.exports = function WallActions(app) {
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
-    Dispatcher.load(app.identifier());
+    Dispatcher.load(app.identifier(), {
+        writes: [
+            'wall:questions:create',
+            'wall:questions:remove',
+            'wall:questions:like',
+            'wall:questions:unlike',
+            'wall:comments:create',
+            'wall:comments:remove',
+            'wall:comments:allow',
+            'wall:comments:disallow'
+        ]
+    });
 
     // List questions
     Dispatcher.register('wall:questions:list', 'USER', function onListQuestions(spark, data, team, user) {

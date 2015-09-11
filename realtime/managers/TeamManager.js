@@ -18,6 +18,13 @@ module.exports = function TeamManager() {
     // And primus
     var primus = miitoo.get('Primus');
 
+    Dispatcher.writes([
+        'team:application:add',
+        'team:application:remove',
+        'team:invite',
+        'team:remove'
+    ]);
+
     // Handle get informations of an user
     Dispatcher.register('team:user', 'USER', function onGetUser(spark, data, team) {
         // Find the user

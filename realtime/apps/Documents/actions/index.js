@@ -35,7 +35,11 @@ module.exports = function DocumentsActions(app) {
         });
     });
 
-    Dispatcher.load(app.identifier());
+    Dispatcher.load(app.identifier(), {
+        writes: [
+            'documents:remove'
+        ]
+    });
 
     // List documents
     Dispatcher.register('documents:download', 'USER', function onDownloadDocument(spark, data, team, user) {
