@@ -3,6 +3,9 @@
 // Include requirements
 var PageStore = require('core/stores/page-store');
 
+// Include Layout
+var Layout = require('./layouts/default-layout.jsx');
+
 // Include components
 var Link = require('core/templates/components/link.jsx');
 
@@ -18,13 +21,13 @@ var NotFound = React.createClass({
 
     render: function() {
         return (
-            <div className="container-fluid">
+            <Layout>
                 <h1 className="pt25">{this.props.title}</h1>
 
                 <div className="mt50">
                     <Link href="/">{this.props.text.home}</Link>
                 </div>
-            </div>
+            </Layout>
         );
     }
 });

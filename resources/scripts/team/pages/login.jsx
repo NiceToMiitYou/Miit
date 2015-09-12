@@ -10,15 +10,9 @@ var Layout = require('./layouts/default-layout.jsx');
 var UserLogin = require('core/templates/user/user-login.jsx');
 
 var Login = React.createClass({
-    getDefaultProps: function () {
-        return {
-            title: 'Connexion'
-        };
-    },
-
     render: function() {
         return (
-            <Layout title={this.props.title}>
+            <Layout>
                 <UserLogin />
             </Layout>
         );

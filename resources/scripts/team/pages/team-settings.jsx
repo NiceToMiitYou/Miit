@@ -64,8 +64,7 @@ var TeamSettings = React.createClass({
         var team = TeamStore.getTeam();
 
         return (
-            <Layout title={team.name}>
-
+            <Layout>
                 <div className="container-fluid">
                     <div className="page-title">
                         <h2>
