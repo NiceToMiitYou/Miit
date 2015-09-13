@@ -151,10 +151,12 @@ a {
 
 	.page-header {
 		.user-profile {
-			margin-right: 10px;
+			padding-right: 10px;
 			float: left;
+			cursor: pointer;
+			position: relative;
 
-			span {
+			& > span {
 				display: inline-block;
 				line-height: 50px;
 			}
@@ -163,7 +165,7 @@ a {
 				display: inline-block;
 				float: left;
 				height: 50px;
-				padding: 10px;
+				padding: 9px;
 				padding-right: 10px;
 
 				img {
@@ -171,9 +173,60 @@ a {
 				}
 			}
 
-			i {
+			& > i {
 				font-size: 12px;
 				float: right;
+			}
+
+			&:hover, &.active {
+				background-color: #21455F;
+			}
+
+			.user-dropdown {
+				position: absolute;
+				width: 100%;
+				background-color: #2B3C4C;
+				top: 100%;
+				margin-top: 15px;
+
+				&:before {
+					content: "";
+					width: 0;
+					height: 0;
+					border-right: 10px solid transparent;
+					border-left: 10px solid transparent;
+					border-bottom: 8px solid #2B3C4C;
+					line-height: 0;
+					z-index: 1;
+					bottom: 99%;
+					position: absolute;
+					right: 10px;
+				}
+
+				ul {
+					li {
+						a {
+							color: #FFF;
+							padding: 14px 10px;
+							font-size: 14px;
+							display: block;
+
+							&:hover {
+								background-color: #1e2d3a;
+							}
+						}
+
+						&:last-child {
+							a {
+								background-color: #1A2631;
+
+								&:hover {
+									background-color: #1e2d3a;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -190,7 +243,7 @@ a {
 			cursor: pointer;
 
 			&:hover {
-				background-color: #397399;
+				background-color: #21455F;
 			}
 		}
 	}
@@ -257,7 +310,6 @@ a {
 		display: table;
 		padding: 7px 12px;
 		width: 100%;
-		color: #FFF;
 
 		& > span {
 			display: table-cell;

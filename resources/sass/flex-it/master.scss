@@ -168,17 +168,18 @@ a {
         z-index: 9999;
         top:0;
         left: 90px;
-        // width: 100%;
         right: 0;
         color: #FFF;
         height: 50px;
+
         -webkit-transition: left 500ms ease, right 500ms ease;
         -moz-transition: left 500ms ease, right 500ms ease;
         -o-transition: left 500ms ease, right 500ms ease;
         transition: left 500ms ease, right 500ms ease;
-          -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
-          -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
-          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
+
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
+        -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06),0 -10px 10px 0 rgba(0, 0, 0, 0.06);
 
           h1 {
               line-height: 50px;
@@ -206,7 +207,7 @@ a {
             color: #FFF;
 
             &:hover {
-              background-color: #397399;
+              background-color: #21455F;
             }
 
           }
@@ -252,6 +253,19 @@ a {
           .ph-title i {
               color: #16202A;
           }
+
+    }
+
+    &.right-menu-open {
+      margin-right: 300px;
+
+      .page-header {
+        right: 300px;
+      }
+
+      .sidr-right {
+          right:0px;
+      }
 
     }
 
@@ -436,45 +450,6 @@ a {
   text-align: center;
 }
 
-.sidr-left .user-profile {
-    width: 100%;
-    color: #FFF;
-    height: 70px;
-    display: block;
-    font-weight: 100;
-    font-size: 1em;
-    position: relative;
-
-    .user-config {
-      position:absolute;
-      color: #FFF;
-      right: 5px;
-      top: 5px;
-    }
-}
-
-.sidr-left .user-profile > span {
-    line-height: 25px;
-    font-size: 14px;
-    display: block;
-
-    &.username {
-      padding-top:8px;
-    }
-}
-
-.sidr-left .user-profile .avatar {
-  width: 65px;
-  overflow: hidden;
-  height: 65px;
-  float: left;
-  padding: 12px;
-
-  img {
-    width: 100%;
-  }
-}
-
 .sidr-left .sl-footer .dropdown-label {
   display: block;
   padding: 15px 20px;
@@ -623,19 +598,122 @@ a {
 
 .sidr-right {
   position: fixed;
-  right: 0;
-  top: 55px;
+  right: -300px;
+  top: 0px;
   bottom: 0;
-  width: 250px;
-  border-left: 1px solid #EEE;
-  background: #F7F7F7;
+  width: 300px;
+  z-index: 99999;
+  color: #FFF;
+
+  -webkit-transition: right 500ms ease;
+  -moz-transition: right 500ms ease;
+  -o-transition: right 500ms ease;
+  transition: right 500ms ease;
+
+  .sr-header {
+    background-color: #2980b9;
+    line-height: 50px;
+    height: 50px;
+    display: table;
+    width: 100%;
+
+    ul {
+
+      display: table-row;
+
+      li {
+        text-align: center;
+        cursor: pointer;
+        display: table-cell;
+
+        i {
+          width: 30px;
+        }
+
+        &:hover, &.active {
+          background-color: #21455F;
+        }
+      }
+    }
+
+    .sr-pin {
+      width: 45px;
+      border-left: 1px solid #397399;
+      border-right: 1px solid #397399;
+
+      &:hover, &.active {
+        background-color: #397399;
+      }
+    }
+
+  }
 
   .sr-label {
-    color: #5c798f;
     line-height: 2.3em;
     padding: 5px 10px;
     display: block;
     font-size: 13px;
+    background-color: #1A2631;
+  }
+
+  .add-user {
+    padding: 7px 9pt;
+    display: block;
+    line-height: 30px;
+    color: #FFF;
+    font-size: 14px;
+
+    &:hover {
+      background-color: #2B3C4C;
+    }
+
+    i {
+      margin-right: 5px;
+      width: 30px;
+      text-align: center;
+    }
+
+  }
+
+  .user-profile {
+      width: 100%;
+      height: 70px;
+      display: block;
+      font-weight: 400;
+      font-size: 1em;
+      position: relative;
+
+      .user-config {
+        position:absolute;
+        right: 5px;
+        top: 5px;
+      }
+
+      .user-profile-status {
+        font-size: 13px;
+      }
+
+      & > span {
+          line-height: 25px;
+          font-size: 14px;
+          display: block;
+
+        &.username {
+          padding-top:8px;
+        }
+      }
+
+      .avatar {
+          width: 65px;
+          overflow: hidden;
+          height: 65px;
+          float: left;
+          padding: 12px;
+
+          img {
+            width: 100%;
+          }
+      }
   }
 
 }
@@ -1416,7 +1494,7 @@ click-wave { 0% {
 }
 
 .bg-green {
-    background-color: #2ecc71!important;
+    background-color: #4CAF50!important;
     &.darken-5 {
         background-color: #27ae60!important;
     }
@@ -1966,7 +2044,7 @@ counter-rotate { 0% {
 
 @media screen and (max-width: 768px) {
 
-    .page.menu-open {
+    .page.left-menu-open {
         margin-right: -220px;
 
         .page-header {

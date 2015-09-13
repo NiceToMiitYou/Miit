@@ -10,7 +10,8 @@ var Dispatcher  = require('core/lib/dispatcher'),
 var events = KeyMirror({
     // Events on page Change
     PAGE_CHANGED: null,
-    MENU_TOGGLED: null
+    LEFT_MENU_TOGGLED: null,
+    RIGHT_MENU_TOGGLED: null
 });
 
 // Load all pages
@@ -24,7 +25,8 @@ var notFoundPage = config['404'];
 var CurrentMainPage, CurrentApplicationPage, Argument;
 
 // Menu State
-var MenuOpened = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768;
+var LeftMenuOpened = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768;
+var RightMenuOpened = false;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages');
@@ -65,8 +67,12 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         return Argument;
     },
 
-    getMenuState: function() {
-        return MenuOpened;
+    getLeftMenuState: function() {
+        return LeftMenuOpened;
+    },
+
+    getRightMenuState: function() {
+        return RightMenuOpened;
     },
 
     getDefaultPage: function() {
@@ -108,7 +114,8 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
 // Register Functions based on event
 PageStore.generateNamedFunctions(events.PAGE_CHANGED);
-PageStore.generateNamedFunctions(events.MENU_TOGGLED);
+PageStore.generateNamedFunctions(events.LEFT_MENU_TOGGLED);
+PageStore.generateNamedFunctions(events.RIGHT_MENU_TOGGLED);
 
 // Handle actions
 PageStore.dispatchToken = Dispatcher.register(function(action){
@@ -121,12 +128,20 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
             PageStore.emitPageChanged();
             break;
 
-        case ActionTypes.TOGGLE_MENU:
+        case ActionTypes.TOGGLE_LEFT_MENU:
 
             // Toggle the menu
-            MenuOpened = !MenuOpened;
+            LeftMenuOpened = !LeftMenuOpened;
 
-            PageStore.emitMenuToggled(MenuOpened);
+            PageStore.emitLeftMenuToggled(LeftMenuOpened);
+            break;
+
+        case ActionTypes.TOGGLE_RIGHT_MENU:
+
+            // Toggle the menu
+            RightMenuOpened = !RightMenuOpened;
+
+            PageStore.emitRightMenuToggled(RightMenuOpened);
             break;
     }
 });

@@ -26,8 +26,7 @@ var MenuTeam = React.createClass({
                 disconnect:      'Déconnexion',
                 connect:         'Connexion',
                 apps_label:      'Apps',
-                add_application: 'Ajouter',
-                add_user:        'Ajouter un utilisateur'
+                add_application: 'Ajouter'
             }
         };
     },
@@ -72,16 +71,7 @@ module.exports = MenuTeam;
 // <MenuLabel label={this.props.text.user_label} />
 // <MenuUserProfile />
 
-// <UserList headers={false} loader={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
-// <If test={UserStore.isAdmin()}>
-//     <ul className="sl-list">
-//         <li>
-//             <Link href="#/settings">
-//                 <i className="fa fa-user-plus pull-left"></i> {this.props.text.add_user}
-//             </Link>
-//         </li>
-//     </ul>
-// </If>
+
 
 // <If test={!UserStore.isAnonym()}>
 //     <Link href="#/logout" onLinkClick={UserActions.logout} className="sl-logout">

@@ -26,8 +26,8 @@ function isIE () {
   return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
 
-// React.render(<CreateTeam />, document.getElementById('create-team'));
-React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
+React.render(<CreateTeam />, document.getElementById('create-team'));
+//React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
 
 // Keep contact field
 React.render(<NewsLetter variant={true} />, document.getElementById('keep-contact'));

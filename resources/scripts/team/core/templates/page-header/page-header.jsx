@@ -27,15 +27,15 @@ var PageHeader = React.createClass({
     	var team = TeamStore.getTeam();
 
         return (
-        	<div className="page-header">
-        	    <a className="minimize-menu" onClick={PageActions.toggleMenu}>
+        	<div className="page-header miit-component">
+        	    <a className="minimize-menu" onClick={PageActions.toggleLeftMenu}>
         	        <i className="fa fa-bars"></i>
         	    </a>
         	    <h1>{team.name}</h1>
 
         	    <div className="pull-right">
         	    	<PageHeaderUserProfile />
-        	    	<span className="toggle-menu-right">
+        	    	<span className="toggle-menu-right" onClick={PageActions.toggleRightMenu}>
         	    		<i className="fa fa-align-right"></i>
         	    	</span>
         	    </div>
