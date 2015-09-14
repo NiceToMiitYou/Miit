@@ -52,6 +52,7 @@ var OverlayTrigger = React.createClass({
         var open = { open: this.state.open };
         var closing = { closing: this.state.closing };
         var clOverlay = classNames(open, this.props.className, closing, "tooltip-overlay");
+        var clTooltip = classNames('tooltip', this.props.position)
 
         var style = {
         	width: this.props.width
@@ -60,7 +61,7 @@ var OverlayTrigger = React.createClass({
             <span onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} className={clOverlay}>
                 {this.props.children}
                 <If test={this.state.open}>
-                	<div className="tooltip" style={style}>
+                	<div className={clTooltip} style={style}>
                     	{this.props.content}
                     </div>
                 </If>

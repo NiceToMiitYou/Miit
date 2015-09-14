@@ -18,9 +18,41 @@ var PageHeaderUserProfile = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-
+                account: 'Mon compte',
+                logout:  'Deconnexion',
+                connect: 'Connexion'
             }
         };
+    },
+
+    getInitialState: function () {
+        return {
+            dropdown: false  
+        };
+    },
+
+    openDropdown: function() {
+        var stat = this.state.dropdown;
+
+        this.setState({
+            dropdown: !stat
+        });
+    },
+
+    _onLeave: function() {
+        if(this.isMounted()) {
+            this.setState({
+                dropdown: false
+            });
+        }
+    },
+
+    onLeave: function() {
+        this.timeoutId = setTimeout(this._onLeave, 500);
+    },
+
+    onEnter: function() {
+        clearTimeout(this.timeoutId);
     },
 
     render: function() {
@@ -28,8 +60,10 @@ var PageHeaderUserProfile = React.createClass({
     	var user = UserStore.getUser();
         var name = UserStore.getName(user);
 
+        var className = classNames('miit-component', 'user-profile', (true === this.state.dropdown) ? 'active' : '');
+
         return (
-        	<span className="miit-component user-profile">
+        	<span className={className} onClick={this.openDropdown} onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} >
                 <UserAvatar user={user} />
                 
                 <span className="username">
@@ -37,6 +71,37 @@ var PageHeaderUserProfile = React.createClass({
                 </span>
 
                 <span className="pull-right"><i className="fa fa-angle-down ml10"></i></span>
+
+                <If test={this.state.dropdown}>
+                    <div className="user-dropdown">
+
+                        <If test={!UserStore.isAnonym()}>
+                            <ul>
+                                <li>
+                                    <Link href="#/me">
+                                        <i className="fa fa-user mr10 ml5"></i>{this.props.text.account}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="#/logout" onLinkClick={UserActions.logout} className="sl-logout">
+                                        <i className="fa fa-power-off mr10 ml5"></i>{this.props.text.logout}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </If>
+
+                        <If test={UserStore.isAnonym()}>
+                            <ul>
+                                <li>
+                                    <Link href="#/login" className="sl-login">
+                                        <i className="fa fa-power-off ml5 mr10"></i>{this.props.text.connect}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </If>
+
+                    </div>
+                </If>
             </span>
         );
     }

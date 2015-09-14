@@ -21,9 +21,25 @@ var PageActions = {
         Dispatcher.dispatch(action);
     },
 
-    toggleMenu: function() {
+    toggleLeftMenu: function() {
         var action = {
-            type:     ActionTypes.TOGGLE_MENU
+            type:     ActionTypes.TOGGLE_LEFT_MENU
+        };
+
+        Dispatcher.dispatch(action);
+    },
+
+    toggleRightMenu: function() {
+        var action = {
+            type:     ActionTypes.TOGGLE_RIGHT_MENU
+        };
+
+        Dispatcher.dispatch(action);
+    },
+
+    toggleRightMenuLock: function() {
+        var action = {
+            type:     ActionTypes.TOGGLE_RIGHT_MENU_LOCK
         };
 
         Dispatcher.dispatch(action);

@@ -15,6 +15,10 @@
             background-color: #FFF;
             border: 1px solid #EDEDED;
 
+            &.answered {
+                border-left: 2px solid #4CAF50;
+            }
+
             .wall-list-item-config {
                 position: absolute;
                 right: 15px;
@@ -221,6 +225,15 @@
                     }
                 }
             }
+        }
+    }
+
+    .load-more {
+        .loading {
+            width: 40px;
+            height: 26px;
+            display: inline-block;
+            margin-right: 5px;
         }
     }
 }

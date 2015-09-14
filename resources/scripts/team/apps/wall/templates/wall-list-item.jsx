@@ -9,6 +9,7 @@ var UserStore            = MiitApp.require('core/stores/user-store'),
 // Include common templates
 var If         = MiitApp.require('templates/if.jsx'),
     Dropdown   = MiitApp.require('templates/dropdown.jsx'),
+    Tooltip    = MiitApp.require('templates/tooltip.jsx'),
     DateFormat = MiitApp.require('templates/date-format.jsx');
 
 // Include core templates
@@ -44,6 +45,8 @@ var WallListItem = React.createClass({
                 mark_answered:   'Marquer comme répondu',
                 answered:        'La question à bien été marquée comme répondue.',
                 mark_unanswered: 'Marquer comme non répondu',
+                tp_answered:     'Une réponse a été apporté à cette question',
+                tp_unanswered:   'Aucune réponse n\'a été apporté à cette question',
                 unanswered:      'La question à bien été marquée comme non répondue.'
             },
             onAnchor: function() {}
@@ -169,6 +172,8 @@ var WallListItem = React.createClass({
         var user = TeamStore.getUser(question.user),
             name = UserStore.getName(user);
 
+        var tooltip = (<div>{this.props.text.tp_answered}</div>);
+
         var classes = classNames('miit-component wall-list-item', (answered) ? 'answered' : '', (anchored) ? 'anchored' : '');
 
         return (
@@ -184,6 +189,12 @@ var WallListItem = React.createClass({
                             <span className="wall-item-date">
                                 <DateFormat date={createdAt} from={true} />
                             </span>
+
+                            <If test={answered}>
+                                <Tooltip position="right" content={tooltip} width="280" className="wall-list-item-answered ml10">
+                                    <i className="fa fa-check text-green"></i>
+                                </Tooltip>
+                            </If>
                         </span>
                         <p>{text}</p>
                     </div>
@@ -238,6 +249,7 @@ var WallListItem = React.createClass({
                         </span>
                     </Dropdown>
                 </If>
+
             </div>
         );
     }

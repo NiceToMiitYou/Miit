@@ -4,6 +4,7 @@
 var UserStore   = require('core/stores/user-store'),
     UserActions = require('core/actions/user-actions'),
     TeamStore   = require('core/stores/team-store'),
+    PageStore   = require('core/stores/page-store'),
     PageActions = require('core/actions/page-actions');
 
 // Include common
@@ -25,17 +26,18 @@ var PageHeader = React.createClass({
     render: function() {
 
     	var team = TeamStore.getTeam();
+        var className = classNames('toggle-menu-right', (true === PageStore.getRightMenuLockState()) ? 'hidden' : '');
 
         return (
-        	<div className="page-header">
-        	    <a className="minimize-menu" onClick={PageActions.toggleMenu}>
+        	<div className="page-header miit-component">
+        	    <a className="minimize-menu" onClick={PageActions.toggleLeftMenu}>
         	        <i className="fa fa-bars"></i>
         	    </a>
         	    <h1>{team.name}</h1>
 
         	    <div className="pull-right">
         	    	<PageHeaderUserProfile />
-        	    	<span className="toggle-menu-right">
+        	    	<span className={className} onClick={PageActions.toggleRightMenu}>
         	    		<i className="fa fa-align-right"></i>
         	    	</span>
         	    </div>
