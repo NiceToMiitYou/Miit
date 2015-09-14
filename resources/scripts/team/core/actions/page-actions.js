@@ -35,6 +35,14 @@ var PageActions = {
         };
 
         Dispatcher.dispatch(action);
+    },
+
+    toggleRightMenuLock: function() {
+        var action = {
+            type:     ActionTypes.TOGGLE_RIGHT_MENU_LOCK
+        };
+
+        Dispatcher.dispatch(action);
     }
 };
 

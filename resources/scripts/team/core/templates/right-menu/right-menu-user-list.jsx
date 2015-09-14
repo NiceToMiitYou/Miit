@@ -48,7 +48,6 @@ var RightMenuUserList = React.createClass({
                 <RightMenuUser />
 
                 <RightMenuLabel icon="fa-users" label={this.props.text.users}/>
-
                 
                 <UserList headers={false} loader={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
                 <If test={UserStore.isAdmin()}>

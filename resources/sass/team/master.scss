@@ -156,6 +156,11 @@ a {
 			cursor: pointer;
 			position: relative;
 
+			-webkit-transition: background-color 400ms ease;
+			-moz-transition: background-color 400ms ease;
+			-o-transition: background-color 400ms ease;
+			transition: background-color 400ms ease;
+
 			& > span {
 				display: inline-block;
 				line-height: 50px;
@@ -241,6 +246,11 @@ a {
 			border-left: 1px solid #397399;
 			color: #FFF;
 			cursor: pointer;
+
+			-webkit-transition: background-color 400ms ease;
+			-moz-transition: background-color 400ms ease;
+			-o-transition: background-color 400ms ease;
+			transition: background-color 400ms ease;
 
 			&:hover {
 				background-color: #21455F;

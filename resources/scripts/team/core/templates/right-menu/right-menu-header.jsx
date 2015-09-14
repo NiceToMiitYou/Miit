@@ -1,5 +1,9 @@
 'use strict';
 
+// Include requirements
+var PageActions = require('core/actions/page-actions');
+var PageStore = require('core/stores/page-store');
+
 // Include common
 var If   = require('templates/if.jsx');
 
@@ -22,11 +26,12 @@ var RightMenuHeader = React.createClass({
 
         var icon = classNames('fa', this.props.icon, 'mr5');
         var tabs = this.props.tabs;
+        var className = classNames((true === PageStore.getRightMenuLockState()) ? 'active' : '', 'sr-pin');
 
         return (
         	<div className="sr-header miit-component">
                 <ul>
-                    <li className="sr-pin"><i className="fa fa-thumb-tack"></i></li>
+                    <li className={className} onClick={PageActions.toggleRightMenuLock}><i className="fa fa-thumb-tack"></i></li>
                     {tabs.map(function(tab) {
                         var isCurrent = tab.id === this.props.current;
 

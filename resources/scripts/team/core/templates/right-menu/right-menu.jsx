@@ -51,12 +51,24 @@ var RightMenu = React.createClass({
         });
     },
 
+    _onLeave: function() {
+        PageActions.toggleRightMenu();
+    },
+
+    onLeave: function() {
+        this.timeoutId = setTimeout(this._onLeave, 200);
+    },
+
+    onEnter: function() {
+        clearTimeout(this.timeoutId);
+    },
+
     render: function() {
 
     	var team = TeamStore.getTeam();
 
         return (
-        	<div className="sidr-right bg-blue-grey miit-component">
+        	<div className="sidr-right bg-blue-grey miit-component" onMouseLeave={this.onLeave} onMouseEnter={this.onEnter}>
 
                 <RightMenuHeader current={this.state.current} tabs={this.props.tabs} setCurrent={this.setCurrent}/>
 

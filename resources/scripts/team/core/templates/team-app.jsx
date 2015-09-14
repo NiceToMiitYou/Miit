@@ -22,7 +22,8 @@ var TeamApp = React.createClass({
         return {
             page:              PageStore.getCurrentMainPage(),
             left_menu_opened:  PageStore.getLeftMenuState(),
-            right_menu_opened: PageStore.getRightMenuState()
+            right_menu_opened: PageStore.getRightMenuState(),
+            right_menu_locked: PageStore.getRightMenuLockState()
         };
     },
 
@@ -32,6 +33,7 @@ var TeamApp = React.createClass({
         PageStore.addPageChangedListener(this._onChange);
         PageStore.addLeftMenuToggledListener(this._onToggleLeft);
         PageStore.addRightMenuToggledListener(this._onToggleRight);
+        PageStore.addRightMenuLockToggledListener(this._onToggleRightLock);
         this._onLoggedIn();
     },
 
@@ -41,6 +43,7 @@ var TeamApp = React.createClass({
         PageStore.removePageChangedListener(this._onChange);
         PageStore.removeLeftMenuToggledListener(this._onToggleLeft);
         PageStore.removeRightMenuToggledListener(this._onToggleRight);
+        PageStore.removeRightMenuLockToggledListener(this._onToggleRightLock);
     },
 
     _onLoggedIn: function() {
@@ -77,12 +80,24 @@ var TeamApp = React.createClass({
         }
     },
 
+    _onToggleRightLock: function(open) {
+        if(this.isMounted()) {
+            this.setState({
+                right_menu_locked: open
+            });
+        }
+    },
+
     render: function() {
         var Page       = this.state.page;
         var LeftMenuOpened  = this.state.left_menu_opened;
         var RightMenuOpened = this.state.right_menu_opened;
+        var RightMenuLocked = this.state.right_menu_locked;
 
-        var classes = classNames('team-app page', (true === LeftMenuOpened) ? 'left-menu-open': 'menu-close', (true === RightMenuOpened) ? 'right-menu-open': '');
+        var classes = classNames('team-app page', 
+            (true === LeftMenuOpened) ? 'left-menu-open': 'menu-close',
+            (true === RightMenuOpened) ? 'right-menu-open': '',
+            (true === RightMenuLocked) ? 'right-menu-lock': '');
 
         return (
             <div className={classes}>

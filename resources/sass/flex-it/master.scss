@@ -206,6 +206,11 @@ a {
             border-right: 1px solid #397399;
             color: #FFF;
 
+            -webkit-transition: background-color 400ms ease;
+            -moz-transition: background-color 400ms ease;
+            -o-transition: background-color 400ms ease;
+            transition: background-color 400ms ease;
+
             &:hover {
               background-color: #21455F;
             }
@@ -257,7 +262,6 @@ a {
     }
 
     &.right-menu-open {
-      margin-right: 300px;
 
       .page-header {
         right: 300px;
@@ -267,6 +271,10 @@ a {
           right:0px;
       }
 
+    }
+
+    &.right-menu-lock {
+      margin-right: 300px;
     }
 
     &.menu-close {

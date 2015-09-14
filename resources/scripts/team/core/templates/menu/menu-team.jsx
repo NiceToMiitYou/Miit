@@ -66,21 +66,3 @@ var MenuTeam = React.createClass({
 });
 
 module.exports = MenuTeam;
-
-// <MenuHeader />
-// <MenuLabel label={this.props.text.user_label} />
-// <MenuUserProfile />
-
-
-
-// <If test={!UserStore.isAnonym()}>
-//     <Link href="#/logout" onLinkClick={UserActions.logout} className="sl-logout">
-//         <i className="fa fa-power-off mr10"></i> {this.props.text.disconnect}
-//     </Link>
-// </If>
-
-// <If test={UserStore.isAnonym()}>
-//     <Link href="#/login" className="sl-login">
-//         <i className="fa fa-power-off mr10"></i> {this.props.text.connect}
-//     </Link>
-// </If>

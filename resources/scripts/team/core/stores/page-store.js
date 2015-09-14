@@ -11,7 +11,8 @@ var events = KeyMirror({
     // Events on page Change
     PAGE_CHANGED: null,
     LEFT_MENU_TOGGLED: null,
-    RIGHT_MENU_TOGGLED: null
+    RIGHT_MENU_TOGGLED: null,
+    RIGHT_MENU_LOCK_TOGGLED: null
 });
 
 // Load all pages
@@ -27,6 +28,7 @@ var CurrentMainPage, CurrentApplicationPage, Argument;
 // Menu State
 var LeftMenuOpened = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768;
 var RightMenuOpened = false;
+var RightMenuLocked = false;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages');
@@ -75,6 +77,10 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         return RightMenuOpened;
     },
 
+    getRightMenuLockState: function() {
+        return RightMenuLocked;
+    },
+
     getDefaultPage: function() {
         return PageStorage.get('main-' + defaultPage);
     },
@@ -116,6 +122,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 PageStore.generateNamedFunctions(events.PAGE_CHANGED);
 PageStore.generateNamedFunctions(events.LEFT_MENU_TOGGLED);
 PageStore.generateNamedFunctions(events.RIGHT_MENU_TOGGLED);
+PageStore.generateNamedFunctions(events.RIGHT_MENU_LOCK_TOGGLED);
 
 // Handle actions
 PageStore.dispatchToken = Dispatcher.register(function(action){
@@ -139,9 +146,19 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.TOGGLE_RIGHT_MENU:
 
             // Toggle the menu
-            RightMenuOpened = !RightMenuOpened;
+            if(!RightMenuLocked) {
+                RightMenuOpened = !RightMenuOpened;
+            }
 
             PageStore.emitRightMenuToggled(RightMenuOpened);
+            break;
+
+        case ActionTypes.TOGGLE_RIGHT_MENU_LOCK:
+
+            // Toggle the menu
+            RightMenuLocked = !RightMenuLocked;
+
+            PageStore.emitRightMenuLockToggled(RightMenuLocked);
             break;
     }
 });
