@@ -12,9 +12,9 @@ var Link = require('core/templates/components/link.jsx');
 var NotFound = React.createClass({
     getDefaultProps: function () {
         return {
-            title: 'Cette page n\'existe pas.',
             text: {
-                home: 'Retour à l\'accueil'
+                title: 'Cette page n\'existe pas.',
+                home:  'Retour à l\'accueil'
             }
         };
     },
@@ -22,10 +22,16 @@ var NotFound = React.createClass({
     render: function() {
         return (
             <Layout>
-                <h1 className="pt25">{this.props.title}</h1>
+                <div className="container-fluid">
+                    <div className="page-title">
+                        <h2>
+                            <i className="fa fa-exclamation pull-left mr15"></i> {this.props.text.title}
+                        </h2>
+                    </div>
 
-                <div className="mt50">
-                    <Link href="/">{this.props.text.home}</Link>
+                    <div className="mt50">
+                        <Link href="/">{this.props.text.home}</Link>
+                    </div>
                 </div>
             </Layout>
         );

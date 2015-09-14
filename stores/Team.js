@@ -1,7 +1,8 @@
 'use strict';
 
 // Define the store
-var store = miitoo.resolve(['TeamModel'], function(Team) {
+var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
+    var ObjectId = mongoose.Types.ObjectId;
 
     // Map users from team
     function mapUsers(team) {
@@ -48,8 +49,35 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
     }
 
     return {
+        create: function(name, slug, applications, cb) {
+
+            // Create the team
+            var team = new Team({
+                name:         name,
+                slug:         slug,
+                applications: applications
+            });
+            
+            // Save the team
+            team.save(function(err) {
+                // Log the error
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err, team);
+                }
+            });
+        },
+
         findTeam: function(team, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({

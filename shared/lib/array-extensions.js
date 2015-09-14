@@ -15,7 +15,8 @@ Array.prototype.findBy = function(prop, value) {
     if(index >= 0) {
         return this[index];
     }
-    return null;
+    
+    return;
 };
 
 Array.prototype.sortBy = function(prop, order, strict) {

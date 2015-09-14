@@ -44,8 +44,7 @@ Realtime.on('team:remove', function(data) {
 // Handle invite
 Realtime.on('team:invite', function(data) {
     var action = {
-        type: ActionTypes.INVITE_USER,
-        user: data.user
+        type: ActionTypes.INVITE_USER
     };
 
     Dispatcher.dispatch(action);

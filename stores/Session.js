@@ -1,7 +1,7 @@
 'use strict';
 
 // Define the store
-var store = miitoo.resolve(['SessionModel', 'Mongoose'], function(Session, mongoose) {
+var store = miitoo.resolve(['SessionModel'], function(Session) {
 
     function getId(object) {
         return String(object._id || object.id || object);

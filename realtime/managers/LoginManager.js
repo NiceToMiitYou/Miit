@@ -2,6 +2,9 @@
 
 var crypto = require('crypto');
 
+// Load Utils
+var Utils = require('../../shared/lib/utils');
+
 function sha1(input) {
     // Create ShaSum
     var shasum = crypto.createHash('sha1');
@@ -32,9 +35,9 @@ module.exports = function LoginManager() {
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
     // Function if this is the wrong login
-    function wrongLogin(spark) {
+    function wrongLogin(spark, event) {
         spark.write({
-            event: 'login:password',
+            event: event || 'login:password',
             done:  false
         });
     }
@@ -128,7 +131,7 @@ module.exports = function LoginManager() {
         var email    = data.email;
         var password = data.password;
 
-        if(!email || !password)
+        if(!email || !password || !Utils.validator.email(email) || !Utils.validator.password(password))
         {
             return wrongLogin(spark);
         }
@@ -174,6 +177,9 @@ module.exports = function LoginManager() {
             {
                 miitoo.logger.error(err.message);
                 miitoo.logger.error(err.stack);
+                
+                wrongLogin(spark, 'login:token');
+
                 return;
             }
             
@@ -186,7 +192,12 @@ module.exports = function LoginManager() {
                 }
                 else
                 {
-                    miitoo.logger.error(errUser || new Error('No user found with JWT.'));
+                    var err = errUser || new Error('No user found with JWT.');
+
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+
+                    wrongLogin(spark, 'login:token');
                 }
             });
         });

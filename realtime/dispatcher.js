@@ -241,6 +241,13 @@ function Dispatcher() {
             this.emit(event, spark, data, team, user, roles);
         }.bind(this));
     };
+
+    this.disconnect = function(spark) {
+        var req = (spark.request || {});
+
+        req.roles = null;
+        req.user  = null;
+    };
 }
 
 // Extend EventEmitter

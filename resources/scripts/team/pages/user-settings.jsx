@@ -8,7 +8,8 @@ var PageStore = require('core/stores/page-store'),
 var Layout = require('./layouts/default-layout.jsx');
 
 // Include components
-var NotFound           = require('./not-found.jsx'),
+var Default            = require('./default.jsx'),
+    NotFound           = require('./not-found.jsx'),
     UserUpdate         = require('core/templates/user/user-update.jsx'),
     UserChangePassword = require('core/templates/user/user-change-password.jsx');
 
@@ -64,6 +65,9 @@ var UserSettings = React.createClass({
         );
     }
 });
+
+// Load default pages
+PageStore.registerMainPage('user', Default('user'), true);
 
 PageStore.registerMainPage('me', UserSettings);
 

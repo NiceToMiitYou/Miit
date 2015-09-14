@@ -1,46 +1,20 @@
+'use strict';
 
 var Utils = require('../shared/lib/utils');
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['UserStore', 'UserModel', 'MailManager'],
-    function(UserStore, User, MailManager) {
-
-    function upperLettersRandomly(str) {
-        var limit = Math.round(str.length / 2);
-
-        for(var i = 0; i < limit; i++) {
-            // Random letter to uppercase
-            var pos    = Math.floor(Math.random() * str.length),
-                letter = str.charAt(pos).toUpperCase();
-
-            str = str.slice(0, pos) + letter + str.slice(pos + 1);
-        }
-
-        return str;
-    }
-
-    function generatePassword() {
-        var password = '';
-
-        // Loop for password length
-        for(var i = 0; i < 1; i++) {
-            var str   = Math.random().toString(36).slice(-10);
-            password += upperLettersRandomly(str);
-        }
-
-        // If wrong password regenerate
-        if(false === Utils.validator.password(password)) {
-            return generatePassword();
-        }
-
-        return password;
-    }
+    ['MiitConfig', 'TeamStore', 'UserStore', 'UserModel', 'MailManager'],
+    function(config, TeamStore, UserStore, User, MailManager) {
 
     return {
-        findUserByEmailOrCreate: function(email, cb) {
+        findUserByEmailOrCreate: function(email, password, cb) {
             if(!email) {
                 return cb(new Error('No email provided.'));
+            }
+
+            if(!password) {
+                return cb(new Error('No password provided.'));
             }
 
             // Find or create an user by email
@@ -50,16 +24,7 @@ var manager = miitoo.resolve(
                 }
 
                 if(!user) {
-                    var password = generatePassword();
-
-                    // Create the user
-                    user = new User({
-                        email:    email,
-                        password: password
-                    });
-
-                    // save it
-                    user.save(function(errUser) {
+                    UserStore.create(email, password, function(errUser, user) {
                         if(errUser) {
                             return cb(errUser);
                         }
@@ -76,9 +41,46 @@ var manager = miitoo.resolve(
                 }
                 else
                 {
-                    // Callback
-                    cb(null, user);
+                    user.validPassword(password, function(result) {
+                        if(!result) {
+                            return cb(new Error('Wrong password.'));
+                        }
+
+                        // Callback
+                        cb(null, user);
+                    });
                 }
+            });
+        },
+
+        invite: function(team, invitation, email, owner, cb) {
+
+            TeamStore.findTeam(team, function(err, team) {
+                if(err || !team) {
+                    return;
+                }
+
+                var scheme = (config.domain === 'miit.fr') ? 'https://' : 'http://';
+                var port   = (config.domain === 'miit.fr') ? '' : ':' + config.port;
+                var url    = scheme + team.slug + '.' + config.domain + port + '/user/i/' + invitation;
+                
+                var title    = (owner) ? 'mail.new_miit.object'      : 'mail.invite.object',
+                    template = (owner) ? './views/mail/new_miit.ejs' : './views/mail/invite.ejs';
+
+                // Send the mail to the user
+                MailManager.sendMail(email, title, template, {
+                    name:      team.name,
+                    url:       url
+                }, function(err) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err);
+                    }
+                });
             });
         }
     };

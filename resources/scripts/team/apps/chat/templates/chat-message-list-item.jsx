@@ -15,7 +15,7 @@ var ChatMessageListItem = React.createClass({
         return {
             text:      '',
             user:      '',
-            createdAt: new Date()  
+            createdAt: new Date()
         };
     },
 

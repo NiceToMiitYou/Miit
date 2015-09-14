@@ -21,6 +21,13 @@ Realtime.on('login:token', function(data) {
 
         Dispatcher.dispatch(action);
     }
+    else if(false === data.done) {
+        var action = {
+            type: ActionTypes.LOGOUT_USER
+        };
+
+        Dispatcher.dispatch(action);
+    }
 });
 
 // Handle login from token
@@ -68,6 +75,27 @@ Realtime.on('user:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
+// Handle update
+Realtime.on('user:invitation:get', function(data) {
+    var action = {
+        type:       ActionTypes.RETRIEVE_INVITATION_USER,
+        invitation: data.invitation,
+        user:       data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:invitation:register', function(data) {
+    var action = {
+        type: ActionTypes.ACHIEVED_INVITATION_USER,
+        user: data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
 function check() {
     var token       = UserStore.getToken();
     var anonymToken = UserStore.getAnonymToken();
@@ -97,7 +125,7 @@ Realtime.on('reconnected', function() {
 
 module.exports = {
     login: function(email, password) {
-        // Request the server
+        
         Realtime.send('login:password', {
             email:    email,
             password: password
@@ -115,15 +143,41 @@ module.exports = {
     check: check,
 
     changePassword: function(password_old, password_new) {
-        // Request the server
+        
         Realtime.send('user:password', {
             'old': password_old,
             'new': password_new
         });
     },
 
+    getInvitation: function(id) {
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('user:invitation:get', {
+            id: id
+        });
+
+        return true;
+    },
+
+    register: function(id, email, password) {
+        if(!id || !email || !password) {
+            return false;
+        }
+
+        Realtime.send('user:invitation:register', {
+            id:       id,
+            email:    email,
+            password: password
+        });
+
+        return true;
+    },
+
     update: function(name) {
-        // Request the server
+        
         Realtime.send('user:update', {
             name: name
         });

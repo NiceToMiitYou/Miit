@@ -29,17 +29,16 @@ var UserListInvite = React.createClass({
     getDefaultErrors: function() {
         return {
             missing_email: false,
-            invalid_email: false,
-            invited:       false
+            invalid_email: false
         };
     },
 
     componentDidMount: function() {
-        TeamStore.addInvitedListener(this._onInvited);
+        TeamStore.addUserInvitedListener(this._onInvited);
     },
 
     componentWillUnmount: function() {
-        TeamStore.removeInvitedListener(this._onInvited);
+        TeamStore.removeUserInvitedListener(this._onInvited);
     },
 
     handleChange: function(newValue) {
@@ -78,26 +77,19 @@ var UserListInvite = React.createClass({
 
         TeamActions.invite(email);
 
-        this.setState({
-            invited: true
-        });
-
         return;
     },
 
     _onInvited: function() {
 
-        if(true === this.state.invited) {
-            NotificationsActions.notify('success', this.props.inviteUser);
+        NotificationsActions.notify('success', this.props.inviteUser);
 
-            this.setState({
-                email:   '',
-                invited: false
-            });
+        this.setState({
+            email:   ''
+        });
 
-            if(typeof this.props.onInvite === 'function') {
-                this.props.onInvite(email);
-            }
+        if(typeof this.props.onInvite === 'function') {
+            this.props.onInvite(email);
         }
     },
 

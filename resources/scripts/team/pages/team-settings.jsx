@@ -30,7 +30,7 @@ var TeamSettings = React.createClass({
                 appstore:     'Ajouter une application', 
                 applist:      'Liste des applications', 
                 title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre miit', 
+                subtitle:     'Configurer les informations et la confidentialité de votre Miit', 
                 users:        'Utilisateurs'
             }
         };

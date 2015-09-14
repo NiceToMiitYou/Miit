@@ -13,16 +13,26 @@ var events = KeyMirror({
     PASSWORD_CHANGED: null,
     PASSWORD_NOT_CHANGED: null,
     // Event on update
-    USER_UPDATED: null
+    USER_UPDATED: null,
+    RETRIEVE_INVITATION: null,
+    ACHIEVED_INVITATION: null
 });
 
 // Global variables
 var Me, Utils, Token, AnonymToken, LoggedIn = false;
 
+function _getUser(user) {
+    if(typeof user === 'string') {
+        return TeamStore.getUser(user) || Me || {};
+    }
+    
+    return user || Me || {};
+}
+
 // Generate the validator for user's role
 function _isUserGenerator(role) {
     return function(user) {
-        var roles = (user || Me || {}).roles || ['ANONYM'];
+        var roles = _getUser(user).roles || ['ANONYM'];
 
         return -1 !== roles.indexOf(role);
     };
@@ -34,15 +44,16 @@ function _isAnonymous(user) {
 
 // Check if this is the same user
 function _isItMe(user) {
-    var me  = (Me || {}).id || null;
-    var you = (user || {}).id || null;
+    var me  = _getUser(Me).id;
+    var you = _getUser(user).id;
 
     return me === you;
 }
 
 function _getName(user) {
     // Get user or me
-    user = user || Me || {};
+    user = _getUser(user);
+
     // Check if anonym
     if(_isAnonymous(user)) {
         return 'Anonyme';
@@ -126,6 +137,8 @@ UserStore.generateNamedFunctions(events.PASSWORD_CHANGED);
 UserStore.generateNamedFunctions(events.PASSWORD_NOT_CHANGED);
 
 UserStore.generateNamedFunctions(events.USER_UPDATED);
+UserStore.generateNamedFunctions(events.RETRIEVE_INVITATION);
+UserStore.generateNamedFunctions(events.ACHIEVED_INVITATION);
 
 UserStore.dispatchToken = Dispatcher.register(function(action){
 
@@ -163,6 +176,13 @@ UserStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.UPDATE_USER:
             _update(action.name);
             UserStore.emitUserUpdated();
+            break;
+
+        case ActionTypes.RETRIEVE_INVITATION_USER:
+            UserStore.emitRetrieveInvitation(action.invitation, action.user);
+            break;
+        case ActionTypes.ACHIEVED_INVITATION_USER:
+            UserStore.emitAchievedInvitation(action.user);
             break;
     }
 });

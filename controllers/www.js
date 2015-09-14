@@ -2,6 +2,9 @@
 // Regex for email
 var RegexEmail    = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
+// Load Utils
+var Utils = require('../shared/lib/utils');
+
 // The controller for public part of the site
 var controller = miitoo.resolve(
     ['Slugify', 'RestResponse', 'WWWRoutes', 'UserManager', 'TeamManager', 'MailChimp', 'MailChimpConfig', 'i18nConfig'],
@@ -24,22 +27,15 @@ var controller = miitoo.resolve(
     // Create register route
     app.post('/register', function(req, res) {
         // Get parameters
-        var email = req.body.email;
-        var name  = req.body.name;
+        var email = req.body.email,
+            name  = req.body.name;
 
-        if(!email || !name) {
+        if(!email || !name || !Utils.validator.email(email)) {
             return;
         }
 
-        // Create the team
-        UserManager.findUserByEmailOrCreate(email, function(err, user) {
-            if(err) {
-                return response(res, err);
-            }
-
-            TeamManager.create(user, name, function(errTeam, team) {
-                return response(res, errTeam);
-            });
+        TeamManager.create(email, name, function(err, team) {
+            return response(res, err);
         });
     });
 

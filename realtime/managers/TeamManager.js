@@ -1,11 +1,14 @@
 'use strict';
 
+var Utils = require('../../shared/lib/utils');
+
 module.exports = function TeamManager() {
     // Load the configuration of applications
     var ApplicationsConfig = miitoo.get('ApplicationsConfig');
 
     // Get the stores for the team
     var TeamStore         = miitoo.get('TeamStore');
+    var InvitationStore   = miitoo.get('InvitationStore');
     var SubscriptionStore = miitoo.get('SubscriptionStore');
 
     // Get the managers for the team
@@ -128,42 +131,20 @@ module.exports = function TeamManager() {
     Dispatcher.register('team:invite', 'ADMIN', function onInvite(spark, data, team) {
         var email = data.email;
 
-        UserManager.findUserByEmailOrCreate(email, function(err, user) {
+        if(email && !Utils.validator.email(email)) {
+            return;
+        }
+
+        var roles = ['USER'];
+
+        InvitationStore.invite(team, email, roles, function(err) {
             if(err) 
             {
                 return;
             }
 
-            var roles = ['USER'];
-
-            TeamManager.invite(team, user, roles, function(errAdd) {
-                if(errAdd) 
-                {
-                    return;
-                }
-
-                primus.in(team.id + ':ADMIN').write({
-                    event: 'team:invite',
-                    user: {
-                        id:     user.id,
-                        name:   user.name,
-                        email:  user.email,
-                        avatar: user.avatar,
-                        roles:  roles
-                    }
-                });
-
-                var rooms = [team.id + ':USER', team.id + ':ANONYM'];
-
-                primus.in(rooms).write({
-                    event: 'team:invite',
-                    user: {
-                        id:     user.id,
-                        name:   user.name,
-                        avatar: user.avatar,
-                        roles:  roles
-                    }
-                });
+            spark.write({
+                event: 'team:invite'
             });
         });
     });

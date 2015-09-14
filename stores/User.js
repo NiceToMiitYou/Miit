@@ -10,6 +10,28 @@ var store = miitoo.resolve(['UserModel', 'Mongoose'], function(User, mongoose) {
     }
 
     return {
+        create: function(email, password, cb) {
+
+            // Create the user
+            var user = new User({
+                email:    email,
+                password: password
+            });
+
+            // save it
+            user.save(function(err, user) {
+                // Log the error
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err, user);
+                }
+            });
+        },
+
         findUser: function(user, cb) {
             var userId = getId(user);
 

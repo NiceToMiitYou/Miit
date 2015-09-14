@@ -12,13 +12,15 @@ var events = KeyMirror({
     // Users refreshed
     REFRESHED: null,
     // User invited
-    INVITED: null,
+    USER_INVITED: null,
+    // User added
+    USER_ADDED: null,
     // User promote
-    PROMOTED: null,
+    USER_PROMOTED: null,
     // User demote
-    DEMOTED: null,
+    USER_DEMOTED: null,
     // User removed
-    REMOVED: null
+    USER_REMOVED: null
 });
 
 // Global variables
@@ -201,19 +203,25 @@ var TeamStore = ObjectAssign({}, EventEmitter.prototype, {
 TeamStore.generateNamedFunctions(events.REFRESHED);
 TeamStore.generateNamedFunctions(events.TEAM_UPDATED);
 
-TeamStore.generateNamedFunctions(events.PROMOTED);
-TeamStore.generateNamedFunctions(events.DEMOTED);
+TeamStore.generateNamedFunctions(events.USER_INVITED);
+TeamStore.generateNamedFunctions(events.USER_ADDED);
+TeamStore.generateNamedFunctions(events.USER_REMOVED);
 
-TeamStore.generateNamedFunctions(events.INVITED);
-TeamStore.generateNamedFunctions(events.REMOVED);
+TeamStore.generateNamedFunctions(events.USER_PROMOTED);
+TeamStore.generateNamedFunctions(events.USER_DEMOTED);
 
 TeamStore.dispatchToken = Dispatcher.register(function(action){
 
     switch(action.type) {
+        case ActionTypes.ADD_USER:
+            _addUser(action.user);
+            TeamStore.emitRefreshed();
+            break;
         case ActionTypes.UPDATE_USER:
             _updateUser(action.id, action.name);
             TeamStore.emitRefreshed();
             break;
+
         case ActionTypes.REFRESH_USERS:
             _replaceUsers(action.users);
             TeamStore.emitRefreshed();
@@ -240,23 +248,22 @@ TeamStore.dispatchToken = Dispatcher.register(function(action){
             break;
 
         case ActionTypes.INVITE_USER:
-            _addUser(action.user);
-            TeamStore.emitInvited();
+            TeamStore.emitUserInvited();
             break;
 
         case ActionTypes.PROMOTE_USER:
             _promoteUser(action.id, action.roles);
-            TeamStore.emitPromoted(action.id);
+            TeamStore.emitUserPromoted(action.id);
             break;
 
         case ActionTypes.DEMOTE_USER:
             _demoteUser(action.id, action.roles);
-            TeamStore.emitDemoted(action.id);
+            TeamStore.emitUserDemoted(action.id);
             break;
 
         case ActionTypes.REMOVE_USER:
             _removeUser(action.id);
-            TeamStore.emitRemoved();
+            TeamStore.emitUserRemoved();
             break;
     }
 });

@@ -147,6 +147,10 @@ var QuizUpdateQuestions = React.createClass({
             to_create = this.state.to_create,
             counter   = 0;
 
+        if(!to_create && 0 === questions.length) {
+            return null;
+        }
+
         return (
             <div className="miit-component quiz-update-questions panel">
                 <h2 className="panel-title">{this.props.text.title}</h2>

@@ -28,6 +28,10 @@ var QuizListItem = React.createClass({
     render: function() {
         var quiz = this.props.quiz;
 
+        if(!UserStore.isAdmin() && 0 === quiz.questions.length) {
+            return null;
+        }
+
         var classes = classNames('miit-component quiz-list-item col-md-6', (QuizStore.isAnswered(quiz.id))? 'done' : '', (quiz.closed) ? 'closed' : '');
  
         return (
@@ -38,15 +42,16 @@ var QuizListItem = React.createClass({
                     <p>{quiz.description}</p>
 
                     <div className="actions hover-layer-content">
-                        <If test={UserStore.isAdmin()}>
+                        <If test={UserStore.isAdmin() && 0 !== quiz.questions.length}>
                             <Link href={'#/quiz/stats/' + quiz.id} className="mr25"><i className="fa fa-bar-chart mr5"></i>{this.props.text.stats}</Link>
                         </If>
                         <If test={UserStore.isAdmin()}>
                             <Link href={'#/quiz/update/' + quiz.id} className="mr25"><i className="fa fa-pencil mr5"></i>{this.props.text.update}</Link>
                         </If>
-                        <Link href={'#/quiz/show/' + quiz.id}><i className="fa fa-check-square-o mr5"></i>{this.props.text.answered}</Link>
+                        <If test={0 !== quiz.questions.length}>
+                            <Link href={'#/quiz/show/' + quiz.id}><i className="fa fa-check-square-o mr5"></i>{this.props.text.answered}</Link>
+                        </If>
                     </div>
-
                 </div>
             </div>
         );

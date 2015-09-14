@@ -16,11 +16,15 @@ EventEmitter.prototype.generateNamedFunctions = function(eventName) {
     var self = this;
 
     this[addListenerName(eventName)] = function(callback) {
-        self.on(eventName, callback);
+        if(typeof callback === 'function') {
+            self.on(eventName, callback);
+        }
     };
     
     this[removeListenerName(eventName)] = function(callback) {
-        self.removeListener(eventName, callback);
+        if(typeof callback === 'function') {
+            self.removeListener(eventName, callback);
+        }
     };
 
     this[emitEventName(eventName)] = function() {

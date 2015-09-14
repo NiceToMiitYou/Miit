@@ -20,11 +20,11 @@ var QuizCreate = React.createClass({
         return {
             text: {
                 open:         'Ouverte',
-                openDesc:     'Créer une question ouverte avec une zone de texte dans laquelle l\'utilisateur pourra-y taper sa réponse',
-                unique:       'Unique',
-                uniqueDesc:   'Créer une question unique avec une liste de réponses possibles parmi lesquelles l\'utilisateur ne pourra en choisir qu\'une seule',
-                multiple:     'Multiple',
-                multipleDesc: 'Créer une question multiple avec une liste de réponses possibles parmi lesquelles l\'utilisateur pourra en choisir une ou plusieurs'
+                openDesc:     'Créer une question ouverte avec une zone de texte dans laquelle l\'utilisateur pourra-y taper sa réponse.',
+                unique:       'Choix unique',
+                uniqueDesc:   'Créer une question où l\'utilisateur pourra choisir une réponse dans une liste.',
+                multiple:     'Choix multiple',
+                multipleDesc: 'Créer une question où l\'utilisateur pourra choisir une ou plusieurs réponse(s) dans une liste.'
             },
             questions: null
         };

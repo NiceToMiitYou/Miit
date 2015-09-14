@@ -3,6 +3,7 @@
 var ApplicationLoader  = require('core/lib/application-loader'),
     UserStore          = require('core/stores/user-store'),
     TeamStore          = require('core/stores/team-store'),
+    TeamActions        = require('core/actions/team-actions'),
     SubscriptionsStore = require('core/stores/subscriptions-store');
 
 var Loaded = {};
@@ -56,6 +57,10 @@ function refreshApplicationsScripts(fromLogin) {
     }
 }
 
+function refreshUsers() {
+    TeamActions.refresh();
+}
+
 function updateTitle() {
     // get team and update title of the document
     var team   = TeamStore.getTeam(),
@@ -78,4 +83,5 @@ TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);
 UserStore.addLoggedInListener(refreshApplicationsScripts.bind({}, true));
 
 // Start it once
+MiitApp.onInit(refreshUsers);
 MiitApp.onInit(refreshApplicationsScripts);

@@ -27,7 +27,8 @@ var CurrentMainPage, CurrentApplicationPage, Argument;
 var MenuOpened = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768;
 
 // A storage for all pages
-var PageStorage = new DataStore('pages');
+var PageStorage = new DataStore('pages'),
+    PageAllowed = new DataStore('allowed');
 
 // The PageStore Object
 var PageStore = ObjectAssign({}, EventEmitter.prototype, {
@@ -40,16 +41,18 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
     },
     
     getCurrentMainPage: function() {
-        var page = CurrentMainPage;
+        var page    = CurrentMainPage,
+            allowed = PageAllowed.get('main-' + page);
 
         if(
-            false === TeamStore.isPublic() && 
-            false === UserStore.isLoggedIn()
+            false === TeamStore.isPublic()   && 
+            false === UserStore.isLoggedIn() &&
+            false === allowed
         ) {
             page = 'login';
         }
         else if(
-            true  === UserStore.isLoggedIn() && 'login' === page
+            true === UserStore.isLoggedIn() && 'login' === page
         ) {
             page = defaultPage;
         }
@@ -77,29 +80,39 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         return PageStorage.get('main-' + notFoundPage);
     },
 
-    registerMainPage: function(name, component) {
-        PageStorage.set('main-' + name, component);
+    registerMainPage: function(name, component, allowed) {
+        var key = 'main-' + name;
+
+        PageStorage.set(key, component);
+        PageAllowed.set(key, !!allowed);
 
         // Emit the change
         PageStore.emitPageChanged();
     },
 
     registerApplicationPage: function(main, name, component) {
-        PageStorage.set('app-' + main +  '-' + name, component);
+        var key = 'app-' + main +  '-' + name;
+
+        PageStorage.set(key, component);
 
         // Emit the change
         PageStore.emitPageChanged();
     },
 
     removeMainPage: function(name) {
-        PageStorage.remove('main-' + name);
+        var key = 'main-' + name;
+
+        PageStorage.remove(key);
+        PageAllowed.remove(key);
 
         // Emit the change
         PageStore.emitPageChanged();
     },
 
     removeApplicationPage: function(main, name) {
-        PageStorage.remove('app-' + main +  '-' +name);
+        var key = 'app-' + main +  '-' + name;
+
+        PageStorage.remove(key);
         
         // Emit the change
         PageStore.emitPageChanged();
