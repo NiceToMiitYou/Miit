@@ -60,7 +60,7 @@ var PageHeaderUserProfile = React.createClass({
     	var user = UserStore.getUser();
         var name = UserStore.getName(user);
 
-        var className = classNames('miit-component', 'user-profile', (true === this.state.dropdown) ? 'active' : '')
+        var className = classNames('miit-component', 'user-profile', (true === this.state.dropdown) ? 'active' : '');
 
         return (
         	<span className={className} onClick={this.openDropdown} onMouseLeave={this.onLeave} onMouseEnter={this.onEnter} >

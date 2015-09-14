@@ -247,10 +247,14 @@ a {
 			color: #FFF;
 			cursor: pointer;
 
-			-webkit-transition: background-color 400ms ease;
-			-moz-transition: background-color 400ms ease;
-			-o-transition: background-color 400ms ease;
-			transition: background-color 400ms ease;
+			-webkit-transition: background-color 400ms ease, width 400ms ease;
+			-moz-transition: background-color 400ms ease, width 400ms ease;
+			-o-transition: background-color 400ms ease, width 400ms ease;
+			transition: background-color 400ms ease, width 400ms ease;
+
+			&.hidden {
+				width: 0px;
+			}
 
 			&:hover {
 				background-color: #21455F;
