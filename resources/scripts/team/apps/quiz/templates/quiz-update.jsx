@@ -50,11 +50,13 @@ var QuizUpdate = React.createClass({
 
     componentDidMount: function() {
         QuizStore.addQuizzesRefreshedListener(this._onChange);
+        PageStore.addPageClosedListener(this.handleSubmit);
         this._onChange();
     },
 
     componentWillUnmount: function() {
         QuizStore.removeQuizzesRefreshedListener(this._onChange);
+        PageStore.removePageClosedListener(this.handleSubmit);
     },
 
     _onChange: function() {
@@ -86,7 +88,9 @@ var QuizUpdate = React.createClass({
     },
 
     handleSubmit: function(e) {
-        e.preventDefault();
+        if(e){
+            e.preventDefault();
+        }
 
         if(false === UserStore.isAdmin()) {
             return;

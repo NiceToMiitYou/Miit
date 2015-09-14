@@ -10,6 +10,7 @@ var Dispatcher  = require('core/lib/dispatcher'),
 var events = KeyMirror({
     // Events on page Change
     PAGE_CHANGED: null,
+    PAGE_CLOSED: null,
     LEFT_MENU_TOGGLED: null,
     RIGHT_MENU_TOGGLED: null,
     RIGHT_MENU_LOCK_TOGGLED: null
@@ -133,6 +134,7 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
 
 // Register Functions based on event
 PageStore.generateNamedFunctions(events.PAGE_CHANGED);
+PageStore.generateNamedFunctions(events.PAGE_CLOSED);
 PageStore.generateNamedFunctions(events.LEFT_MENU_TOGGLED);
 PageStore.generateNamedFunctions(events.RIGHT_MENU_TOGGLED);
 PageStore.generateNamedFunctions(events.RIGHT_MENU_LOCK_TOGGLED);
@@ -172,6 +174,10 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
             RightMenuLocked = !RightMenuLocked;
 
             PageStore.emitRightMenuLockToggled(RightMenuLocked);
+            break;
+
+        case ActionTypes.CLOSE_PAGE:
+            PageStore.emitPageClosed();
             break;
     }
 });
