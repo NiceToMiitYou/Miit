@@ -223,4 +223,13 @@
             }
         }
     }
+
+    .load-more {
+        .loading {
+            width: 40px;
+            height: 26px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
 }

@@ -146,7 +146,7 @@ var WallList = React.createClass({
                         </div>
                     </If>
                     <If test={loading}>
-                        <div className="load-more"><Loading /></div>
+                        <div className="load-more mt20"><Loading /></div>
                     </If>
                 </div>
             </div>
