@@ -1,3 +1,7 @@
+'use strict';
+
+// Load Utils
+var Utils = require('../shared/lib/utils');
 
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
@@ -8,6 +12,11 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
     var schema = new mongoose.Schema({
         team:  String,
         email: String,
+        token: {
+            type:    String,
+            default: Utils.generator.guid
+        },
+
         roles: {
             type:    [String],
             default: ['USER']

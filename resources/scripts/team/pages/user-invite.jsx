@@ -34,7 +34,7 @@ var UserInvite = React.createClass({
     getInitialState: function() {
         var initial = this.getDefaultErrors();
 
-        initial.invitation     = PageStore.getArgument();
+        initial.token          = PageStore.getArgument();
         initial.user           = null;
         initial.value_email    = '';
         initial.value_password = '';
@@ -53,8 +53,8 @@ var UserInvite = React.createClass({
     },
 
     componentWillMount: function () {
-        var invitationId = this.state.invitation,
-            result       = UserActions.getInvitation(invitationId);
+        var token  = this.state.token,
+            result = UserActions.getInvitation(token);
 
         if(false === result) {
             Router.setRoute('/');
@@ -115,11 +115,11 @@ var UserInvite = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
 
-        var invitationId = this.state.invitation,
-            email        = this.state.value_email,
-            password     = this.state.value_password,
-            confirm      = this.state.value_confirm,
-            user         = this.state.user;
+        var token    = this.state.token,
+            email    = this.state.value_email,
+            password = this.state.value_password,
+            confirm  = this.state.value_confirm,
+            user     = this.state.user;
         
         this.setState(this.getDefaultErrors());
 
@@ -147,17 +147,17 @@ var UserInvite = React.createClass({
             return;
         }
 
-        UserActions.register(invitationId, email, password);
+        UserActions.register(token, email, password);
 
         return;
     },
 
     render: function() {
-        var invitationId = this.state.invitation,
-            value_email  = this.state.value_email,
-            user         = this.state.user;
+        var token       = this.state.token,
+            value_email = this.state.value_email,
+            user        = this.state.user;
 
-        if(!invitationId || !value_email) {
+        if(!token || !value_email) {
             return null;
         }
 

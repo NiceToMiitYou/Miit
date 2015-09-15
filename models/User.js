@@ -1,3 +1,4 @@
+'use strict';
 
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');

@@ -150,25 +150,25 @@ module.exports = {
         });
     },
 
-    getInvitation: function(id) {
-        if(!id) {
+    getInvitation: function(token) {
+        if(!token) {
             return false;
         }
 
         Realtime.send('user:invitation:get', {
-            id: id
+            token: token
         });
 
         return true;
     },
 
-    register: function(id, email, password) {
-        if(!id || !email || !password) {
+    register: function(token, email, password) {
+        if(!token || !email || !password) {
             return false;
         }
 
         Realtime.send('user:invitation:register', {
-            id:       id,
+            token:    token,
             email:    email,
             password: password
         });

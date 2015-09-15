@@ -49,13 +49,13 @@ function InvitationWorker() {
 
         invitations.forEach(function(invitation) {
 
-            var id    = invitation.id,
+            var token = invitation.token,
                 team  = invitation.team,
                 email = invitation.email;
 
             var owner = -1 !== invitation.roles.indexOf('OWNER');
 
-            UserManager.invite(team, id, email, owner);
+            UserManager.invite(team, token, email, owner);
 
             invitation.send = true;
             invitation.save();

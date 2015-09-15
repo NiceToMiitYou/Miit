@@ -1,3 +1,4 @@
+'use strict';
 
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {

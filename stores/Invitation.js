@@ -64,25 +64,14 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
                 });
         },
 
-        getInvitationSent: function(team, invitation, cb) {
-            var teamId       = getId(team),
-                invitationId = getId(invitation);
+        getInvitationSent: function(team, token, cb) {
+            var teamId = getId(team);
 
-            // Prevent crashes
-            if(!ObjectId.isValid(invitationId)) {
-                if(typeof cb === 'function') {
-                    var err = new Error('Wrong type of id.');
-
-                    cb(err);
-                }
-
-                return;
-            }
             Invitation
                 .findOne({
-                    _id:  invitationId,
-                    team: teamId,
-                    send: true
+                    token: token,
+                    team:  teamId,
+                    send:  true
                 })
                 .exec(function(err, invitation) {
                     // Log the error

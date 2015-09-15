@@ -53,7 +53,7 @@ var manager = miitoo.resolve(
             });
         },
 
-        invite: function(team, invitation, email, owner, cb) {
+        invite: function(team, token, email, owner, cb) {
 
             TeamStore.findTeam(team, function(err, team) {
                 if(err || !team) {
@@ -62,7 +62,7 @@ var manager = miitoo.resolve(
 
                 var scheme = (config.domain === 'miit.fr') ? 'https://' : 'http://';
                 var port   = (config.domain === 'miit.fr') ? '' : ':' + config.port;
-                var url    = scheme + team.slug + '.' + config.domain + port + '/user/i/' + invitation;
+                var url    = scheme + team.slug + '.' + config.domain + port + '/user/i/' + token;
                 
                 var title    = (owner) ? 'mail.new_miit.object'      : 'mail.invite.object',
                     template = (owner) ? './views/mail/new_miit.ejs' : './views/mail/invite.ejs';

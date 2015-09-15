@@ -119,15 +119,15 @@ module.exports = function UserManager() {
 
     // Handle get invitation
     Dispatcher.register('user:invitation:get', function onGetInvitationUser(spark, data, team) {
-        var id = data.id;
+        var token = data.token;
 
-        if(!id)
+        if(!token)
         {
             return;
         }
 
         // Find the invitation
-        InvitationStore.getInvitationSent(team, id, function(err, invitation) {
+        InvitationStore.getInvitationSent(team, token, function(err, invitation) {
             
             var email = (invitation || {}).email || '';
 
@@ -145,16 +145,16 @@ module.exports = function UserManager() {
 
     // Handle get invitation
     Dispatcher.register('user:invitation:register', function onRegisterInvitationUser(spark, data, team) {
-        var id       = data.id,
+        var token    = data.token,
             password = data.password;
 
-        if(!id || !password || !Utils.validator.password(password))
+        if(!token || !password || !Utils.validator.password(password))
         {
             return;
         }
 
         // Find the invitation
-        InvitationStore.getInvitationSent(team, id, function(err, invitation) {
+        InvitationStore.getInvitationSent(team, token, function(err, invitation) {
             if(err || !invitation) {
                 return;
             }
