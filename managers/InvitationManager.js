@@ -1,8 +1,5 @@
 'use strict';
 
-// Load Utils
-var Utils = require('../shared/lib/utils');
-
 // Define the manager
 var manager = miitoo.resolve(
     [ 'MiitConfig', 'TeamStore', 'UserStore', 'InvitationStore', 'UserManager', 'MailManager'],
@@ -11,10 +8,8 @@ var manager = miitoo.resolve(
     return {
         invite: function(team, email, roles, cb) {
 
-            var token = Utils.generator.guid();
-
             InvitationStore
-                .invite(team, email, roles, token, function(err, invitation) {
+                .invite(team, email, roles, function(err, invitation) {
                     if(err || !invitation)
                     {
                         cb(err || new Error('No invitation created.'));
@@ -25,7 +20,7 @@ var manager = miitoo.resolve(
                     var scheme  = (config.domain === 'miit.fr') ? 'https://' : 'http://',
                         port    = (config.domain === 'miit.fr') ? '' : ':' + config.port,
                         urlBase = scheme + team.slug + '.' + config.domain + port,
-                        url     = urlBase + '/user/i/' + token;
+                        url     = urlBase + '/user/i/' + invitation.token;
                     
                     // Check if owner of the team
                     var owner = -1 !== roles.indexOf('OWNER');

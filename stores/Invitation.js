@@ -1,5 +1,8 @@
 'use strict';
 
+// Load Utils
+var Utils = require('../shared/lib/utils');
+
 // Define the store
 var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
@@ -9,7 +12,7 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
     }
 
     return {
-        invite: function(team, email, roles, token, cb) {
+        invite: function(team, email, roles, cb) {
             var teamId = getId(team);
                 
             if(!ObjectId.isValid(teamId)) {
@@ -29,7 +32,7 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
                 team:  teamId,
                 email: email,
                 roles: roles,
-                token: token
+                token: Utils.generator.guid()
             };
 
             Invitation
