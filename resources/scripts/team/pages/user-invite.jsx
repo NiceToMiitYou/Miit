@@ -193,6 +193,10 @@ var UserInvite = React.createClass({
                     <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {title}</h2>
                     <div className="panel-content">
                         <form onSubmit={this.handleSubmit}>
+                            <If test={false === login}>
+                                <p className="text-100 mb15">{this.props.text.password_requierements}</p>
+                            </If>
+ 
                             <div className="input-field left-icon mb20">
                                 <i className="fa fa-envelope-o"></i>
                                 <input type="text" value={value_email} name="email" disabled={true}/>

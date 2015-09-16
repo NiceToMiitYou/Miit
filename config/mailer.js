@@ -15,7 +15,8 @@ var config = {
         auth: {
             user: 'jordan.cortet@itevents.fr',
             pass: 'p_eS6sZUxMlJX0-tzxu3Lw'
-        }
+        },
+        rateLimit: 5
     },
 
     smtp_backend: {
@@ -27,7 +28,8 @@ var config = {
         },
         tls: {
             rejectUnauthorized:false
-        }
+        },
+        rateLimit: 1
     },
 
     backend_team: 'boris.tacyniak@itevents.fr, jordan.cortet@itevents.fr',

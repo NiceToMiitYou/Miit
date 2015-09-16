@@ -1,11 +1,14 @@
+'use strict';
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['Slugify', 'MiitConfig', 'TeamStore', 'InvitationStore', 'ChatroomStore', 'MailManager'],
-    function(slugify, config, TeamStore, InvitationStore, ChatroomStore, MailManager) {
+    ['Slugify', 'MiitConfig', 'TeamStore', 'ChatroomStore', 'InvitationManager'],
+    function(slugify, config, TeamStore, ChatroomStore, InvitationManager) {
 
     return {
         create: function(email, name, cb) {
+            var self = this;
+
             // Generate the name
             var slug = slugify(name);
 
@@ -34,7 +37,7 @@ var manager = miitoo.resolve(
 
                 var roles = ['USER', 'ADMIN', 'OWNER'];
 
-                InvitationStore.invite(team, email, roles, function(err, invitation) {
+                InvitationManager.invite(team, email, roles, function(err, invitation) {
 
                     // Create a room in the team
                     ChatroomStore.create(team, 'Général');

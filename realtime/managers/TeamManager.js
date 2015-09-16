@@ -8,12 +8,11 @@ module.exports = function TeamManager() {
 
     // Get the stores for the team
     var TeamStore         = miitoo.get('TeamStore');
-    var InvitationStore   = miitoo.get('InvitationStore');
     var SubscriptionStore = miitoo.get('SubscriptionStore');
 
     // Get the managers for the team
-    var TeamManager = miitoo.get('TeamManager');
-    var UserManager = miitoo.get('UserManager');
+    var TeamManager       = miitoo.get('TeamManager');
+    var InvitationManager = miitoo.get('InvitationManager');
     
     // Get the dispatcher
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -137,9 +136,12 @@ module.exports = function TeamManager() {
 
         var roles = ['USER'];
 
-        InvitationStore.invite(team, email, roles, function(err) {
+        InvitationManager.invite(team, email, roles, function(err) {
             if(err) 
             {
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
+
                 return;
             }
 

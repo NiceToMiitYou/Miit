@@ -1,8 +1,5 @@
 'use strict';
 
-// Load Utils
-var Utils = require('../shared/lib/utils');
-
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
@@ -12,20 +9,14 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
     var schema = new mongoose.Schema({
         team:  String,
         email: String,
-        token: {
-            type:    String,
-            default: Utils.generator.guid
-        },
+        token: String,
 
         roles: {
             type:    [String],
             default: ['USER']
         },
         
-        send: {
-            type:    Boolean,
-            default: false
-        },
+        // An invitation stay alive for 7 days
         createdAt: {
             type:    Date,
             expires: 604800,
@@ -42,7 +33,6 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             delete ret._id;
             delete ret.__v;
             delete ret.team;
-            delete ret.send;
             delete ret.createdAt;
             return ret;
         }

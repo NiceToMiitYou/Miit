@@ -9,8 +9,16 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
     }
 
     return {
-        invite: function(team, email, roles, cb) {
+        invite: function(team, email, roles, token, cb) {
             var teamId = getId(team);
+                
+            if(!ObjectId.isValid(teamId)) {
+                if(typeof cb === 'function') {
+                    cb();
+                }
+
+                return;
+            }
 
             var conditions = {
                 team:  teamId,
@@ -21,7 +29,7 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
                 team:  teamId,
                 email: email,
                 roles: roles,
-                send:  false
+                token: token
             };
 
             Invitation
@@ -33,7 +41,7 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
                     }
 
                     if(typeof cb === 'function') {
-                        cb(err);
+                        cb(err, invitation);
                     }
                 });
         },
@@ -64,34 +72,14 @@ var store = miitoo.resolve(['InvitationModel', 'Mongoose'], function(Invitation,
                 });
         },
 
-        getInvitationSent: function(team, token, cb) {
+        getInvitation: function(team, token, cb) {
             var teamId = getId(team);
 
             Invitation
                 .findOne({
                     token: token,
-                    team:  teamId,
-                    send:  true
+                    team:  teamId
                 })
-                .exec(function(err, invitation) {
-                    // Log the error
-                    if(err) {
-                        miitoo.logger.error(err.message);
-                        miitoo.logger.error(err.stack);
-                    }
-
-                    if(typeof cb === 'function') {
-                        cb(err, invitation);
-                    }
-                });
-        },
-
-        getInvitationsNotSent: function(limit, cb) {
-            Invitation
-                .find({
-                    send: false
-                })
-                .limit(limit)
                 .exec(function(err, invitation) {
                     // Log the error
                     if(err) {

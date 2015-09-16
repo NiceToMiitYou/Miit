@@ -3,10 +3,10 @@
 var Utils = require('../../shared/lib/utils');
 
 module.exports = function UserManager() {
-    var UserStore       = miitoo.get('UserStore'),
-        UserManager     = miitoo.get('UserManager'),
-        TeamStore       = miitoo.get('TeamStore'),
-        InvitationStore = miitoo.get('InvitationStore');
+    var UserStore          = miitoo.get('UserStore'),
+        InvitationStore    = miitoo.get('InvitationStore'),
+        InvitationManager  = miitoo.get('InvitationManager'),
+        PasswordResetStore = miitoo.get('PasswordResetStore');
 
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
@@ -127,23 +127,24 @@ module.exports = function UserManager() {
         }
 
         // Find the invitation
-        InvitationStore.getInvitationSent(team, token, function(err, invitation) {
+        InvitationStore.getInvitation(team, token, function(err, invitation) {
             
             var email = (invitation || {}).email || '';
 
-            UserStore.findUserByEmail(email, function(err, user) {
+            UserStore
+                .findUserByEmail(email, function(err, user) {
 
-                // Send the invitation
-                spark.write({
-                    event:      'user:invitation:get',
-                    invitation: invitation,
-                    user:       user
+                    // Send the invitation
+                    spark.write({
+                        event:      'user:invitation:get',
+                        invitation: invitation,
+                        user:       user
+                    });
                 });
-            });
         });
     });
 
-    // Handle get invitation
+    // Handle register invitation
     Dispatcher.register('user:invitation:register', function onRegisterInvitationUser(spark, data, team) {
         var token    = data.token,
             password = data.password;
@@ -154,67 +155,28 @@ module.exports = function UserManager() {
         }
 
         // Find the invitation
-        InvitationStore.getInvitationSent(team, token, function(err, invitation) {
-            if(err || !invitation) {
-                return;
-            }
-
-            var email = invitation.email,
-                roles = invitation.roles;
-
-            UserManager
-                .findUserByEmailOrCreate(email, password, function(err, user) {
-                    if(err || !user) {
-
-                        // Log the error
-                        if(err) {
-                            miitoo.logger.error(err.message);
-                            miitoo.logger.error(err.stack);
-                        }
-
-                        spark.write({
-                            event: 'user:invitation:register'
-                        });
-
-                        return;
-                    }
-
-                    // Add the user to the team
-                    TeamStore
-                        .addUser(team, user, roles, function(err) {
-                            if(err) {
-                                return;
-                            }
-
-                            var callback = function() {
-                                // Remove the invitation
-                                InvitationStore.remove(team, invitation, function() {
-                                
-                                    spark.write({
-                                        event: 'user:invitation:register',
-                                        user:  user 
-                                    });
-
-                                    // Disconnect the park
-                                    Dispatcher.disconnect(spark);
-
-                                    // Dispatch the login request
-                                    Dispatcher.dispatch(spark, 'login:password', {
-                                        email:    email,
-                                        password: password
-                                    });
-                                });
-                            };
-
-                            // If owner register team to user
-                            if(-1 !== roles.indexOf('OWNER')) {
-                                UserStore.addTeam(user, team, callback);
-                            } else {
-                                callback();
-                            }
-                        });
-
+        InvitationManager
+            .register(team, token, password, function(err, user) {
+                
+                spark.write({
+                    event: 'user:invitation:register',
+                    user:  user 
                 });
-        });
+
+                // Disconnect the park
+                Dispatcher.disconnect(spark);
+
+                // Dispatch the login request
+                Dispatcher.dispatch(spark, 'login:password', {
+                    email:    user.email,
+                    password: password
+                });
+            });
+    });
+
+
+
+                        });
+
     });
 };

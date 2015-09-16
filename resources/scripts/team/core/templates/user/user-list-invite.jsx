@@ -13,7 +13,7 @@ var UserListInvite = React.createClass({
                 email: 'Addresse mail'
             },
             submit: 'Inviter l\'utilisateur',
-            inviteUser: 'L\'invitation a bien été envoyé',
+            inviteUser: 'L\'invitation a bien été envoyée.',
             title: 'Inviter un utilisateur'
         };
     },

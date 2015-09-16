@@ -17,13 +17,13 @@ var TeamUpdate = React.createClass({
             },
             text: {
                 public:             'Public',
-                isPublic:           'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
+                isPublic:           'Votre Miit est public et accessible à tout le monde via l\'URL suivante:',
                 private:            'Privé',
                 name:               'Nom de votre Miit', 
                 privacy:            'Confidentialité', 
-                changeInformations: 'Les informations de votre Miit ont bien été modifiées', 
-                changeApplications: 'Les applications de votre Miit ont bien été modifiées', 
-                isPrivate:          'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
+                changeInformations: 'Les informations de votre Miit ont bien été modifiées.', 
+                changeApplications: 'Les applications de votre Miit ont bien été modifiées.', 
+                isPrivate:          'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix.'
             },
             submit: 'Sauvegarder'
         };

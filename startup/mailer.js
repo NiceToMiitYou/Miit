@@ -1,5 +1,6 @@
 // Load Node mailer
-var nodemailer = require("nodemailer");
+var nodemailer = require('nodemailer'),
+    smtpPool   = require('nodemailer-smtp-pool');
 
 // Load the configuration
 var config = miitoo.get('MailerConfig');
@@ -8,13 +9,13 @@ var config = miitoo.get('MailerConfig');
 var smtpTransport = null;
 
 if(false === config.bypass) {
-    smtpTransport = nodemailer.createTransport(config.smtp);
+    smtpTransport = nodemailer.createTransport(smtpPool(config.smtp));
 } else {
-    smtpTransport = nodemailer.createTransport(config.smtp_backend);
+    smtpTransport = nodemailer.createTransport(smtpPool(config.smtp_backend));
 }
 
 // Create SMTP transport for backend
-var smtpBackendTransport = nodemailer.createTransport(config.smtp_backend);
+var smtpBackendTransport = nodemailer.createTransport(smtpPool(config.smtp_backend));
 
 
 // Register the Mailer instances as a singleton

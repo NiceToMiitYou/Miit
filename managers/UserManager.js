@@ -4,16 +4,16 @@ var Utils = require('../shared/lib/utils');
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['MiitConfig', 'TeamStore', 'UserStore', 'UserModel', 'MailManager'],
-    function(config, TeamStore, UserStore, User, MailManager) {
+    ['MiitConfig', 'TeamStore', 'UserStore', 'PasswordResetStore', 'MailManager'],
+    function(config, TeamStore, UserStore, PasswordResetStore, MailManager) {
 
     return {
         findUserByEmailOrCreate: function(email, password, cb) {
-            if(!email) {
+            if(!email || !Utils.validator.email(email)) {
                 return cb(new Error('No email provided.'));
             }
 
-            if(!password) {
+            if(!password || !Utils.validator.password(password)) {
                 return cb(new Error('No password provided.'));
             }
 
@@ -32,11 +32,16 @@ var manager = miitoo.resolve(
                         MailManager.sendMail(email, 'mail.new_account.object', './views/mail/new_account.ejs', {
                             email:    email,
                             password: password
-                        }, function(error) {
+                        }, function(err) {
                             
-                            // Callback
-                            cb(null, user);
+                            if(err) {
+                                miitoo.logger.error(err.message);
+                                miitoo.logger.error(err.stack);
+                            }
                         });
+
+                        // Callback
+                        cb(null, user);
                     });
                 }
                 else
@@ -53,35 +58,11 @@ var manager = miitoo.resolve(
             });
         },
 
-        invite: function(team, token, email, owner, cb) {
 
-            TeamStore.findTeam(team, function(err, team) {
-                if(err || !team) {
-                    return;
-                }
 
-                var scheme = (config.domain === 'miit.fr') ? 'https://' : 'http://';
-                var port   = (config.domain === 'miit.fr') ? '' : ':' + config.port;
-                var url    = scheme + team.slug + '.' + config.domain + port + '/user/i/' + token;
-                
-                var title    = (owner) ? 'mail.new_miit.object'      : 'mail.invite.object',
-                    template = (owner) ? './views/mail/new_miit.ejs' : './views/mail/invite.ejs';
 
-                // Send the mail to the user
-                MailManager.sendMail(email, title, template, {
-                    name:      team.name,
-                    url:       url
-                }, function(err) {
-                    if(err) {
-                        miitoo.logger.error(err.message);
-                        miitoo.logger.error(err.stack);
-                    }
 
-                    if(typeof cb === 'function') {
-                        cb(err);
-                    }
                 });
-            });
         }
     };
 });
