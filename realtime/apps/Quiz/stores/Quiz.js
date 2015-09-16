@@ -532,7 +532,9 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                     };
 
                     var update = {
-                        $addToSet: {}
+                        $addToSet: {
+                            answers: userId
+                        }
                     };
 
                     var found = false;
