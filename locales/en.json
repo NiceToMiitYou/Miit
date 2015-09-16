@@ -82,6 +82,11 @@
     "mail.invite.body": "Bonjour,<br/><br/>Vous avez été invité à rejoindre le Miit <b>&#171; %s &#187;</b>.<br/><br/>Pour vous connecter rendez-vous sur: <br/><a target=\"_blank\" href=\"%s\">%s</a><br/> ou cliquez sur le bouton ci-dessous.",
     "mail.invite.button": "Accéder au Miit",
 
+    "mail.password_reset.object": "Miit - Réinitialisation de mot de passe",
+    "mail.password_reset.title": "Réinitialisation de votre mot de passe",
+    "mail.password_reset.body": "Bonjour <b>%s</b>,<br/><br/>Une demande de réinitialisation de votre mot de passe a été faite.<br/><br/>Si vous n'avez pas fait cette demande, ignorer tout simplement ce message.<br/><br/>Pour changer votre mot de passe, rendez-vous sur: <br/><a target=\"_blank\" href=\"%s\">%s</a><br/> ou cliquez sur le bouton ci-dessous.",
+    "mail.password_reset.button": "Changer de mot de passe",
+
     "mail.new_account.object": "Miit - Bienvenue sur Miit",
     "mail.new_account.title": "Bienvenue sur Miit",
     "mail.new_account.body": "Bienvenue,<br/><br/>Votre compte Miit a bien été créé.",

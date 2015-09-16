@@ -174,9 +174,30 @@ module.exports = function UserManager() {
             });
     });
 
+    // Handle password request
+    Dispatcher.register('user:password:request', function onRequestPasswordUser(spark, data, team) {
+        var email = data.email;
 
+        if(!email || !Utils.validator.email(email))
+        {
+            return;
+        }
 
+        UserStore
+            .findUserByEmail(email, function(err, user) {
+
+                // Create a password request
+                PasswordResetStore
+                    .create(team, function(err, invitation) {
+        
+                        // Send the invitation
+                        spark.write({
+                            event:      'user:invitation:get',
+                            invitation: invitation,
+                            user:       user
                         });
+                    });
+            });
 
     });
 };
