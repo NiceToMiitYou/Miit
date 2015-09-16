@@ -19,10 +19,15 @@ var events = KeyMirror({
 });
 
 // Global variables
-var Me, Utils, Token, AnonymToken, LoggedIn = false;
+var Me, TeamStore, Token, AnonymToken, LoggedIn = false;
 
 function _getUser(user) {
     if(typeof user === 'string') {
+        // Post load TeamStore
+        if(!TeamStore) {
+            TeamStore = require('core/stores/team-store');
+        }
+
         return TeamStore.getUser(user) || Me || {};
     }
     
