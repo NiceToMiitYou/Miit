@@ -1,6 +1,4 @@
-
-// Regex for email
-var RegexEmail    = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+'use strict';
 
 // Load Utils
 var Utils = require('../shared/lib/utils');
@@ -45,7 +43,7 @@ var controller = miitoo.resolve(
         var email = req.body.email;
 
         // Check if it's an email
-        if(RegexEmail.test(email))
+        if(Utils.validator.email(email))
         {
             MailChimp.lists.subscribe({
                 id: MailChimpConfig.newsletter_list_id,

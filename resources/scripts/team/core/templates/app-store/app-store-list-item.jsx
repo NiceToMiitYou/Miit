@@ -45,8 +45,8 @@ var AppStoreListItem = React.createClass({
         var application = this.props.application;
 
         // Add extra informations
-        application.name  = Translations[application.identifier].name;
-        application.description  = Translations[application.identifier].description;
+        application.name        = Translations[application.identifier].name;
+        application.description = Translations[application.identifier].description;
 
         var isInstalled = TeamStore.hasApplication(application.identifier);
 

@@ -6,11 +6,12 @@ var Dispatcher  = require('core/lib/dispatcher'),
 
 // Expose the actions
 module.exports = {
-    notify: function(type, text) {
+    notify: function(type, text, disable) {
         setTimeout(function() {
             var action = {
                 type:     ActionTypes.NEW_NOTIFICATION,
-                category: type || 'info',
+                category: type    || 'info',
+                disable:  disable || 0,
                 text:     text
             };
 

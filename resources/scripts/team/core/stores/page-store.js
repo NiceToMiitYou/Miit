@@ -21,6 +21,7 @@ var config = require('pages/_config');
 
 // The default page
 var defaultPage  = config['default'];
+var welcomePage  = config['welcome'];
 var notFoundPage = config['404'];
 
 // All needed pages variables
@@ -65,6 +66,13 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
             true === UserStore.isLoggedIn() && 'login' === page
         ) {
             page = defaultPage;
+        }
+        else if(
+            true  === UserStore.isAdmin()         &&
+            false === TeamStore.hasApplications() &&
+            page  !== 'settings'
+        ) {
+            page = welcomePage;
         }
 
         return PageStorage.get('main-' + page);

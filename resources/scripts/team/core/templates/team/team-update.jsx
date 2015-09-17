@@ -70,14 +70,13 @@ var TeamUpdate = React.createClass({
             // Be sure that is set
             var team = TeamStore.getTeam();
 
-            if ('TEAM' === changeAction) {
+            if('TEAM' === changeAction) {
 
                 NotificationsActions.notify('success', this.props.text.changeInformations);
-
-            } else if ('APPLICATIONS' === changeAction) {
+            }
+            else if('APPLICATIONS' === changeAction) {
 
                 NotificationsActions.notify('success', this.props.text.changeApplications);
-
             }
 
             this.setState({
@@ -167,7 +166,6 @@ var TeamUpdate = React.createClass({
 
         return (
             <form className="miit-component user-update" onSubmit={this.handleSubmit}>
-
                 <h3 className="mb20">{this.props.text.name}</h3>
 
                 <div className="mb20">
