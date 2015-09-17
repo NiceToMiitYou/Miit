@@ -14,8 +14,13 @@ var WelcomePage = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title: 'Bienvenue sur Miit',
-                home:  'Retour à l\'accueil'
+                title:         'Bienvenue sur Miit',
+                home:          'Retour à l\'accueil',
+                subtitle:      'Découvrez les nombreuses posssibilités de pérsonnalisation qui s\'offrent à vous.',
+                apps:          'Applications:',
+                addApps:       'Ajouter les applications',
+                templates:     'Pour commencer rapidement à communiquer vous pouvez choisir un modèle de Miit.'
+
             }
         };
     },
@@ -30,11 +35,11 @@ var WelcomePage = React.createClass({
                         </h2>
 
                     <h3 className="mt40">
-                        Découvrez les nombreuses posssibilités de pérsonnalisation qui s{"'"}offrent à vous.
+                        {this.props.text.subtitle}
                     </h3>
 
                     <p className="mt40">
-                        Pour commencer rapidement à communiquer vous pouvez choisir un modèle de Miit.
+                        {this.props.text.templates}
                     </p>
                     <div className="row mt20 templates">
                         <div className="col-md-4 col-lg-4 mb20">
@@ -42,7 +47,7 @@ var WelcomePage = React.createClass({
                                 <h2 className="panel-title">Conférences</h2>
                                 <div className="panel-content">
                                     <p className="mb20">Construisez un espace de communication pour les conférences avec un chat, des questionnaires et mur de questions</p>
-                                    <span>Applications:</span>
+                                    <span>{this.props.text.apps}</span>
                                     <div>
                                         <span className="miit-app-icon">
                                             <i className="fa fa-comments-o bg-blue"></i>
@@ -56,7 +61,7 @@ var WelcomePage = React.createClass({
                                     </div>
                                 </div>
                                 <div className="panel-footer">
-                                    <i className="fa fa-plus mr10"></i>Ajouter les applications
+                                    <i className="fa fa-plus mr10"></i>{this.props.text.addApps}
                                 </div>
                             </div>
                         </div>
@@ -65,7 +70,7 @@ var WelcomePage = React.createClass({
                                 <h2 className="panel-title">Réunion</h2>
                                 <div className="panel-content">
                                     <p className="mb20">Construisez un espace pour simplifier vos réunions grace à un chat, un partage de documents et un mur de questions</p>
-                                    <span>Applications:</span>
+                                    <span>{this.props.text.apps}</span>
                                     <div>
                                         <span className="miit-app-icon">
                                             <i className="fa fa-comments-o bg-blue"></i>
@@ -79,7 +84,7 @@ var WelcomePage = React.createClass({
                                     </div>
                                 </div>
                                 <div className="panel-footer">
-                                    <i className="fa fa-plus mr10"></i>Ajouter les applications
+                                    <i className="fa fa-plus mr10"></i>{this.props.text.addApps}
                                 </div>
                             </div>
                         </div>
@@ -88,7 +93,7 @@ var WelcomePage = React.createClass({
                                 <h2 className="panel-title">Equipe</h2>
                                 <div className="panel-content">
                                     <p className="mb20">Gardez le contact et echanger facilement avec votre/vos equipe(s) avec un simple chat et un partage de documents</p>
-                                    <span>Applications:</span>
+                                    <span>{this.props.text.apps}</span>
                                     <div>
                                         <span className="miit-app-icon">
                                             <i className="fa fa-comments-o bg-blue"></i>
@@ -99,7 +104,7 @@ var WelcomePage = React.createClass({
                                     </div>
                                 </div>
                                 <div className="panel-footer">
-                                    <i className="fa fa-plus mr10"></i>Ajouter les applications
+                                    <i className="fa fa-plus mr10"></i>{this.props.text.addApps}
                                 </div>
                             </div>
                         </div>
