@@ -187,6 +187,11 @@ module.exports = function UserManager() {
         PasswordResetStore
             .findByToken(token, function(err, request) {
                 if(err || !request) {
+                    // Confirm password request
+                    spark.write({
+                        event: 'user:password:get'
+                    });
+                    
                     return;
                 }
 

@@ -21,7 +21,6 @@ var UserPasswordRequest = React.createClass({
             },
             text: {
                 title:              'Récupération de mot de passe',
-                email_address:      'Adresse email du compte',
                 password_requested: 'Votre demande de récupération de mot de passe a bien été prise en compte.'
             },
             submit: 'Récupérer votre mot de passe'
@@ -70,13 +69,7 @@ var UserPasswordRequest = React.createClass({
         }
     },
 
-    _onRequested: function(invitation, user) {
-        // If no invitation go to home
-        if(!invitation) {
-            Router.setRoute('/');
-            return;
-        }
-
+    _onRequested: function() {
         NotificationsActions.notify('success', this.props.text.password_requested);
 
         this.setState({
@@ -124,15 +117,9 @@ var UserPasswordRequest = React.createClass({
         }
 
         return (
-            <div className="miit-component user-password-request container-fluid">
-                <div className="page-title">
-                    <h2>
-                        <i className="fa fa-envelope-o pull-left mr15"></i> {this.props.text.title} 
-                    </h2>
-                </div>
-
+            <div className="miit-component user-password-request">
                 <div className="panel mb30 mt30">
-                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {this.props.text.email_address}</h2>
+                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {this.props.text.title}</h2>
                     <div className="panel-content">
                         <form onSubmit={this.handleSubmit}>
                             

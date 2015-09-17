@@ -21,8 +21,7 @@ var UserPasswordReset = React.createClass({
                 confirm:  'Confirmez votre mot de passe'
             },
             text: {
-                title:                  'Répondre à une invitation',
-                change_password:        'Modifier le mot de passe',
+                title:                  'Réinitialisation de votre mot de passe',
                 password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
             },
             submit: 'Changer le mot de passe'
@@ -159,15 +158,9 @@ var UserPasswordReset = React.createClass({
         });
 
         return (
-            <div className="miit-component user-password-reset container-fluid">
-                <div className="page-title">
-                    <h2>
-                        <i className="fa fa-envelope-o pull-left mr15"></i> {this.props.text.title} 
-                    </h2>
-                </div>
-
+            <div className="miit-component user-password-reset">
                 <div className="panel mb30 mt30">
-                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {this.props.text.change_password}</h2>
+                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {this.props.text.title}</h2>
                     <div className="panel-content">
                         <form onSubmit={this.handleSubmit}>
                             <p className="text-100 mb15">{this.props.text.password_requierements}</p>

@@ -24,7 +24,6 @@ var UserInvite = React.createClass({
                 confirm:  'Confirmez votre mot de passe'
             },
             text: {
-                title:                  'Répondre à une invitation',
                 create_account:         'Créer un compte',
                 login_account:          'Connexion à votre compte',
                 remember_me:            'Mot de passe oublié?',
@@ -186,13 +185,7 @@ var UserInvite = React.createClass({
         }
 
         return (
-            <div className="miit-component user-invite container-fluid">
-                <div className="page-title">
-                    <h2>
-                        <i className="fa fa-envelope-o pull-left mr15"></i> {this.props.text.title} 
-                    </h2>
-                </div>
-
+            <div className="miit-component user-invite">
                 <div className="panel mb30 mt30">
                     <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {title}</h2>
                     <div className="panel-content">
@@ -220,7 +213,7 @@ var UserInvite = React.createClass({
 
                             <button className="btn btn-info" type="submit">{this.props.submit}</button>     
 
-                            <If test={false === login}>
+                            <If test={true === login}>
                                 <Link href="#/user/request" className="remember-me">
                                     {this.props.text.remember_me}
                                 </Link>
