@@ -30,7 +30,8 @@ var DocumentsList = React.createClass({
                 size:    'Taille', 
                 type:    'Type', 
                 actions: 'Actions',
-                upload:  'Envoyer un fichier'
+                upload:  'Envoyer un fichier',
+                empty:   'Il n\'y a pas de documents pour le moment.'
             },
             identifier: 'APP_DOCUMENTS'
         };
@@ -64,7 +65,6 @@ var DocumentsList = React.createClass({
     onUpload: function() {
         this.UploadToken = UploadActions.create(this.props.identifier);
     },
-
 
     render: function() {
         var documents = DocumentsStore.getDocuments();
@@ -100,6 +100,12 @@ var DocumentsList = React.createClass({
                         return <DocumentsListItem key={'documents-document-' + document.id} document={document} identifier={this.props.identifier} />;
                     }, this)}
                 </div>
+                
+                <If test={0 === documents.length}>
+                    <div className="documents-list-empty">
+                        <span>{this.props.text.empty}</span>
+                    </div>
+                </If>
             </div>
         );
     }

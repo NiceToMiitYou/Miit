@@ -64,11 +64,7 @@ var QuizList = React.createClass({
                 <div className="page-title mb30">
                     <h2><i className="fa fa-th-list mr15"></i>{this.props.text.title}</h2>
                 </div>
-                <If test={UserStore.isAdmin()}>
-                    <div className="page-actions">
-                        <button className="btn btn-info pull-right" onClick={this.onClickCreate}><i className="fa fa-plus mr5"></i> {this.props.text.create}</button>
-                    </div>
-                </If>
+                
                 <div className="list">
                     {quizzes.map(function(quiz) {
                         return <QuizListItem key={'quiz-' + quiz.id} quiz={quiz} />;
