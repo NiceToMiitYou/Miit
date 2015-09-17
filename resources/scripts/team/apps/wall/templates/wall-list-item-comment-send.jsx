@@ -14,8 +14,8 @@ var WallListItemCommentSend = React.createClass({
         return {
             question: '',
             text: {
-                commented:    'Votre commentaire à bien été envoyé',
-                notCommented: 'Votre commentaire n\'a pas pu être'
+                commented:    'Votre commentaire à bien été envoyé.',
+                notCommented: 'Votre commentaire n\'a pas pu être.'
             },
             placeholder: {
                 comment: 'Votre commentaire...'

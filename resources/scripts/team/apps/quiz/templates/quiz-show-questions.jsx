@@ -22,8 +22,8 @@ var QuizShowQuestions = React.createClass({
             text: {
                 title:              'Questions',
                 save:               'Soumettre',
-                saveQuizSuccess:    'Vos réponses ont bien été sauvegardées',
-                saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires',
+                saveQuizSuccess:    'Vos réponses ont bien été sauvegardées.',
+                saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires.',
             },
             questions: []
         };
