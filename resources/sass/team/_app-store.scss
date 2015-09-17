@@ -2,12 +2,12 @@
 
 	.app-store-list-item {
 		display: inline-block;
-		float: left;
 		width: 160px;
 		margin-right: 15px;
 		padding: 0px;
 		position: relative;
 		overflow: hidden;
+		text-align: left;
 
 
 		span.app-icon {

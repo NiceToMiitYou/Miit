@@ -17,7 +17,6 @@ html, body {
 .main {
     overflow: auto;
 	height: 100%;
-	padding-bottom: 20px;
 
 	& > .default-layout {
 		height: 100%;
@@ -539,6 +538,34 @@ textarea {
 }
 
 .welcome {
+	min-height: 100%;
+	background: #f7f7f7;
+
+	.templates {
+		max-width: 1200px;
+		margin: auto;
+	}
+
+	.panel {
+		background-color: #fff;
+
+		.panel-title {
+		}
+
+		p {
+			line-height: 1.3em;
+		}
+
+		.panel-footer {
+
+			cursor: pointer;
+
+			&:hover {
+				background-color: #e7e7e7;
+			}
+		}
+	}
+
 	h2 {
 		font-size: 2.2em;
 	}
