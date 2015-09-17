@@ -1243,6 +1243,12 @@ click-wave { 0% {
     -moz-transition: background-color .6s ease;
     -o-transition: background-color .6s ease;
 
+    i {
+        display: block;
+        font-size: 2em;
+        line-height: 1.6em;
+    }
+
     &:hover, &.hover {
         background-color: rgba(255,255,255, .7);
     }

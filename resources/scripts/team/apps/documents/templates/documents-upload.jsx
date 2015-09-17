@@ -117,6 +117,7 @@ var DocumentsUpload = React.createClass({
                 <form method="post" encType="multipart/form-data" action="/upload" onSubmit={this.handleSubmit}>
                     <div className="center">
                         <span className={classesBtnFile} onDragOver={this._onDragOver} onDragLeave={this._onDragLeave}  onDrop={this._onDragLeave} >
+                            <i className="fa fa-upload"></i>
                             {filename} 
                             <input  type="file" name="document" className={classesInput} onChange={this._onChange} />
                         </span>
