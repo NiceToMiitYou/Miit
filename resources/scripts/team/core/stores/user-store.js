@@ -99,6 +99,7 @@ function _disconnect() {
 
     // Erase from local storage
     localStorage.removeItem('token');
+    localStorage.removeItem('rigth_menu_lock');
 }
 
 var UserStore = ObjectAssign({}, EventEmitter.prototype, {

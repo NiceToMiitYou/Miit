@@ -52,11 +52,13 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
             allowed = PageAllowed.get('main-' + page);
 
         if(
-            false === TeamStore.isPublic()   && 
-            false === UserStore.isLoggedIn() &&
-            false === allowed
+            false === TeamStore.isPublic()        && 
+            false === UserStore.isLoggedIn()      &&
+            false === allowed                     ||
+            false === UserStore.isLoggedIn()      && 
+            false === TeamStore.hasApplications()
         ) {
-            page = 'login';
+            page = 'login'; LeftMenuOpened = false;
         }
         else if(
             true === UserStore.isLoggedIn() && 'login' === page

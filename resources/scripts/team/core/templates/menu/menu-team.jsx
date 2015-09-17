@@ -37,7 +37,6 @@ var MenuTeam = React.createClass({
         return (
             <div className="sidr-left bg-blue-grey">
                 <div className="sl-wrapper">
-                    
 
                     <If test={TeamStore.hasApplications() || UserStore.isAdmin()}>
                         <MenuLabel icon="fa-th" label={this.props.text.apps_label} />
