@@ -23,7 +23,7 @@ var DocumentsListItem = React.createClass({
                     content: 'Voulez-vous vraiment supprimer le document?'
                 }
             },
-            document: {},
+            document:   {},
             identifier: ''
         };
     },
