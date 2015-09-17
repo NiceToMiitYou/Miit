@@ -4,6 +4,7 @@ var ApplicationLoader  = require('core/lib/application-loader'),
     UserStore          = require('core/stores/user-store'),
     TeamStore          = require('core/stores/team-store'),
     TeamActions        = require('core/actions/team-actions'),
+    UserStatusActions  = require('core/actions/user-status-actions'),
     SubscriptionsStore = require('core/stores/subscriptions-store');
 
 var Loaded = {};
@@ -58,7 +59,13 @@ function refreshApplicationsScripts(fromLogin) {
 }
 
 function refreshUsers() {
-    TeamActions.refresh();
+    if(
+        false === UserStore.isAnonym() ||
+        true  === TeamStore.isPublic()
+    ) {
+        TeamActions.refresh();
+        UserStatusActions.refresh();
+    }
 }
 
 function updateTitle() {
@@ -81,6 +88,9 @@ SubscriptionsStore.addSubscriptionsUpdatedListener(updateTitle);
 // Handle team update and user login
 TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);
 UserStore.addLoggedInListener(refreshApplicationsScripts.bind({}, true));
+
+// Handle page refresh on login
+UserStore.addLoggedInListener(refreshUsers);
 
 // Start it once
 MiitApp.onInit(refreshUsers);

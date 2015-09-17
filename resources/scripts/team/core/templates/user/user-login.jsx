@@ -6,13 +6,18 @@ var UserStore            = require('core/stores/user-store'),
     NotificationsActions = require('core/actions/notifications-actions'),
     TeamStore            = require('core/stores/team-store');
 
+
+// Include components
+var Link = require('core/templates/components/link.jsx');
+
 var UserLogin = React.createClass({
     getDefaultProps: function() {
         return {
             text: {
-                title:          'Connexion au Miit',
-                loginSuccess:   'Bienvenue',
-                loginError:     'Votre adresse mail ou votre mot de passe est incorrect(e)'
+                title:        'Connexion au Miit',
+                remember_me:  'Mot de passe oublié?',
+                loginSuccess: 'Bienvenue',
+                loginError:   'Votre adresse mail ou votre mot de passe est incorrect(e)'
             },
             placeholder: {
                 email:    'Adresse email',
@@ -144,7 +149,10 @@ var UserLogin = React.createClass({
                                 <input type="password" className={classes_password} value={value_password} placeholder={this.props.placeholder.password} onChange={this.handleChange} name="password" />
                             </div>
 
-                            <button className="btn btn-info" type="submit">{this.props.submit}</button>     
+                            <button className="btn btn-info" type="submit">{this.props.submit}</button>
+                            <Link href="#/user/request" className="remember-me">
+                                {this.props.text.remember_me}
+                            </Link>
                         </form>
                     </div>
                 </div>

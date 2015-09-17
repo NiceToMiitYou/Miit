@@ -48,7 +48,12 @@ var TeamApp = React.createClass({
 
     _onLoggedIn: function() {
         // Refresh the list of subscriptions
-        SubscriptionsActions.refresh();
+        if(
+            false === UserStore.isAnonym() ||
+            true  === TeamStore.isPublic()
+        ) {
+            SubscriptionsActions.refresh();
+        }
 
         // Finally call onChange to refresh the page
         this._onChange();

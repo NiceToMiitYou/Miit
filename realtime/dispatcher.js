@@ -4,6 +4,11 @@ var EventEmitter = require('events').EventEmitter;
 // Get the team store (initialized before the realtime)
 var TeamStore = miitoo.injector.get('TeamStore');
 
+var onceEvents = [
+    'disconnection',
+    'incoming::ping'
+];
+
 // Getter for user
 function getUser(spark) {
     return (spark.request || {}).user || false;
@@ -70,6 +75,10 @@ function isApplicationAllowed(team, application, userRoles) {
     }
     
     return true;
+}
+
+function runOnce(event) {
+    return -1 !== onceEvents.indexOf(event);
 }
 
 // Define the Dispatcher
@@ -228,7 +237,10 @@ function Dispatcher() {
             if(false === isAllowed(event, team, user, roles)) {
 
                 // Replay it later
-                if(!replayed) {
+                if(
+                    !replayed &&
+                    !runOnce(event)
+                ) {
                     miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');
 
                     setTimeout(function() {

@@ -8,7 +8,7 @@ var UserStore   = require('core/stores/user-store'),
     PageActions = require('core/actions/page-actions');
 
 // Include common
-var If   = require('templates/if.jsx');
+var If = require('templates/if.jsx');
 
 // Include components
 var Link             = require('core/templates/components/link.jsx'),

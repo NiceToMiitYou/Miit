@@ -11,7 +11,6 @@ var store = miitoo.resolve(['UserModel', 'Mongoose'], function(User, mongoose) {
 
     return {
         create: function(email, password, cb) {
-
             // Create the user
             var user = new User({
                 email:    email,
@@ -34,6 +33,11 @@ var store = miitoo.resolve(['UserModel', 'Mongoose'], function(User, mongoose) {
 
         findUser: function(user, cb) {
             var userId = getId(user);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(userId)) {
+                return;
+            }
 
             User
                 .findOne({

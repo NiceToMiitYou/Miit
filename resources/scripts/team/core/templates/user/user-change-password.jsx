@@ -14,7 +14,7 @@ var UserChangePassword = React.createClass({
                 second: 'Confirmez votre mot de passe'
             },
             text: {
-                password_requierements: 'Votre mot de passe doit comporté un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
+                password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
             },
             submit:                'Changer le mot de passe',
             changePasswordSuccess: 'Votre mot de passe a été changé avec succès',
