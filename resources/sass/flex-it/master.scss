@@ -1230,26 +1230,22 @@ click-wave { 0% {
     position: relative;
     overflow: hidden;
     display: inline-block;
-    color: #111;
-    border: 2px dashed #DDD;
+    color: #D3D7DB;
+    border: 4px dashed #D3D7DB;
     width: 100%;
     padding: 35px 0;
-    font-size: 1.2em;
-    font-weight: 100;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
+    font-size: 1.4em;
     cursor: pointer;
-    line-height: 1.6em;
+    line-height: 1.4em;
+
+    transition: background-color .6s ease;
+    -webkit-transition: background-color .6s ease;
+    -moz-transition: background-color .6s ease;
+    -o-transition: background-color .6s ease;
 
     &:hover, &.hover {
-
-      border-color: #999;
-      background-color: #E5E6E7;
-
+        background-color: rgba(255,255,255, .7);
     }
-
 
     input {
       position: absolute;

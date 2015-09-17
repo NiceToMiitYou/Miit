@@ -103,35 +103,6 @@
                 }
             }
 
-            // &::before {
-            //     content: "";
-            //     display: block;
-            //     float: right;
-            //     background-color: #2980b9;
-            //     width: 100px;
-            //     height: 100px;
-            //     position: absolute;
-            //     right: 0;
-            //     top: 0;
-            //     z-index: 9
-            // }
-
-            // &::after {
-            //     content: "\f096";
-            //     z-index: 10;
-            //     display: block;
-            //     font: normal normal normal 14px/1 FontAwesome;
-            //     position: absolute;
-            //     color: #FFF;
-            //     position: absolute;
-            //     right: 0;
-            //     top: 0;
-            //     font-size: 2.2em;
-            //     width: 100px;
-            //     line-height: 100px;
-            //     text-align: center;
-            // }
-
             & > h3 {
                 font-size: 1.2em;
                 padding: 15px;
@@ -153,10 +124,6 @@
             .quiz-list-item-inner {
                 &::before {
                     background-color: #4caf50;
-                }
-
-                &::after {
-                    // content: "\f046";
                 }
             }
         }

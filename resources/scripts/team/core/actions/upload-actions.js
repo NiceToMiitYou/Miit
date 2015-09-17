@@ -138,7 +138,7 @@ module.exports = {
             application: application
         };
 
-        Dispatcher.dispatch(action);
+        setTimeout(Dispatcher.dispatch.bind(Dispatcher, action));
 
         return true;
     },
