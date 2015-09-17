@@ -27,7 +27,7 @@ var QuizUpdate = React.createClass({
                 title:           'Modifier',
                 name:            'Nom',
                 create_question: 'Ajouter une question',
-                saveQuiz:        'Votre quiz a bien été sauvegardé',
+                saveQuiz:        'Votre quiz a bien été sauvegardé.',
                 description:     'Description',
                 submit:          'Sauvegarder',
                 publish:         'Publier',

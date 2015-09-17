@@ -26,7 +26,7 @@ var RightMenu = React.createClass({
                 {
                     id:   1,
                     icon: 'users'
-                },
+                }/**,
                 {
                     id:   2,
                     icon: 'bell'
@@ -34,7 +34,7 @@ var RightMenu = React.createClass({
                 {
                     id:   3,
                     icon: 'envelope'
-                }
+                }**/
             ]
         };
     },

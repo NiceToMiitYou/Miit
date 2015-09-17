@@ -3,12 +3,6 @@
 
     .documents-list {
 
-        .btn-upload {
-            position: absolute;
-            top: 19px;
-            right: 25px;
-        }
-
         .list {
             display: table;
             width: 100%;
@@ -20,7 +14,7 @@
                 background-color: #FFF;
 
                 &:hover {
-                    background-color: #EFEFEF;
+                    background-color: #F7F7F7;
                 }
 
                 &:nth-child(odd) {
@@ -62,16 +56,7 @@
                     width: 250px;
 
                     & > span {
-
                         cursor: pointer;
-
-                        &.action-download {
-
-                        }
-
-                        &.action-delete {
-
-                        }
                     }
                 }
             }
@@ -100,5 +85,13 @@
                 }
             }
         }
-    }    
+
+        .documents-list-empty {
+            background-color: #FFF;
+            text-align: center;
+            border: 1px solid #EEE;
+            border-top: none;
+            padding: 15px;
+        }
+    }
 }
