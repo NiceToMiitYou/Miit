@@ -1,9 +1,7 @@
 'use strict';
 
 // Include core requirements
-var UserStore     = MiitApp.require('core/stores/user-store'),
-    ModalActions  = MiitApp.require('core/actions/modal-actions'),
-    UploadActions = MiitApp.require('core/actions/upload-actions');
+var UserStore = MiitApp.require('core/stores/user-store');
 
 // Include requirements
 var DocumentsStore = require('documents-store');

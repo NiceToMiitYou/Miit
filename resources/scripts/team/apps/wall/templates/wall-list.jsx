@@ -20,10 +20,9 @@ var WallList = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:        'Mur de questions',
-                ask_question: 'Poser une question',
-                no_question:  'Aucune question n\'a été posée pour le moment.',
-                load_more:    'Charger plus de questions.'
+                title:     'Mur de questions',
+                empty:     'Aucune question n\'a été posée pour le moment.',
+                load_more: 'Charger plus de questions.'
             }
         };
     },
@@ -64,13 +63,6 @@ var WallList = React.createClass({
             questions: questions,
             loadMore:  0 !== refreshed,
             loading:   false
-        });
-    },
-
-    _onAsk: function() {
-        ModalActions.open('wall-ask-question', <WallAddQuestion />, {
-            title: this.props.text.ask_question,
-            size:  'small'
         });
     },
 
@@ -119,12 +111,10 @@ var WallList = React.createClass({
                 <div className="page-title mb25">
                     <h2><i className="fa fa-question-circle mr15"></i>{this.props.text.title}</h2>
                 </div>
-                
-                <button type="button" className="btn btn-info btn-create ml20" onClick={this._onAsk} >
-                    <i className="fa fa-plus mr5"></i> {this.props.text.ask_question}
-                </button>
 
                 <div className="list">
+                    <WallAddQuestion />
+
                     {anchors.map(function(question) {
                         return <WallListItem key={'wall-list-questions-question-' + question.id} question={question} onAnchor={this._onUnanchor} anchored={true} />;
                     }, this)}
@@ -136,7 +126,7 @@ var WallList = React.createClass({
                         return <WallListItem key={'wall-list-questions-question-' + question.id} question={question} onAnchor={this._onAnchor} anchored={false} />;
                     }, this)}
                     <If test={0 === questions.length}>
-                        <span>{this.props.text.no_question}</span>
+                        <div className="empty">{this.props.text.empty}</div>
                     </If>
                     <If test={0 !== questions.length && loadMore && !loading}>
                         <div className="load-more">
@@ -146,7 +136,9 @@ var WallList = React.createClass({
                         </div>
                     </If>
                     <If test={loading}>
-                        <div className="load-more mt20"><Loading /></div>
+                        <div className="load-more">
+                            <Loading />
+                        </div>
                     </If>
                 </div>
 

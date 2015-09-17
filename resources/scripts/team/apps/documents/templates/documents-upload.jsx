@@ -2,8 +2,7 @@
 
 // Include core requirements
 var UploadStore   = MiitApp.require('core/stores/upload-store'),
-    UploadActions = MiitApp.require('core/actions/upload-actions'),
-    ModalActions  = MiitApp.require('core/actions/modal-actions');
+    UploadActions = MiitApp.require('core/actions/upload-actions');
 
 // Include common templates
 var If = MiitApp.require('templates/if.jsx');
