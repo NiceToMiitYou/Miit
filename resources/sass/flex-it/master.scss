@@ -1880,6 +1880,19 @@ click-wave { 0% {
     .panel-content {
       padding: 25px;
     }
+
+    &.small {
+      background-color: #fff;
+
+      .panel-title {
+        padding: 15px;
+        border-bottom: 1px solid #E7E7E7;
+      }
+
+      .panel-content {
+          padding: 15px;
+      }
+    }
 }
 
 .shadow-1 {

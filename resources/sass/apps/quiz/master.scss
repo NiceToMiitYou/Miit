@@ -1,90 +1,162 @@
 
 .quiz-app {
 
+    .quiz-item-add {
+        & > span {
+            border: 4px dashed #D3D7DB;
+            display: block;
+            color: #D3D7DB;
+            text-align: center;
+            font-size: 1.4em;
+            height: 218px;
+            cursor: pointer;
+            line-height: 1.4em;
+            padding: 0 20px;
+            
+            transition: background-color .6s ease;
+            -webkit-transition: background-color .6s ease;
+            -moz-transition: background-color .6s ease;
+            -o-transition: background-color .6s ease;
+
+            i {
+                display: block;
+                font-size: 2em;
+                margin-top: 50px;
+                line-height: 1.6em;
+            }
+
+            &:hover {
+                background-color: rgba(255,255,255, .7);
+            }
+        }
+
+        height: 218px;
+    }
+
     .quiz-list-item {
 
-        height: 100px;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
 
         .quiz-list-item-inner {
-            padding: 15px;
             position: relative;
             height: 100%;
             background-color: #FFF;
-            padding-right: 110px;
             line-height: 1.1em;
-            border: 1px solid #e7e7e7;
-            border-left: 2px solid #2980B9;
+            border: 1px solid #D3D7DB;
             overflow: hidden;
 
             .actions {
+                font-size: 14px;
+                border-bottom: 1px solid #E7E7E7;
+                height: 38px;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                a {
+                    color: #111;
+                    float: right;
+                    border-left: 1px solid #E7E7E7;
+                    background-color: #F7F7F7;
+                    text-align: center;
+                    height: 50px;
+                    width: 50px;
+                    line-height: 50px;
+
+                    transition: background-color .6s ease;
+                    -webkit-transition: background-color .6s ease;
+                    -moz-transition: background-color .6s ease;
+                    -o-transition: background-color .6s ease;
+                }
+
                 a:hover {
-                    border-bottom: 1px solid #FFF;
+                    background-color: #D3D7DB;
                 }
             }
 
-            &::before {
-                content: "";
-                display: block;
-                float: right;
-                background-color: #2980b9;
-                width: 100px;
-                height: 100px;
-                position: absolute;
-                right: 0;
-                top: 0;
-                z-index: 9
+            .quiz-list-item-inner-answer {
+                background-color: #F7F7F7;
+                text-align: right;
+                height: 47px;
+
+                & > span {
+                    line-height: 47px;
+                    margin-left: 15px;
+                    font-size: 14px;
+                }
+
+                a {
+                    padding: 10px 15px;
+                    display: inline-block;
+                    margin: 5px;
+                    background-color: #3291D1;
+                    color: #FFF;
+
+                    transition: background-color .6s ease;
+                    -webkit-transition: background-color .6s ease;
+                    -moz-transition: background-color .6s ease;
+                    -o-transition: background-color .6s ease;
+
+                    &:hover {
+                        background-color: #0B9BFC;
+                    }
+                }
             }
 
-            &::after {
-                content: "\f096";
-                z-index: 10;
-                display: block;
-                font: normal normal normal 14px/1 FontAwesome;
-                position: absolute;
-                color: #FFF;
-                position: absolute;
-                right: 0;
-                top: 0;
-                font-size: 2.2em;
-                width: 100px;
-                line-height: 100px;
-                text-align: center;
-            }
+            // &::before {
+            //     content: "";
+            //     display: block;
+            //     float: right;
+            //     background-color: #2980b9;
+            //     width: 100px;
+            //     height: 100px;
+            //     position: absolute;
+            //     right: 0;
+            //     top: 0;
+            //     z-index: 9
+            // }
+
+            // &::after {
+            //     content: "\f096";
+            //     z-index: 10;
+            //     display: block;
+            //     font: normal normal normal 14px/1 FontAwesome;
+            //     position: absolute;
+            //     color: #FFF;
+            //     position: absolute;
+            //     right: 0;
+            //     top: 0;
+            //     font-size: 2.2em;
+            //     width: 100px;
+            //     line-height: 100px;
+            //     text-align: center;
+            // }
 
             & > h3 {
-                font-weight: bold;
-                font-size: 1em;
-                margin-bottom: 10px;
+                font-size: 1.2em;
+                padding: 15px;
+                position: relative;
             }
 
-            p::after {
-                content: "";
-                display: block;
-                position: absolute;
-                left: 0;
+            p {
+                padding: 15px;
+                height: 120px;
+                position: relative;
+                border-bottom: 1px solid #E7E7E7;
+                border-top: 1px solid #E7E7E7;
+                overflow-y: auto;
                 width: 100%;
-                height: 50px;
-                background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
-                background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-                bottom: 0;
             }
         }
 
         &.done {
             .quiz-list-item-inner {
-                border-left: 2px solid #4caf50;
                 &::before {
                     background-color: #4caf50;
                 }
 
                 &::after {
-                    content: "\f046";
+                    // content: "\f046";
                 }
             }
         }
@@ -156,7 +228,7 @@
 
                 .dropdown-inner {
                     position: absolute;
-                    bottom: 100%;
+                    top: 100%;
                     z-index: 99999;
                     color: #000;
                     background-color: #FAFAFA;

@@ -65,7 +65,7 @@ var TeamSettings = React.createClass({
 
         return (
             <Layout>
-                <div className="container-fluid">
+                <div className="container-fluid mb20">
                     <div className="page-title">
                         <h2>
                             <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 

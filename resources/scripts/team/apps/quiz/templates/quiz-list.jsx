@@ -73,6 +73,10 @@ var QuizList = React.createClass({
                     {quizzes.map(function(quiz) {
                         return <QuizListItem key={'quiz-' + quiz.id} quiz={quiz} />;
                     })}
+
+                    <div className="quiz-item-add col-md-6 col-lg-4" onClick={this.onClickCreate}>
+                        <span><i className="fa fa-plus"></i>{this.props.text.create}</span>
+                    </div>
                 </div>
             </div>
         );
