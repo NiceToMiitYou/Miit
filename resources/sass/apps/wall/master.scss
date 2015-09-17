@@ -1,5 +1,14 @@
 
 .wall-app {
+    .list {
+        .empty {
+            background-color: #FFF;
+            border: 1px solid #EDEDED;
+            text-align: center;
+            padding: 30px
+        }
+    }
+
     .wall-list {
         .wall-list-item, 
         .wall-add-question {
@@ -194,7 +203,6 @@
                 }
 
                 ul {
-
                     display: block;
 
                     li {

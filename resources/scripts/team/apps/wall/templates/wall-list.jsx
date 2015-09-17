@@ -20,9 +20,9 @@ var WallList = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:        'Mur de questions',
-                no_question:  'Aucune question n\'a été posée pour le moment.',
-                load_more:    'Charger plus de questions.'
+                title:     'Mur de questions',
+                empty:     'Aucune question n\'a été posée pour le moment.',
+                load_more: 'Charger plus de questions.'
             }
         };
     },
@@ -126,7 +126,7 @@ var WallList = React.createClass({
                         return <WallListItem key={'wall-list-questions-question-' + question.id} question={question} onAnchor={this._onAnchor} anchored={false} />;
                     }, this)}
                     <If test={0 === questions.length}>
-                        <span>{this.props.text.no_question}</span>
+                        <div className="empty">{this.props.text.empty}</div>
                     </If>
                     <If test={0 !== questions.length && loadMore && !loading}>
                         <div className="load-more">
