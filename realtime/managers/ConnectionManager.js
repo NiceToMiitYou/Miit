@@ -29,7 +29,7 @@ module.exports = function ConnectionManager() {
     // On user disconnection
     primus.on('disconnection', function(spark) {
         // Dispatch the disconnection
-        Dispatcher.dispatch(spark, 'disconnection', {});
+        Dispatcher.dispatch(spark, 'disconnection', {}, true);
 
         miitoo.logger.info('Someone is disconnected.');
     });

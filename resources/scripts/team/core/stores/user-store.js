@@ -14,8 +14,13 @@ var events = KeyMirror({
     PASSWORD_NOT_CHANGED: null,
     // Event on update
     USER_UPDATED: null,
+    // Invitation
     RETRIEVE_INVITATION: null,
-    ACHIEVED_INVITATION: null
+    ACHIEVED_INVITATION: null,
+    // Password reset
+    PASSWORD_REQUESTED: null,
+    RETRIEVE_PASSWORD_RESET: null,
+    ACHIEVED_PASSWORD_RESET: null
 });
 
 // Global variables
@@ -94,6 +99,7 @@ function _disconnect() {
 
     // Erase from local storage
     localStorage.removeItem('token');
+    localStorage.removeItem('rigth_menu_lock');
 }
 
 var UserStore = ObjectAssign({}, EventEmitter.prototype, {
@@ -142,8 +148,13 @@ UserStore.generateNamedFunctions(events.PASSWORD_CHANGED);
 UserStore.generateNamedFunctions(events.PASSWORD_NOT_CHANGED);
 
 UserStore.generateNamedFunctions(events.USER_UPDATED);
+
 UserStore.generateNamedFunctions(events.RETRIEVE_INVITATION);
 UserStore.generateNamedFunctions(events.ACHIEVED_INVITATION);
+
+UserStore.generateNamedFunctions(events.PASSWORD_REQUESTED);
+UserStore.generateNamedFunctions(events.RETRIEVE_PASSWORD_RESET);
+UserStore.generateNamedFunctions(events.ACHIEVED_PASSWORD_RESET);
 
 UserStore.dispatchToken = Dispatcher.register(function(action){
 
@@ -188,6 +199,16 @@ UserStore.dispatchToken = Dispatcher.register(function(action){
             break;
         case ActionTypes.ACHIEVED_INVITATION_USER:
             UserStore.emitAchievedInvitation(action.user);
+            break;
+
+        case ActionTypes.PASSWORD_REQUESTED_USER:
+            UserStore.emitPasswordRequested();
+            break;
+        case ActionTypes.RETRIEVE_PASSWORD_RESET_USER:
+            UserStore.emitRetrievePasswordReset(action.user);
+            break;
+        case ActionTypes.ACHIEVED_PASSWORD_RESET_USER:
+            UserStore.emitAchievedPasswordReset();
             break;
     }
 });

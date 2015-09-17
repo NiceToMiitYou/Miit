@@ -75,7 +75,7 @@ Realtime.on('user:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
-// Handle update
+// Handle retrieve invitation
 Realtime.on('user:invitation:get', function(data) {
     var action = {
         type:       ActionTypes.RETRIEVE_INVITATION_USER,
@@ -86,11 +86,39 @@ Realtime.on('user:invitation:get', function(data) {
     Dispatcher.dispatch(action);
 });
 
-// Handle update
+// Handle register invitation
 Realtime.on('user:invitation:register', function(data) {
     var action = {
         type: ActionTypes.ACHIEVED_INVITATION_USER,
         user: data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:get', function(data) {
+    var action = {
+        type: ActionTypes.RETRIEVE_PASSWORD_RESET_USER,
+        user: data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:request', function(data) {
+    var action = {
+        type: ActionTypes.PASSWORD_REQUESTED_USER
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:reset', function(data) {
+    var action = {
+        type: ActionTypes.ACHIEVED_PASSWORD_RESET_USER
     };
 
     Dispatcher.dispatch(action);
@@ -150,30 +178,71 @@ module.exports = {
         });
     },
 
-    getInvitation: function(token) {
-        if(!token) {
-            return false;
+    invitation: {
+        get: function(token) {
+            if(!token) {
+                return false;
+            }
+
+            Realtime.send('user:invitation:get', {
+                token: token
+            });
+
+            return true;
+        },
+
+        register: function(token, email, password) {
+            if(!token || !email || !password) {
+                return false;
+            }
+
+            Realtime.send('user:invitation:register', {
+                token:    token,
+                email:    email,
+                password: password
+            });
+
+            return true;
         }
-
-        Realtime.send('user:invitation:get', {
-            token: token
-        });
-
-        return true;
     },
 
-    register: function(token, email, password) {
-        if(!token || !email || !password) {
-            return false;
+    password: {
+        get: function(token) {
+            if(!token) {
+                return false;
+            }
+
+            Realtime.send('user:password:get', {
+                token: token
+            });
+
+            return true;
+        },
+
+        request: function(email) {
+            if(!email) {
+                return false;
+            }
+
+            Realtime.send('user:password:request', {
+                email: email
+            });
+
+            return true;
+        },
+
+        reset: function(token, password) {
+            if(!token || !password) {
+                return false;
+            }
+
+            Realtime.send('user:password:reset', {
+                token:    token,
+                password: password
+            });
+
+            return true;
         }
-
-        Realtime.send('user:invitation:register', {
-            token:    token,
-            email:    email,
-            password: password
-        });
-
-        return true;
     },
 
     update: function(name) {

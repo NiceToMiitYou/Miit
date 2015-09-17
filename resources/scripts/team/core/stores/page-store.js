@@ -26,10 +26,12 @@ var notFoundPage = config['404'];
 // All needed pages variables
 var CurrentMainPage, CurrentApplicationPage, Argument;
 
+// Retrieve it from local storage
+var RightMenuLocked = 'true' === localStorage.getItem('rigth_menu_lock') || false;
+
 // Menu State
-var LeftMenuOpened = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768;
-var RightMenuOpened = false;
-var RightMenuLocked = false;
+var LeftMenuOpened  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 768,
+    RightMenuOpened = RightMenuLocked;
 
 // A storage for all pages
 var PageStorage = new DataStore('pages'),
@@ -47,14 +49,17 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
     
     getCurrentMainPage: function() {
         var page    = CurrentMainPage,
-            allowed = PageAllowed.get('main-' + page);
+            allowed = PageAllowed.get('main-' + page) || false;
 
         if(
-            false === TeamStore.isPublic()   && 
-            false === UserStore.isLoggedIn() &&
-            false === allowed
+            false === UserStore.isLoggedIn()      &&
+            false === allowed                     && 
+            (
+                false === TeamStore.hasApplications() ||
+                false === TeamStore.isPublic()
+            )
         ) {
-            page = 'login';
+            page = 'login'; LeftMenuOpened = false;
         }
         else if(
             true === UserStore.isLoggedIn() && 'login' === page
@@ -172,6 +177,9 @@ PageStore.dispatchToken = Dispatcher.register(function(action){
 
             // Toggle the menu
             RightMenuLocked = !RightMenuLocked;
+
+            // Save it to local storage
+            localStorage.setItem('rigth_menu_lock', RightMenuLocked);
 
             PageStore.emitRightMenuLockToggled(RightMenuLocked);
             break;

@@ -48,7 +48,12 @@ var TeamApp = React.createClass({
 
     _onLoggedIn: function() {
         // Refresh the list of subscriptions
-        SubscriptionsActions.refresh();
+        if(
+            false === UserStore.isAnonym() ||
+            true  === TeamStore.isPublic()
+        ) {
+            SubscriptionsActions.refresh();
+        }
 
         // Finally call onChange to refresh the page
         this._onChange();
@@ -89,15 +94,18 @@ var TeamApp = React.createClass({
     },
 
     render: function() {
-        var Page       = this.state.page;
-        var LeftMenuOpened  = this.state.left_menu_opened;
-        var RightMenuOpened = this.state.right_menu_opened;
-        var RightMenuLocked = this.state.right_menu_locked;
+        var Page = this.state.page;
+
+        // Menu informations
+        var LeftMenuOpened  = this.state.left_menu_opened,
+            RightMenuOpened = this.state.right_menu_opened,
+            RightMenuLocked = this.state.right_menu_locked;
 
         var classes = classNames('team-app page', 
-            (true === LeftMenuOpened) ? 'left-menu-open': 'menu-close',
-            (true === RightMenuOpened) ? 'right-menu-open': '',
-            (true === RightMenuLocked) ? 'right-menu-lock': '');
+            (true === LeftMenuOpened)  ? 'left-menu-open'  : 'menu-close',
+            (true === RightMenuOpened) ? 'right-menu-open' : '',
+            (true === RightMenuLocked) ? 'right-menu-lock' : ''
+        );
 
         return (
             <div className={classes}>

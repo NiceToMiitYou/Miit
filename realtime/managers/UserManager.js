@@ -4,6 +4,7 @@ var Utils = require('../../shared/lib/utils');
 
 module.exports = function UserManager() {
     var UserStore          = miitoo.get('UserStore'),
+        UserManager        = miitoo.get('UserManager'),
         InvitationStore    = miitoo.get('InvitationStore'),
         InvitationManager  = miitoo.get('InvitationManager'),
         PasswordResetStore = miitoo.get('PasswordResetStore');
@@ -46,7 +47,7 @@ module.exports = function UserManager() {
         }
 
         // Find the user
-        UserStore.findUser(session.id, function(err, user) {
+        UserStore.findUser(session, function(err, user) {
             if(err || !user)
             {
                 return;
@@ -88,7 +89,7 @@ module.exports = function UserManager() {
         }
 
         // Find the user
-        UserStore.findUser(session.id, function(err, user) {
+        UserStore.findUser(session, function(err, user) {
             if(err || !user)
             {
                 return;
@@ -110,7 +111,7 @@ module.exports = function UserManager() {
 
                 primus.in(team.id).write({
                     event: 'team:user:update',
-                    id:    session.id,
+                    id:    user.id,
                     name:  user.name
                 });
             });
@@ -174,30 +175,78 @@ module.exports = function UserManager() {
             });
     });
 
-    // Handle password request
-    Dispatcher.register('user:password:request', function onRequestPasswordUser(spark, data, team) {
-        var email = data.email;
+    // Handle password get
+    Dispatcher.register('user:password:get', function onGetPasswordUser(spark, data, team) {
+        var token = data.token;
 
-        if(!email || !Utils.validator.email(email))
+        if(!token)
         {
             return;
         }
 
-        UserStore
-            .findUserByEmail(email, function(err, user) {
+        PasswordResetStore
+            .findByToken(token, function(err, request) {
+                if(err || !request) {
+                    // Confirm password request
+                    spark.write({
+                        event: 'user:password:get'
+                    });
+                    
+                    return;
+                }
 
-                // Create a password request
-                PasswordResetStore
-                    .create(team, function(err, invitation) {
-        
-                        // Send the invitation
+                // Find the user
+                UserStore
+                    .findUser(request.user, function(err, user) {
+
+                        var temp = user.toJSON();
+                        
+                        // Include the email for the user
+                        temp.email = user.email;
+
+                        // Confirm password request
                         spark.write({
-                            event:      'user:invitation:get',
-                            invitation: invitation,
-                            user:       user
+                            event: 'user:password:get',
+                            user:  temp
                         });
                     });
             });
+    });
 
+    // Handle password request
+    Dispatcher.register('user:password:request', function onRequestPasswordUser(spark, data, team) {
+        var email = data.email;
+
+        UserManager
+            .request(team, email, function(err, user) {
+
+                // Confirm password request
+                spark.write({
+                    event: 'user:password:request'
+                });
+            });
+    });
+
+    // Handle password request
+    Dispatcher.register('user:password:reset', function onResetPasswordUser(spark, data, team) {
+        var token    = data.token,
+            password = data.password;
+
+        UserManager
+            .reset(token, password, function(err, user) {
+                if(err || !user) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    return;
+                }
+
+                // Confirm password reset
+                spark.write({
+                    event: 'user:password:reset'
+                });
+            });
     });
 };

@@ -40,6 +40,7 @@ var MenuTeamItem = React.createClass({
         if(false === TeamStore.hasApplication(application.identifier)) {
             return null;
         }
+        
         // Link information
         var activeName = application.identifier.replace('APP_', '').toLowerCase();
         var link       = '#/' + activeName + '/';

@@ -133,11 +133,14 @@ a {
 	      right: 25px;
 	    }
 
-	    .user-login {
-	    	max-width: 450px;
+	    .user-login,
+	    .user-invite,
+	    .user-password-request,
+	    .user-password-reset {
+	    	max-width: 480px;
 	    	margin: auto;
 	    	display: block;
-
+    		padding-top: 20px;
 
 	    	.panel-content {
 	    		background-color: #F5F5F5;

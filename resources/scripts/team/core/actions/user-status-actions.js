@@ -34,7 +34,7 @@ function onStatusRefresh(data) {
 Realtime.on('status:user',  onStatusUpdate);
 Realtime.on('status:users', onStatusRefresh);
 
-var UserStatusActions = {
+module.exports = {
     refresh: function() {
         if(false === sending) {
             sending = true;
@@ -43,8 +43,3 @@ var UserStatusActions = {
         }
     }
 };
-
-// Refresh the whole list
-UserStatusActions.refresh();
-
-module.exports = UserStatusActions;

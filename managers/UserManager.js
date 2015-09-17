@@ -58,7 +58,7 @@ var manager = miitoo.resolve(
             });
         },
 
-        reset: function(team, email, cb) {
+        request: function(team, email, cb) {
             if(!email || !Utils.validator.email(email)) {
                 return cb(new Error('No email provided.'));
             }
@@ -77,7 +77,7 @@ var manager = miitoo.resolve(
                             var scheme  = (config.domain === 'miit.fr') ? 'https://' : 'http://',
                                 port    = (config.domain === 'miit.fr') ? '' : ':' + config.port,
                                 urlBase = scheme  + slug + '.' + config.domain + port,
-                                url     = urlBase + '/user/r/' + request.token;
+                                url     = urlBase + '/user/reset/' + request.token;
 
                             MailManager.sendMail(email, 'mail.password_reset.object', './views/mail/password_reset.ejs', {
                                 name: user.name,
@@ -91,6 +91,40 @@ var manager = miitoo.resolve(
 
                             // Callback
                             cb(null, user);
+                        });
+                });
+        },
+
+        reset: function(token, password, cb) {
+            if(!token || !password || !Utils.validator.password(password))
+            {
+                return cb(new Error('Not enougth informations provided to reset the password.'));
+            }
+
+            PasswordResetStore
+                .findByToken(token, function(err, request) {
+                    if(err || !request) {
+                        return cb(err || new Error('No request found for password reset.'));
+                    }
+
+                    UserStore
+                        .findUser(request.user, function(err, user) {
+                            if(err || !user) {
+                                return cb(err || new Error('No user found for password reset.'));
+                            }
+
+                            user.password = password;
+
+                            // Change the password
+                            user.save(function(err) {
+                                // Create the reset password request
+                                PasswordResetStore
+                                    .remove(user, request, function(err) {
+
+                                        // Callback
+                                        cb(null, user);
+                                    });
+                            });
                         });
                 });
         }

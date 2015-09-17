@@ -37,7 +37,7 @@ var store = miitoo.resolve(['PasswordResetModel', 'Mongoose'], function(Password
                 });
         },
 
-        remove: function(user, requestId, cb) {
+        remove: function(user, request, cb) {
             var requestId = getId(request),
                 userId    = getId(user);
 

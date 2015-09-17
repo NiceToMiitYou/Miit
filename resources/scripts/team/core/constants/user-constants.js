@@ -16,8 +16,13 @@ var UserConstants = {
         CHANGE_PASSWORD_USER_ERROR: null,
         // Update Actions
         UPDATE_USER: null,
+        // Invitation actions
         RETRIEVE_INVITATION_USER: null,
-        ACHIEVED_INVITATION_USER: null
+        ACHIEVED_INVITATION_USER: null,
+        // Password Actions
+        PASSWORD_REQUESTED_USER: null,
+        RETRIEVE_PASSWORD_RESET_USER: null,
+        ACHIEVED_PASSWORD_RESET_USER: null
     })
 };
 

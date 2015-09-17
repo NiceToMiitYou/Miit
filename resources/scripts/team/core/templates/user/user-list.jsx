@@ -64,8 +64,15 @@ var UserList = React.createClass({
         UserStore.addLoggedInListener(this._refresh);
         // Status Changed
         UserStatusStore.addStatusChangedListener(this._refresh);
-        // Refresh the list
-        TeamActions.refresh();
+
+        if(
+            false === UserStore.isAnonym() ||
+            true  === TeamStore.isPublic()
+        ) {
+            // Refresh the list
+            TeamActions.refresh();
+            UserStatusActions.refresh();
+        }
     },
 
     componentWillUnmount: function() {

@@ -10,13 +10,10 @@ var Router               = require('core/lib/router'),
 // Include common
 var If = require('templates/if.jsx');
 
-// Include components
-var Link = require('core/templates/components/link.jsx');
-
 // Include Layout
 var Layout = require('./layouts/default-layout.jsx');
 
-var UserInvite = React.createClass({
+var UserPasswordReset = React.createClass({
     getDefaultProps: function () {
         return {
             placeholder: {
@@ -24,13 +21,10 @@ var UserInvite = React.createClass({
                 confirm:  'Confirmez votre mot de passe'
             },
             text: {
-                create_account:         'Créer un compte',
-                login_account:          'Connexion à votre compte',
-                remember_me:            'Mot de passe oublié?',
-                password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.',
-                wrong_login:            'Votre mot de passe est incorrect.'
+                title:                  'Réinitialisation de votre mot de passe',
+                password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
             },
-            submit: 'Me joindre au Miit!'
+            submit: 'Changer le mot de passe'
         };
     },
 
@@ -38,7 +32,6 @@ var UserInvite = React.createClass({
         var initial = this.getDefaultErrors();
 
         initial.token          = PageStore.getArgument();
-        initial.user           = null;
         initial.value_email    = '';
         initial.value_password = '';
         initial.value_confirm  = '';
@@ -57,22 +50,25 @@ var UserInvite = React.createClass({
 
     componentWillMount: function () {
         var token  = this.state.token,
-            result = UserActions.invitation.get(token);
+            result = UserActions.password.get(token);
 
-        if(false === result) {
+        if(
+            false === result &&
+            false === UserStore.isAnonym()
+        ) {
             Router.setRoute('/');
             return;
         }
     },
 
     componentDidMount: function () {
-        UserStore.addRetrieveInvitationListener(this._onRefresh);
-        UserStore.addAchievedInvitationListener(this._onRegister);
+        UserStore.addRetrievePasswordResetListener(this._onRefresh);
+        UserStore.addAchievedPasswordResetListener(this._onChanged);
     },
 
     componentWillUnmount: function () {
-        UserStore.removeRetrieveInvitationListener(this._onRefresh);
-        UserStore.removeAchievedInvitationListener(this._onRegister);
+        UserStore.removeRetrievePasswordResetListener(this._onRefresh);
+        UserStore.removeAchievedPasswordResetListener(this._onChanged);
     },
 
     handleChange: function(e) {
@@ -87,47 +83,33 @@ var UserInvite = React.createClass({
         }
     },
 
-    _onRefresh: function(invitation, user) {
-        // If no invitation go to home
-        if(!invitation) {
+    _onRefresh: function(user) {
+        // If no request go to home
+        if(!user) {
             Router.setRoute('/');
             return;
         }
 
         this.setState({
-            value_email: invitation.email,
-            user:        user
+            value_email: user.email
         });
     },
 
-    _onRegister: function(user) {
-        if(!user) {
-            this.setState({
-                value_password: '',
-                invalid_format: true
-            });
-
-            NotificationsActions.notify('danger', this.props.text.wrong_login);
-
-            return;
-        }
-
-        Router.setRoute('/');
+    _onChanged: function() {
+        Router.setRoute('/login');
     },
 
     handleSubmit: function(e) {
         e.preventDefault();
 
         var token    = this.state.token,
-            email    = this.state.value_email,
             password = this.state.value_password,
-            confirm  = this.state.value_confirm,
-            user     = this.state.user;
+            confirm  = this.state.value_confirm;
         
         this.setState(this.getDefaultErrors());
 
         // Check if there is data
-        if (!password || !user && !confirm) {
+        if (!password || !confirm) {
             this.setState({
                 missing_password: !password,
                 missing_confirm:  !confirm
@@ -143,24 +125,23 @@ var UserInvite = React.createClass({
             return;
         }
 
-        if(!user && password !== confirm) {
+        if(password !== confirm) {
             this.setState({
                 invalid_repeated: true
             });
             return;
         }
 
-        UserActions.invitation.register(token, email, password);
+        UserActions.password.reset(token, password);
 
         return;
     },
 
     render: function() {
         var token       = this.state.token,
-            value_email = this.state.value_email,
-            user        = this.state.user;
+            value_email = this.state.value_email;
 
-        if(!token || !value_email) {
+        if(false === UserStore.isAnonym() || !token || !value_email) {
             return null;
         }
 
@@ -176,23 +157,13 @@ var UserInvite = React.createClass({
                        this.state.invalid_repeated
         });
 
-        var login = false,
-            title = this.props.text.create_account;
-
-        if(user) {
-            login = true;
-            title = this.props.text.login_account;
-        }
-
         return (
-            <div className="miit-component user-invite">
+            <div className="miit-component user-password-reset">
                 <div className="panel mb30 mt30">
-                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {title}</h2>
+                    <h2 className="panel-title"><i className="fa fa-lock pull-left"></i> {this.props.text.title}</h2>
                     <div className="panel-content">
                         <form onSubmit={this.handleSubmit}>
-                            <If test={false === login}>
-                                <p className="text-100 mb15">{this.props.text.password_requierements}</p>
-                            </If>
+                            <p className="text-100 mb15">{this.props.text.password_requierements}</p>
  
                             <div className="input-field left-icon mb20">
                                 <i className="fa fa-envelope-o"></i>
@@ -204,20 +175,12 @@ var UserInvite = React.createClass({
                                 <input type="password" className={classes_password} value={value_password} placeholder={this.props.placeholder.password} onChange={this.handleChange} name="password" />
                             </div>
 
-                            <If test={false === login}>
-                                <div className="input-field left-icon mb25">
-                                    <i className="fa fa-lock"></i>
-                                    <input type="password" className={classes_confirm}  value={value_confirm}  placeholder={this.props.placeholder.confirm}  onChange={this.handleChange} name="confirm" />
-                                </div>
-                            </If>
+                            <div className="input-field left-icon mb25">
+                                <i className="fa fa-lock"></i>
+                                <input type="password" className={classes_confirm}  value={value_confirm}  placeholder={this.props.placeholder.confirm}  onChange={this.handleChange} name="confirm" />
+                            </div>
 
                             <button className="btn btn-info" type="submit">{this.props.submit}</button>     
-
-                            <If test={true === login}>
-                                <Link href="#/user/request" className="remember-me">
-                                    {this.props.text.remember_me}
-                                </Link>
-                            </If>
                         </form>
                     </div>
                 </div>
@@ -226,6 +189,6 @@ var UserInvite = React.createClass({
     }
 });
 
-PageStore.registerApplicationPage('user', 'i', UserInvite);
+PageStore.registerApplicationPage('user', 'reset', UserPasswordReset);
 
-module.exports = UserInvite;
+module.exports = UserPasswordReset;

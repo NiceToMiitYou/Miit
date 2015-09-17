@@ -88,6 +88,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             delete ret.__v;
             delete ret.email;
             delete ret.password;
+            delete ret.teams;
             return ret;
         }
     };
