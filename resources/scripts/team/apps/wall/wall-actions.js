@@ -185,13 +185,20 @@ module.exports = {
         });
     },
 
-    create: function(text) {
-        if(!text || !text.trim()) {
+    create: function(text, allow) {
+        if(
+            !text || !text.trim() ||
+            (
+                false !== allow &&
+                true  !== allow
+            )
+        ) {
             return false;
         }
 
         Realtime.send('wall:questions:create', {
-            text: text.trim()
+            text:  text.trim(),
+            allow: allow
         });
 
         return true;

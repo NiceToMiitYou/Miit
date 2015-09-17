@@ -50,13 +50,19 @@ module.exports = function WallActions(app) {
 
     // Create a question
     Dispatcher.register('wall:questions:create', 'USER', function onCreateQuestion(spark, data, team, user) {
-        var text = data.text || '';
+        var text  = data.text  || '',
+            allow = data.allow;
 
-        if(!text || typeof text !== 'string' || !text.trim()) {
+        if(
+            !text || typeof text !== 'string' || !text.trim() || 
+            (
+                false !== allow && true !== allow
+            )
+        ) {
             return;
         }
 
-        WallQuestionStore.create(text, team, user, function(err, question) {
+        WallQuestionStore.create(text, allow, team, user, function(err, question) {
             var room = team.id + ':' + app.identifier();
 
             primus.in(room).write({

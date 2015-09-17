@@ -1,13 +1,8 @@
 
 .wall-app {
     .wall-list {
-        .btn-create {
-            position: absolute;
-            top: 18px;
-            right: 25px;
-        }
-
-        .wall-list-item {
+        .wall-list-item, 
+        .wall-add-question {
             position: relative;
             padding: 15px;
             padding-left: 65px;
@@ -41,6 +36,7 @@
                 display: inline-table;
                 padding: 5px 20px;
                 padding-bottom: 0;
+                width: 100%;
 
                 span.wall-item-author {
                     font-weight: normal;
@@ -63,7 +59,7 @@
                 font-size: 13px;
                 margin-top: 10px;
                 display: block;
-                padding: 0 20px;
+                padding: 0 0 0 20px;
 
                 .wall-item-actions-likes {
                     i {
@@ -229,6 +225,9 @@
     }
 
     .load-more {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
         .loading {
             width: 40px;
             height: 26px;

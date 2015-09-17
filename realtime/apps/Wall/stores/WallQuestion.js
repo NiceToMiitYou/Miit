@@ -61,14 +61,15 @@ var store = miitoo.resolve(['WallQuestionModel', 'Mongoose'], function(Question,
                 });
         },
 
-        create: function(text, team, user, cb) {
+        create: function(text, allow, team, user, cb) {
             var teamId = getId(team),
                 userId = getId(user);
 
             var question = new Question({
-                team: teamId,
-                user: userId,
-                text: text
+                team:          teamId,
+                user:          userId,
+                text:          text,
+                allowComments: allow
             });
 
             question.save(function(err) {
