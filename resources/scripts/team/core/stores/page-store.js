@@ -49,14 +49,15 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
     
     getCurrentMainPage: function() {
         var page    = CurrentMainPage,
-            allowed = PageAllowed.get('main-' + page);
+            allowed = PageAllowed.get('main-' + page) || false;
 
         if(
-            false === TeamStore.isPublic()        && 
             false === UserStore.isLoggedIn()      &&
-            false === allowed                     ||
-            false === UserStore.isLoggedIn()      && 
-            false === TeamStore.hasApplications()
+            false === allowed                     && 
+            (
+                false === TeamStore.hasApplications() ||
+                false === TeamStore.isPublic()
+            )
         ) {
             page = 'login'; LeftMenuOpened = false;
         }
