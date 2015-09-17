@@ -22,6 +22,7 @@ var UserPasswordReset = React.createClass({
             },
             text: {
                 title:                  'Réinitialisation de votre mot de passe',
+                already_connected:      'Vous ne pouvez pas vous réinitialisez votre mot de passe en étant connecté.',
                 password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
             },
             submit: 'Changer le mot de passe'
@@ -52,8 +53,12 @@ var UserPasswordReset = React.createClass({
         var token  = this.state.token,
             result = UserActions.password.get(token);
 
+        if(false === UserStore.isAnonym()) {
+            NotificationsActions.notify('danger', this.props.text.already_connected);
+        }
+
         if(
-            false === result &&
+            false === result ||
             false === UserStore.isAnonym()
         ) {
             Router.setRoute('/');
