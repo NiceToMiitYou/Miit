@@ -18,7 +18,6 @@ var WelcomePage = React.createClass({
         return {
             text: {
                 title:     'Bienvenue sur Miit',
-                home:      'Retour à l\'accueil',
                 subtitle:  'Découvrez les nombreuses posssibilités de personnalisation qui s\'offrent à vous.',
                 templates: 'Pour commencer rapidement à communiquer vous pouvez choisir un modèle de Miit.',
                 customs:   'Créer un espace pesonnalisé en ajoutant vous même des applications.',

@@ -67,13 +67,6 @@ var PageStore = ObjectAssign({}, EventEmitter.prototype, {
         ) {
             page = defaultPage;
         }
-        else if(
-            true  === UserStore.isAdmin()         &&
-            false === TeamStore.hasApplications() &&
-            page  !== 'settings'
-        ) {
-            page = welcomePage;
-        }
 
         return PageStorage.get('main-' + page);
     },
