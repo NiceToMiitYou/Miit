@@ -235,6 +235,14 @@
     .load-more {
         margin-top: 20px;
         margin-bottom: 20px;
+        text-align: center;
+
+        .btn-load-more {
+            background-color: transparent;
+            color: #C0C0C0;
+            border-bottom: dashed 1px;
+            cursor: pointer;
+        }
 
         .loading {
             width: 40px;

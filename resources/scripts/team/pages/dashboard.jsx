@@ -9,11 +9,15 @@ var Router    = require('core/lib/router'),
 // Include Layout
 var Layout = require('./layouts/default-layout.jsx');
 
+// Include components
+var AppDescription = require('core/templates/dashboard/app-description.jsx');
+
 var Dashboard = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title: 'Bienvenue sur Miit'
+                title:    'Bienvenue sur le Miit',
+                subtitle: 'De nombreuses posssibilités d\'interaction qui s\'offrent à vous.'
             }
         };
     },
@@ -35,29 +39,31 @@ var Dashboard = React.createClass({
             return null;
         }
 
+        var team  = TeamStore.getTeam(),
+            apps  = team.applications || [],
+            count = 0;
+
         return (
             <Layout>
                 <div className="container-fluid dashboard center">
                     <h2 className="mt40">
                         <i className="icon-logo-miit mr10"></i>
-                        {this.props.text.title}
+                        {this.props.text.title} <b>&laquo; {team.name} &raquo;</b>
                     </h2>
 
                     <h3 className="mt40">
                         {this.props.text.subtitle}
                     </h3>
 
-                    <p className="mt40">
-                        {this.props.text.templates}
-                    </p>
+                    {apps.map(function(app) {
+                        var even = 0 === count % 2;
 
-                    <p className="text-seperator mb20 mt20">
-                        {this.props.text.or}
-                    </p>
+                        count++;
 
-                    <p className="mb20 mt20">
-                        {this.props.text.customs}
-                    </p>
+                        return (
+                            <AppDescription key={'app-' + app.identifier} even={even} application={app} />
+                        );
+                    })}
                 </div>
             </Layout>
         );

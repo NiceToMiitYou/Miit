@@ -549,15 +549,11 @@ textarea {
 	.panel {
 		background-color: #fff;
 
-		.panel-title {
-		}
-
 		p {
 			line-height: 1.3em;
 		}
 
 		.panel-footer {
-
 			cursor: pointer;
 
 			&:hover {
@@ -569,7 +565,67 @@ textarea {
 	h2 {
 		font-size: 2.2em;
 	}
+	
 	.miit-app-icon {
 		margin-right: 10px;
+	}
+}
+
+.dashboard {
+	min-height: 100%;
+	background: #f7f7f7;
+
+	h2 {
+		font-size: 2.2em;
+	}
+
+	.app-description {
+		display: flex;
+		margin-top: 40px;
+		background-color: #fff;
+		border: solid 1px #E8E8E8;
+
+		&.even .app-content {
+			padding-right: 30px;
+
+			h4, p {
+				text-align: left;
+			}
+		}
+
+		&.odd .app-content {
+			padding-left: 30px;
+
+			h4, p {
+				text-align: right;
+			}
+		}
+
+		.app-icon {
+			display: inline-block;
+		    padding: 2pc;
+
+		    .miit-app-icon i {
+		    	width: 80px;
+    			line-height: 80px;
+		    	margin-top: 0;
+		    	font-size: 200%;
+		    }
+		}
+
+		.app-content {
+			display: inline-block;
+			padding-bottom: 20px;
+
+			h4 {
+				margin-top: 8px;
+			    line-height: 50px;
+			    font-size: 125%;
+			}
+
+			p {
+			    line-height: 20px;
+			}
+		}
 	}
 }
