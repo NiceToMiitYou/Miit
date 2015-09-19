@@ -139,8 +139,6 @@ var ChatMessageList = React.createClass({
 
         var el = this.getDOMNode();
 
-        console.log(this.HasNewMessages);
-        
         if(true === this.IsSticky) {    
             el.scrollTop = el.scrollHeight;
 
