@@ -23,6 +23,9 @@ var ChatMessageList = React.createClass({
     ScrollHeight:   0,
     IsSticky:       true,
 
+    // Debounced scroll listener
+    scrollListenerDebounce: null,
+
     getInitialState: function () {
         return {
             chatroom: this.props.chatroom
@@ -30,12 +33,15 @@ var ChatMessageList = React.createClass({
     },
 
     componentDidMount: function() {
+        this.scrollListenerDebounce = Debounce(this.scrollListener, 75);
+
         // Attach messages handler
         ChatStore.addNewMessageListener(this._onChanged);
+        ChatStore.addOldMessagesListener(this._onRefresh);
 
+        this.scrollListener();
         // Attach scroll events
         this._stick();
-        this.attachScrollListener();
     },
 
     componentDidUpdate: function () {
@@ -58,6 +64,7 @@ var ChatMessageList = React.createClass({
     componentWillUnmount: function() {
         // detach messages handler
         ChatStore.removeNewMessageListener(this._onChanged);
+        ChatStore.removeOldMessagesListener(this._onChanged);
 
         // Detach scroll events
         this.detachScrollListener();
@@ -66,7 +73,7 @@ var ChatMessageList = React.createClass({
     scrollListener: function() {
         var el = this.getDOMNode();
         
-        var threshold = el.scrollHeight - el.offsetHeight - 48;
+        var threshold = el.scrollHeight - el.offsetHeight - 96;
 
         // Is it stick or not
         if(
@@ -84,9 +91,6 @@ var ChatMessageList = React.createClass({
 
         // Should reload
         if (el.scrollTop <= 128) {
-
-            // Detach it by safety
-            this.detachScrollListener();
 
             // load all messages
             var messages = ChatStore.getMessages(this.state.chatroom);
@@ -108,11 +112,11 @@ var ChatMessageList = React.createClass({
     },
 
     attachScrollListener: function () {
-        this.getDOMNode().addEventListener('scroll', this.scrollListener);
+        this.getDOMNode().addEventListener('scroll', this.scrollListenerDebounce);
     },
 
     detachScrollListener: function () {
-        this.getDOMNode().removeEventListener('scroll', this.scrollListener);
+        this.getDOMNode().removeEventListener('scroll', this.scrollListenerDebounce);
     },
 
     _onChanged: function() {
@@ -123,12 +127,19 @@ var ChatMessageList = React.createClass({
         this.forceUpdate();
     },
 
+    _onRefresh: function() {
+        // Refresh the page
+        this.forceUpdate();
+    },
+
     _stick: function() {
         if(typeof this.state.chatroom === 'undefined') {
             return;
         }
 
         var el = this.getDOMNode();
+
+        console.log(this.HasNewMessages);
         
         if(true === this.IsSticky) {    
             el.scrollTop = el.scrollHeight;
@@ -140,11 +151,15 @@ var ChatMessageList = React.createClass({
                 // Mark the chatroom as read
                 SubscriptionsActions.markReadSender(this.state.chatroom);
             }
+
+            this.scrollListenerDebounce();
         }
         else if(this.ScrollHeight !== el.scrollHeight)
         {
-            // Fix the scroll
-            el.scrollTop = el.scrollHeight - this.ScrollHeight;
+            if(false === this.HasNewMessages) {
+                // Fix the scroll
+                el.scrollTop = el.scrollHeight - this.ScrollHeight;
+            }
             
             // Save the value
             this.ScrollHeight = el.scrollHeight;
@@ -152,13 +167,13 @@ var ChatMessageList = React.createClass({
     },
 
     render: function() {
-        var messages = ChatStore.getMessages(this.state.chatroom);
+        var messages = ChatStore.getFormatedMessages(this.state.chatroom);
 
         return (
             <div className="miit-component chat-message-list">
                 {messages.map(function(message) {
                     return (
-                        <ChatMessageListItem key={message.id} user={message.user} text={message.text} createdAt={message.createdAt} />
+                        <ChatMessageListItem key={message.id} message={message} />
                     );
                 })}
             </div>

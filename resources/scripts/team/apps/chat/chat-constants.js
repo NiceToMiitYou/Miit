@@ -5,7 +5,7 @@ var ChatConstants = {
         // Change Chat Actions
         REFRESH_CHATROOMS: null,
         ADD_MESSAGE: null,
-        ADD_MESSAGES: null
+        OLD_MESSAGES: null
     })
 };
 
