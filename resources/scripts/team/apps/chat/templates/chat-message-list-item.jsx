@@ -8,7 +8,8 @@ var UserStore  = MiitApp.require('core/stores/user-store'),
 var DateFormat = MiitApp.require('templates/date-format.jsx');
 
 // Include components
-var UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
+var TextParser = MiitApp.require('core/templates/components/text-parser.jsx'),
+    UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
 
 var ChatMessageListItem = React.createClass({
     getDefaultProps: function () {
@@ -32,7 +33,9 @@ var ChatMessageListItem = React.createClass({
                     <span className="username">{name}</span>
                     <DateFormat date={createdAt} from={true} />
                 </div>
-                <div className="message-content">{text}</div>
+                <div className="message-content">
+                    <TextParser text={text} />
+                </div>
                 <div className="clearfix"></div>
             </div>
         );
