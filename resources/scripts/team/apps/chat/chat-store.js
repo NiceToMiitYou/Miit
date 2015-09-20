@@ -34,6 +34,8 @@ function _hasChanged(chatroom) {
     // Create an array if not exist
     if(!Counter[chatroom]) {
         Counter[chatroom] = 0;
+        
+        return true;
     }
 
     if(Counter[chatroom] !== Messages[chatroom].length) {

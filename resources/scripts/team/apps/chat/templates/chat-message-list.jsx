@@ -8,7 +8,8 @@ var ChatStore   = require('chat-store'),
     ChatActions = require('chat-actions');
 
 // Include components
-var ChatMessageListItem = require('templates/chat-message-list-item.jsx');
+var ChatMessageListEmpty = require('templates/chat-message-list-empty.jsx'),
+    ChatMessageListItem  = require('templates/chat-message-list-item.jsx');
 
 function topPosition(domElt) {
     if (!domElt) {
@@ -22,6 +23,7 @@ var ChatMessageList = React.createClass({
     HasNewMessages: true,
     ScrollHeight:   0,
     IsSticky:       true,
+    Loaded:         false,
 
     // Debounced scroll listener
     scrollListenerDebounce: null,
@@ -120,6 +122,9 @@ var ChatMessageList = React.createClass({
     },
 
     _onChanged: function() {
+        // Mark loaded
+        this.Loaded = true;
+
         // Mark new messages
         this.HasNewMessages = true;
 
@@ -128,6 +133,9 @@ var ChatMessageList = React.createClass({
     },
 
     _onRefresh: function() {
+        // Mark loaded
+        this.Loaded = true;
+
         // Refresh the page
         this.forceUpdate();
     },
@@ -165,10 +173,16 @@ var ChatMessageList = React.createClass({
     },
 
     render: function() {
-        var messages = ChatStore.getFormatedMessages(this.state.chatroom);
+        var messages = ChatStore.getFormatedMessages(this.state.chatroom),
+            empty    = null;
+
+        if(true === this.Loaded && 0 === messages.length) {
+            empty = <ChatMessageListEmpty />;
+        }
 
         return (
             <div className="miit-component chat-message-list">
+                {empty}
                 {messages.map(function(message) {
                     return (
                         <ChatMessageListItem key={message.id} message={message} />
