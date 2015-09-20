@@ -67,7 +67,6 @@ var DocumentsList = React.createClass({
                         <span></span>
                         <span className="document-name">{this.props.text.name}</span>
                         <span className="document-size">{this.props.text.size}</span>
-                        <span className="document-type">{this.props.text.type}</span>
                         <span className="document-actions pl25">{this.props.text.actions}</span>
                     </div>
 

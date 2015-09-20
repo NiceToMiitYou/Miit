@@ -62,13 +62,12 @@ var DocumentsListItem = React.createClass({
 
         return (
             <div className="miit-component documents-list-item">
-                <span className="document-icon mr15"><i className="fa fa-file-o"></i></span>
+                <span className="document-icon mr15">
+                    <i className={classesIcon} />
+                </span>
                 
                 <span className="document-name">{name}</span>
                 <span className="document-size">{size}</span>
-                <span className="document-type">
-                    <i className={classesIcon} />
-                </span>
                 
                 <span className="document-actions right">
                     <span className="action-download text-blue mr20" onClick={this.onDownload}>
