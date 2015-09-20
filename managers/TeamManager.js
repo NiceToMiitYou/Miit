@@ -17,19 +17,7 @@ var manager = miitoo.resolve(
                 return cb(new Error('Restricted name.'));
             }
 
-            var applications = [
-                {
-                    identifier: 'APP_CHAT'
-                },
-                {
-                    identifier: 'APP_QUIZ'
-                },
-                {
-                    identifier: 'APP_DOCUMENTS'
-                }
-            ];
-
-            TeamStore.create(name, slug, applications, function(err, team) {
+            TeamStore.create(name, slug, function(err, team) {
                 if(err)
                 {
                     return cb(err);

@@ -49,13 +49,12 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
     }
 
     return {
-        create: function(name, slug, applications, cb) {
+        create: function(name, slug, cb) {
 
             // Create the team
             var team = new Team({
-                name:         name,
-                slug:         slug,
-                applications: applications
+                name: name,
+                slug: slug
             });
             
             // Save the team
@@ -121,6 +120,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
         update: function(team, name, publix, cb) {
             var teamId = getId(team);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id: teamId
             };
@@ -136,6 +139,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
         addUser: function(team, user, roles, cb) {
             var teamId = getId(team),
                 userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id:          teamId,
@@ -158,6 +165,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
             var teamId = getId(team),
                 userId = getId(user);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id: teamId
             };
@@ -177,6 +188,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
             var teamId = getId(team),
                 userId = getId(user);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id:          teamId,
                 'users.user': userId
@@ -195,6 +210,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
             var teamId = getId(team),
                 userId = getId(user);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id:           teamId,
                 'users.user':  userId
@@ -211,6 +230,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
 
         addApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id: teamId
@@ -231,6 +254,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
         updateApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id:                       teamId,
                 'applications.identifier': identifier
@@ -248,6 +275,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
         removeApplication: function(team, identifier, cb) {
             var teamId = getId(team);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id: teamId
             };
@@ -264,8 +295,12 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
         },
 
         findUser: function(team, user, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({
@@ -294,6 +329,10 @@ var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
 
         findUsers: function(team, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({
