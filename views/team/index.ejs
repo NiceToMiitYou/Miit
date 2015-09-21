@@ -17,15 +17,17 @@
             <link rel="stylesheet" href="/dist/css/ie8/master.min.css">
         <![endif]-->
         <title><%= team.name %> - Miit</title>
-        <script>
+        <script type="text/javascript">
             // ie8 polyfill for html5 elements
-            document.createElement('header');
-            document.createElement('footer');
-            document.createElement('section');
-            document.createElement('aside');
-            document.createElement('nav');
-            document.createElement('article');
-            document.createElement('figure');
+            (function(a) {
+                a('header');
+                a('footer');
+                a('section');
+                a('aside');
+                a('nav');
+                a('article');
+                a('figure');
+            })(document.createElement.bind(document));
 
             // ie8 polyfill for console.log
             (function(global) {
@@ -46,8 +48,8 @@
     </head>
     <body>
         <div id="content">
-            <div class="sidr-left bg-blue-grey"></div>
-            <div class="page">
+            <div class="team-app page menu-close">
+                <div class="sidr-left bg-blue-grey"></div>
                 <div class="page-header"></div>
                 <div class="loading-content">
                     <div class="loading">
@@ -59,7 +61,7 @@
             </div>
         </div>
 
-        <div id="dummy-zone" className="hide"></div>
+        <div id="dummy-zone" class="hide"></div>
 
         <!--[if lt IE 9]>
             <script type="text/javascript" src="/dist/lib/excanvas.js"></script>

@@ -1,3 +1,4 @@
+'use strict';
 
 // Define the manager
 var manager = miitoo.resolve(

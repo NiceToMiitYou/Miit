@@ -4,9 +4,14 @@ var plugin = {
     identifier: 'APP_DOCUMENTS',
 
     onRegister: function() {
-        //require('documents-actions');
-        //require('documents-store');
+        // Preload the page
         require('templates/documents-page.jsx');
+
+        // Load the store and actions
+        var actions = require('documents-actions'),
+            store   = require('documents-store');
+        
+        actions.refresh();
     },
 
     onRemove: function() {

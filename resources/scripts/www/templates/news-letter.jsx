@@ -6,14 +6,16 @@ var HomeRequest = require('core/requests/home-request');
 // Include common
 var If = require('templates/if.jsx');
 
+var MiitTranslations = global.MiitTranslations;
+
 var NewsLetter = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                email: 'Votre adresse mail'
+                email: MiitTranslations['input.your.email'],
             },
-            submit:       'S\'inscrire à la Newsletter',
-            submit_short: 'S\'inscrire',
+            submit:       MiitTranslations['www.subscribe.newsletter'],
+            submit_short: MiitTranslations['www.subscribe.newsletter_short'],
             variant: false
         };
     },

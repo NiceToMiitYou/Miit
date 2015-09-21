@@ -3,6 +3,10 @@
 var ApplicationLoader  = require('core/lib/application-loader'),
     UserStore          = require('core/stores/user-store'),
     TeamStore          = require('core/stores/team-store'),
+    TeamActions        = require('core/actions/team-actions'),
+    PageStore          = require('core/stores/page-store'),
+    PageActions        = require('core/actions/page-actions'),
+    UserStatusActions  = require('core/actions/user-status-actions'),
     SubscriptionsStore = require('core/stores/subscriptions-store');
 
 var Loaded = {};
@@ -56,6 +60,16 @@ function refreshApplicationsScripts(fromLogin) {
     }
 }
 
+function refreshUsers() {
+    if(
+        false === UserStore.isAnonym() ||
+        true  === TeamStore.isPublic()
+    ) {
+        TeamActions.refresh();
+        UserStatusActions.refresh();
+    }
+}
+
 function updateTitle() {
     // get team and update title of the document
     var team   = TeamStore.getTeam(),
@@ -69,6 +83,28 @@ function updateTitle() {
     document.title = prefix + team.name + ' - Miit';
 }
 
+function openMenuOnLogin() {
+    setTimeout(function() {
+        if(
+            true  === PageStore.getLeftMenuState() &&
+            false === UserStore.isLoggedIn()       &&
+            (
+                false === TeamStore.hasApplications() ||
+                false === TeamStore.isPublic()
+            )
+        ) {
+            PageActions.toggleLeftMenu();
+        }
+
+        else if(
+            false === PageStore.getLeftMenuState() &&
+            true  === UserStore.isLoggedIn()
+        ) {
+            PageActions.toggleLeftMenu();
+        }
+    });
+}
+
 // Change page title on update
 TeamStore.addTeamUpdatedListener(updateTitle);
 SubscriptionsStore.addSubscriptionsUpdatedListener(updateTitle);
@@ -77,5 +113,11 @@ SubscriptionsStore.addSubscriptionsUpdatedListener(updateTitle);
 TeamStore.addTeamUpdatedListener(refreshApplicationsScripts);
 UserStore.addLoggedInListener(refreshApplicationsScripts.bind({}, true));
 
+// Handle page refresh on login
+UserStore.addLoggedInListener(refreshUsers);
+UserStore.addLoggedInListener(openMenuOnLogin);
+
 // Start it once
+MiitApp.onInit(refreshUsers);
 MiitApp.onInit(refreshApplicationsScripts);
+MiitApp.onInit(openMenuOnLogin);

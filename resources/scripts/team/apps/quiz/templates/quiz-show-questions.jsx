@@ -22,26 +22,20 @@ var QuizShowQuestions = React.createClass({
             text: {
                 title:              'Questions',
                 save:               'Soumettre',
-                saveQuizSuccess:    'Vos réponses ont bien été sauvegardées',
-                saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires',
+                saveQuizSuccess:    'Vos réponses ont bien été sauvegardées.',
+                saveQuizError:      'Impossible de sauvegarder vos réponses, verifiez les questions obligatoires.',
             },
-            questions: [],
-            preview:   false
+            questions: []
         };
     },
 
     getInitialState: function () {
         return {
-            errors:     [],
-            processing: false
+            errors: []
         };
     },
 
     saveAnswers: function() {
-        if(true === processing) {
-            return;
-        }
-
         // Process the validation
         var refs      = this.refs,
             questions = this.props.questions,
@@ -78,17 +72,14 @@ var QuizShowQuestions = React.createClass({
         // Save the answer
         var processing = QuizActions.sendChoices(this.props.quiz, choices);
 
-        this.setState({
-            processing: processing
-        });
-
-        NotificationsActions.notify('success', this.props.text.saveQuizSuccess);
+        if(true === processing) {
+            NotificationsActions.notify('success', this.props.text.saveQuizSuccess);
+        }
     },
 
     render: function() {
         // Get questions
         var questions = this.props.questions,
-            preview   = this.props.preview,
             errors    = this.state.errors,
             counter   = 0;
 
@@ -110,13 +101,11 @@ var QuizShowQuestions = React.createClass({
                     }, this)}
                 </div>
 
-                <If test={!preview}>
-                    <div className="actions">
-                        <button type="button" className="btn btn-success" onClick={this.saveAnswers}>
-                            <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
-                        </button>
-                    </div>
-                </If>
+                <div className="actions">
+                    <button type="button" className="btn btn-success" onClick={this.saveAnswers}>
+                        <i className="fa fa-floppy-o mr5"></i> {this.props.text.save}
+                    </button>
+                </div>
             </div>
         );
     }

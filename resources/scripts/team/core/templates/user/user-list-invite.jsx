@@ -13,7 +13,7 @@ var UserListInvite = React.createClass({
                 email: 'Addresse mail'
             },
             submit: 'Inviter l\'utilisateur',
-            inviteUser: 'L\'invitation a bien été envoyé',
+            inviteUser: 'L\'invitation a bien été envoyée.',
             title: 'Inviter un utilisateur'
         };
     },
@@ -34,11 +34,11 @@ var UserListInvite = React.createClass({
     },
 
     componentDidMount: function() {
-        TeamStore.addInvitedListener(this._onInvited);
+        TeamStore.addUserInvitedListener(this._onInvited);
     },
 
     componentWillUnmount: function() {
-        TeamStore.removeInvitedListener(this._onInvited);
+        TeamStore.removeUserInvitedListener(this._onInvited);
     },
 
     handleChange: function(newValue) {
@@ -85,7 +85,7 @@ var UserListInvite = React.createClass({
         NotificationsActions.notify('success', this.props.inviteUser);
 
         this.setState({
-            email: ''
+            email:   ''
         });
 
         if(typeof this.props.onInvite === 'function') {

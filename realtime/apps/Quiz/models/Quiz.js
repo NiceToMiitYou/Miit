@@ -22,6 +22,10 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         description: String,
         duration:    Number,
         icon:        String,
+        answers: {
+            type:    [String],
+            default: []
+        },
         start: {
             type:    Date,
             default: Date.now
@@ -105,6 +109,8 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
                 delete ret.questions[i]._id;
             }
             
+            ret.answers = ret.answers.length;
+
             delete ret._id;
             delete ret.__v;
             return ret;

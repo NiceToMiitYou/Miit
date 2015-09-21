@@ -10,6 +10,7 @@ var ActionTypes = require('chat-constants').ActionTypes;
 var events = KeyMirror({
     // Events on chat event
     NEW_MESSAGE: null,
+    OLD_MESSAGES: null,
     CHATROOMS_REFRESHED: null
 });
 
@@ -33,6 +34,8 @@ function _hasChanged(chatroom) {
     // Create an array if not exist
     if(!Counter[chatroom]) {
         Counter[chatroom] = 0;
+        
+        return true;
     }
 
     if(Counter[chatroom] !== Messages[chatroom].length) {
@@ -42,6 +45,57 @@ function _hasChanged(chatroom) {
     }
 
     return false;
+}
+
+function _clone(obj) {
+    return JSON.parse(
+        JSON.stringify(obj)
+    );
+}
+
+function _formatMessages(messages) {
+    var result = [], last = false;
+
+    messages.forEach(function(message) {
+
+        // If there is no message before, store it
+        if(!last) {
+            // Store last message
+            last = _clone(message);
+            return;
+        }
+
+        // Check date diff
+        var diff = new Date(message.createdAt) - new Date(last.createdAt);
+
+        // If different author split messages
+        if(
+            last.user !== message.user ||
+            diff > 120000
+        ) {
+            result.push(last);
+
+            // Store last message
+            last = _clone(message);
+            return;
+        }
+
+        // If the text is not an array, turn into an array
+        if(false === Array.isArray(last.text)) {
+            last.text = [
+                last.text
+            ];
+        }
+
+        // If same user, group messages
+        last.text.push(message.text);
+    });
+
+    if(false !== last) {
+        result.push(last);
+    }
+
+    return result;
 }
 
 // The ChatStore Object
@@ -58,11 +112,18 @@ var ChatStore = ObjectAssign({}, EventEmitter.prototype, {
         var messages = Messages[chatroom] || [];
 
         return messages.sortBy('createdAt');
+    },
+
+    getFormatedMessages: function(chatroom) {
+        var messages = this.getMessages(chatroom);
+
+        return _formatMessages(messages);
     }
 });
 
 // Register Functions based on event
 ChatStore.generateNamedFunctions(events.NEW_MESSAGE);
+ChatStore.generateNamedFunctions(events.OLD_MESSAGES);
 ChatStore.generateNamedFunctions(events.CHATROOMS_REFRESHED);
 
 // Handle actions
@@ -81,11 +142,11 @@ ChatStore.dispatchToken = Dispatcher.register(function(action){
             }
             break;
 
-        case ActionTypes.ADD_MESSAGES:
+        case ActionTypes.OLD_MESSAGES:
             _addMessages(action.chatroom, action.messages);
             // Check for change
             if(true === _hasChanged(action.chatroom)) {
-                ChatStore.emitNewMessage();
+                ChatStore.emitOldMessages();
             }
             break;
     }

@@ -1,3 +1,4 @@
+'use strict';
 
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
@@ -15,7 +16,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             default: false
         },
         users: [{
-            user: { 
+            user: {
                 type: ObjectId,
                 ref: 'User'
             },

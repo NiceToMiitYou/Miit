@@ -1,6 +1,8 @@
+'use strict';
 
 // Define the store
-var store = miitoo.resolve(['TeamModel'], function(Team) {
+var store = miitoo.resolve(['TeamModel', 'Mongoose'], function(Team, mongoose) {
+    var ObjectId = mongoose.Types.ObjectId;
 
     // Map users from team
     function mapUsers(team) {
@@ -43,12 +45,38 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
     }
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {
+        create: function(name, slug, cb) {
+
+            // Create the team
+            var team = new Team({
+                name: name,
+                slug: slug
+            });
+            
+            // Save the team
+            team.save(function(err) {
+                // Log the error
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err, team);
+                }
+            });
+        },
+
         findTeam: function(team, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({
@@ -92,6 +120,10 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         update: function(team, name, publix, cb) {
             var teamId = getId(team);
 
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
+
             var conditions = {
                 _id: teamId
             };
@@ -105,8 +137,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         addUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id:          teamId,
@@ -126,8 +162,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         removeUser: function(team, user, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id: teamId
@@ -145,8 +185,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         promoteUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id:          teamId,
@@ -163,8 +207,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         demoteUser: function(team, user, roles, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id:           teamId,
@@ -180,8 +228,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        addApplication: function(team, identifier, public, cb) {
+        addApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id: teamId
@@ -191,7 +243,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
                 $push: {
                     'applications': {
                         identifier: identifier,
-                        publix:     public
+                        publix:     publix
                     }
                 }
             };
@@ -199,8 +251,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
             updateTeam(conditions, update, cb);
         },
 
-        updateApplication: function(team, identifier, public, cb) {
+        updateApplication: function(team, identifier, publix, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id:                       teamId,
@@ -209,7 +265,7 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
 
             var update = {
                 $set: {
-                    'applications.$.public': public
+                    'applications.$.public': publix
                 }
             };
             
@@ -218,6 +274,10 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
 
         removeApplication: function(team, identifier, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             var conditions = {
                 _id: teamId
@@ -235,8 +295,12 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
         },
 
         findUser: function(team, user, cb) {
-            var teamId = getId(team);
-            var userId = getId(user);
+            var teamId = getId(team),
+                userId = getId(user);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({
@@ -265,6 +329,10 @@ var store = miitoo.resolve(['TeamModel'], function(Team) {
 
         findUsers: function(team, cb) {
             var teamId = getId(team);
+
+            if(!ObjectId.isValid(teamId)) {
+                return;
+            }
 
             Team
                 .findOne({

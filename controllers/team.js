@@ -131,6 +131,10 @@ var controller = miitoo.resolve(
                 return res.redirect(url);
             }
 
+            if(true === team.locked && -1 !== req.url.indexOf('/upload')) {
+                return res.end();
+            }
+
             // Define values for the request
             req.team = team;
 
@@ -145,6 +149,7 @@ var controller = miitoo.resolve(
             !req.body ||
             !req.body.upload      || typeof req.body.upload      !== 'string' ||
             !req.body.application || typeof req.body.application !== 'string' ||
+            !req.body.download    || typeof req.body.download    !== 'string' ||
             !req.body.token       || typeof req.body.token       !== 'string' || 'null' === req.body.token
         ) {
             return res.end();
@@ -152,10 +157,11 @@ var controller = miitoo.resolve(
 
         // Prepare variables
         var application = req.body.application,
+            downloadId  = req.body.download,
             uploadId    = req.body.upload,
             token       = req.body.token,
             team        = req.team;
-        
+
         // Check the token
         jwt.verify(token, function(err, payload) {
             if(err || !payload)
@@ -166,11 +172,13 @@ var controller = miitoo.resolve(
             var userId = payload.user;
 
             // Find the original file instruction
-            UploadStore.getForDownload(uploadId, team, application, function(err, upload) {
-                if(err || !upload)
+            UploadStore.getForDownload(downloadId, uploadId, userId, team, application, function(err, download) {
+                if(err || !download || !download.upload)
                 {
                     return handleErr(res, err);
                 }
+
+                var upload = download.upload;
 
                 // Save informations
                 UploadStore.incrementDownloads(upload, function(err) {

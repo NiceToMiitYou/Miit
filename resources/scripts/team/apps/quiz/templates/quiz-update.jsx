@@ -23,18 +23,18 @@ var QuizUpdate = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                informations:     'Informations',
-                title:            'Modifier',
-                name:             'Nom',
-                create_question:  'Ajouter une question',
-                saveQuiz:         'Votre quiz a bien été sauvegarder',
-                description:      'Description',
-                submit:           'Sauvegarder',
-                publish:          'Publier',
-                close:            'Cloturer',
-                reopen:           'Ré-ouvrir',
-                published:        'Publié',
-                closed:           'Cloturé'
+                informations:    'Informations',
+                title:           'Modifier',
+                name:            'Nom',
+                create_question: 'Ajouter une question',
+                saveQuiz:        'Votre quiz a bien été sauvegardé.',
+                description:     'Description',
+                submit:          'Sauvegarder',
+                publish:         'Publier',
+                close:           'Cloturer',
+                reopen:          'Ré-ouvrir',
+                published:       'Publié',
+                closed:          'Cloturé'
             }  
         };
     },
@@ -50,11 +50,13 @@ var QuizUpdate = React.createClass({
 
     componentDidMount: function() {
         QuizStore.addQuizzesRefreshedListener(this._onChange);
+        PageStore.addPageClosedListener(this.handleSubmit);
         this._onChange();
     },
 
     componentWillUnmount: function() {
         QuizStore.removeQuizzesRefreshedListener(this._onChange);
+        PageStore.removePageClosedListener(this.handleSubmit);
     },
 
     _onChange: function() {
@@ -86,7 +88,9 @@ var QuizUpdate = React.createClass({
     },
 
     handleSubmit: function(e) {
-        e.preventDefault();
+        if(e){
+            e.preventDefault();
+        }
 
         if(false === UserStore.isAdmin()) {
             return;
@@ -172,20 +176,21 @@ var QuizUpdate = React.createClass({
             <div className="miit-component quiz-update">
                 <div className="quiz-update-wrapper">
                     <div className="quiz-update-questions container-fluid">
-                        <h2>{this.props.text.title} - {quiz.name}
+                        <div className="page-title mb30">
+                            <h2>{this.props.text.title} - {quiz.name}
 
+                                <If test={quiz.published && !quiz.closed}>
+                                    <span className="ml15 quiz-status text-green">{this.props.text.published}</span>
+                                </If>
+                                <If test={quiz.published && quiz.closed}>
+                                    <span className="ml15 quiz-status text-red">{this.props.text.closed}</span>
+                                </If>
+                            </h2>
+                        </div>
 
-                            <If test={quiz.published && !quiz.closed}>
-                                <span className="ml15 text-green">{this.props.text.published}</span>
-                            </If>
-                            <If test={quiz.published && quiz.closed}>
-                                <span className="ml15 text-red">{this.props.text.closed}</span>
-                            </If>
-                        </h2>
-
-                        <div>
-                            <h3 className="mb20">{this.props.text.informations}</h3>
-                            <form onSubmit={this.handleSubmit} className="mb20">
+                        <div className="panel mb30">
+                            <h2 className="panel-title">{this.props.text.informations}</h2>
+                            <form onSubmit={this.handleSubmit} className="mb20 panel-content">
                                 <label className="input-field">
                                     {this.props.text.name}
                                     <input type="text" name="name" value={value_name} onChange={this.handleChange} className={classesName}/>
@@ -197,10 +202,11 @@ var QuizUpdate = React.createClass({
                                 </label>
                             </form>
 
-                            <If test={!quiz.closed}>
-                                <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
-                            </If>
                         </div>
+
+                        <If test={!quiz.closed}>
+                            <QuizUpdateQuestions ref="questions" quiz={quiz.id} questions={quiz.questions} />
+                        </If>
                     </div>
                 </div>
 

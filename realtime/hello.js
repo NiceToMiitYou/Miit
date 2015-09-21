@@ -29,6 +29,12 @@ var realtime = miitoo.resolve(['Primus'], function(primus) {
     primus.on('connection', function(spark) {
         
         miitoo.logger.debug('New connection from team.');
+
+        // Send time on connection
+        spark.write({
+            event: 'server:time',
+            date:  new Date()
+        });
     });
 });
 

@@ -16,14 +16,14 @@ var TeamUpdate = React.createClass({
                 name: 'Nom du Miit'
             },
             text: {
-                public:                 'Public',
-                isPublic:               'Votre Miit est public et accessible à tout le monde via l\'URL suivante',
-                private:                'Privé',
-                name:                   'Nom de votre Miit', 
-                privacy:                'Confidentialité', 
-                changeInformations:     'Les informations de votre miit ont bien été modifiés', 
-                changeApplications:     'Les applications de votre miit ont bien été modifiés', 
-                isPrivate:              'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix'
+                public:             'Public',
+                isPublic:           'Votre Miit est public et accessible à tout le monde via l\'URL suivante:',
+                private:            'Privé',
+                name:               'Nom de votre Miit', 
+                privacy:            'Confidentialité', 
+                changeInformations: 'Les informations de votre Miit ont bien été modifiées.', 
+                changeApplications: 'Les applications de votre Miit ont bien été modifiées.', 
+                isPrivate:          'Votre Miit est privé et ne sera accessible qu\'aux personnes de votre choix.'
             },
             submit: 'Sauvegarder'
         };
@@ -70,14 +70,13 @@ var TeamUpdate = React.createClass({
             // Be sure that is set
             var team = TeamStore.getTeam();
 
-            if ('TEAM' === changeAction) {
+            if('TEAM' === changeAction) {
 
                 NotificationsActions.notify('success', this.props.text.changeInformations);
-
-            } else if ('APPLICATIONS' === changeAction) {
+            }
+            else if('APPLICATIONS' === changeAction) {
 
                 NotificationsActions.notify('success', this.props.text.changeApplications);
-
             }
 
             this.setState({
@@ -167,7 +166,6 @@ var TeamUpdate = React.createClass({
 
         return (
             <form className="miit-component user-update" onSubmit={this.handleSubmit}>
-
                 <h3 className="mb20">{this.props.text.name}</h3>
 
                 <div className="mb20">

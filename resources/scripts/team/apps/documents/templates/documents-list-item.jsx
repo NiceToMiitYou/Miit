@@ -1,10 +1,9 @@
 'use strict';
 
 // Include core requirements
-var filesize      = MiitApp.require('core/lib/filesize'),
-    UserStore     = MiitApp.require('core/stores/user-store'),
-    ModalActions  = MiitApp.require('core/actions/modal-actions'),
-    UploadActions = MiitApp.require('core/actions/upload-actions');
+var filesize     = MiitApp.require('core/lib/filesize'),
+    UserStore    = MiitApp.require('core/stores/user-store'),
+    ModalActions = MiitApp.require('core/actions/modal-actions');
 
 // Include requirements
 var DocumentsActions = require('documents-actions');
@@ -24,7 +23,7 @@ var DocumentsListItem = React.createClass({
                     content: 'Voulez-vous vraiment supprimer le document?'
                 }
             },
-            document: {},
+            document:   {},
             identifier: ''
         };
     },
@@ -47,25 +46,28 @@ var DocumentsListItem = React.createClass({
         var document   = this.props.document,
             identifier = this.props.identifier;
 
-        UploadActions.download(identifier, document.file.id);
+        DocumentsActions.download(document.id);
     },
 
     render: function() {
         var document = this.props.document;
 
         var name = document.file.name,
-            type = document.file.type;
+            icon = document.file.icon;
 
         // Add {suffixes: {B: 'o', KB: 'Ko', MB: 'Mo', GB: 'Go'}} to translate in french (later)
         var size = filesize(document.file.size);
 
+        var classesIcon = classNames('fa', 'fa-' + icon);
+
         return (
             <div className="miit-component documents-list-item">
-                <span className="document-icon mr15"><i className="fa fa-file-o"></i></span>
+                <span className="document-icon mr15">
+                    <i className={classesIcon} />
+                </span>
                 
                 <span className="document-name">{name}</span>
                 <span className="document-size">{size}</span>
-                <span className="document-type">{type}</span>
                 
                 <span className="document-actions right">
                     <span className="action-download text-blue mr20" onClick={this.onDownload}>

@@ -7,6 +7,8 @@ var Moment = require('moment');
 Moment.locale('fr');
 
 var DateFormat = React.createClass({
+    IntervalId: null,
+
     getDefaultProps: function () {
         return {
             date:   new Date(),
@@ -15,9 +17,28 @@ var DateFormat = React.createClass({
         };
     },
 
+    componentDidMount: function () {
+        if(true === this.props.from) {
+            // Refresh the list for date update
+            this.IntervalId = setInterval(this.forceUpdate.bind(this), 15000);
+        }
+    },
+
+    componentWillUnmount: function () {
+        if(null !== this.IntervalId) {
+            // Clear refresh of the date
+            clearInterval(this.IntervalId);
+        }
+    },
+
     formatDate: function() {
         // Initialize variables
-        var date   = Moment(this.props.date);
+        var date = Moment(this.props.date);
+
+        // If there is an offset, apply it
+        if(global.ServerTimeOffset) {
+            date.add(global.ServerTimeOffset, 'milliseconds');
+        }
 
         // Display from now
         if(true === this.props.from) {

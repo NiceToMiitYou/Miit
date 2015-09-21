@@ -3,15 +3,18 @@
 // Include requirements
 var UserStore            = require('core/stores/user-store'),
     NotificationsActions = require('core/actions/notifications-actions'),
-    UserActions         = require('core/actions/user-actions');
+    UserActions          = require('core/actions/user-actions');
 
 var UserChangePassword = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
                 old:    'Votre mot de passe',
-                first:  'Le nouveau mot de passe',
-                second: 'Entrez le mot de passe à nouveau'
+                first:  'Votre nouveau mot de passe',
+                second: 'Confirmez votre mot de passe'
+            },
+            text: {
+                password_requierements: 'Votre mot de passe doit comporter un minimum de 8 caractères et comprendre des minuscules, majuscules et au moins un chiffre.'
             },
             submit:                'Changer le mot de passe',
             changePasswordSuccess: 'Votre mot de passe a été changé avec succès',
@@ -149,6 +152,7 @@ var UserChangePassword = React.createClass({
 
         return (
             <form className="miit-component change-password" onSubmit={this.handleSubmit}>
+                <p className="text-100 mb15">{this.props.text.password_requierements}</p>
                 <input type="password" className={classes_old + " mb15"}    value={value_old}    placeholder={this.props.placeholder.old}    onChange={this.handleChange} name="old" />
                 <input type="password" className={classes_first + " mb15"}  value={value_first}  placeholder={this.props.placeholder.first}  onChange={this.handleChange} name="first" />
                 <input type="password" className={classes_second + " mb20"} value={value_second} placeholder={this.props.placeholder.second} onChange={this.handleChange} name="second" />

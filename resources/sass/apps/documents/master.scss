@@ -1,0 +1,93 @@
+
+.documents-app {
+
+    .documents-list {
+
+        .list {
+            display: table;
+            width: 100%;
+            border: 1px solid #e7e7e7;
+
+            .documents-list-item {
+                display: table-row;
+                font-size: .9em;
+                background-color: #FFF;
+
+                &:hover {
+                    background-color: #F7F7F7;
+                }
+
+                &:nth-child(odd) {
+
+                    & > span {
+                        border-top: 1px solid #EEE;
+                        border-bottom: 1px solid #EEE;
+                    }
+                }
+
+                 & > span {
+                    display: table-cell;
+                    padding: 15px;
+                    vertical-align: middle;
+                 }
+
+                .document-icon {
+                    width: 50px;
+                    text-align: center;
+
+                    i {
+                        font-size: 1.3em;
+                    }
+                }
+
+                .document-name {
+                    max-width: 250px;
+                    line-height: 1.4em;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                .document-size {
+                    width: 90px;
+                }
+
+                .document-actions {
+                    width: 250px;
+
+                    & > span {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .documents-list-header {
+                display: table-row;
+                background-color: #FFF;
+
+                & > span {
+                    display: table-cell;
+                    padding: 15px;
+                    vertical-align: middle;
+                    border-bottom: 1px solid #EEE;
+                }
+
+                .document-size {
+                    width: 90px;
+                }
+
+                .document-actions {
+                    width: 250px;
+                }
+            }
+        }
+
+        .documents-list-empty {
+            background-color: #FFF;
+            text-align: center;
+            border: 1px solid #EEE;
+            border-top: none;
+            padding: 15px;
+        }
+    }
+}

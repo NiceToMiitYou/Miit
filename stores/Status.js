@@ -1,14 +1,15 @@
+'use strict';
 
 // Define the store
 var store = miitoo.resolve(['StatusModel'], function(Status) {
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     function updateStatus(status, user, team, cb) {
-        var userId = getId(user);
-        var teamId = getId(team);
+        var userId = getId(user),
+            teamId = getId(team);
 
         Status.findOneAndUpdate({
                 userId: userId,

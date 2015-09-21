@@ -11,7 +11,7 @@ var events = KeyMirror({
 });
 
 // Global variables
-var Notifications = [];
+var Notifications = [], Enable = true;
 
 // The NotificationsStore Object
 var NotificationsStore = ObjectAssign({}, EventEmitter.prototype, {
@@ -21,7 +21,11 @@ var NotificationsStore = ObjectAssign({}, EventEmitter.prototype, {
 });
 
 // On Add a notification
-function _addNotification(notification, onRemoved) {
+function _addNotification(notification, disable) {
+    if(false === Enable) {
+        return;
+    }
+
     Notifications.push(notification);
 
     // Emit the notification
@@ -33,6 +37,14 @@ function _addNotification(notification, onRemoved) {
         // Emit the removed event
         NotificationsStore.emitNotificationRemoved();
     }, 5000);
+
+    if(0 !== disable) {
+        Enable = false;
+
+        setTimeout(function(){
+            Enable = true;
+        }, disable);
+    }
 }
 
 // Register Functions based on event
@@ -51,7 +63,7 @@ NotificationsStore.dispatchToken = Dispatcher.register(function(action){
             };
 
             // Add the no
-            _addNotification(notification);
+            _addNotification(notification, action.disable);
             break;
     }
 });

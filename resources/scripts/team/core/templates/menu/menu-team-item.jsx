@@ -40,6 +40,7 @@ var MenuTeamItem = React.createClass({
         if(false === TeamStore.hasApplication(application.identifier)) {
             return null;
         }
+        
         // Link information
         var activeName = application.identifier.replace('APP_', '').toLowerCase();
         var link       = '#/' + activeName + '/';
@@ -47,7 +48,7 @@ var MenuTeamItem = React.createClass({
         application.color = apps[application.identifier].color;
         application.icon  = apps[application.identifier].icon;
         
-        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color, 'pull-left');
+        var appClasses = classNames('fa', 'fa-' + application.icon, 'bg-' + application.color);
 
         // Informations
         var label  = Translations[application.identifier].name;
@@ -56,7 +57,7 @@ var MenuTeamItem = React.createClass({
         return (
             <li>
                 <Link href={link} activeGroup={this.props.activeGroup} activeName={activeName}>
-                    <i className={appClasses}></i> {label}
+                    <i className={appClasses}></i>{label}
                     <If test={unread > 0}>
                         <span className="notification">{unread}</span>
                     </If>

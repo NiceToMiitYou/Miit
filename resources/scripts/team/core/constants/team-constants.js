@@ -3,6 +3,7 @@
 var TeamConstants = {
     ActionTypes: KeyMirror({
         // Handle user action
+        ADD_USER: null,
         UPDATE_USER: null,
         REFRESH_USERS: null,
         // Update Actions

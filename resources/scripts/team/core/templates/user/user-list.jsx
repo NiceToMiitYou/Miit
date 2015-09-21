@@ -52,33 +52,36 @@ var UserList = React.createClass({
     },
 
     componentDidMount: function() {
-        // Invited
-        TeamStore.addInvitedListener(this._refresh);
         // Promoted
-        TeamStore.addPromotedListener(this._refresh);
+        TeamStore.addUserPromotedListener(this._refresh);
         // Demoted
-        TeamStore.addDemotedListener(this._refresh);
+        TeamStore.addUserDemotedListener(this._refresh);
         // Removed
-        TeamStore.addRemovedListener(this._refresh);
+        TeamStore.addUserRemovedListener(this._refresh);
         // Refresh
         TeamStore.addRefreshedListener(this._refresh);
         // LoggedIn
         UserStore.addLoggedInListener(this._refresh);
         // Status Changed
         UserStatusStore.addStatusChangedListener(this._refresh);
-        // Refresh the list
-        TeamActions.refresh();
+
+        if(
+            false === UserStore.isAnonym() ||
+            true  === TeamStore.isPublic()
+        ) {
+            // Refresh the list
+            TeamActions.refresh();
+            UserStatusActions.refresh();
+        }
     },
 
     componentWillUnmount: function() {
-        // Invited
-        TeamStore.removeInvitedListener(this._refresh);
         // Promoted
-        TeamStore.removePromotedListener(this._refresh);
+        TeamStore.removeUserPromotedListener(this._refresh);
         // Demoted
-        TeamStore.removeDemotedListener(this._refresh);
+        TeamStore.removeUserDemotedListener(this._refresh);
         // Removed
-        TeamStore.removeRemovedListener(this._refresh);
+        TeamStore.removeUserRemovedListener(this._refresh);
         // Refresh
         TeamStore.removeRefreshedListener(this._refresh);
         // LoggedIn

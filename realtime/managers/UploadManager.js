@@ -7,6 +7,10 @@ module.exports = function UploadManager() {
     // Get the dispatcher
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
+    Dispatcher.writes([
+        'upload:create'
+    ]);
+
     // Handle create an upload request
     Dispatcher.register('upload:create', 'USER', function onUploadCreate(spark, data, team, user) {
 

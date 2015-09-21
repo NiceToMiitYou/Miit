@@ -14,19 +14,19 @@ var Link = require('core/templates/components/link.jsx'),
     MenuHeader      = require('./menu-header.jsx'),
     MenuLabel       = require('./menu-label.jsx'),
     MenuUserProfile = require('./menu-user-profile.jsx'),
+    Clock           = require('templates/clock.jsx'),
     MenuTeamItem    = require('./menu-team-item.jsx');
 
 var MenuTeam = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                user_label:      'Utilisateur',
+                user_label:      'Utilisateurs',
                 my_account:      'Mon compte',
                 disconnect:      'Déconnexion',
                 connect:         'Connexion',
-                apps_label:      'Applications',
-                add_application: 'Ajouter une App',
-                add_user:        'Ajouter un utilisateur'
+                apps_label:      'Apps',
+                add_application: 'Ajouter'
             }
         };
     },
@@ -37,10 +37,9 @@ var MenuTeam = React.createClass({
         return (
             <div className="sidr-left bg-blue-grey">
                 <div className="sl-wrapper">
-                    <MenuHeader />
 
                     <If test={TeamStore.hasApplications() || UserStore.isAdmin()}>
-                        <MenuLabel label={this.props.text.apps_label} />
+                        <MenuLabel icon="fa-th" label={this.props.text.apps_label} />
                     </If>
                         
                     <ul className="sl-list">
@@ -51,40 +50,15 @@ var MenuTeam = React.createClass({
                         })}
                         
                         <If test={UserStore.isAdmin()}>
-                            <li>
+                            <li className="add-application">
                                 <Link href="#/settings">
-                                    <i className="fa fa-plus pull-left"></i> {this.props.text.add_application}
+                                    <i className="fa fa-plus"></i>{this.props.text.add_application}
                                 </Link>
                             </li>
                         </If>
                     </ul>
-
-                    <MenuLabel label={this.props.text.user_label} />
-                    <MenuUserProfile />
-                    
-                    <UserList headers={false} loader={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
-                    <If test={UserStore.isAdmin()}>
-                        <ul className="sl-list">
-                            <li>
-                                <Link href="#/settings">
-                                    <i className="fa fa-user-plus pull-left"></i> {this.props.text.add_user}
-                                </Link>
-                            </li>
-                        </ul>
-                    </If>
-                    
-                    <If test={!UserStore.isAnonym()}>
-                        <Link href="#/logout" onLinkClick={UserActions.logout} className="sl-logout">
-                            <i className="fa fa-power-off mr10"></i> {this.props.text.disconnect}
-                        </Link>
-                    </If>
-
-                    <If test={UserStore.isAnonym()}>
-                        <Link href="#/login" className="sl-login">
-                            <i className="fa fa-power-off mr10"></i> {this.props.text.connect}
-                        </Link>
-                    </If>
                 </div>
+                <Clock />
             </div>
         );
     }

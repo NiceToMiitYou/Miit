@@ -10,16 +10,21 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         public: {
             type:    Boolean,
             default: true
-        },
-        messages: [{
-            user: String,
-            text: String,
-            createdAt: {
-                type:    Date,
-                default: Date.now
-            }
-        }]
+        }
     });
+
+    /**
+     * toJSON implementation
+     */
+    schema.options.toJSON = {
+        transform: function(doc, ret, options) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+            delete ret.team;
+            return ret;
+        }
+    };
 
     // The model of the Chatroom
     return mongoose.model('Chatroom', schema);

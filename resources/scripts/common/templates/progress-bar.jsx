@@ -6,7 +6,7 @@ var ProgressBar = React.createClass({
             total:   100,
             current: 0,
             unit:    '%',
-            color:   'green'
+            color:   'blue'
         };
     },
 
@@ -21,12 +21,13 @@ var ProgressBar = React.createClass({
             width: percent + '%'
         };
 
-        var innerClasses = classNames('progress-bar-inner', this.props.color);
+        var innerClasses = classNames('progress-bar-inner', 'bg-' + this.props.color);
 
         return (
             <div className="miit-component progress-bar">
-                <div className="progress-bar-text">{current + this.props.unit}</div>
-                <div className={innerClasses} style={style}></div>
+                <div className={innerClasses} style={style}>
+                    <div className="progress-bar-text">{current + this.props.unit}</div>
+                </div>
             </div>
         );
     }

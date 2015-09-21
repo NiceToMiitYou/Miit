@@ -3,6 +3,7 @@
 module.exports = function DocumentsActions(app) {
 
     var DocumentStore = miitoo.get('DocumentStore');
+    var UploadStore   = miitoo.get('UploadStore');
 
     var primus     = miitoo.get('Primus');
     var Dispatcher = miitoo.get('RealtimeDispatcher');
@@ -34,11 +35,46 @@ module.exports = function DocumentsActions(app) {
         });
     });
 
+    Dispatcher.load(app.identifier(), {
+        writes: [
+            'documents:remove'
+        ]
+    });
+
     // List documents
-    Dispatcher.register('documents:list', 'USER', app.identifier(), function onListDocuments(spark, data, team, user) {
+    Dispatcher.register('documents:download', 'USER', function onDownloadDocument(spark, data, team, user) {
+        var documentId = data.id,
+            options    = {};
+
+        if(!documentId) {
+            return;
+        }
+
+        DocumentStore.findDocument(team, documentId, options, function(err, document) {
+            if(err || !document) {
+                return;
+            }
+
+            var uploadId   = (document.file || {}).id,
+                identifier = app.identifier();
+
+            // Allow the download
+            UploadStore.allow(uploadId, user, team, identifier, function(err, download) {
+
+                spark.write({
+                    event:       'documents:download',
+                    application: identifier,
+                    download:    download.id,
+                    upload:      uploadId
+                });
+            });
+        });
+    });
+
+    // List documents
+    Dispatcher.register('documents:list', 'USER', function onListDocuments(spark, data, team, user) {
         var options = {};
 
-        // Retreive quizzes based on options
         DocumentStore.findDocuments(team, options, function(err, documents) {
 
             spark.write({
@@ -49,17 +85,18 @@ module.exports = function DocumentsActions(app) {
     });
 
     // Remove documents
-    Dispatcher.register('documents:remove', 'ADMIN', app.identifier(), function onRemoveDocument(spark, data, team) {
+    Dispatcher.register('documents:remove', 'ADMIN', function onRemoveDocument(spark, data, team) {
         var documentId = data.id;
 
         if(!documentId) {
             return;
         }
 
-        // Retreive quizzes based on options
         DocumentStore.remove(team, documentId, function(err) {
 
             sendRefresh(team);
         });
     });
+
+    Dispatcher.reset();
 };

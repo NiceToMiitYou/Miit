@@ -1,3 +1,4 @@
+'use strict';
 
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
@@ -40,6 +41,20 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
             ret.id = ret._id;
             delete ret._id;
             delete ret.__v;
+
+            switch(ret.type) {
+
+                case 'application/pdf':
+                    ret.icon = 'file-pdf-o';
+                    break;
+
+                default:
+                    miitoo.logger.error('Undefined icon for mime type:', ret.type);
+                    // Default icon
+                    ret.icon = 'file-o';
+                    break;
+            }
+            
             delete ret.application;
             delete ret.team;
             delete ret.uploaded;

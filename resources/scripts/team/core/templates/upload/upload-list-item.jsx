@@ -34,7 +34,7 @@ var UploadListItem = React.createClass({
         return (
             <div className="miit-component upload-list-item">
                 <div>{upload.name}</div>
-                <div><ProgressBar current={progress} /></div>
+                <div className="mb20 mt10"><ProgressBar current={progress} /></div>
             </div>
         );
     }

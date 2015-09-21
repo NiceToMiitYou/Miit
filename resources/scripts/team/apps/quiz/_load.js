@@ -4,9 +4,14 @@ var plugin = {
     identifier: 'APP_QUIZ',
 
     onRegister: function() {
-        require('quiz-actions');
-        require('quiz-store');
+        // Preload the page
         require('templates/_load');
+
+        // Load the store and actions
+        var actions = require('quiz-actions'),
+            store   = require('quiz-store');
+        
+        actions.refresh();
     },
 
     onRemove: function() {

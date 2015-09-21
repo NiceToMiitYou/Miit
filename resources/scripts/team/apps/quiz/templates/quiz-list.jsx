@@ -61,16 +61,18 @@ var QuizList = React.createClass({
 
         return (
             <div className="miit-component quiz-list container-fluid">
-                <h2>{this.props.text.title}</h2>
-                <If test={UserStore.isAdmin()}>
-                    <div className="page-actions">
-                        <button className="btn btn-info pull-right" onClick={this.onClickCreate}><i className="fa fa-plus mr5"></i> {this.props.text.create}</button>
-                    </div>
-                </If>
+                <div className="page-title mb30">
+                    <h2><i className="fa fa-th-list mr15"></i>{this.props.text.title}</h2>
+                </div>
+                
                 <div className="list">
                     {quizzes.map(function(quiz) {
                         return <QuizListItem key={'quiz-' + quiz.id} quiz={quiz} />;
                     })}
+
+                    <div className="quiz-item-add col-md-6 col-lg-4" onClick={this.onClickCreate}>
+                        <span><i className="fa fa-plus"></i>{this.props.text.create}</span>
+                    </div>
                 </div>
             </div>
         );

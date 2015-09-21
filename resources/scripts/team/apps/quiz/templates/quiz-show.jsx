@@ -20,11 +20,9 @@ var QuizShow = React.createClass({
             text: {
                 title:       'Questionnaire',
                 name:        'Nom',
-                preview:     'Aperçu',
                 description: 'Description',
                 answered:    'Complété'
-            },
-            preview: false
+            }
         };
     },
 
@@ -58,8 +56,7 @@ var QuizShow = React.createClass({
     },
 
     render: function() {
-        var quiz    = this.state.quiz,
-            preview = this.props.preview;
+        var quiz    = this.state.quiz;
 
         if(!quiz) {
             return null;
@@ -69,23 +66,24 @@ var QuizShow = React.createClass({
         var isAnswered = QuizStore.isAnswered(quiz.id);
 
         // define classes
-        var classes = classNames('miit-component quiz-show container-fluid', (preview) ? 'preview' : '');
+        var classes = classNames('miit-component quiz-show container-fluid');
 
         return (
             <div className={classes}>
-                <h2 className="mb10">
-                    {(preview) ? this.props.text.preview : this.props.text.title} - {quiz.name}
+                <div className="page-title mb20">
+                    <h2>
+                        {this.props.text.title + ' - ' + quiz.name}
 
-                    <If test={isAnswered}>
-                        <span className="quiz-status ml15 text-green pull-right"><i className="fa fa-check-square-o mr10"></i>{this.props.text.answered}</span>
-                    </If>
-                </h2>
-
+                        <If test={isAnswered}>
+                            <span className="quiz-status ml15 text-green pull-right"><i className="fa fa-check-square-o mr10"></i>{this.props.text.answered}</span>
+                        </If>
+                    </h2>
+                </div>
                 <If test={quiz.description}>
                     <p className="mb20">{quiz.description}</p>
                 </If>
 
-                <QuizShowQuestions quiz={quiz.id} questions={quiz.questions} preview={preview} />
+                <QuizShowQuestions quiz={quiz.id} questions={quiz.questions} />
             </div>
         );
     }

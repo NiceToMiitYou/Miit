@@ -13,16 +13,36 @@ var events = KeyMirror({
     PASSWORD_CHANGED: null,
     PASSWORD_NOT_CHANGED: null,
     // Event on update
-    USER_UPDATED: null
+    USER_UPDATED: null,
+    // Invitation
+    RETRIEVE_INVITATION: null,
+    ACHIEVED_INVITATION: null,
+    // Password reset
+    PASSWORD_REQUESTED: null,
+    RETRIEVE_PASSWORD_RESET: null,
+    ACHIEVED_PASSWORD_RESET: null
 });
 
 // Global variables
-var Me, Utils, Token, AnonymToken, LoggedIn = false;
+var Me, TeamStore, Token, AnonymToken, LoggedIn = false;
+
+function _getUser(user) {
+    if(typeof user === 'string') {
+        // Post load TeamStore
+        if(!TeamStore) {
+            TeamStore = require('core/stores/team-store');
+        }
+
+        return TeamStore.getUser(user) || Me || {};
+    }
+    
+    return user || Me || {};
+}
 
 // Generate the validator for user's role
 function _isUserGenerator(role) {
     return function(user) {
-        var roles = (user || Me || {}).roles || ['ANONYM'];
+        var roles = _getUser(user).roles || ['ANONYM'];
 
         return -1 !== roles.indexOf(role);
     };
@@ -34,15 +54,16 @@ function _isAnonymous(user) {
 
 // Check if this is the same user
 function _isItMe(user) {
-    var me  = (Me || {}).id || null;
-    var you = (user || {}).id || null;
+    var me  = _getUser(Me).id;
+    var you = _getUser(user).id;
 
     return me === you;
 }
 
 function _getName(user) {
     // Get user or me
-    user = user || Me || {};
+    user = _getUser(user);
+
     // Check if anonym
     if(_isAnonymous(user)) {
         return 'Anonyme';
@@ -78,6 +99,7 @@ function _disconnect() {
 
     // Erase from local storage
     localStorage.removeItem('token');
+    localStorage.removeItem('rigth_menu_lock');
 }
 
 var UserStore = ObjectAssign({}, EventEmitter.prototype, {
@@ -127,6 +149,13 @@ UserStore.generateNamedFunctions(events.PASSWORD_NOT_CHANGED);
 
 UserStore.generateNamedFunctions(events.USER_UPDATED);
 
+UserStore.generateNamedFunctions(events.RETRIEVE_INVITATION);
+UserStore.generateNamedFunctions(events.ACHIEVED_INVITATION);
+
+UserStore.generateNamedFunctions(events.PASSWORD_REQUESTED);
+UserStore.generateNamedFunctions(events.RETRIEVE_PASSWORD_RESET);
+UserStore.generateNamedFunctions(events.ACHIEVED_PASSWORD_RESET);
+
 UserStore.dispatchToken = Dispatcher.register(function(action){
 
     switch(action.type) {
@@ -163,6 +192,23 @@ UserStore.dispatchToken = Dispatcher.register(function(action){
         case ActionTypes.UPDATE_USER:
             _update(action.name);
             UserStore.emitUserUpdated();
+            break;
+
+        case ActionTypes.RETRIEVE_INVITATION_USER:
+            UserStore.emitRetrieveInvitation(action.invitation, action.user);
+            break;
+        case ActionTypes.ACHIEVED_INVITATION_USER:
+            UserStore.emitAchievedInvitation(action.user);
+            break;
+
+        case ActionTypes.PASSWORD_REQUESTED_USER:
+            UserStore.emitPasswordRequested();
+            break;
+        case ActionTypes.RETRIEVE_PASSWORD_RESET_USER:
+            UserStore.emitRetrievePasswordReset(action.user);
+            break;
+        case ActionTypes.ACHIEVED_PASSWORD_RESET_USER:
+            UserStore.emitAchievedPasswordReset();
             break;
     }
 });

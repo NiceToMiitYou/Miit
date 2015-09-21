@@ -1,19 +1,33 @@
 'use strict';
 
-var ScriptLoader = require('./script-loader');
+var FileLoader = require('./file-loader');
 
-var AppsSrc = '/dist/js/apps/';
+var AppsJsSrc  = '/dist/js/apps/',
+    AppsCssSrc = '/dist/css/apps/';
 
 var ApplicationsLoaded = {};
 
 global.ApplicationLoader = module.exports = {
     add: function(identifier, cb) {
         var id  = identifier.toSlug(),
-            src = AppsSrc + id + '.min.js';
+            js  = AppsJsSrc  + id + '.min.js',
+            css = AppsCssSrc + id + '.min.css';
 
         // Load the script if not load
         if(!ApplicationsLoaded[id]) {
-            ScriptLoader.addScript(id, src, cb);
+            var loaded = 0;
+
+            // Define the callback of files
+            var callback = function() {
+                loaded++;
+
+                if(typeof cb === 'function' && 2 === loaded) {
+                    cb();
+                }
+            };
+
+            FileLoader.addStyle(id, css, callback);
+            FileLoader.addScript(id, js, callback);
 
             ApplicationsLoaded[id] = true;
         }
@@ -24,7 +38,8 @@ global.ApplicationLoader = module.exports = {
 
         // Load the script if not load
         if(ApplicationsLoaded[id]) {
-            ScriptLoader.removeScript(id);
+            FileLoader.removeScript(id);
+            FileLoader.removeStyle(id);
 
             var plugin = ApplicationsLoaded[id];
 

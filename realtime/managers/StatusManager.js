@@ -21,16 +21,13 @@ module.exports = function StatusManager() {
 
     // Handle the status of the user
     Dispatcher.register('incoming::ping', 'USER', function onHeartBeat(spark, data, team, user) {
-        miitoo.logger.debug('Heartbeat from', user.id);
-
+        
         // Set the user online
         StatusStore.setUserOnline(user, team, onStatusChanged(team));
     });
 
     // Handle get status
     Dispatcher.register('status:users', 'USER', function onGetStatus(spark, data, team, user) {
-
-        miitoo.logger.debug('Status asked by User', user.id);
 
         StatusStore.getStatus(team, function(err, status) {
             spark.write({

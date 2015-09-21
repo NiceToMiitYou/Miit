@@ -83,7 +83,8 @@ var QuizStatsAnswers = React.createClass({
                                         };
 
                                     // Calculate percent 0.xx% format
-                                    var percent = parseFloat(Math.round(infos.value / total * 1000) / 10).toFixed(1);
+                                    var value   = (Math.round(infos.value / total * 1000) / 10) || 0,
+                                        percent = parseFloat(value).toFixed(1);
 
                                     return (
                                         <li key={key}> <div className="colored-square" style={style}></div>{percent}% - {infos.label} </li>

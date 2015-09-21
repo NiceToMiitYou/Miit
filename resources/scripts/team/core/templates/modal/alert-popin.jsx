@@ -40,13 +40,16 @@ var AlertPopin = React.createClass({
 
         return (
             <div className="miit-component alert-popin">
-                <span>{content}</span>
-                <button className="btn btn-success mr20" onClick={this._onAgree} type="button">
-                    {this.props.text.agree}
-                </button>
-                <button className="btn btn-danger mr20" onClick={this._onCancel} type="button">
-                    {this.props.text.cancel}
-                </button>
+                <span className="alert-message">{content}</span>
+                <div className="modal-footer right">
+                    <button className="btn btn-success mr15" onClick={this._onAgree} type="button">
+                        <i className="fa fa-check mr5"></i> {this.props.text.agree}
+                    </button>
+
+                    <button className="btn btn-danger" onClick={this._onCancel} type="button">
+                        <i className="fa fa-times mr5"></i> {this.props.text.cancel}
+                    </button>
+                </div>
             </div>
         );
     }

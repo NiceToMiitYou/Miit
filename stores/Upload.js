@@ -1,10 +1,11 @@
+'use strict';
 
 // Define the store
-var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoose) {
+var store = miitoo.resolve(['DownloadModel', 'UploadModel', 'Mongoose'], function(Download, Upload, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {
@@ -30,10 +31,39 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
             });
         },
 
+        allow: function(upload, user, team, application, cb) {
+            var teamId     = getId(team),
+                userId     = getId(user),
+                uploadId   = getId(upload);
+
+                var download = new Download({
+                    application: application,
+                    team:        teamId,
+                    user:        userId,
+                    upload:      uploadId
+                });
+
+                download.save(function(err, upload) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, download);
+                    }
+                });
+        },
+
         getNotUploaded: function(upload, team, user, application, cb) {
             var teamId   = getId(team),
                 userId   = getId(user),
-                uploadId = new ObjectId(getId(upload));
+                uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .findOne({
@@ -59,7 +89,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         getUploaded: function(upload, team, user, application, cb) {
             var teamId   = getId(team),
                 userId   = getId(user),
-                uploadId = new ObjectId(getId(upload));
+                uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .findOne({
@@ -82,32 +117,54 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
                 });
         },
 
-        getForDownload: function(upload, team, application, cb) {
-            var teamId   = getId(team),
-                uploadId = new ObjectId(getId(upload));
+        getForDownload: function(download, upload, user, team, application, cb) {
+            var teamId     = getId(team),
+                userId     = getId(user),
+                downloadId = getId(download),
+                uploadId   = getId(upload);
 
-            Upload
+            // Prevent crashes
+            if(
+                !ObjectId.isValid(downloadId) ||
+                !ObjectId.isValid(uploadId)
+            ) {
+                return;
+            }
+
+            Download
                 .findOne({
-                    _id:         uploadId,
-                    team:        teamId,
+                    _id:         downloadId,
                     application: application,
-                    uploaded:    true,
-                    deleted:     false
+                    team:        teamId,
+                    user:        userId
                 })
-                .exec(function(err, upload) {
+                .populate({
+                    path: 'upload',
+                    match: {
+                        _id:      uploadId,
+                        uploaded: true,
+                        deleted:  false
+                    }
+                })
+                .exec(function(err, download) {
                     if(err) {
                         miitoo.logger.error(err.message);
                         miitoo.logger.error(err.stack);
                     }
 
                     if(typeof cb === 'function') {
-                        cb(err, upload);
+                        cb(err, download);
                     }
                 });
         },
 
         setUploaded: function(upload, path, name, size, type, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .update({
@@ -132,7 +189,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         },
 
         incrementDownloads: function(upload, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .update({
@@ -153,7 +215,12 @@ var store = miitoo.resolve(['UploadModel', 'Mongoose'], function(Upload, mongoos
         },
 
         remove: function(upload, cb) {
-            var uploadId = new ObjectId(getId(upload));
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
 
             Upload
                 .remove({

@@ -1,5 +1,7 @@
 'use strict';
 
+var Utils = require('../../shared/lib/utils');
+
 module.exports = function TeamManager() {
     // Load the configuration of applications
     var ApplicationsConfig = miitoo.get('ApplicationsConfig');
@@ -9,14 +11,21 @@ module.exports = function TeamManager() {
     var SubscriptionStore = miitoo.get('SubscriptionStore');
 
     // Get the managers for the team
-    var TeamManager = miitoo.get('TeamManager');
-    var UserManager = miitoo.get('UserManager');
+    var TeamManager       = miitoo.get('TeamManager');
+    var InvitationManager = miitoo.get('InvitationManager');
     
     // Get the dispatcher
     var Dispatcher = miitoo.get('RealtimeDispatcher');
 
     // And primus
     var primus = miitoo.get('Primus');
+
+    Dispatcher.writes([
+        'team:application:add',
+        'team:application:remove',
+        'team:invite',
+        'team:remove'
+    ]);
 
     // Handle get informations of an user
     Dispatcher.register('team:user', 'USER', function onGetUser(spark, data, team) {
@@ -121,30 +130,23 @@ module.exports = function TeamManager() {
     Dispatcher.register('team:invite', 'ADMIN', function onInvite(spark, data, team) {
         var email = data.email;
 
-        UserManager.findUserByEmailOrCreate(email, function(err, user) {
+        if(email && !Utils.validator.email(email)) {
+            return;
+        }
+
+        var roles = ['USER'];
+
+        InvitationManager.invite(team, email, roles, function(err) {
             if(err) 
             {
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
+
                 return;
             }
 
-            var roles = ['USER'];
-
-            TeamManager.invite(team, user, roles, function(errAdd) {
-                if(errAdd) 
-                {
-                    return;
-                }
-
-                spark.write({
-                    event: 'team:invite',
-                    user: {
-                        id:     user.id,
-                        name:   user.name,
-                        email:  user.email,
-                        avatar: user.avatar,
-                        roles:  roles
-                    }
-                });
+            spark.write({
+                event: 'team:invite'
             });
         });
     });
@@ -170,7 +172,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:remove',
                     id:    userId
                 });
@@ -200,7 +202,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:promote',
                     id:    userId,
                     roles: roles
@@ -232,7 +234,7 @@ module.exports = function TeamManager() {
                     return;
                 }
 
-                spark.write({
+                primus.in(team.id).write({
                     event: 'team:demote',
                     id:    userId,
                     roles: roles

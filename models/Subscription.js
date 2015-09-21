@@ -1,3 +1,4 @@
+'use strict';
 
 // Resolve the model dependencies
 var model = miitoo.resolve(['Mongoose'], function(mongoose) {
@@ -19,6 +20,12 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         last: {
             type:    Date,
             default: Date.now
+        },
+        // Remove subscriptions not read after 5 years
+        read: {
+            type:    Date,
+            default: Date.now,
+            expires: 157680000
         }
     });
 

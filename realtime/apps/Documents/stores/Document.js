@@ -5,7 +5,7 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     // Shortcut for update
@@ -44,6 +44,39 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
             });
         },
 
+        findDocument: function(team, document, options, cb) {
+            var teamId     = getId(team),
+                documentId = getId(document);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(documentId)) {
+                return;
+            }
+
+            var conditions = {
+                _id:  document,
+                team: teamId
+            };
+
+            if(true !== options.private) {
+                conditions['public'] = true;
+            }
+
+            Document
+                .findOne(conditions)
+                .populate('file')
+                .exec(function(err, document) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, document);
+                    }
+                });
+        },
+
         findDocuments: function(team, options, cb) {
             var teamId = getId(team);
 
@@ -72,10 +105,15 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
 
         remove: function(team, document, cb) {
             var teamId     = getId(team),
-                documentId = new ObjectId(getId(document));
+                documentId = getId(document);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(documentId)) {
+                return;
+            }
 
             Document
-                .findOne(documentId)
+                .findOne(new ObjectId(documentId))
                 .populate('file')
                 .exec(function(err, doc) {
                     if(err) {

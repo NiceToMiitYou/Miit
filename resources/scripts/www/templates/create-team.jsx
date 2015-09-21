@@ -8,14 +8,16 @@ function getDomainName(hostName)
     return hostName.substring(hostName.lastIndexOf('.', hostName.lastIndexOf('.') - 1) + 1);
 }
 
+var MiitTranslations = global.MiitTranslations;
+
 var CreateTeam = React.createClass({
     getDefaultProps: function() {
         return {
             placeholder: {
-                email: 'Votre addresse mail',
-                team:  'Le nom de votre équipe'
+                email: MiitTranslations['input.your.email'],
+                team:  MiitTranslations['input.your.miit']
             },
-            submit: 'Créer une équipe'
+            submit: MiitTranslations['input.create.miit']
         };
     },
 
@@ -95,24 +97,24 @@ var CreateTeam = React.createClass({
 
         return (
             <form className="miit-component create-team" onSubmit={this.handleSubmit}>
-                    <div className="row pt20 pb20">
-                        <div className="col-md-5 mb10">
-                            <div className="input-field left-icon bg-transparent icon-transparent pt5 pb5 push0">
-                                <i className="fa fa-envelope-o pt5 pb5"></i>
-                                <input type="text" className={classes_email} placeholder={this.props.placeholder.email} ref="email" />
-                            </div>
-                        </div>
-
-                        <div className="col-md-4 mb10">
-                            <div className="input-field left-icon icon-transparent bg-transparent pt5 pb5 col5">
-                                <i className="fa fa-users pt5 pb5"></i>
-                                <input type="text" className={classes_team}  placeholder={this.props.placeholder.team}  ref="team" />
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb20">
-                            <button type="submit" className="btn btn-info pl20 pr20 pt15 pb15">{this.props.submit}</button>
+                <div className="row pt20 pb20">
+                    <div className="col-md-5 mb10">
+                        <div className="input-field left-icon bg-transparent icon-transparent pt5 pb5 push0">
+                            <i className="fa fa-envelope-o pt5 pb5"></i>
+                            <input type="text" className={classes_email} placeholder={this.props.placeholder.email} ref="email" />
                         </div>
                     </div>
+
+                    <div className="col-md-4 mb10">
+                        <div className="input-field left-icon icon-transparent bg-transparent pt5 pb5 col5">
+                            <i className="fa fa-users pt5 pb5"></i>
+                            <input type="text" className={classes_team}  placeholder={this.props.placeholder.team}  ref="team" />
+                        </div>
+                    </div>
+                    <div className="col-md-3 mb20">
+                        <button type="submit" className="btn btn-info pl20 pr20 pt15 pb15">{this.props.submit}</button>
+                    </div>
+                </div>
             </form>
         );
     }

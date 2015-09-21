@@ -6,12 +6,13 @@
 
     "www.miit.logo": "Le logo de Miit",
     "www.header.title": "Changez votre manière de communiquer",
-    "www.header.subtitle": "avec Miit, une application web qui s'adapte à vos besoins",
+    "www.header.subtitle": "avec <strong>Miit</strong>, une application web qui s'adapte à vos besoins",
     
     "www.subscribe.alt": "Inscrivez-vous pour recevoir des informations sur Miit",
     "www.subscribe.title": "Inscrivez-vous dès maintenant",
-    "www.subscribe.subtitle": "Restez informés et bénéficiez d'une relation privilégiée avec nos équipes.",
+    "www.subscribe.subtitle": "Restez informé et bénéficiez d'une relation privilégiée avec nos équipes.",
     "www.subscribe.newsletter": "S'inscrire à la Newsletter",
+    "www.subscribe.newsletter_short": "S'inscrire",
 
     "www.beta.access": "Inscription aux beta-tests",
     "www.beta.access.development": "<strong>Miit</strong> est toujours en développement, et pour que nous puissions répondre le mieux possible à vos besoins et à votre envie de communiquer, nous avons besoin de <strong>votre aide.</strong>",
@@ -49,9 +50,9 @@
     "www.cases.1.alt": "Maitre de conférence",
     "www.cases.1.description": "Améliorez l'interactivité de vos <strong>conférences</strong> en recueillant les questions de votre public sans perturber votre <strong>présentation</strong>. Répondez-y le moment venu sans même avoir à faire passer de micro. Vous pouvez également inverser les rôles en sondant votre public pour adapter au mieux votre discours à votre audience.",
     
-    "www.cases.2.title": "Vous faîtes beaucoup de réunions ?",
+    "www.cases.2.title": "Vous faites beaucoup de réunions ?",
     "www.cases.2.alt": "Animateur de réunion",
-    "www.cases.2.description": "Il n'est pas toujours simple de donner la parole à tout le monde pendant vos <strong>réunions</strong> ou d'arriver à definir des solutions claires à la fin. <strong>Miit</strong> va permettre à tout le monde de donner son avis, de voter pour des solutions précises, d'avoir accès aux documents que vous souhaitez partager et, une fois terminée, de garder une image claire de votre réunion pour y revenir quand vous le désirez.",
+    "www.cases.2.description": "Il n'est pas toujours simple de donner la parole à tout le monde pendant vos <strong>réunions</strong> ou d'arriver à définir des solutions claires à la fin. <strong>Miit</strong> va permettre à tout le monde de donner son avis, de voter pour des solutions précises, d'avoir accès aux documents que vous souhaitez partager et, une fois terminée, de garder une image claire de votre réunion pour y revenir quand vous le désirez.",
     
     "www.cases.3.title": "Vous gérez des projets toujours plus compliqués ?",
     "www.cases.3.alt": "Chef de projet",
@@ -78,19 +79,25 @@
 
     "mail.invite.object": "Miit - Invitation à rejoindre un Miit",
     "mail.invite.title": "Invitation à rejoindre <b>%s</b>",
-    "mail.invite.body": "Bonjour,<br/><br/>Vous avez été invité à rejoindre le Miit <b>%s</b>.<br/><br/>Pour vous connecter rendez-vous sur <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le boutton ci-dessous",
+    "mail.invite.body": "Bonjour,<br/><br/>Vous avez été invité à rejoindre le Miit <b>&#171; %s &#187;</b>.<br/><br/>Pour vous connecter rendez-vous sur: <br/><a target=\"_blank\" href=\"%s\">%s</a><br/> ou cliquez sur le bouton ci-dessous.",
     "mail.invite.button": "Accéder au Miit",
+
+    "mail.password_reset.object": "Miit - Réinitialisation de mot de passe",
+    "mail.password_reset.title": "Réinitialisation de votre mot de passe",
+    "mail.password_reset.body": "Bonjour <b>%s</b>,<br/><br/>Une demande de réinitialisation de votre mot de passe a été faite.<br/><br/>Si vous n'avez pas fait cette demande, ignorer tout simplement ce message.<br/><br/>Pour changer votre mot de passe, rendez-vous sur: <br/><a target=\"_blank\" href=\"%s\">%s</a><br/> ou cliquez sur le bouton ci-dessous.",
+    "mail.password_reset.button": "Changer de mot de passe",
 
     "mail.new_account.object": "Miit - Bienvenue sur Miit",
     "mail.new_account.title": "Bienvenue sur Miit",
     "mail.new_account.body": "Bienvenue,<br/><br/>Votre compte Miit a bien été créé.",
     "mail.new_account.login": "Identifiant: <b>%s</b>",
     "mail.new_account.password": "Mot de passe: <b>%s</b>",
+    "mail.new_account.button": "Découvrir Miit",
 
     "mail.new_miit.object": "Miit - Nouveau Miit",
     "mail.new_miit.title": "Nouveau Miit",
-    "mail.new_miit.body": "Bonjour,<br/><br/>Votre espace Miit <b>%s</b> a bien été créé. Pour vous connecter rendez-vous sur votre page <a target=\"_blank\" href=\"%s\">%s</a> ou cliquez sur le boutton ci-dessous.",
-    "mail.new_miit.invite": "Vous pouvez dès à present inviter des nouveaux utilsateurs et installer toutes les application dont vous avez besoin.",
+    "mail.new_miit.body": "Bonjour,<br/><br/>Votre Miit <b>&#171; %s &#187;</b> a bien été créé. Pour vous connecter rendez-vous sur: <br/><a target=\"_blank\" href=\"%s\">%s</a><br/> ou cliquez sur le bouton ci-dessous.",
+    "mail.new_miit.invite": "Vous pouvez dès à présent inviter des nouveaux utilsateurs et installer toutes les applications dont vous avez besoin.",
     "mail.new_miit.button": "Accéder au Miit",
 
     "mail.footer.sent_to": "Envoyé à %s par no-reply@miit.fr",
@@ -99,5 +106,7 @@
     "team.loading": "Chargement...",
     
 
-    "input.your.email": "Votre adresse mail"
+    "input.your.email": "john.doe@miit.fr",
+    "input.your.miit": "Le nom de votre Miit",
+    "input.create.miit": "Créer votre Miit"
 }

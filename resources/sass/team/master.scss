@@ -1,10 +1,6 @@
 
 @import "../flex-it/master";
 
-@import 'chat';
-@import 'quiz';
-@import 'wall';
-@import 'documents';
 @import 'app-store';
 
 html, body {
@@ -21,7 +17,6 @@ html, body {
 .main {
     overflow: auto;
 	height: 100%;
-	padding-bottom: 20px;
 
 	& > .default-layout {
 		height: 100%;
@@ -133,15 +128,18 @@ a {
 
 	    .page-actions {
 	      position: absolute;
-	      top: 20px;
+	      top: 19px;
 	      right: 25px;
 	    }
 
-	    .user-login {
-	    	max-width: 450px;
+	    .user-login,
+	    .user-invite,
+	    .user-password-request,
+	    .user-password-reset {
+	    	max-width: 480px;
 	    	margin: auto;
 	    	display: block;
-
+    		padding-top: 20px;
 
 	    	.panel-content {
 	    		background-color: #F5F5F5;
@@ -152,22 +150,122 @@ a {
 	    	}
 	    }
 	}
-}
 
-.sidr-left {
-	ul.sl-list {
-		li {
-			a {
-				color: #FFF;
-				i {
-					text-align: center;
-					border-radius: 2px;
-					margin-right: 12px;
-					width: 28px;
+	.page-header {
+		.user-profile {
+			padding-right: 10px;
+			float: left;
+			cursor: pointer;
+			position: relative;
+
+			-webkit-transition: background-color 400ms ease;
+			-moz-transition: background-color 400ms ease;
+			-o-transition: background-color 400ms ease;
+			transition: background-color 400ms ease;
+
+			& > span {
+				display: inline-block;
+				line-height: 50px;
+			}
+
+			.user-avatar {
+				display: inline-block;
+				float: left;
+				height: 50px;
+				padding: 9px;
+				padding-right: 10px;
+
+				img {
+					height: 30px;
+				}
+			}
+
+			& > i {
+				font-size: 12px;
+				float: right;
+			}
+
+			&:hover, &.active {
+				background-color: #21455F;
+			}
+
+			.user-dropdown {
+				position: absolute;
+				width: 100%;
+				background-color: #2B3C4C;
+				top: 100%;
+				margin-top: 15px;
+
+				&:before {
+					content: "";
+					width: 0;
+					height: 0;
+					border-right: 10px solid transparent;
+					border-left: 10px solid transparent;
+					border-bottom: 8px solid #2B3C4C;
+					line-height: 0;
+					z-index: 1;
+					bottom: 99%;
+					position: absolute;
+					right: 10px;
+				}
+
+				ul {
+					li {
+						a {
+							color: #FFF;
+							padding: 14px 10px;
+							font-size: 14px;
+							display: block;
+
+							&:hover {
+								background-color: #1e2d3a;
+							}
+						}
+
+						&:last-child {
+							a {
+								background-color: #1A2631;
+
+								&:hover {
+									background-color: #1e2d3a;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+
+		.toggle-menu-right {
+			display: inline-block;
+			width: 50px;
+			text-align: center;
+			font-size: 1.3em;
+			line-height: 50px;
+			height: 50px;
+			line-height: 50px;
+			border-left: 1px solid #397399;
+			color: #FFF;
+			cursor: pointer;
+
+			-webkit-transition: background-color 400ms ease, width 400ms ease;
+			-moz-transition: background-color 400ms ease, width 400ms ease;
+			-o-transition: background-color 400ms ease, width 400ms ease;
+			transition: background-color 400ms ease, width 400ms ease;
+
+			&.hidden {
+				width: 0px;
+			}
+
+			&:hover {
+				background-color: #21455F;
+			}
+		}
 	}
+}
+
+.sidr-left {
 
 	.sl-logout, .sl-login {
 		color: #FFF;
@@ -185,6 +283,17 @@ a {
 		&:hover {
 			background-color: #2B3C4C;
 		}
+	}
+
+	.clock {
+	  position: absolute;
+	  bottom: 0;
+	  line-height: 50px;
+	  font-weight: 100;
+	  color: #FFF;
+	  width: 90px;
+	  text-align: center;
+	  background-color: #1A2631;
 	}
 }
 
@@ -217,7 +326,6 @@ a {
 		display: table;
 		padding: 7px 12px;
 		width: 100%;
-		color: #FFF;
 
 		& > span {
 			display: table-cell;
@@ -331,9 +439,9 @@ a {
 
 .panel {
 
-	&:last-child {
-		margin-bottom: 30px;
-	}
+	// &:last-child {
+	// 	margin-bottom: 30px;
+	// }
 
 	.user-list {
 
@@ -415,4 +523,109 @@ a {
 textarea {
 	resize: none;
 	height: 120px;
+}
+
+.miit-app-icon {
+	i {
+		text-align: center;
+		border-radius: 2px;
+		margin-right: 0;
+		width: 42px;
+		line-height: 42px;
+		color: #FFF;
+		margin-top: 15px;
+	}
+}
+
+.welcome {
+	min-height: 100%;
+	background: #f7f7f7;
+
+	.templates {
+		max-width: 1200px;
+		margin: auto;
+	}
+
+	.panel {
+		background-color: #fff;
+
+		p {
+			line-height: 1.3em;
+		}
+
+		.panel-footer {
+			cursor: pointer;
+
+			&:hover {
+				background-color: #e7e7e7;
+			}
+		}
+	}
+
+	h2 {
+		font-size: 2.2em;
+	}
+	
+	.miit-app-icon {
+		margin-right: 10px;
+	}
+}
+
+.dashboard {
+	min-height: 100%;
+	background: #f7f7f7;
+
+	h2 {
+		font-size: 2.2em;
+	}
+
+	.app-description {
+		display: flex;
+		margin-top: 40px;
+		background-color: #fff;
+		border: solid 1px #E8E8E8;
+
+		&.even .app-content {
+			padding-right: 30px;
+
+			h4, p {
+				text-align: left;
+			}
+		}
+
+		&.odd .app-content {
+			padding-left: 30px;
+
+			h4, p {
+				text-align: right;
+			}
+		}
+
+		.app-icon {
+			display: inline-block;
+		    padding: 2pc;
+
+		    .miit-app-icon i {
+		    	width: 80px;
+    			line-height: 80px;
+		    	margin-top: 0;
+		    	font-size: 200%;
+		    }
+		}
+
+		.app-content {
+			display: inline-block;
+			padding-bottom: 20px;
+
+			h4 {
+				margin-top: 8px;
+			    line-height: 50px;
+			    font-size: 125%;
+			}
+
+			p {
+			    line-height: 20px;
+			}
+		}
+	}
 }

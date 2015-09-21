@@ -1,11 +1,9 @@
 'use strict';
 
 // Define the store
-var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mongoose) {
-    var ObjectId = mongoose.Types.ObjectId;
-
+var store = miitoo.resolve(['ChatroomModel', 'ChatmessageModel', 'Mongoose'], function(Chatroom, Chatmessage, mongoose) {
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     return {
@@ -33,47 +31,43 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
             var chatroomId = getId(chatroom);
             var teamId     = getId(team);
 
-            Chatroom.remove({
-                _id:  chatroomId,
-                team: teamId
+            // Remove messages, then chatroom
+            Chatmessage.remove({
+                chatroom: chatroomId
             }, function(err) {
                 if(err) {
                     miitoo.logger.error(err.message);
                     miitoo.logger.error(err.stack);
                 }
+                
+                Chatroom.remove({
+                    _id:  chatroomId,
+                    team: teamId
+                }, function(err) {
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
 
-                if(typeof cb === 'function') {
-                    cb(err);
-                }
+                    if(typeof cb === 'function') {
+                        cb(err);
+                    }
+                });
             });
         },
 
         send: function(team, user, chatroom, text, cb) {
-            var chatroomId = getId(chatroom);
-            var teamId     = getId(team);
-            var userId     = getId(user);
+            var chatroomId = getId(chatroom),
+                teamId     = getId(team),
+                userId     = getId(user);
 
-            var condition = {
-                _id:  chatroomId,
-                team: teamId
-            };
+            var message = new Chatmessage({
+                user:     userId,
+                text:     text,
+                chatroom: chatroomId
+            });
 
-            var message = {
-                _id:       new ObjectId(),
-                user:      userId,
-                text:      text,
-                createdAt: new Date()
-            };
-
-            var update = {
-                $addToSet: {
-                    messages: message
-                }
-            };
-
-            Chatroom.update(condition, update, {
-                'new': true
-            }, function(err, doc) {
+            message.save(function(err) {
                 // Log the error
                 if(err) {
                     miitoo.logger.error(err.message);
@@ -81,10 +75,6 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
                 }
 
                 if(typeof cb === 'function') {
-                    // Swap field id
-                    message.id = message._id;
-                    delete message._id;
-
                     cb(err, message);
                 }
             });
@@ -96,8 +86,6 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
             Chatroom
                 .find({
                     team: teamId
-                }, {
-                    messages: false
                 })
                 .exec(function(err, chatrooms) {
                     if(err) {
@@ -106,51 +94,34 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
                     }
 
                     if(typeof cb === 'function') {
-                        var rooms = (chatrooms || []).map(function(chatroom) {
-                            return {
-                                id:   chatroom._id,
-                                name: chatroom.name
-                            };
-                        });
-
-                        cb(err, rooms);
+                        cb(err, chatrooms);
                     }
                 });
         },
 
         getLastMessages: function(team, chatroom, count, cb) {
-            var count = Math.abs(count);
-            var limit = (count > 100 ) ? 100 : count;
+            var teamId     = getId(team),
+                chatroomId = getId(chatroom);
 
-            // Get the id of the chatroom
-            var chatroomId = new ObjectId(getId(chatroom));
+            // Define limitations
+            var count = Math.abs(count),
+                limit = (count > 100 ) ? 100 : count;
 
-            var aggregate = [
-                {
-                    '$match': { _id: chatroomId }
-                },
-                {
-                    '$unwind': '$messages'
-                },
-                {
-                    '$project': {
-                        id:        '$messages._id',
-                        text:      '$messages.text',
-                        user:      '$messages.user',
-                        createdAt: '$messages.createdAt',
-                        _id: 0
+            var conditions = {
+                chatroom: chatroomId
+            };
+
+            Chatmessage
+                .find(conditions)
+                .populate({
+                    path: 'chatroom',
+                    match: {
+                        team: teamId
                     }
-                },
-                {
-                    '$sort': { createdAt: -1 }
-                },
-                {
-                    '$limit': limit
-                }
-            ];
-
-            Chatroom
-                .aggregate(aggregate, function(err, messages) {
+                })
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .exec(function(err, messages) {
                     if(err) {
                         miitoo.logger.error(err.message);
                         miitoo.logger.error(err.stack);
@@ -163,45 +134,32 @@ var store = miitoo.resolve(['ChatroomModel', 'Mongoose'], function(Chatroom, mon
         },
 
         getMessages: function(team, chatroom, last, count, cb) {
-            // Define the limit, block the result to 100
+            var teamId     = getId(team),
+                chatroomId = getId(chatroom);
+
+            // Define limitations
             var count = Math.abs(count);
             var limit = (count > 100 ) ? 100 : count;
 
-            // Get the id of the chatroom
-            var chatroomId = new ObjectId(getId(chatroom));
 
-            var aggregate = [
-                {
-                    '$match': { _id: chatroomId }
-                },
-                {
-                    '$unwind': '$messages'
-                },
-                {
-                    '$project': {
-                        id:        '$messages._id',
-                        text:      '$messages.text',
-                        user:      '$messages.user',
-                        createdAt: '$messages.createdAt'
-                    }
-                },
-                {
-                    '$match': {
-                        createdAt: {
-                            '$lte': new Date(last)
-                        }
-                    }
-                },
-                {
-                    '$sort': { createdAt: -1 }
-                },
-                {
-                    '$limit': limit
+            var conditions = {
+                chatroom: chatroomId,
+                createdAt: {
+                    $lt: new Date(last)
                 }
-            ];
+            };
 
-            Chatroom
-                .aggregate(aggregate, function(err, messages) {
+            Chatmessage
+                .find(conditions)
+                .populate({
+                    path: 'chatroom',
+                    match: {
+                        team: teamId
+                    }
+                })
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .exec(function(err, messages) {
                     if(err) {
                         miitoo.logger.error(err.message);
                         miitoo.logger.error(err.stack);

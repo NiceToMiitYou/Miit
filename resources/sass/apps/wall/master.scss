@@ -1,0 +1,254 @@
+
+.wall-app {
+    .list {
+        .empty {
+            background-color: #FFF;
+            border: 1px solid #EDEDED;
+            text-align: center;
+            padding: 30px
+        }
+    }
+
+    .wall-list {
+        .wall-list-item, 
+        .wall-add-question {
+            position: relative;
+            padding: 15px;
+            padding-left: 65px;
+            background-color: #FFF;
+            border: 1px solid #EDEDED;
+            margin-bottom: 20px;
+
+            &.answered {
+                border-left: 2px solid #4CAF50;
+            }
+
+            .wall-list-item-config {
+                position: absolute;
+                right: 15px;
+                top: 12px;
+                cursor: pointer;
+            }
+
+            .wall-item-avatar {
+                display: inline-table;
+                float: left;
+                position: absolute;
+                left: 15px;
+
+                img {
+                    width: 50px;
+                }
+            }
+
+            .wall-item-question {
+                display: inline-table;
+                padding: 5px 20px;
+                padding-bottom: 0;
+                width: 100%;
+
+                span.wall-item-author {
+                    font-weight: normal;
+
+                    span.wall-item-date {
+                        font-size: 12px;
+                        margin-left: 5px;
+                        color: #848383
+                    }
+                }
+
+                p {
+                    font-size: 14px;
+                    margin-top: 8px;
+                    line-height: 1.5em;
+                }
+            }
+
+            .wall-list-item-actions {
+                font-size: 13px;
+                margin-top: 10px;
+                display: block;
+                padding: 0 0 0 20px;
+
+                .wall-item-actions-likes {
+                    i {
+                        color: rgb(249, 93, 82);
+                        margin-right: 4px;
+                    }
+                }
+
+                .wall-item-actions-like-button {
+                    text-transform: none;
+                    color: #1EB3C5;
+                    text-decoration: none;
+                    margin-left: 20px;
+                    cursor: pointer;
+                }
+            }
+
+            .wall-list-item-comment-list {
+                position: relative;
+                padding-left: 40px;
+                margin-left: 20px;
+                margin-top: 10px;
+                padding-top: 15px;
+                border-top: 1px solid #EDEDED;
+
+                .wall-list-item-comment-list-item {
+                    padding: 7px;
+                    position: relative;
+
+                    &:hover {
+                        .wall-comment-remove {
+                            color: #d73e4d;
+                        }
+                        background-color: #FAFAFA;
+                    }
+
+                    .wall-comment-remove {
+                        position: absolute;
+                        right: 8px;
+                        top: 8px;
+                        font-size:.9em;
+                        color: #EEE;
+                        cursor: pointer;
+                        transition: color .4s ease;
+                        -webkit-transition: color .4s ease;
+                        -moz-transition: color .4s ease;
+                        -o-transition: color .4s ease;
+                    }
+
+                    .wall-comment-avatar {
+                        display: inline-table;
+                        float: left;
+                        position: absolute;
+                        left: -45px;
+
+                        img {
+                            width: 40px;
+                        }
+                    }
+
+                    .wall-comment-message {
+
+                        .wall-comment-author {
+                            font-weight: normal;
+                            font-size: 14px;
+                            line-height: 1.3em;
+
+                            .wall-comment-date {
+                                font-size: 12px;
+                                margin-left: 5px;
+                                color: #848383;
+                            }
+                        }
+
+                        p {
+                            font-size: 13px;
+                            margin-top: 3px;
+                            line-height: 1.5em;
+                        }
+                    }
+                }
+            }
+
+            .wall-list-item-comment-send {
+                position: relative;
+
+                .wall-comment-send-avatar {
+                    display: inline-table;
+                    float: left;
+                    position: absolute;
+                    left: -45px;
+
+                    img {
+                        width: 40px;
+                    }
+                }
+
+                button {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    margin-top: -39px;
+                    margin-right: 1px;
+                    border-radius: 0;
+                }
+            }
+
+            .dropdown-inner {
+                position: absolute;
+                border: 1px solid #EEE;
+                background-color: #FFF;
+                top: 100%;
+                margin-top: 1px;
+                padding: 5px 0;
+                right: 0;
+                width: 260px;
+                font-size: .9em;
+                z-index: 9;
+
+                & > span {
+                    display: block;
+                    padding: 10px;
+                    width: 100%;
+
+                    i {
+                        margin-left: 5px;
+                        margin-right: 8px;
+                    }
+
+                    &:hover {
+                        background-color: #EFEFEF;
+                    }
+                }
+
+                ul {
+                    display: block;
+
+                    li {
+                        padding: 10px 20px;
+
+                        i {
+                            margin-left: 5px;
+                            margin-right: 8px;
+                        }
+
+                        &.label {
+                            display: block;
+                            padding: 10px;
+                        }
+
+                        &:not(.label) {
+                            background-color: #FAFAFA;
+                            font-size: .8em;
+
+                            &:hover {
+                                color: #2980b9;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .load-more {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+
+        .btn-load-more {
+            background-color: transparent;
+            color: #B0B0B0;
+            border-bottom: dashed 1px;
+            cursor: pointer;
+        }
+
+        .loading {
+            width: 40px;
+            height: 26px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+}

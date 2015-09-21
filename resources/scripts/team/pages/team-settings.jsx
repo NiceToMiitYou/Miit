@@ -30,7 +30,7 @@ var TeamSettings = React.createClass({
                 appstore:     'Ajouter une application', 
                 applist:      'Liste des applications', 
                 title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre miit', 
+                subtitle:     'Configurer les informations et la confidentialité de votre Miit', 
                 users:        'Utilisateurs'
             }
         };
@@ -64,14 +64,14 @@ var TeamSettings = React.createClass({
         var team = TeamStore.getTeam();
 
         return (
-            <Layout title={team.name}>
-
-                <div className="container-fluid">
-
-                    <h2 className="mt30">
-                        <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
-                        <span className="subtitle">{this.props.text.subtitle}</span>
-                    </h2>
+            <Layout>
+                <div className="container-fluid mb20">
+                    <div className="page-title">
+                        <h2>
+                            <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
+                            <span className="subtitle">{this.props.text.subtitle}</span>
+                        </h2>
+                    </div>
 
                     <Panel icon="info" title={this.props.text.informations}>
                         <TeamUpdate />

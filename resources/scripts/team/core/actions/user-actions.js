@@ -21,6 +21,13 @@ Realtime.on('login:token', function(data) {
 
         Dispatcher.dispatch(action);
     }
+    else if(false === data.done) {
+        var action = {
+            type: ActionTypes.LOGOUT_USER
+        };
+
+        Dispatcher.dispatch(action);
+    }
 });
 
 // Handle login from token
@@ -68,6 +75,55 @@ Realtime.on('user:update', function(data) {
     Dispatcher.dispatch(action);
 });
 
+// Handle retrieve invitation
+Realtime.on('user:invitation:get', function(data) {
+    var action = {
+        type:       ActionTypes.RETRIEVE_INVITATION_USER,
+        invitation: data.invitation,
+        user:       data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle register invitation
+Realtime.on('user:invitation:register', function(data) {
+    var action = {
+        type: ActionTypes.ACHIEVED_INVITATION_USER,
+        user: data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:get', function(data) {
+    var action = {
+        type: ActionTypes.RETRIEVE_PASSWORD_RESET_USER,
+        user: data.user
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:request', function(data) {
+    var action = {
+        type: ActionTypes.PASSWORD_REQUESTED_USER
+    };
+
+    Dispatcher.dispatch(action);
+});
+
+// Handle update
+Realtime.on('user:password:reset', function(data) {
+    var action = {
+        type: ActionTypes.ACHIEVED_PASSWORD_RESET_USER
+    };
+
+    Dispatcher.dispatch(action);
+});
+
 function check() {
     var token       = UserStore.getToken();
     var anonymToken = UserStore.getAnonymToken();
@@ -97,7 +153,7 @@ Realtime.on('reconnected', function() {
 
 module.exports = {
     login: function(email, password) {
-        // Request the server
+        
         Realtime.send('login:password', {
             email:    email,
             password: password
@@ -115,15 +171,82 @@ module.exports = {
     check: check,
 
     changePassword: function(password_old, password_new) {
-        // Request the server
+        
         Realtime.send('user:password', {
             'old': password_old,
             'new': password_new
         });
     },
 
+    invitation: {
+        get: function(token) {
+            if(!token) {
+                return false;
+            }
+
+            Realtime.send('user:invitation:get', {
+                token: token
+            });
+
+            return true;
+        },
+
+        register: function(token, email, password) {
+            if(!token || !email || !password) {
+                return false;
+            }
+
+            Realtime.send('user:invitation:register', {
+                token:    token,
+                email:    email,
+                password: password
+            });
+
+            return true;
+        }
+    },
+
+    password: {
+        get: function(token) {
+            if(!token) {
+                return false;
+            }
+
+            Realtime.send('user:password:get', {
+                token: token
+            });
+
+            return true;
+        },
+
+        request: function(email) {
+            if(!email) {
+                return false;
+            }
+
+            Realtime.send('user:password:request', {
+                email: email
+            });
+
+            return true;
+        },
+
+        reset: function(token, password) {
+            if(!token || !password) {
+                return false;
+            }
+
+            Realtime.send('user:password:reset', {
+                token:    token,
+                password: password
+            });
+
+            return true;
+        }
+    },
+
     update: function(name) {
-        // Request the server
+        
         Realtime.send('user:update', {
             name: name
         });

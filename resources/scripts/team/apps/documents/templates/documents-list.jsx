@@ -1,10 +1,7 @@
 'use strict';
 
 // Include core requirements
-var UserStore     = MiitApp.require('core/stores/user-store'),
-    UploadStore   = MiitApp.require('core/stores/upload-store'),
-    ModalActions  = MiitApp.require('core/actions/modal-actions'),
-    UploadActions = MiitApp.require('core/actions/upload-actions');
+var UserStore = MiitApp.require('core/stores/user-store');
 
 // Include requirements
 var DocumentsStore = require('documents-store');
@@ -25,12 +22,13 @@ var DocumentsList = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:   'Documents',
-                name:    'Nom', 
-                size:    'Taille', 
-                type:    'Type', 
-                actions: 'Actions',
-                upload:  'Envoyer un fichier'
+                title:    'Documents',
+                subtitle: 'Distribuez facilement vos fichiers',
+                name:     'Nom', 
+                size:     'Taille', 
+                type:     'Type', 
+                actions:  'Actions',
+                empty:    'Il n\'y a pas de documents pour le moment.'
             },
             identifier: 'APP_DOCUMENTS'
         };
@@ -38,47 +36,29 @@ var DocumentsList = React.createClass({
 
     componentDidMount: function() {
         DocumentsStore.addDocumentsRefreshedListener(this._onChange);
-        UploadStore.addCreatedListener(this._onUpload);
     },
 
     componentWillUnmount: function() {
         DocumentsStore.removeDocumentsRefreshedListener(this._onChange);
-        UploadStore.removeCreatedListener(this._onUpload);
     },
 
     _onChange: function() {
         this.forceUpdate();
     },
 
-    _onUpload: function(token, upload) {
-        if(token === this.UploadToken) {
-            var identifier = this.props.identifier;
-
-            ModalActions.open('document-upload', <DocumentsUpload upload={upload} application={identifier} />, {
-                title: this.props.text.upload,
-                size:  'small'
-            });
-        }
-    },
-
-    onUpload: function() {
-        this.UploadToken = UploadActions.create(this.props.identifier);
-    },
-
-
     render: function() {
-        var documents = DocumentsStore.getDocuments();
+        var documents  = DocumentsStore.getDocuments(),
+            identifier = this.props.identifier;
 
         return (
             <div className="miit-component documents-list">
-                <h2 className="mt25 mb20">{this.props.text.title}</h2>
+                <div className="page-title mb30">
+                    <h2>
+                        <i className="fa fa-folder-open-o mr15"></i>{this.props.text.title}
+                        <span className="subtitle">{this.props.text.subtitle}</span>
+                    </h2>
+                </div>
                 
-                <If test={UserStore.isAdmin()}>
-                    <button type="button"  className="btn btn-info btn-upload ml20" onClick={this.onUpload} >
-                        <i className="fa fa-plus mr5"></i> {this.props.text.upload}
-                    </button>
-                </If>
-
                 <UploadList application={this.props.identifier} />
 
                 <div className="list">
@@ -87,7 +67,6 @@ var DocumentsList = React.createClass({
                         <span></span>
                         <span className="document-name">{this.props.text.name}</span>
                         <span className="document-size">{this.props.text.size}</span>
-                        <span className="document-type">{this.props.text.type}</span>
                         <span className="document-actions pl25">{this.props.text.actions}</span>
                     </div>
 
@@ -95,6 +74,16 @@ var DocumentsList = React.createClass({
                         return <DocumentsListItem key={'documents-document-' + document.id} document={document} identifier={this.props.identifier} />;
                     }, this)}
                 </div>
+                
+                <If test={0 === documents.length}>
+                    <div className="documents-list-empty">
+                        <span>{this.props.text.empty}</span>
+                    </div>
+                </If>
+
+                <If test={UserStore.isAdmin()}>
+                    <DocumentsUpload application={identifier} />
+                </If>
             </div>
         );
     }

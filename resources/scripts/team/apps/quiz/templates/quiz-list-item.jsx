@@ -18,9 +18,12 @@ var QuizListItem = React.createClass({
         return {
             quiz: {},
             text: {
-                stats:    'Statistiques',
-                update:   'Modifier',
-                answered: 'Répondre'
+                stats:         'Statistiques',
+                update:        'Modifier',
+                answered:      'Répondre',
+                answer:        'Réponse(s)',
+                nodescription: 'Ce questionnaire n\'a pas de description.',
+                noquestions:   'Ce questionnaire est vide.'
             }
         };
     },
@@ -28,25 +31,47 @@ var QuizListItem = React.createClass({
     render: function() {
         var quiz = this.props.quiz;
 
-        var classes = classNames('miit-component quiz-list-item col-md-6', (QuizStore.isAnswered(quiz.id))? 'done' : '', (quiz.closed) ? 'closed' : '');
+        if(!UserStore.isAdmin() && 0 === quiz.questions.length) {
+            return null;
+        }
+
+        var classes = classNames('miit-component quiz-list-item col-md-6 col-lg-4', (QuizStore.isAnswered(quiz.id))? 'done' : '', (quiz.closed) ? 'closed' : '');
  
         return (
             <div className={classes}>
-                <div className="quiz-list-item-inner hover-layer">
+                <div className="quiz-list-item-inner">
                     <div className="hover-layer-overlay"></div>
-                    <h3 >{quiz.name}</h3>
-                    <p>{quiz.description}</p>
+                    <h3>
+                        {quiz.name}
+                        <div className="actions pull-right">
+                            <If test={UserStore.isAdmin()}>
+                                <Link href={'#/quiz/update/' + quiz.id}><i className="fa fa-pencil"></i></Link>
+                            </If>
+                            <If test={UserStore.isAdmin() && 0 !== quiz.questions.length}>
+                                <Link href={'#/quiz/stats/' + quiz.id}><i className="fa fa-bar-chart"></i></Link>
+                            </If>
+                        </div>
+                    </h3>
 
-                    <div className="actions hover-layer-content">
-                        <If test={UserStore.isAdmin()}>
-                            <Link href={'#/quiz/stats/' + quiz.id} className="mr25"><i className="fa fa-bar-chart mr5"></i>{this.props.text.stats}</Link>
-                        </If>
-                        <If test={UserStore.isAdmin()}>
-                            <Link href={'#/quiz/update/' + quiz.id} className="mr25"><i className="fa fa-pencil mr5"></i>{this.props.text.update}</Link>
-                        </If>
-                        <Link href={'#/quiz/show/' + quiz.id}><i className="fa fa-check-square-o mr5"></i>{this.props.text.answered}</Link>
-                    </div>
+                    <If test={quiz.description}>
+                        <p>{quiz.description}</p>
+                    </If>
+                    <If test={!quiz.description}>
+                        <p>{this.props.text.nodescription}</p>
+                    </If>
 
+                    <If test={0 !== quiz.questions.length}>
+                        <div className="quiz-list-item-inner-answer">
+                            <span className="pull-left">{quiz.answers + ' ' + this.props.text.answer}</span>
+                            <Link href={'#/quiz/show/' + quiz.id}>{this.props.text.answered}</Link>
+                        </div>
+                    </If>
+
+                    <If test={0 == quiz.questions.length}>
+                        <div className="quiz-list-item-inner-answer">
+                            <span className="pull-left">{this.props.text.noquestions}</span>
+                        </div>
+                    </If>
                 </div>
             </div>
         );

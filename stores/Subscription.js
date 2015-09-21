@@ -1,10 +1,10 @@
+'use strict';
 
 // Define the store
 var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
-    var mongoose = miitoo.get('Mongoose');
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     // Map subscriptions
@@ -132,7 +132,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -157,7 +158,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -185,7 +187,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {
@@ -211,7 +214,8 @@ var store = miitoo.resolve(['SubscriptionModel'], function(Subscription) {
 
             Subscription.update(subscription, {
                 alert:  false,
-                unread: 0
+                unread: 0,
+                read:   new Date()
             }, { 
                 multi: true
             }, function(err) {

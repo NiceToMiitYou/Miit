@@ -29,16 +29,16 @@ var UserListItemRoles = React.createClass({
 
     componentDidMount: function() {
         // Promote
-        TeamStore.addPromotedListener(this._onChanged);
+        TeamStore.addUserPromotedListener(this._onChanged);
         // Demote
-        TeamStore.addDemotedListener(this._onChanged);
+        TeamStore.addUserDemotedListener(this._onChanged);
     },
 
     componentWillUnmount: function() {
         // Promote
-        TeamStore.removePromotedListener(this._onChanged);
+        TeamStore.removeUserPromotedListener(this._onChanged);
         // Demote
-        TeamStore.removeDemotedListener(this._onChanged);
+        TeamStore.removeUserDemotedListener(this._onChanged);
     },
 
     _onChanged: function(id) {

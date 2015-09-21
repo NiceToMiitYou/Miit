@@ -8,7 +8,8 @@ var ChatStore   = require('chat-store'),
     ChatActions = require('chat-actions');
 
 // Include components
-var ChatMessageListItem = require('templates/chat-message-list-item.jsx');
+var ChatMessageListEmpty = require('templates/chat-message-list-empty.jsx'),
+    ChatMessageListItem  = require('templates/chat-message-list-item.jsx');
 
 function topPosition(domElt) {
     if (!domElt) {
@@ -18,11 +19,14 @@ function topPosition(domElt) {
 }
 
 var ChatMessageList = React.createClass({
-    IntervalId:     null,
     OldestMessage:  null,
     HasNewMessages: true,
     ScrollHeight:   0,
     IsSticky:       true,
+    Loaded:         false,
+
+    // Debounced scroll listener
+    scrollListenerDebounce: null,
 
     getInitialState: function () {
         return {
@@ -31,15 +35,15 @@ var ChatMessageList = React.createClass({
     },
 
     componentDidMount: function() {
+        this.scrollListenerDebounce = Debounce(this.scrollListener, 75);
+
         // Attach messages handler
         ChatStore.addNewMessageListener(this._onChanged);
+        ChatStore.addOldMessagesListener(this._onRefresh);
 
+        this.scrollListener();
         // Attach scroll events
         this._stick();
-        this.attachScrollListener();
-
-        // Refresh the list for date update
-        this.IntervalId = setInterval(this.forceUpdate.bind(this), 15000);
     },
 
     componentDidUpdate: function () {
@@ -60,11 +64,9 @@ var ChatMessageList = React.createClass({
     },
 
     componentWillUnmount: function() {
-        // Clear refresh of the date
-        clearInterval(this.IntervalId);
-
         // detach messages handler
         ChatStore.removeNewMessageListener(this._onChanged);
+        ChatStore.removeOldMessagesListener(this._onChanged);
 
         // Detach scroll events
         this.detachScrollListener();
@@ -73,7 +75,7 @@ var ChatMessageList = React.createClass({
     scrollListener: function() {
         var el = this.getDOMNode();
         
-        var threshold = el.scrollHeight - el.offsetHeight - 48;
+        var threshold = el.scrollHeight - el.offsetHeight - 96;
 
         // Is it stick or not
         if(
@@ -91,9 +93,6 @@ var ChatMessageList = React.createClass({
 
         // Should reload
         if (el.scrollTop <= 128) {
-
-            // Detach it by safety
-            this.detachScrollListener();
 
             // load all messages
             var messages = ChatStore.getMessages(this.state.chatroom);
@@ -115,16 +114,27 @@ var ChatMessageList = React.createClass({
     },
 
     attachScrollListener: function () {
-        this.getDOMNode().addEventListener('scroll', this.scrollListener);
+        this.getDOMNode().addEventListener('scroll', this.scrollListenerDebounce);
     },
 
     detachScrollListener: function () {
-        this.getDOMNode().removeEventListener('scroll', this.scrollListener);
+        this.getDOMNode().removeEventListener('scroll', this.scrollListenerDebounce);
     },
 
     _onChanged: function() {
+        // Mark loaded
+        this.Loaded = true;
+
         // Mark new messages
         this.HasNewMessages = true;
+
+        // Refresh the page
+        this.forceUpdate();
+    },
+
+    _onRefresh: function() {
+        // Mark loaded
+        this.Loaded = true;
 
         // Refresh the page
         this.forceUpdate();
@@ -136,7 +146,7 @@ var ChatMessageList = React.createClass({
         }
 
         var el = this.getDOMNode();
-        
+
         if(true === this.IsSticky) {    
             el.scrollTop = el.scrollHeight;
 
@@ -147,11 +157,15 @@ var ChatMessageList = React.createClass({
                 // Mark the chatroom as read
                 SubscriptionsActions.markReadSender(this.state.chatroom);
             }
+
+            this.scrollListenerDebounce();
         }
         else if(this.ScrollHeight !== el.scrollHeight)
         {
-            // Fix the scroll
-            el.scrollTop = el.scrollHeight - this.ScrollHeight;
+            if(false === this.HasNewMessages) {
+                // Fix the scroll
+                el.scrollTop = el.scrollHeight - this.ScrollHeight;
+            }
             
             // Save the value
             this.ScrollHeight = el.scrollHeight;
@@ -159,13 +173,19 @@ var ChatMessageList = React.createClass({
     },
 
     render: function() {
-        var messages = ChatStore.getMessages(this.state.chatroom);
+        var messages = ChatStore.getFormatedMessages(this.state.chatroom),
+            empty    = null;
+
+        if(true === this.Loaded && 0 === messages.length) {
+            empty = <ChatMessageListEmpty />;
+        }
 
         return (
             <div className="miit-component chat-message-list">
+                {empty}
                 {messages.map(function(message) {
                     return (
-                        <ChatMessageListItem key={message.id} user={message.user} text={message.text} createdAt={message.createdAt} />
+                        <ChatMessageListItem key={message.id} message={message} />
                     );
                 })}
             </div>

@@ -1,24 +1,20 @@
+'use strict';
+
+var Utils = require('../shared/lib/utils');
 
 // Define the manager
 var manager = miitoo.resolve(
-    ['UserStore', 'UserModel', 'MailManager'],
-    function(UserStore, User, MailManager) {
-
-    function generatePassword() {
-        var password = '';
-
-        // Loop for password length
-        for(var i = 0; i < 1; i++) {
-            password += Math.random().toString(36).slice(-8);
-        }
-
-        return password;
-    }
+    ['MiitConfig', 'TeamStore', 'UserStore', 'PasswordResetStore', 'MailManager'],
+    function(config, TeamStore, UserStore, PasswordResetStore, MailManager) {
 
     return {
-        findUserByEmailOrCreate: function(email, cb) {
-            if(!email) {
+        findUserByEmailOrCreate: function(email, password, cb) {
+            if(!email || !Utils.validator.email(email)) {
                 return cb(new Error('No email provided.'));
+            }
+
+            if(!password || !Utils.validator.password(password)) {
+                return cb(new Error('No password provided.'));
             }
 
             // Find or create an user by email
@@ -28,16 +24,7 @@ var manager = miitoo.resolve(
                 }
 
                 if(!user) {
-                    var password = generatePassword();
-
-                    // Create the user
-                    user = new User({
-                        email:    email,
-                        password: password
-                    });
-
-                    // save it
-                    user.save(function(errUser) {
+                    UserStore.create(email, password, function(errUser, user) {
                         if(errUser) {
                             return cb(errUser);
                         }
@@ -45,19 +32,101 @@ var manager = miitoo.resolve(
                         MailManager.sendMail(email, 'mail.new_account.object', './views/mail/new_account.ejs', {
                             email:    email,
                             password: password
-                        }, function(error) {
+                        }, function(err) {
                             
-                            // Callback
-                            cb(null, user);
+                            if(err) {
+                                miitoo.logger.error(err.message);
+                                miitoo.logger.error(err.stack);
+                            }
                         });
+
+                        // Callback
+                        cb(null, user);
                     });
                 }
                 else
                 {
-                    // Callback
-                    cb(null, user);
+                    user.validPassword(password, function(result) {
+                        if(!result) {
+                            return cb(new Error('Wrong password.'));
+                        }
+
+                        // Callback
+                        cb(null, user);
+                    });
                 }
             });
+        },
+
+        request: function(team, email, cb) {
+            if(!email || !Utils.validator.email(email)) {
+                return cb(new Error('No email provided.'));
+            }
+
+            // Store the slug
+            var slug = team.slug || 'user';
+
+            // Find or create an user by email
+            UserStore
+                .findUserByEmail(email, function(err, user) {
+
+                    // Create the reset password request
+                    PasswordResetStore
+                        .create(user, function(err, request) {
+
+                            var scheme  = (config.domain === 'miit.fr') ? 'https://' : 'http://',
+                                port    = (config.domain === 'miit.fr') ? '' : ':' + config.port,
+                                urlBase = scheme  + slug + '.' + config.domain + port,
+                                url     = urlBase + '/user/reset/' + request.token;
+
+                            MailManager.sendMail(email, 'mail.password_reset.object', './views/mail/password_reset.ejs', {
+                                name: user.name,
+                                url:  url
+                            }, function(err) {
+                                if(err) {
+                                    miitoo.logger.error(err.message);
+                                    miitoo.logger.error(err.stack);
+                                }
+                            });
+
+                            // Callback
+                            cb(null, user);
+                        });
+                });
+        },
+
+        reset: function(token, password, cb) {
+            if(!token || !password || !Utils.validator.password(password))
+            {
+                return cb(new Error('Not enougth informations provided to reset the password.'));
+            }
+
+            PasswordResetStore
+                .findByToken(token, function(err, request) {
+                    if(err || !request) {
+                        return cb(err || new Error('No request found for password reset.'));
+                    }
+
+                    UserStore
+                        .findUser(request.user, function(err, user) {
+                            if(err || !user) {
+                                return cb(err || new Error('No user found for password reset.'));
+                            }
+
+                            user.password = password;
+
+                            // Change the password
+                            user.save(function(err) {
+                                // Create the reset password request
+                                PasswordResetStore
+                                    .remove(user, request, function(err) {
+
+                                        // Callback
+                                        cb(null, user);
+                                    });
+                            });
+                        });
+                });
         }
     };
 });

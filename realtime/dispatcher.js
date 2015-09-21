@@ -4,6 +4,11 @@ var EventEmitter = require('events').EventEmitter;
 // Get the team store (initialized before the realtime)
 var TeamStore = miitoo.injector.get('TeamStore');
 
+var onceEvents = [
+    'disconnection',
+    'incoming::ping'
+];
+
 // Getter for user
 function getUser(spark) {
     return (spark.request || {}).user || false;
@@ -72,14 +77,19 @@ function isApplicationAllowed(team, application, userRoles) {
     return true;
 }
 
+function runOnce(event) {
+    return -1 !== onceEvents.indexOf(event);
+}
+
 // Define the Dispatcher
 function Dispatcher() {
 
     // Roles needed to call this event
-    var roles = {};
+    var roles  = {},
+        writes = [];
 
     // Application of the event
-    var applications = {};
+    var applications = {}, tempApplication;
 
     // Define the emitter to this
     EventEmitter.call(this);
@@ -110,9 +120,39 @@ function Dispatcher() {
         return allowed;
     }
 
+    this.load = function(application, options) {
+        tempApplication = application;
+
+        // load options
+        if(options) {
+            // Check for write access
+            if(Array.isArray(options.writes)) {
+                // concat informations
+                writes.merge(options.writes);
+            }
+        }
+    };
+
+    this.writes = function(tmp) {
+        // Check for write access
+        if(Array.isArray(tmp)) {
+            // concat informations
+            writes.merge(tmp);
+        }
+    };
+
+    this.reset = function() {
+        tempApplication = null;
+    };
+
     // Register 
     this.register = function(event, role, application, callback)
     {
+        // Define gloabal application
+        if(tempApplication) {
+            applications[event] = tempApplication;
+        }
+
         // If no application define
         if(typeof callback === 'undefined') {
             callback = application;
@@ -169,12 +209,24 @@ function Dispatcher() {
         var teamId = getTeam(spark);
 
         if(!teamId) {
+            miitoo.logger.error('No team found for:', event);
             return;
         }
 
         TeamStore.findTeam(teamId, function(err, team) {
+            if(err) {
+                miitoo.logger.error(err.message);
+                miitoo.logger.error(err.stack);
+            }
+
             // Check if the team exist
-            if(err || !team) {
+            if(!team) {
+                miitoo.logger.error('No team found for:', event);
+                return;
+            }
+
+            // Check for read-only
+            if(true === team.locked && -1 !== writes.indexOf(event)) {
                 return;
             }
 
@@ -185,7 +237,10 @@ function Dispatcher() {
             if(false === isAllowed(event, team, user, roles)) {
 
                 // Replay it later
-                if(!replayed) {
+                if(
+                    !replayed &&
+                    !runOnce(event)
+                ) {
                     miitoo.logger.debug('The event will be replayed one time to be sure it\'s not a concurrency problem.');
 
                     setTimeout(function() {
@@ -197,6 +252,13 @@ function Dispatcher() {
 
             this.emit(event, spark, data, team, user, roles);
         }.bind(this));
+    };
+
+    this.disconnect = function(spark) {
+        var req = (spark.request || {});
+
+        req.roles = null;
+        req.user  = null;
     };
 }
 

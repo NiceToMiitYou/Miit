@@ -21,9 +21,33 @@ var PageActions = {
         Dispatcher.dispatch(action);
     },
 
-    toggleMenu: function() {
+    toggleLeftMenu: function() {
         var action = {
-            type:     ActionTypes.TOGGLE_MENU
+            type: ActionTypes.TOGGLE_LEFT_MENU
+        };
+
+        Dispatcher.dispatch(action);
+    },
+
+    toggleRightMenu: function() {
+        var action = {
+            type: ActionTypes.TOGGLE_RIGHT_MENU
+        };
+
+        Dispatcher.dispatch(action);
+    },
+
+    toggleRightMenuLock: function() {
+        var action = {
+            type: ActionTypes.TOGGLE_RIGHT_MENU_LOCK
+        };
+
+        Dispatcher.dispatch(action);
+    },
+
+    closePage: function() {
+        var action = {
+            type: ActionTypes.CLOSE_PAGE
         };
 
         Dispatcher.dispatch(action);
@@ -31,14 +55,21 @@ var PageActions = {
 };
 
 // Get the router and handle page change
-Router.routes.set('/([a-zA-Z0-9_\-]{0,})/?([a-zA-Z0-9_\-]{0,})?/?([a-zA-Z0-9_\-]{0,})?', function(mainPage, appPage, argument) {
-    var page = mainPage || config['default'];
+Router.routes.set('/([a-zA-Z0-9_\-]{0,})/?([a-zA-Z0-9_\-]{0,})?/?([a-zA-Z0-9_\-]{0,})?', {
 
-    // Set the current active page of the menu
-    ActiveGroups['menu-team'] = page;
+    on: function(mainPage, appPage, argument) {
+        var page = mainPage || config['default'];
 
-    // Set the current active page
-    PageActions.changePage(page, appPage, argument);
+        // Set the current active page of the menu
+        ActiveGroups['menu-team'] = page;
+
+        // Set the current active page
+        PageActions.changePage(page, appPage, argument);
+    },
+
+    after: function() {
+        PageActions.closePage();
+    }
 });
 
 module.exports = PageActions;

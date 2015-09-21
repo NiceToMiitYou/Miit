@@ -5,7 +5,7 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
     var ObjectId = mongoose.Types.ObjectId;
 
     function getId(object) {
-        return object._id || object.id || object;
+        return String(object._id || object.id || object);
     }
 
     // Shortcut for update
@@ -181,11 +181,14 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var teamId = getId(team).toString(),
                 quizId = getId(quiz);
                 
-            quizId = new ObjectId(quizId);
-
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+            
             var conditions = {
                 team: teamId,
-                _id:  quizId
+                _id:  new ObjectId(quizId)
             };
 
             var aggregate = [
@@ -529,7 +532,9 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                     };
 
                     var update = {
-                        $addToSet: {}
+                        $addToSet: {
+                            answers: userId
+                        }
                     };
 
                     var found = false;

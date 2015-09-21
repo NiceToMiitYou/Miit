@@ -18,9 +18,6 @@ var QuizStatsQuestions = React.createClass({
     getDefaultProps: function () {
         return {
             quiz: '',
-            text: {
-                title: 'Questions'
-            },
             questions: []
         };
     },
@@ -32,9 +29,6 @@ var QuizStatsQuestions = React.createClass({
 
         return (
             <div className="miit-component quiz-stats-questions">
-
-                <h3 className="mb25">{this.props.text.title}</h3>
-
                 <div className="list">
                     {questions.map(function(question) {
                         var key = 'question-' + question.id;
