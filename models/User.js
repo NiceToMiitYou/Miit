@@ -8,9 +8,9 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
     var ObjectId = mongoose.Schema.Types.ObjectId;
 
-    function sha1(input) {
+    function md5(input) {
         // Create ShaSum
-        var shasum = crypto.createHash('sha1');
+        var shasum = crypto.createHash('md5');
 
         // Add the content of shasum
         shasum.update(input);
@@ -42,7 +42,7 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
 
         if(this.isNew || !this.avatar || this.isModified('email')) {
             this.email  = this.email.toLowerCase();
-            this.avatar = sha1(this.email);
+            this.avatar = md5(this.email);
         }
 
         // Generate the new password
