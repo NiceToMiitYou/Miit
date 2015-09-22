@@ -48,6 +48,34 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
                     ret.icon = 'file-pdf-o';
                     break;
 
+                case 'application/zip':
+                    ret.icon = 'file-zip-o';
+                    break;
+
+                case 'audio/mpeg':
+                case 'audio/x-ms-wma':
+                case 'audio/vnd.rn-realaudio':
+                case 'audio/x-wav':
+                    ret.icon = 'file-audio-o';
+                    break;
+
+                case 'image/gif':
+                case 'image/jpeg':
+                case 'image/png':
+                case 'image/tiff':
+                    ret.icon = 'file-image-o';
+                    break;
+
+                case 'video/quicktime':
+                case 'video/mpeg':
+                case 'video/mp4':
+                case 'video/x-msvideo':
+                case 'video/x-ms-wmv':
+                case 'video/x-flv':
+                case 'video/webm':
+                    ret.icon = 'file-movie-o';
+                    break;
+
                 default:
                     miitoo.logger.error('Undefined icon for mime type:', ret.type);
                     // Default icon
