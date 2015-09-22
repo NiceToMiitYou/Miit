@@ -583,12 +583,15 @@ textarea {
 
 	.app-description {
 		display: flex;
-		margin-top: 40px;
+		margin: auto;
+		margin-top: 20px;
 		background-color: #fff;
 		border: solid 1px #E8E8E8;
+		max-width: 800px;
+
 
 		&.even .app-content {
-			padding-right: 30px;
+			padding-right: 10px;
 
 			h4, p {
 				text-align: left;
@@ -596,7 +599,7 @@ textarea {
 		}
 
 		&.odd .app-content {
-			padding-left: 30px;
+			padding-left: 10px;
 
 			h4, p {
 				text-align: right;
@@ -605,7 +608,7 @@ textarea {
 
 		.app-icon {
 			display: inline-block;
-		    padding: 2pc;
+		    padding: 20px;
 
 		    .miit-app-icon i {
 		    	width: 80px;
