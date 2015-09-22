@@ -13,7 +13,6 @@ html, body {
   overflow: hidden;
 }
 
-
 .main {
     overflow: auto;
 	height: 100%;
@@ -53,72 +52,6 @@ html, body {
 
 a {
 	cursor: pointer;
-}
-
-.login-container {
-	  width: 400px;
-	  background-color: rgba(0, 0, 0, 0.15);
-	  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4c000000', endColorstr='#4c000000'); /* IE */
-	  border-radius: 0;
-	  height: 100%;
-	  color:#FFF;
-	  position:relative;
-	  display: table;
-}
-
-.login {
-	display:table-cell;
-	vertical-align: middle;
-	padding-left: 35px;
-	padding-right: 35px;
-}
-
-.login .errors { 
-	
-}
-
-.login p {
-	font-size: 14px;
-	line-height: 20px;
-	margin: 10px 0;
-}
-
-.login h2 {
-	font-family: 'Roboto Condensed', sans-serif;
-	line-height: 2em;
-	font-size: 1.2em;
-	font-weight: 100;
-	width: 50%;
-	text-align: center;
-	float: left;
-	text-transform: uppercase;
-	margin-bottom: 20px;
-}
-
-.login h2 a.active {
-	display: block;
-	background: rgba(255, 255, 255, 0.2);
-}
-
-.login h3 {
-	font-family: 'Roboto Condensed', sans-serif;
-	line-height: 2em;
-	font-size: 1.2em;
-	font-weight: 100;
-	text-align: center;
-	text-transform: uppercase;
-	margin-bottom: 20px;
-}
-
-.login .logo {
-	margin: auto;
-	display: block;
-}
-
-.login button {
-	margin-top: 30px;
-	width: 100%;
-
 }
 
 .page {
@@ -324,7 +257,6 @@ a {
 
 	.user-list-item {
 
-		// border-top: 1px solid #1A2631;
 		display: table;
 		padding: 7px 12px;
 		width: 100%;
@@ -333,14 +265,6 @@ a {
 			display: table-cell;
 			vertical-align: middle;
 		}
-
-		// .user-list-item-roles {
-		// 	width: 50%;
-
-		// 	button {
-		// 		padding: 6px 12px;
-		// 	}
-		// }
 
 		.user-avatar {
 
@@ -440,10 +364,6 @@ a {
 }
 
 .panel {
-
-	// &:last-child {
-	// 	margin-bottom: 30px;
-	// }
 
 	.user-list {
 

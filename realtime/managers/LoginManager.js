@@ -5,9 +5,9 @@ var crypto = require('crypto');
 // Load Utils
 var Utils = require('../../shared/lib/utils');
 
-function sha1(input) {
+function md5(input) {
     // Create ShaSum
-    var shasum = crypto.createHash('sha1');
+    var shasum = crypto.createHash('md5');
 
     // Add the content of shasum
     shasum.update(input);
@@ -24,7 +24,7 @@ function generateId() {
         id += Math.random().toString(36).slice(-8);
     }
 
-    return 'ANONYM_' + sha1(id);
+    return 'ANONYM_' + md5(id);
 }
 
 module.exports = function LoginManager() {
