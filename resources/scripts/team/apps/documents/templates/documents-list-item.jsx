@@ -53,18 +53,21 @@ var DocumentsListItem = React.createClass({
         var document = this.props.document;
 
         var name = document.file.name,
-            type = document.file.type;
+            icon = document.file.icon;
 
         // Add {suffixes: {B: 'o', KB: 'Ko', MB: 'Mo', GB: 'Go'}} to translate in french (later)
         var size = filesize(document.file.size);
 
+        var classesIcon = classNames('fa', 'fa-' + icon);
+
         return (
             <div className="miit-component documents-list-item">
-                <span className="document-icon mr15"><i className="fa fa-file-o"></i></span>
+                <span className="document-icon mr15">
+                    <i className={classesIcon} />
+                </span>
                 
                 <span className="document-name">{name}</span>
                 <span className="document-size">{size}</span>
-                <span className="document-type">{type}</span>
                 
                 <span className="document-actions right">
                     <span className="action-download text-blue mr20" onClick={this.onDownload}>

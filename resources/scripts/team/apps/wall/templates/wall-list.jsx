@@ -130,7 +130,7 @@ var WallList = React.createClass({
                     </If>
                     <If test={0 !== questions.length && loadMore && !loading}>
                         <div className="load-more">
-                            <button className="btn btn-dark" onClick={this._onLoadMore}>
+                            <button className="btn-load-more" onClick={this._onLoadMore}>
                                 <i className="fa fa-plus mr5"></i> {this.props.text.load_more}
                             </button>
                         </div>

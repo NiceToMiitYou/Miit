@@ -50,7 +50,7 @@ Realtime.on('chat:messages', function(data) {
     Requested[data.chatroom] = false;
 
     var action = {
-        type:     ActionTypes.ADD_MESSAGES,
+        type:     ActionTypes.OLD_MESSAGES,
         chatroom: data.chatroom,
         messages: data.messages
     };

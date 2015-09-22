@@ -21,6 +21,7 @@ var config = require('pages/_config');
 
 // The default page
 var defaultPage  = config['default'];
+var welcomePage  = config['welcome'];
 var notFoundPage = config['404'];
 
 // All needed pages variables

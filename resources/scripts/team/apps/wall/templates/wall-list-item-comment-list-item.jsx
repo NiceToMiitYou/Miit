@@ -11,8 +11,9 @@ var If         = MiitApp.require('templates/if.jsx'),
     Tooltip    = MiitApp.require('templates/tooltip.jsx'),
     DateFormat = MiitApp.require('templates/date-format.jsx');
 
-// Include core templates
-var UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
+// Include components
+var TextParser = MiitApp.require('core/templates/components/text-parser.jsx'),
+    UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
 
 // Include requirements
 var WallActions = require('wall-actions');
@@ -79,7 +80,9 @@ var WallListItemCommentListItem = React.createClass({
                             <DateFormat date={createdAt} from={true} />
                         </span>
                     </span>
-                    <p>{comment.text}</p>
+                    <p>
+                        <TextParser text={comment.text} />
+                    </p>
                 </div>
 
                 <If test={UserStore.isItMe(comment.author) || UserStore.isAdmin()}>

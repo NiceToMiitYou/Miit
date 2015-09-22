@@ -81,7 +81,7 @@ function sendFile(res, filename) {
 var controller = miitoo.resolve(['MiitConfig', 'ImagesRoutes'], function(config, app) {
     
     // Catch all others request
-    app.get(/^\/avatar\/([a-f0-9]{40})$/, function(req, res) {
+    app.get(/^\/avatar\/([a-f0-9]{32})$/, function(req, res) {
 
         var hash = req.params[0] || '',
             file = __dirname + '/../cache/avatar/' + hash,

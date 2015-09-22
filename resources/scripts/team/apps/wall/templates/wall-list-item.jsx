@@ -13,7 +13,8 @@ var If         = MiitApp.require('templates/if.jsx'),
     DateFormat = MiitApp.require('templates/date-format.jsx');
 
 // Include core templates
-var UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
+var TextParser = MiitApp.require('core/templates/components/text-parser.jsx'),
+    UserAvatar = MiitApp.require('core/templates/user/user-avatar.jsx');
 
 // Include requirements
 var WallStore   = require('wall-store'),
@@ -196,7 +197,9 @@ var WallListItem = React.createClass({
                                 </Tooltip>
                             </If>
                         </span>
-                        <p>{text}</p>
+                        <p>
+                            <TextParser text={text} />
+                        </p>
                     </div>
 
                     <WallListItemActions question={question} />

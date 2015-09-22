@@ -94,6 +94,21 @@
             overflow-y: scroll;
             height: calc(100% - 205px);
 
+            .chat-message-list-empty {
+                color: #C0C0C0;
+                text-align: center;
+                width: 100%;
+                margin-top: 10%;
+
+                i {
+                    font-size: 21em;
+                }
+
+                p {
+                    font-size: 1.4em;
+                }
+            }
+
             .chat-message-list-item {
                 margin-top: 20px;
                 margin-bottom: 10px;

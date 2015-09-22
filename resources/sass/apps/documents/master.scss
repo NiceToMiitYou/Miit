@@ -40,16 +40,16 @@
                     }
                 }
 
-                .document-size {
-                    width: 110px;
-                }
-
-                .document-type {
-                    width: 50px;
-                }
-
                 .document-name {
+                    max-width: 250px;
                     line-height: 1.4em;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                .document-size {
+                    width: 90px;
                 }
 
                 .document-actions {
@@ -74,10 +74,6 @@
 
                 .document-size {
                     width: 90px;
-                }   
-
-                .document-type {
-                    width: 50px;
                 }
 
                 .document-actions {

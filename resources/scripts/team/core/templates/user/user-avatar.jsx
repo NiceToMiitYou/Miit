@@ -9,7 +9,7 @@ var UserAvatar = React.createClass({
         var avatar;
 
         if(user.avatar) {
-            avatar = 'http://img.miit.fr/avatar/' + user.avatar;
+            avatar = window.MiitAvatarUrl + user.avatar;
         }
 
         avatar = avatar || '/img/logo-miit-white.png';

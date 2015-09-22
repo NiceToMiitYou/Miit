@@ -336,9 +336,16 @@ var controller = miitoo.resolve(
     // Catch all others request
     app.all('*', function(req, res) {
 
+        var scheme  = (config.domain === 'miit.fr') ? 'https://' : 'http://',
+            port    = (config.domain === 'miit.fr') ? '' : ':' + config.port,
+            urlBase = scheme + 'img.' + config.domain + port,
+            url     = urlBase + '/avatar/';
+                    
+
         return res.render('team/index', {
-            team: req.team,
-            apps: applications
+            avatar: url,
+            team:   req.team,
+            apps:   applications
         });
     });
 });
