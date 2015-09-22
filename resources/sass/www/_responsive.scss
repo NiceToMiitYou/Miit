@@ -1,0 +1,128 @@
+@media screen and (max-width: 1200px) {
+
+	.newsletter-block {
+		margin-top: -199px;
+
+		#create-team {
+			height: 150px;
+		}
+	}
+
+
+	.banner {
+		h1 {
+			font-size: 3em;
+			font-weight: 100;
+		}
+	}
+
+}
+
+@media screen and (max-width: 992px) {
+	.header {
+		.banner {
+			color: #FFF;
+			text-align: left;
+			height: 70%;
+
+			img {
+				width: 40%;
+				margin-bottom: 0px;
+				margin-top: 40px;
+				max-height: inherit;
+			}
+
+			h1 {
+				font-size: 1.8em;
+				font-weight: 100;
+			}
+
+			span {
+				display: block;
+				max-width: 100%;
+				line-height: 1.3em;
+				font-size: 1.2em;
+				font-weight: 100;
+			}
+		}
+	}
+
+	.newsletter-block {
+		margin-top: -20px;
+		#create-team {
+			height: 180px;
+		}
+
+		.beta-row {
+			img {
+				max-width: 100%
+			}
+			margin-bottom: 30px;
+			margin-top: 20px
+		}
+	}
+
+	.app .col-md-10 {
+		text-align: center;
+	}
+
+	.case {
+
+		p.desc {
+			margin: 0;
+		}
+
+		h3 {
+			margin-top: 80px;
+		}
+
+
+		& > div {
+
+			.case-header {
+				height: 80px;
+				position: absolute;
+				width: 100%;
+				left: 0;
+				top: 0;
+				padding: 20px;
+				overflow: hidden;
+
+				img {
+					width: 50px;
+					margin-left: 10px;
+				}
+
+
+				& > .slider {
+					left: 120px;
+					width: 100%;
+
+					&.odd:before {
+					    margin-left: 0;				}
+				}
+			}
+
+		}
+	}
+}
+
+
+@media screen and (max-width: 585px) {
+
+	.header {
+
+		.banner {
+			text-align: center;
+		}
+	}
+
+	.case>div .case-header > .slider > p {
+    	left: 80px;
+	}
+
+	.case>div .case-header > .slider > i {
+	    left: 28px;
+	}
+
+}
