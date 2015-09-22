@@ -11,7 +11,7 @@ var authorization = miitoo.resolve(['Primus', 'MiitConfig', 'TeamStore'], functi
 
     // Authorization function
     function authorize(req, done) {
-        var slug  = extractSubdomain(req.headers.host);
+        var slug = extractSubdomain(req.headers.host);
 
         if(!slug) {
             return done({
