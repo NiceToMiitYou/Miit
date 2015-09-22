@@ -12,7 +12,7 @@
     var RegexEmail    = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
     // Regex for team name
-    var RegexTeamName = /^[a-z0-9]{4,}$/i;
+    var RegexTeamName = /^[a-z0-9 ]{4,}$/i;
 
     // Regex for password
     var RegexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\ `\~\!\@#\$%\^\&\*\(\)_\-\+\=\{\}\[\]\\\|\:\;\"\'\<\>\,\.\?\/]{8,}$/;
