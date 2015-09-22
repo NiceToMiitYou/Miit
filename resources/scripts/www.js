@@ -26,17 +26,30 @@ function isIE () {
   return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
 
-// React.render(<CreateTeam />, document.getElementById('create-team'));
-React.render(<NewsLetter variant={false} />, document.getElementById('create-team'));
+// Create team form
+var createTeam = document.getElementById('create-team');
 
-// Keep contact field
-React.render(<NewsLetter variant={true} />, document.getElementById('keep-contact'));
+if(createTeam) {
+    // React.render(<CreateTeam />, createTeam);
+    React.render(<NewsLetter variant={false} />, createTeam);
+}
+
+// Keep contact form
+var keepContact = document.getElementById('keep-contact');
+
+if(keepContact) {
+    // Keep contact field
+    React.render(<NewsLetter variant={true} />, keepContact);
+}
 
 global.onload = function() {
 
     if (isMobile || (isIE() < 9 && isIE()) ) {
         var elem = document.getElementById(canvasId);
-        elem.parentNode.removeChild(elem);
+
+        if(elem) {
+            elem.parentNode.removeChild(elem);
+        }
     } else {
         // Include requierements
         var Bubbles = require('core/lib/bubbles');
@@ -46,6 +59,9 @@ global.onload = function() {
 
     // Load the iframe at the end
     var iframe = document.getElementById('youtube-teaser');
-    iframe.src = 'https://www.youtube-nocookie.com/embed/ctujCxl7xic?rel=0&amp;showinfo=0';
+
+    if(iframe) {
+        iframe.src = 'https://www.youtube-nocookie.com/embed/ctujCxl7xic?rel=0&amp;showinfo=0';
+    }
 };
 
