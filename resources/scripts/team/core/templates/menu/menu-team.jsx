@@ -21,12 +21,9 @@ var MenuTeam = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                user_label:      'Utilisateurs',
-                my_account:      'Mon compte',
-                disconnect:      'Déconnexion',
-                connect:         'Connexion',
                 apps_label:      'Apps',
-                add_application: 'Ajouter'
+                add_application: 'Ajouter',
+                settings:        'Paramètres'
             }
         };
     },
@@ -47,8 +44,16 @@ var MenuTeam = React.createClass({
                         })}
                         
                         <If test={UserStore.isAdmin()}>
+                            <li className="settings">
+                                <Link href="#/team/settings">
+                                    <i className="fa fa-cog"></i>{this.props.text.settings}
+                                </Link>
+                            </li>
+                        </If>
+
+                        <If test={UserStore.isAdmin()}>
                             <li className="add-application">
-                                <Link href="#/settings">
+                                <Link href="#/team/apps">
                                     <i className="fa fa-plus"></i>{this.props.text.add_application}
                                 </Link>
                             </li>
