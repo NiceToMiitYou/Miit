@@ -192,8 +192,10 @@ a {
 			.user-dropdown {
 				position: absolute;
 				width: 100%;
+				min-width: 170px;
 				background-color: #2B3C4C;
 				top: 100%;
+				right: 0;
 				margin-top: 15px;
 
 				&:before {
