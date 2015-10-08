@@ -21,12 +21,9 @@ var MenuTeam = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                user_label:      'Utilisateurs',
-                my_account:      'Mon compte',
-                disconnect:      'Déconnexion',
-                connect:         'Connexion',
                 apps_label:      'Apps',
-                add_application: 'Ajouter'
+                add_application: 'Ajouter',
+                settings:        'Paramètres'
             }
         };
     },
@@ -36,11 +33,8 @@ var MenuTeam = React.createClass({
 
         return (
             <div className="sidr-left bg-blue-grey">
-                <div className="sl-wrapper">
-
-                    <If test={TeamStore.hasApplications() || UserStore.isAdmin()}>
-                        <MenuLabel icon="fa-th" label={this.props.text.apps_label} />
-                    </If>
+                <div className="sl-wrapper">    
+                    <MenuLabel icon="fa-th" label={this.props.text.apps_label} />
                         
                     <ul className="sl-list">
                         {applications.map(function(application) {
@@ -50,8 +44,16 @@ var MenuTeam = React.createClass({
                         })}
                         
                         <If test={UserStore.isAdmin()}>
+                            <li className="settings">
+                                <Link href="#/team/settings">
+                                    <i className="fa fa-cog"></i>{this.props.text.settings}
+                                </Link>
+                            </li>
+                        </If>
+
+                        <If test={UserStore.isAdmin()}>
                             <li className="add-application">
-                                <Link href="#/settings">
+                                <Link href="#/team/apps">
                                     <i className="fa fa-plus"></i>{this.props.text.add_application}
                                 </Link>
                             </li>

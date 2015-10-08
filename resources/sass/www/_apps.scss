@@ -1,0 +1,123 @@
+.apps {
+	.app {
+
+		display: inline-block;
+		height: 170px;
+		text-align: center;
+		padding: 0;
+		margin-top: 20px;
+		padding-top: 15px;
+		overflow: hidden;
+
+
+		& > i {
+			line-height: 140px;
+			font-size: 3.5em;
+			position: relative;
+			z-index: 99;
+			-webkit-transition: line-height .6s ease-out;
+			-moz-transition: line-height .6s ease-out;
+			-o-transition: line-height .6s ease-out;
+			transition: line-height .6s ease-out;
+		}
+
+		&:after {
+			content: "";
+			width: 90%;
+			position: absolute;
+			left: 5%;
+			top: 0;
+			height: 100%;
+			background-color: #1E3444;
+		}
+
+		& > span {
+			position: absolute;
+			z-index: 9;
+			top: 10px;
+			left: 10%;
+			font-size: .7em;
+
+			i {
+				margin-right: 4px;
+			}
+
+			-webkit-transition: color .3s ease-out;
+			-moz-transition: color .3s ease-out;
+			-o-transition: color .3s ease-out;
+			transition: color .3s ease-out;
+		}
+
+		div {
+			
+			height: 160px;
+			position: relative;
+			width: 90%;
+			margin: auto;
+			margin-top: -35px;
+			padding: 55px 10px 0 10px;
+			overflow: hidden;
+			z-index: 9;
+			text-align: left;
+			-webkit-transition: margin .6s ease-out;
+			-moz-transition: margin .6s ease-out;
+			-o-transition: margin .6s ease-out;
+			transition: margin .6s ease-out;
+			font-size: .9em;
+			line-height: 1.2em;
+
+			&:before {
+				background-color: rgba(54, 140, 192, 0.3);
+				content: "";
+				display: block;
+				width: 200%;
+				z-index: -1;
+				height: 150px;
+				position: absolute;
+				top: 20px;
+				left: -50%;
+				-webkit-transition: background-color .6s ease-out;
+				-moz-transition: background-color .6s ease-out;
+				-o-transition: background-color .6s ease-out;
+				transition: background-color .6s ease-out;
+				-webkit-transform: rotate(-8deg);
+				-moz-transform: rotate(-8deg);
+				-o-transform: rotate(-8deg);
+				transform: rotate(-8deg);
+
+			}
+
+
+			&.odd:before {
+				-webkit-transform: rotate(8deg);
+				-moz-transform: rotate(8deg);
+				-o-transform: rotate(8deg);
+				transform: rotate(8deg);
+			}
+
+			p {
+				font-weight: 100;
+				font-size: .9em;
+				margin-top: 10px;
+			}	
+		}
+
+		&:hover, &.open {
+			div {
+				margin-top: -50px;
+
+				&:before {
+					background-color: rgba(54, 140, 192, 1);
+				}
+			}
+
+			& > i {
+				line-height: 60px;
+			}
+
+			& > span {
+				color: rgba(0,0,0,0);
+			}
+		}
+	}
+}

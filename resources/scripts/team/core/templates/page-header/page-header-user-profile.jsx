@@ -1,10 +1,11 @@
 'use strict';
 
 // Include requirements
-var UserStore   = require('core/stores/user-store'),
-    UserActions = require('core/actions/user-actions'),
-    TeamStore   = require('core/stores/team-store'),
-    PageActions = require('core/actions/page-actions');
+var UserStore    = require('core/stores/user-store'),
+    UserActions  = require('core/actions/user-actions'),
+    TeamStore    = require('core/stores/team-store'),
+    ModalActions = require('core/actions/modal-actions'),
+    PageActions  = require('core/actions/page-actions');
 
 // Include common
 var If   = require('templates/if.jsx');
@@ -19,8 +20,12 @@ var PageHeaderUserProfile = React.createClass({
         return {
             text: {
                 account: 'Mon compte',
-                logout:  'Deconnexion',
-                connect: 'Connexion'
+                logout:  'Déconnexion',
+                connect: 'Connexion',
+                alert: {
+                    title:   'Déconnexion',
+                    content: 'Voulez-vous vraiment être déconnecté?'
+                }
             }
         };
     },
@@ -55,6 +60,14 @@ var PageHeaderUserProfile = React.createClass({
         clearTimeout(this.timeoutId);
     },
 
+    onLogoutClick: function() {
+        var title    = this.props.text.alert.title,
+            content  = this.props.text.alert.content,
+            onAgree  = UserActions.logout;
+
+        ModalActions.alert(title, content, onAgree);
+    },
+
     render: function() {
 
     	var user = UserStore.getUser();
@@ -83,7 +96,7 @@ var PageHeaderUserProfile = React.createClass({
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="#/logout" onLinkClick={UserActions.logout} className="sl-logout">
+                                    <Link onLinkClick={this.onLogoutClick} className="sl-logout">
                                         <i className="fa fa-power-off mr10 ml5"></i>{this.props.text.logout}
                                     </Link>
                                 </li>

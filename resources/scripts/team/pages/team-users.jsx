@@ -12,18 +12,19 @@ var Layout = require('./layouts/default-layout.jsx');
 var Panel = require('templates/panel.jsx');
 
 // Include components
-var Default    = require('./default.jsx'),
-    NotFound   = require('./not-found.jsx'),
-    TeamUpdate = require('core/templates/team/team-update.jsx');
+var NotFound = require('./not-found.jsx'),
+    UserList = require('core/templates/user/user-list.jsx');
 
-var TeamSettings = React.createClass({
+var TeamUsers = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
                 applications: 'Applications',
                 informations: 'Informations',
-                title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre Miit'
+                userlist:     'Liste des utilisateurs',
+                title:        'Configuration',
+                subtitle:     'Gérer les utilisateurs de votre Miit',
+                users:        'Utilisateurs'
             }
         };
     },
@@ -57,8 +58,9 @@ var TeamSettings = React.createClass({
                         </h2>
                     </div>
 
-                    <Panel icon="info" title={this.props.text.informations}>
-                        <TeamUpdate />
+                    <Panel icon="users" title={this.props.text.users}>
+                        <h3 className="mb20">{this.props.text.userlist}</h3>   
+                        <UserList autoload={true} headers={false} status={true}/>
                     </Panel>
                 </div>
             </Layout>
@@ -66,9 +68,6 @@ var TeamSettings = React.createClass({
     }
 });
 
-// Load default pages
-PageStore.registerMainPage('team', Default('team'));
+PageStore.registerApplicationPage('team', 'users', TeamUsers);
 
-PageStore.registerApplicationPage('team', 'settings', TeamSettings);
-
-module.exports = TeamSettings;
+module.exports = TeamUsers;

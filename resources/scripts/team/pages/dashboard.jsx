@@ -40,7 +40,9 @@ var Dashboard = React.createClass({
         }
 
         var team  = TeamStore.getTeam(),
-            apps  = team.applications || [],
+            apps  = (team.applications || []).filter(function(application) {
+                return true === TeamStore.hasApplication(application.identifier);
+            }),
             count = 0;
 
         return (

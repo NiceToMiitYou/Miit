@@ -50,8 +50,9 @@ var RightMenuUserList = React.createClass({
                 <RightMenuLabel icon="fa-users" label={this.props.text.users}/>
                 
                 <UserList headers={false} loader={false} invite={false} roles={false} emails={false} filtered={false} status={true} me={false} />
+                
                 <If test={UserStore.isAdmin()}>
-                    <Link href="#/settings" className="add-user">
+                    <Link href="#/team/users" className="add-user">
                         <i className="fa fa-user-plus pull-left"></i> {this.props.text.add_user}
                     </Link>
                 </If>

@@ -12,18 +12,20 @@ var Layout = require('./layouts/default-layout.jsx');
 var Panel = require('templates/panel.jsx');
 
 // Include components
-var Default    = require('./default.jsx'),
-    NotFound   = require('./not-found.jsx'),
-    TeamUpdate = require('core/templates/team/team-update.jsx');
+var NotFound        = require('./not-found.jsx'),
+    ApplicationList = require('core/templates/team/application-list.jsx'),
+    AppStoreList    = require('core/templates/app-store/app-store-list.jsx');
 
-var TeamSettings = React.createClass({
+var TeamApps = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
                 applications: 'Applications',
                 informations: 'Informations',
+                appstore:     'Ajouter une application', 
+                applist:      'Liste des applications', 
                 title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre Miit'
+                subtitle:     'Configurer les applications présentes sur votre Miit'
             }
         };
     },
@@ -57,8 +59,14 @@ var TeamSettings = React.createClass({
                         </h2>
                     </div>
 
-                    <Panel icon="info" title={this.props.text.informations}>
-                        <TeamUpdate />
+                    <Panel icon="th" title={this.props.text.applications}>
+                        <h3 className="mb20">{this.props.text.applist} </h3>
+                        <ApplicationList />
+
+                        <h3 className="mb20 mt30">{this.props.text.appstore} </h3>
+                        <AppStoreList />
+                        
+                        <div className="clearfix"></div>
                     </Panel>
                 </div>
             </Layout>
@@ -66,9 +74,6 @@ var TeamSettings = React.createClass({
     }
 });
 
-// Load default pages
-PageStore.registerMainPage('team', Default('team'));
+PageStore.registerApplicationPage('team', 'apps', TeamApps);
 
-PageStore.registerApplicationPage('team', 'settings', TeamSettings);
-
-module.exports = TeamSettings;
+module.exports = TeamApps;

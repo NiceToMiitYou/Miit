@@ -96,7 +96,7 @@
         };
 
         // Information about AsyncQueue
-        this.COPYRIGTH = 'Tacyniak Boris <tacyniak.boris@itevents.fr>';
+        this.COPYRIGHT = 'Tacyniak Boris <tacyniak.boris@itevents.fr>';
         this.VERSION   = '0.0.0';
     }
 

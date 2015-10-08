@@ -32,6 +32,11 @@ var Dot = require('./dot');
 
 var Bubbles = function(id) {
     var canvas  = document.getElementById(id);
+
+    if(!canvas) {
+        return;
+    }
+
     var context = canvas.getContext('2d');
 
     canvas.width  = global.innerWidth;

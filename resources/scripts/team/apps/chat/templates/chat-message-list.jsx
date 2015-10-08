@@ -64,15 +64,19 @@ var ChatMessageList = React.createClass({
     },
 
     componentWillUnmount: function() {
-        // detach messages handler
-        ChatStore.removeNewMessageListener(this._onChanged);
-        ChatStore.removeOldMessagesListener(this._onChanged);
-
         // Detach scroll events
         this.detachScrollListener();
+
+        // detach messages handler
+        ChatStore.removeNewMessageListener(this._onChanged);
+        ChatStore.removeOldMessagesListener(this._onRefresh);
     },
 
     scrollListener: function() {
+        if(!this.isMounted()) {
+            return;
+        }
+
         var el = this.getDOMNode();
         
         var threshold = el.scrollHeight - el.offsetHeight - 96;

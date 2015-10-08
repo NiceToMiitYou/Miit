@@ -22,6 +22,20 @@ var controller = miitoo.resolve(
         });
     });
 
+    // Index route
+    app.get(/^\/(fr|en)\/conference$/, function(req, res) {
+        // Extract local from config
+        var locales = i18nConfig.locales,
+            locale  = req.params[0] || req.getLocale();
+
+        res.cookie('miit-locale', locale, { maxAge: 900000, httpOnly: true });
+        req.setLocale(locale);
+
+        return res.render('www/conference', {
+            locales: locales
+        });
+    });
+
     // Create register route
     app.post('/register', function(req, res) {
         // Get parameters

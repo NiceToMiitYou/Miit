@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=530, user-scalable=no">
+    
+    <meta name="description" content="<%= __('www.description') %>">
+    <meta name="keywords" content="miit,communication,application,applications,audience,projets,espace,équipes,simplement">
+    <meta name="author" content="ITEvents">
+    <meta name="language" content="fr-FR">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <meta property="og:title" content="<%= __('www.title') %>">
+    <meta property="og:image" content="https://www.miit.fr/img/facebook-opengraph.jpg">
+    <meta property="og:site_name" content="<%= __('www.title') %>">
+    <meta property="og:description" content="<%= __('www.description') %>">
+    <meta property="og:locale" content="FR_fr">
+    <meta property="og:video" content="https://www.facebook.com/video.php?v=849562615096753">
+    <meta property="article:author" content="https://www.facebook.com/NiceToMiitYou">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@NiceToMiitYou">
+    <meta name="twitter:title" content="<%= __('www.title') %>">
+    <meta name="twitter:image" content="https://www.miit.fr/img/facebook-opengraph.jpg">
+    <meta name="twitter:description" content="<%= __('www.description') %>">
+
+    <link rel="author" href="https://plus.google.com/u/0/+MiitFrapp">
+    <link rel="publisher" href="https://plus.google.com/u/0/+MiitFrapp">
+
+    <link rel="stylesheet" href="/dist/css/www/master.min.css">
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/dist/css/ie8/master.min.css">
+    <![endif]-->
+    <title><%= __('www.title') %></title>
+    <script type="text/javascript">
+        // ie8 polyfill for html5 elements
+        (function(a) {
+            a('header');
+            a('footer');
+            a('section');
+            a('aside');
+            a('nav');
+            a('article');
+            a('figure');
+        })(document.createElement.bind(document));
+    </script>
+    <script type="text/javascript">
+        // translation
+        window.MiitTranslations = {
+            'www.subscribe.newsletter':       "<%- __('www.subscribe.newsletter') %>",
+            'www.subscribe.newsletter_short': "<%- __('www.subscribe.newsletter_short') %>",
+            'input.your.email':               "<%- __('input.your.email') %>",
+            'input.your.team':                "<%- __('input.your.team') %>",
+            'input.create.miit':              "<%- __('input.create.miit') %>"
+        };
+    </script>
+</head>
+<body class="bg-blue-grey">
+    <header class="header" id="header">
+        <nav class="menu show fixed" id="menu">
+            <div class="container">
+                <div class="logo">
+                    <img src="/img/logo-miit-white.png" alt="<%= __('www.miit.logo') %>"> <h1><%= __('Miit') %></h1>
+                </div>
+                <div class="pull-right sn">
+                    <a href="https://twitter.com/NiceToMiitYou/" target="_blank"><i class="fa fa-twitter-square"></i></a>
+                    <a href="https://www.facebook.com/NiceToMiitYou" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://plus.google.com/u/0/+MiitFrapp/about" target="_blank"><i class="fa fa-google-plus-square"></i></a>
+                    <a href="https://www.youtube.com/channel/UCHiEdBJHbVu0chhVZrsFMkA" target="_blank"><i class="fa fa-youtube-square"></i></a>
+                    <div class="lang">
+                        <span class="active"><%= locale %> <i class="fa fa-angle-down"></i></span>
+                        <div>
+                            <% for(var i = 0; i < locales.length; i++) { %>
+                                <% if(locales[i] !== locale) { %>
+                                    <a href="/<%= locales[i] %>/"><%= locales[i] %></a>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+        <div class="container banner">
+            <div class="row ">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6 pt20">
+                        <h2 class="mb20"><%= __('www.header.title') %></h2>
+                        <span><%- __('www.header.subtitle') %></span>
+                    </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="bg-blue-grey">
+        <div class="container pt20">
+            <h3><%= __('www.subscribe.title') %></h3>
+            <p class="pt10 text-100"><%= __('www.subscribe.subtitle') %></p>
+            <div id="create-team">
+                <form class="miit-component news-letter">
+                    <div class="row pt30 pb20">
+                        <div class="col-md-8 mb10">
+                            <div class="input-field bg-transparent left-icon icon-transparent push0 pt5 pb5">
+                                <i class="fa fa-envelope-o pt5 pl5 pb5"></i>
+                                <input type="text" placeholder="<%= __('input.your.email') %>" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb10">
+                            <button type="submit" class="btn btn-info pl10 pr10 pt15 pb15"><%= __('www.subscribe.newsletter') %></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+<!--             <div class="row beta-row pb20">
+                <div class="col-xs-2">
+                    <img src="/img/beta.png" alt="<%= __('www.beta.access') %>">
+                </div>
+                <div class="col-xs-10">
+                    <p class="text-100"><%- __('www.beta.access.development') %></p>
+                    <p class="text-100 mt20"><%- __('www.beta.access.subscribe') %></p>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+    </div>
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/dist/lib/excanvas.js"></script>
+        <script type="text/javascript" src="/dist/lib/es5-shim.min.js"></script>
+        <script type="text/javascript" src="/dist/lib/es5-sham.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/dist/js/lib.min.js"></script>
+    <script type="text/javascript" src="/dist/js/www.min.js"></script>
+</body>
+</html>

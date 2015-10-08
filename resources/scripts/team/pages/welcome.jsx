@@ -6,8 +6,9 @@ var UserStore   = require('core/stores/user-store'),
     TeamActions = require('core/actions/team-actions'),
     PageStore   = require('core/stores/page-store');
 
-// Include Layout
-var Layout = require('./layouts/default-layout.jsx');
+// Include Layout and pages
+var Layout   = require('./layouts/default-layout.jsx'),
+    NotFound = require('./not-found.jsx');
 
 // Include components
 var TemplateItem = require('core/templates/welcome/template-item.jsx'),
@@ -58,6 +59,10 @@ var WelcomePage = React.createClass({
     },
 
     render: function() {
+        if(false === UserStore.isAdmin()) {
+            return <NotFound />;
+        }
+
         var templates = this.props.templates;
 
         return (
