@@ -14,6 +14,7 @@ var Panel = require('templates/panel.jsx');
 // Include components
 var Default    = require('./default.jsx'),
     NotFound   = require('./not-found.jsx'),
+    Link       = require('core/templates/components/link.jsx'),
     TeamUpdate = require('core/templates/team/team-update.jsx');
 
 var TeamSettings = React.createClass({
@@ -23,7 +24,12 @@ var TeamSettings = React.createClass({
                 applications: 'Applications',
                 informations: 'Informations',
                 title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre Miit'
+                subtitle:     'Configurer les informations et la confidentialité de votre Miit',
+                menu: {
+                    settings: 'Informations',
+                    apps:     'Applications',
+                    users:    'Utilisateurs'
+                }
             }
         };
     },
@@ -55,6 +61,18 @@ var TeamSettings = React.createClass({
                             <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
                             <span className="subtitle">{this.props.text.subtitle}</span>
                         </h2>
+                    </div>
+
+                    <div className="team-menu row">
+                        <Link href="#/team/settings" className="col-xs-12 col-md-4 active">
+                            <i className="fa fa-cogs mr15"></i> {this.props.text.menu.settings}
+                        </Link>
+                        <Link href="#/team/users" className="col-xs-12 col-md-4">
+                            <i className="fa fa-users mr15"></i> {this.props.text.menu.users}
+                        </Link>
+                        <Link href="#/team/apps" className="col-xs-12 col-md-4">
+                            <i className="fa fa-th mr15"></i> {this.props.text.menu.apps}
+                        </Link>
                     </div>
 
                     <Panel icon="info" title={this.props.text.informations}>

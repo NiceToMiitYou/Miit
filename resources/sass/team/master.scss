@@ -554,3 +554,23 @@ textarea {
 		}
 	}
 }
+
+.team-menu {
+	margin: 20px 0;
+    border: 1px solid #E8E8E8;
+
+	& > a {
+		color: #1E2D3A;
+		background-color: #FFF;
+		text-align: center;
+		padding: 18px 0;
+
+		&:hover {
+			background-color: #EFEFEF;
+		}
+
+		&.active {
+			background-color: #E8E8E8;
+		}
+	}
+}

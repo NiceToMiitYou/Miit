@@ -13,6 +13,7 @@ var Panel = require('templates/panel.jsx');
 
 // Include components
 var NotFound = require('./not-found.jsx'),
+    Link     = require('core/templates/components/link.jsx'),
     UserList = require('core/templates/user/user-list.jsx');
 
 var TeamUsers = React.createClass({
@@ -24,7 +25,12 @@ var TeamUsers = React.createClass({
                 userlist:     'Liste des utilisateurs',
                 title:        'Configuration',
                 subtitle:     'Gérer les utilisateurs de votre Miit',
-                users:        'Utilisateurs'
+                users:        'Utilisateurs',
+                menu: {
+                    settings: 'Informations',
+                    apps:     'Applications',
+                    users:    'Utilisateurs'
+                }
             }
         };
     },
@@ -56,6 +62,18 @@ var TeamUsers = React.createClass({
                             <i className="fa fa-cogs pull-left mr15"></i> {this.props.text.title} 
                             <span className="subtitle">{this.props.text.subtitle}</span>
                         </h2>
+                    </div>
+
+                    <div className="team-menu row">
+                        <Link href="#/team/settings" className="col-xs-12 col-md-4">
+                            <i className="fa fa-cogs mr15"></i> {this.props.text.menu.settings}
+                        </Link>
+                        <Link href="#/team/users" className="col-xs-12 col-md-4 active">
+                            <i className="fa fa-users mr15"></i> {this.props.text.menu.users}
+                        </Link>
+                        <Link href="#/team/apps" className="col-xs-12 col-md-4">
+                            <i className="fa fa-th mr15"></i> {this.props.text.menu.apps}
+                        </Link>
                     </div>
 
                     <Panel icon="users" title={this.props.text.users}>
