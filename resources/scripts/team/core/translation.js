@@ -16,6 +16,11 @@ var Translations = {
     	description: 'Offrez à votre audience la possibilité de vous poser des questions.',
         long_description: 'Quand vous avez une question, passez par le <strong>Mur de questions</strong>! Il vous permettra de poser rapidement une question. De plus, les personnes ayant une réponse ou une piste de réflexion pourront réagir!'
     },
+    APP_SLIDER: {
+        name: 'Présentation',
+        description: 'Pour réussir vos présentations en toute simplicité.',
+        long_description: 'Vous venez pour une <strong>présentation</strong>? Alors vous êtes au bon endroit!'
+    },
     APP_DOCUMENTS: {
     	name: 'Documents',
     	description: 'Distribuez facilement vos fichiers.',

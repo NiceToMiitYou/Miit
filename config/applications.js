@@ -38,6 +38,18 @@ config['APP_QUIZ'] = {
     icon: 'check-square-o'
 };
 
+// Definition of the Slider
+config['APP_SLIDER'] = {
+    // The identifier of the app
+    identifier: 'APP_SLIDER',
+
+    // Background color
+    color: 'yellow',
+
+    // The icon
+    icon: 'picture-o'
+};
+
 // Definition of the Document
 config['APP_DOCUMENTS'] = {
     // The identifier of the app
