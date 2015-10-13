@@ -21,9 +21,8 @@ var MenuTeam = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                apps_label:      'Apps',
-                add_application: 'Ajouter',
-                settings:        'Paramètres'
+                apps_label: 'Apps',
+                settings:   'Paramètres'
             }
         };
     },
@@ -47,14 +46,6 @@ var MenuTeam = React.createClass({
                             <li className="settings">
                                 <Link href="#/team/settings">
                                     <i className="fa fa-cog"></i>{this.props.text.settings}
-                                </Link>
-                            </li>
-                        </If>
-
-                        <If test={UserStore.isAdmin()}>
-                            <li className="add-application">
-                                <Link href="#/team/apps">
-                                    <i className="fa fa-plus"></i>{this.props.text.add_application}
                                 </Link>
                             </li>
                         </If>
