@@ -154,7 +154,7 @@ var Login = React.createClass({
                                 </div>
 
                                 <button className="btn btn-info" type="submit">{this.props.submit}</button>
-                                <Link href="#/user/request" className="remember-me">
+                                <Link href="#/user/request" className="remember-me pull-right">
                                     {this.props.text.remember_me}
                                 </Link>
                             </form>
