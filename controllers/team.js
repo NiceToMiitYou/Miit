@@ -1,32 +1,11 @@
-var fs         = require('fs');
-var path       = require('path');
-var mkdirp     = require('mkdirp');
-var multiparty = require('multiparty');
+'use strict';
 
-function waterfall(cb) {
-    // the last call back and the list of callbacks
-    var last      = cb,
-        callbacks = [];
+var fs         = require('fs'),
+    path       = require('path'),
+    mkdirp     = require('mkdirp'),
+    multiparty = require('multiparty');
 
-    // Call the next callback
-    function nextCallback() {
-        var func = callbacks.shift();
-
-        if(typeof func === 'function') {
-
-            func.call({}, nextCallback);
-        }
-    }
-
-    this.push = callbacks.push;
-    this.run  = function() {
-        // Add the last callback
-        callbacks.push(last);
-
-        // Run the first one
-        nextCallback();
-    };
-}
+var waterfall = require('../shared/lib/waterfall.js');
 
 function removeFiles(files, cb) {
     if(!files) {
@@ -296,6 +275,11 @@ var controller = miitoo.resolve(
                         {
                             return handleEnd(res, files, err);
                         }
+
+                        // Set values
+                        upload.name = name;
+                        upload.size = size;
+                        upload.type = type;
 
                         // Create patg where upload
                         mkdirp(target.folder, function(err) {

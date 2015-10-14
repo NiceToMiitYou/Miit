@@ -137,8 +137,10 @@ var store = miitoo.resolve(['DocumentModel', 'Mongoose'], function(Document, mon
                                 miitoo.logger.error(err.stack);
                             }
 
-                            upload.deleted = true;
-                            upload.save();
+                            if(upload) {
+                                upload.deleted = true;
+                                upload.save();
+                            }
 
                             if(typeof cb === 'function') {
                                 cb(err);
