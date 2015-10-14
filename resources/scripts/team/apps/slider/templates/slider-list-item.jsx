@@ -34,14 +34,7 @@ var SliderListItem = React.createClass({
             <div className={classes}>
                 <div className="slider-list-item-inner">
                     <div className="hover-layer-overlay"></div>
-                    <h3>
-                        {presentation.name}
-                        <div className="actions pull-right">
-                            <If test={true === presentation.converted && UserStore.isAdmin()}>
-                                <Link href={'#/slider/update/' + presentation.id}><i className="fa fa-pencil"></i></Link>
-                            </If>
-                        </div>
-                    </h3>
+                    <h3>{presentation.name}</h3>
 
                     <If test={presentation.description}>
                         <p>{presentation.description}</p>

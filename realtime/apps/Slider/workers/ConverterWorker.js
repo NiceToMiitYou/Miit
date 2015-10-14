@@ -6,11 +6,7 @@ var child_process = require('child_process'),
 
 var waterfall = require('../../../../shared/lib/waterfall.js');
 
-var timeoutId,
-    mongoose          = miitoo.get('Mongoose'),
-    primus            = miitoo.get('Primus'),
-    PresentationStore = miitoo.get('PresentationStore'),
-    ObjectId          = mongoose.Types.ObjectId;
+var timeoutId, mongoose, primus, PresentationStore, ObjectId;
 
 function endOfWorker() {
     miitoo.logger.info('End of ConverterWorker.');
@@ -20,7 +16,7 @@ function endOfWorker() {
 }
 
 function ConvertSlide(index, file, target, cb) {
-    var cmd = 'convert -alpha opaque -quality 100 -density 240 "' + file + '[' + index + ']" "' + target + '"';
+    var cmd = 'convert -background white -alpha remove -quality 100 -density 240 "' + file + '[' + index + ']" "' + target + '"';
 
     child_process.exec(cmd, function(err, out) {
         if(err)
@@ -100,6 +96,11 @@ function ConverterWorker() {
                     // Add slides to the presentation
                     PresentationStore.addSlides(presentation, slides, function() {
                         
+                        // Send refresh
+                        primus.in(presentation.team + ':APP_SLIDER').write({
+                            event: 'slider:refresh'
+                        });
+
                         endOfWorker();
                     });
                 });
@@ -128,8 +129,19 @@ function ConverterWorker() {
     });
 }
 
-// Run one time the worker
-timeoutId = setTimeout(ConverterWorker, 15000);
+// Stop worker before stop
+miitoo.once('after:start', function() {    
+
+    // Store values
+    mongoose          = miitoo.get('Mongoose');
+    primus            = miitoo.get('Primus');
+    PresentationStore = miitoo.get('PresentationStore');
+    ObjectId          = mongoose.Types.ObjectId;
+
+    // Run one time the worker
+    timeoutId = setTimeout(ConverterWorker, 15000);
+
+});
 
 // Stop worker before stop
 miitoo.once('before:stop', function() {    

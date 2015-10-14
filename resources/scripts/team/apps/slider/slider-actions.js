@@ -27,6 +27,8 @@ var refreshPresentations = Debounce(function() {
     Realtime.send('slider:presentations');
 }, 250);
 
+Realtime.on('slider:refresh', refreshPresentations);
+
 // Expose the actions
 module.exports = {
     refresh: function() {

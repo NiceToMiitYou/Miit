@@ -56,7 +56,7 @@ var QuizShow = React.createClass({
     },
 
     render: function() {
-        var quiz    = this.state.quiz;
+        var quiz = this.state.quiz;
 
         if(!quiz) {
             return null;

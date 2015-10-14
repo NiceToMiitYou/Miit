@@ -8,10 +8,10 @@ var plugin = {
         require('templates/_load');
 
         // Load the store and actions
-        //var actions = require('quiz-actions'),
-        //    store   = require('quiz-store');
+        var actions = require('slider-actions'),
+            store   = require('slider-store');
         
-        //actions.refresh();
+        actions.refresh();
     },
 
     onRemove: function() {

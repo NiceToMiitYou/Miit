@@ -23,6 +23,10 @@ function _refreshPresentations(presentations) {
 var SliderStore = ObjectAssign({}, EventEmitter.prototype, {
     getPresentations: function() {
         return Presentations || [];
+    },
+
+    getPresentation: function(id) {
+        return Presentations.findBy('id', id);
     }
 });
 

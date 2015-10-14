@@ -145,7 +145,7 @@ var store = miitoo.resolve(['PresentationModel', 'Mongoose'], function(Presentat
             var teamId = getId(team);
 
             var presentation = new Presentation({
-                name: upload.name,
+                name: upload.name.replace(/\.pdf$/, ''),
                 file: upload,
                 team: teamId
             });

@@ -96,7 +96,7 @@ var controller = miitoo.resolve(['MiitConfig', 'ImagesRoutes'], function(config,
 
         var parent = req.params[0] || '',
             child  = req.params[1] || '',
-            file   = path.resolve(__dirname + '/../cache/team/' + parent + '/' + child);
+            file   = path.resolve(__dirname + '/../cache/team/' + parent + '/' + child + '.png');
 
         res.sendFile(file, function(err) {
             if (err) {

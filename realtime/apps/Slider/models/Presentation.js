@@ -62,6 +62,14 @@ var model = miitoo.resolve(['Mongoose'], function(mongoose) {
         transform: function(doc, ret, options) {
             ret.id = ret._id;
 
+            for(var i in ret.slides) {
+
+                // Swap _id to id
+                ret.slides[i].id = ret.slides[i]._id;
+
+                delete ret.slides[i]._id;
+            }
+
             delete ret._id;
             delete ret.__v;
             return ret;

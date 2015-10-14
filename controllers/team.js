@@ -322,14 +322,12 @@ var controller = miitoo.resolve(
 
         var scheme  = (config.domain === 'miit.fr') ? 'https://' : 'http://',
             port    = (config.domain === 'miit.fr') ? '' : ':' + config.port,
-            urlBase = scheme + 'img.' + config.domain + port,
-            url     = urlBase + '/avatar/';
-                    
+            urlBase = scheme + 'img.' + config.domain + port + '/';
 
         return res.render('team/index', {
-            avatar: url,
-            team:   req.team,
-            apps:   applications
+            url:  urlBase,
+            team: req.team,
+            apps: applications
         });
     });
 });
