@@ -18,7 +18,10 @@ var SliderShow = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title: 'Présentation'
+                title:   'Présentation',
+                publish: 'Publier',
+                close:   'Cloturer',
+                reopen:  'Ré-ouvrir'
             }
         };
     },
@@ -52,6 +55,24 @@ var SliderShow = React.createClass({
         });
     },
 
+    onClose: function() {
+        var presentation = this.state.presentation;
+
+        SliderActions.close(presentation.id);
+    },
+
+    onReopen: function() {
+        var presentation = this.state.presentation;
+
+        SliderActions.reopen(presentation.id);
+    },
+
+    onPublish: function() {
+        var presentation = this.state.presentation;
+
+        SliderActions.publish(presentation.id);
+    },
+
     render: function() {
         var presentation = this.state.presentation;
 
@@ -75,6 +96,26 @@ var SliderShow = React.createClass({
                     {slides.map(function(slide) {
                         return <SliderShowSlide key={'slide-' + slide.id} presentation={presentation.id} slide={slide} />
                     })}
+                </div>
+
+                <div className="slider-show-actions">
+                    <If test={UserStore.isAdmin() && !presentation.published}>
+                        <button className="btn btn-info mr20" onClick={this.onPublish} type="button">
+                            <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}
+                        </button>
+                    </If>
+
+                    <If test={UserStore.isAdmin() && presentation.published && !presentation.closed}>
+                        <button className="btn btn-danger mr20" onClick={this.onClose} type="button">
+                            <i className="fa fa-lock-o mr5"></i> {this.props.text.close}
+                        </button>
+                    </If>
+
+                    <If test={UserStore.isAdmin() && presentation.published && presentation.closed}>
+                        <button className="btn btn-warning mr20" onClick={this.onReopen} type="button">
+                            <i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}
+                        </button>
+                    </If>
                 </div>
             </div>
         );

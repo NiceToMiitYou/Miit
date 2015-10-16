@@ -79,5 +79,67 @@ module.exports = function SliderActions(app) {
         });
     });
 
+    // Publish a presentation
+    Dispatcher.register('slider:publish', 'ADMIN', function onPubishPresentation(spark, data, team, user) {
+        var pesentationId = data.id;
+
+        if(!pesentationId) {
+            return;
+        }
+
+        PresentationStore.publish(pesentationId, team, function(err, slider) {
+            sendRefresh(team);
+        });
+    });
+
+    // Close a presentation
+    Dispatcher.register('slider:close', 'ADMIN', function onClosePresentation(spark, data, team, user) {
+        var pesentationId = data.id;
+
+        if(!pesentationId) {
+            return;
+        }
+
+        PresentationStore.close(pesentationId, team, function(err, slider) {
+            sendRefresh(team);
+        });
+    });
+
+    // Reopen a presentation
+    Dispatcher.register('slider:reopen', 'ADMIN', function onReopnPresentation(spark, data, team, user) {
+        var pesentationId = data.id;
+
+        if(!pesentationId) {
+            return;
+        }
+
+        PresentationStore.reopen(pesentationId, team, function(err, slider) {
+            sendRefresh(team);
+        });
+    });
+
+    // Update a presentation
+    Dispatcher.register('quiz:update', 'ADMIN', function onUpdatePresentation(spark, data, team, user) {
+        var pesentationId = data.id,
+            name          = data.name || '',
+            description   = data.description || '';
+
+        if(
+            !pesentationId ||
+            'string' !== typeof name ||
+            'string' !== typeof description ||
+            !name || !name.trim()
+        ) {
+            return;
+        }
+
+        name        = name.trim();
+        description = description.trim();
+
+        PresentationStore.update(pesentationId, name, description, team, function(err, quiz) {
+            sendRefresh(team);
+        });
+    });
+
     Dispatcher.reset();
 };

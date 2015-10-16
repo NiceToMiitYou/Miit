@@ -33,5 +33,53 @@ Realtime.on('slider:refresh', refreshPresentations);
 module.exports = {
     refresh: function() {
         refreshPresentations();
+    },
+
+    close: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('slider:close', {
+            id: id
+        });
+
+        return true;
+    },
+
+    reopen: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('slider:reopen', {
+            id: id
+        });
+
+        return true;
+    },
+
+    publish: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('slider:publish', {
+            id: id
+        });
+
+        return true;
     }
 };
