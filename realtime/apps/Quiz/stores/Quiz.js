@@ -56,6 +56,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var teamId = getId(team),
                 quizId = getId(quiz);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             if(typeof options === 'function') {
                 cb      = options;
                 options = null;
@@ -266,6 +271,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var quizId = getId(quiz),
                 teamId = getId(team);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 _id:  quizId,
                 team: teamId
@@ -281,6 +291,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
         closeQuiz: function(quiz, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             var conditions = {
                 _id:  quizId,
@@ -298,6 +313,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var quizId = getId(quiz),
                 teamId = getId(team);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 _id:  quizId,
                 team: teamId
@@ -313,6 +333,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
         updateQuiz: function(quiz, name, description, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             var conditions = {
                 _id:  quizId,
@@ -330,6 +355,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
         addQuestion: function(quiz, title, subtitle, kind, order, required, team, cb) {
             var quizId = getId(quiz),
                 teamId = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             var conditions = {
                 _id:  quizId,
@@ -367,6 +397,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                 teamId     = getId(team),
                 questionId = getId(question);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 _id:             quizId,
                 team:            teamId,
@@ -390,6 +425,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                 teamId     = getId(team),
                 questionId = getId(question);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 _id:  quizId,
                 team: teamId
@@ -410,6 +450,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var quizId     = getId(quiz),
                 questionId = getId(question),
                 teamId     = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             var conditions = {
                 _id:             quizId,
@@ -435,6 +480,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                 teamId     = getId(team),
                 questionId = getId(question),
                 answerId   = getId(answer);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             this.findQuiz(team, quiz, function(err, instance) {
                 if(err) {
@@ -493,6 +543,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
                 questionId = getId(question),
                 answerId   = getId(answer);
 
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
+
             var conditions = {
                 _id:             quizId,
                 team:            teamId,
@@ -514,6 +569,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var quizId = getId(quiz),
                 userId = getId(user),
                 teamId = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             this.removeChoices(quiz, user, team, function(errRemove) {
                 if(errRemove) {
@@ -606,6 +666,11 @@ var store = miitoo.resolve(['QuizModel', 'Mongoose'], function(Quiz, mongoose) {
             var quizId = getId(quiz),
                 userId = getId(user),
                 teamId = getId(team);
+                
+            // Prevent crashes
+            if(!ObjectId.isValid(quizId)) {
+                return;
+            }
 
             this.findQuiz(team, quiz, function(err, instance) {
                 if(err || !instance) {

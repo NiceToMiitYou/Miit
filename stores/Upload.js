@@ -32,9 +32,9 @@ var store = miitoo.resolve(['DownloadModel', 'UploadModel', 'Mongoose'], functio
         },
 
         allow: function(upload, user, team, application, cb) {
-            var teamId     = getId(team),
-                userId     = getId(user),
-                uploadId   = getId(upload);
+            var teamId   = getId(team),
+                userId   = getId(user),
+                uploadId = getId(upload);
 
                 var download = new Download({
                     application: application,
@@ -175,6 +175,32 @@ var store = miitoo.resolve(['DownloadModel', 'UploadModel', 'Mongoose'], functio
                     size:     size,
                     type:     type,
                     uploaded: true
+                }, function(err, upload) {
+                    // Log the error
+                    if(err) {
+                        miitoo.logger.error(err.message);
+                        miitoo.logger.error(err.stack);
+                    }
+
+                    if(typeof cb === 'function') {
+                        cb(err, upload);
+                    }
+                });
+        },
+
+        setRemoved: function(upload, cb) {
+            var uploadId = getId(upload);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(uploadId)) {
+                return;
+            }
+
+            Upload
+                .update({
+                    _id: uploadId
+                }, {
+                    removed: true
                 }, function(err, upload) {
                     // Log the error
                     if(err) {

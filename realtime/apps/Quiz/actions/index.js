@@ -150,7 +150,7 @@ module.exports = function QuizActions(app) {
     });
 
     // Reopen a quiz
-    Dispatcher.register('quiz:reopen', 'ADMIN', function onCloseQuiz(spark, data, team, user) {
+    Dispatcher.register('quiz:reopen', 'ADMIN', function onReopenQuiz(spark, data, team, user) {
         var quizId = data.id;
 
         if(!quizId) {

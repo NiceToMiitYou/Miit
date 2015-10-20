@@ -90,6 +90,26 @@ var controller = miitoo.resolve(['MiitConfig', 'ImagesRoutes'], function(config,
         // Handle download
         getFromCacheOrUrl(res, file, link);
     });
+
+    // Catch all others request
+    app.get(/^\/([a-f0-9]{24})\/([a-f0-9]{24}).png$/, function(req, res) {
+
+        var parent = req.params[0] || '',
+            child  = req.params[1] || '',
+            file   = path.resolve(__dirname + '/../cache/team/' + parent + '/' + child + '.png');
+
+        res.sendFile(file, function(err) {
+            if (err) {
+                miitoo.logger.error(err.message);
+
+                return res.status(err.status).end();
+            }
+            else
+            {
+                miitoo.logger.info('Sent:', file);
+            }
+        });
+    });
 });
 
 miitoo.once('before:start', controller);
