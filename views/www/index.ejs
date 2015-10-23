@@ -43,15 +43,13 @@
     <title><%= __('www.title') %></title>
     <script type="text/javascript">
         // ie8 polyfill for html5 elements
-        (function(a) {
-            a('header');
-            a('footer');
-            a('section');
-            a('aside');
-            a('nav');
-            a('article');
-            a('figure');
-        })(document.createElement.bind(document));
+        document.createElement('header');
+        document.createElement('footer');
+        document.createElement('section');
+        document.createElement('aside');
+        document.createElement('nav');
+        document.createElement('article');
+        document.createElement('figure');
     </script>
     <script type="text/javascript">
         // translation
