@@ -141,7 +141,6 @@ var WallList = React.createClass({
                         </div>
                     </If>
                 </div>
-
             </div>
         );
     }
