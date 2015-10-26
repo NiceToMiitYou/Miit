@@ -1,5 +1,29 @@
 'use strict';
 
+function ieLoadBugFix(script, callback) {
+    var done = false;
+
+    script.onload = script.onreadystatechange = function() {
+        if(
+            !done &&
+            (
+                !this.readyState ||
+                 this.readyState === 'loaded' ||
+                 this.readyState === 'complete'
+            )
+        ) {
+            done = true;
+
+            // Handle memory leak in IE
+            script.onload = script.onreadystatechange = null;
+
+            if(typeof callback === 'function') {
+                callback();
+            }
+        }
+    };
+}
+
 module.exports = {
     addStyle: function(id, src, cb) {
         id = 'style-' + id;
@@ -14,9 +38,9 @@ module.exports = {
             style.setAttribute('href', src);
             style.setAttribute('rel',  'stylesheet');
             style.setAttribute('type', 'text/css')
-            style.onload = cb;
+            ieLoadBugFix(style, cb);
 
-            document.head.appendChild(style);
+            document.getElementsByTagName('head')[0].appendChild(style);
         }
     },
 
@@ -31,7 +55,7 @@ module.exports = {
             // Set all attributes
             script.setAttribute('id',  id);
             script.setAttribute('src', src);
-            script.onload = cb;
+            ieLoadBugFix(script, cb);
 
             document.body.appendChild(script);
         }

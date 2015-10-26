@@ -118,11 +118,29 @@ var ChatMessageList = React.createClass({
     },
 
     attachScrollListener: function () {
-        this.getDOMNode().addEventListener('scroll', this.scrollListenerDebounce);
+        var el = this.getDOMNode();
+
+        if(el.addEventListener)
+        {
+            el.addEventListener('scroll', this.scrollListenerDebounce, false); 
+        }
+        else if(el.attachEvent)
+        {
+            el.attachEvent('onscroll', this.scrollListenerDebounce);
+        }
     },
 
     detachScrollListener: function () {
-        this.getDOMNode().removeEventListener('scroll', this.scrollListenerDebounce);
+        var el = this.getDOMNode();
+
+        if(el.removeEventListener)
+        {
+            el.removeEventListener('scroll', this.scrollListenerDebounce, false); 
+        }
+        else if(el.detachEvent)
+        {
+            el.detachEvent('onscroll', this.scrollListenerDebounce);
+        }
     },
 
     _onChanged: function() {
