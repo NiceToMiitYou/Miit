@@ -201,7 +201,6 @@ var QuizUpdate = React.createClass({
                                     <textarea type="text" name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                                 </label>
                             </form>
-
                         </div>
 
                         <If test={!quiz.closed}>
