@@ -410,7 +410,6 @@ a {
                   position: absolute;
                   right: 14px;
                   top: 12px;
-                  padding: 0 8px;
                 }
 
                 i {
@@ -423,7 +422,7 @@ a {
                   margin-top: 15px;
                 }
 
-                span {
+                & > span:not(.notification) {
                   display: block;
                   font-size: 12px;
                   font-weight: 400;
@@ -453,9 +452,9 @@ a {
   font-size: 9px;
   font-weight: 600;
   border-radius: 2px;
-  padding: 0 8px;
+  padding: 0 4px;
   line-height: 18px;
-  min-width: 20px;
+  min-width: 18px;
   text-align: center;
 }
 
