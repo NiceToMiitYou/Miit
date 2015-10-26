@@ -15,7 +15,7 @@ var WallListItemActions = React.createClass({
                 nbrlike:  'personne aime cette question',
                 nbrlikes: 'personnes aiment cette question',
                 like:     'J\'aime',
-                unlike:   'Je m\'aime plus'
+                unlike:   'Je n\'aime plus'
             }
         };
     },
