@@ -54,7 +54,7 @@ var SliderList = React.createClass({
         }
 
         return (
-            <div className="miit-component slider-list container-fluid">
+            <div className="miit-component slider-list">
                 <div className="page-title mb30">
                     <h2><i className="fa fa-th-list mr15"></i>{this.props.text.title}</h2>
                 </div>

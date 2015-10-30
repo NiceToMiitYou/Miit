@@ -33,7 +33,6 @@ var SliderListItem = React.createClass({
         return (
             <div className={classes}>
                 <div className="slider-list-item-inner">
-                    <div className="hover-layer-overlay"></div>
                     <h3>{presentation.name}</h3>
 
                     <If test={presentation.description}>

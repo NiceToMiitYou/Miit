@@ -83,7 +83,7 @@ var SliderShow = React.createClass({
         var slides = presentation.slides || [];
 
         return (
-            <div className="miit-component slider-show container-fluid">
+            <div className="miit-component slider-show">
                 <div className="page-title mb20">
                     <h2>
                         {this.props.text.title + ' - ' + presentation.name}
