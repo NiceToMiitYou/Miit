@@ -81,51 +81,85 @@ module.exports = function SliderActions(app) {
 
     // Publish a presentation
     Dispatcher.register('slider:publish', 'ADMIN', function onPubishPresentation(spark, data, team, user) {
-        var pesentationId = data.id;
+        var presentationId = data.id;
 
-        if(!pesentationId) {
+        if(!presentationId) {
             return;
         }
 
-        PresentationStore.publish(pesentationId, team, function(err, slider) {
+        PresentationStore.publish(presentationId, team, function(err, slider) {
             sendRefresh(team);
         });
     });
 
     // Close a presentation
     Dispatcher.register('slider:close', 'ADMIN', function onClosePresentation(spark, data, team, user) {
-        var pesentationId = data.id;
+        var presentationId = data.id;
 
-        if(!pesentationId) {
+        if(!presentationId) {
             return;
         }
 
-        PresentationStore.close(pesentationId, team, function(err, slider) {
+        PresentationStore.close(presentationId, team, function(err, slider) {
             sendRefresh(team);
         });
     });
 
     // Reopen a presentation
-    Dispatcher.register('slider:reopen', 'ADMIN', function onReopnPresentation(spark, data, team, user) {
-        var pesentationId = data.id;
+    Dispatcher.register('slider:reopen', 'ADMIN', function onReopenPresentation(spark, data, team, user) {
+        var presentationId = data.id;
 
-        if(!pesentationId) {
+        if(!presentationId) {
             return;
         }
 
-        PresentationStore.reopen(pesentationId, team, function(err, slider) {
+        PresentationStore.reopen(presentationId, team, function(err, slider) {
             sendRefresh(team);
+        });
+    });
+
+    // Reopen a presentation
+    Dispatcher.register('slider:next', 'ADMIN', function onNextSlidePresentation(spark, data, team, user) {
+        var presentationId = data.id;
+
+        if(!presentationId) {
+            return;
+        }
+
+        PresentationStore.next(presentationId, team, function(err, slider) {
+            primus.in(team.id + ':' + app.identifier()).write({
+                event:        'slider:next',
+                presentation: presentationId,
+                current:      slider.current
+            });
+        });
+    });
+
+    // Reopen a presentation
+    Dispatcher.register('slider:previous', 'ADMIN', function onPreviousSlidePresentation(spark, data, team, user) {
+        var presentationId = data.id;
+
+        if(!presentationId) {
+            return;
+        }
+
+        PresentationStore.previous(presentationId, team, function(err, slider) {
+            primus.in(team.id + ':' + app.identifier()).write({
+                event:        'slider:previous',
+                presentation: presentationId,
+                current:      slider.current
+            });
         });
     });
 
     // Update a presentation
     Dispatcher.register('quiz:update', 'ADMIN', function onUpdatePresentation(spark, data, team, user) {
-        var pesentationId = data.id,
-            name          = data.name || '',
-            description   = data.description || '';
+        var presentationId = data.id,
+            name           = data.name || '',
+            description    = data.description || '';
 
         if(
-            !pesentationId ||
+            !presentationId ||
             'string' !== typeof name ||
             'string' !== typeof description ||
             !name || !name.trim()
@@ -136,7 +170,7 @@ module.exports = function SliderActions(app) {
         name        = name.trim();
         description = description.trim();
 
-        PresentationStore.update(pesentationId, name, description, team, function(err, quiz) {
+        PresentationStore.update(presentationId, name, description, team, function(err, quiz) {
             sendRefresh(team);
         });
     });

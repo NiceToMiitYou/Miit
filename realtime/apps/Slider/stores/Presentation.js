@@ -225,6 +225,76 @@ var store = miitoo.resolve(['PresentationModel', 'Mongoose'], function(Presentat
             updatePresentation(conditions, update, cb);
         },
 
+        next: function(presentation, team, cb) {
+            var presentationId = getId(presentation),
+                teamId         = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(presentationId)) {
+                return;
+            }
+            
+            var conditions = {
+                _id:     presentationId,
+                team:    teamId,
+                $where: 'this.slides.length > (this.current - 1)'
+            };
+
+            var update = {
+                $inc: {
+                    current: 1
+                }
+            };
+
+            Presentation.findOneAndUpdate(conditions, update, { 'new': true },function(err, doc) {
+                // Log the error
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err, doc);
+                }
+            });
+        },
+
+        previous: function(presentation, team, cb) {
+            var presentationId = getId(presentation),
+                teamId         = getId(team);
+
+            // Prevent crashes
+            if(!ObjectId.isValid(presentationId)) {
+                return;
+            }
+            
+            var conditions = {
+                _id:     presentationId,
+                team:    teamId,
+                current: {
+                    $gte: 1
+                }
+            };
+
+            var update = {
+                $inc: {
+                    current: -1
+                }
+            };
+
+            Presentation.findOneAndUpdate(conditions, update, { 'new': true },function(err, doc) {
+                // Log the error
+                if(err) {
+                    miitoo.logger.error(err.message);
+                    miitoo.logger.error(err.stack);
+                }
+
+                if(typeof cb === 'function') {
+                    cb(err, doc);
+                }
+            });
+        },
+
         update: function(presentation, name, description, team, cb) {
             var presentationId = getId(presentation),
                 teamId         = getId(team);

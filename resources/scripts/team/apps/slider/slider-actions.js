@@ -22,6 +22,28 @@ Realtime.on('slider:presentations', function(data) {
     Dispatcher.dispatch(action);
 });
 
+Realtime.on('slider:next', function(data) {
+    var action = {
+        type:         ActionTypes.NEXT_SLIDE,
+        presentation: data.presentation,
+        current:      data.current
+    };
+
+    // Dispatch the action
+    Dispatcher.dispatch(action);
+});
+
+Realtime.on('slider:previous', function(data) {
+    var action = {
+        type:          ActionTypes.PREVIOUS_SLIDE,
+        presentation: data.presentation,
+        current:      data.current
+    };
+
+    // Dispatch the action
+    Dispatcher.dispatch(action);
+});
+
 // Debounces quizzes refresh to avoid flood
 var refreshPresentations = Debounce(function() {
     Realtime.send('slider:presentations');
@@ -61,6 +83,38 @@ module.exports = {
         }
 
         Realtime.send('slider:reopen', {
+            id: id
+        });
+
+        return true;
+    },
+
+    next: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('slider:next', {
+            id: id
+        });
+
+        return true;
+    },
+
+    previous: function(id) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id) {
+            return false;
+        }
+
+        Realtime.send('slider:previous', {
             id: id
         });
 

@@ -35,11 +35,13 @@ var SliderShow = React.createClass({
 
     componentDidMount: function() {
         SliderStore.addPresentationsRefreshedListener(this._onChange);
+        SliderStore.addSlideChangedListener(this._onSlideChange);
         this._onChange();
     },
 
     componentWillUnmount: function() {
         SliderStore.removePresentationsRefreshedListener(this._onChange);
+        SliderStore.removeSlideChangedListener(this._onSlideChange);
     },
 
     _onChange: function() {
@@ -52,8 +54,20 @@ var SliderShow = React.createClass({
 
         // Define the presentation
         this.setState({
-            presentation: presentation
+            presentation: presentation,
+            currentSlide: presentation.current
         });
+    },
+
+    _onSlideChange: function(presentationId, current) {
+        var presentation = this.state.presentation;
+
+        if(presentationId === presentation.id) {
+
+            this.setState({
+                currentSlide: current
+            });
+        }
     },
 
     onClose: function() {
@@ -75,10 +89,15 @@ var SliderShow = React.createClass({
     },
 
     onClickNextSlide: function() {
-        this.setState({
-            currentSlide: this.state.currentSlide+1
-        });
-        console.log(this.state.currentSlide);
+        var presentation = this.state.presentation;
+
+        SliderActions.next(presentation.id);
+    },
+
+    onClickPreviousSlide: function() {
+        var presentation = this.state.presentation;
+
+        SliderActions.previous(presentation.id);
     },
 
     render: function() {
@@ -91,9 +110,8 @@ var SliderShow = React.createClass({
 
         var slides = presentation.slides || [];
 
-
         var listStyle = {
-          left: -currentSlide*600,
+          left:  -currentSlide * 600,
           width: slides.length * 600
         };
 
@@ -134,7 +152,12 @@ var SliderShow = React.createClass({
                         </button>
                     </If>
                 </div>
-                <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+                <If test={UserStore.isAdmin()}>
+                    <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
+                </If>
+                <If test={UserStore.isAdmin()}>
+                    <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+                </If>
                 <span>{currentSlide}</span>
             </div>
         );
