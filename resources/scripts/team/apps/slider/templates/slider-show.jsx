@@ -28,7 +28,8 @@ var SliderShow = React.createClass({
 
     getInitialState: function () {
         return {
-            presentation: this.props.presentation
+            presentation: this.props.presentation,
+            currentSlide: 0
         };
     },
 
@@ -73,14 +74,28 @@ var SliderShow = React.createClass({
         SliderActions.publish(presentation.id);
     },
 
+    onClickNextSlide: function() {
+        this.setState({
+            currentSlide: this.state.currentSlide+1
+        });
+        console.log(this.state.currentSlide);
+    },
+
     render: function() {
         var presentation = this.state.presentation;
+        var currentSlide = this.state.currentSlide;
 
         if(!presentation) {
             return null;
         }
 
         var slides = presentation.slides || [];
+
+
+        var listStyle = {
+          left: -currentSlide*600,
+          width: slides.length * 600
+        };
 
         return (
             <div className="miit-component slider-show">
@@ -92,10 +107,12 @@ var SliderShow = React.createClass({
                 <If test={presentation.description}>
                     <p className="mb20">{presentation.description}</p>
                 </If>
-                <div className="slide-list">
-                    {slides.map(function(slide) {
-                        return <SliderShowSlide key={'slide-' + slide.id} presentation={presentation.id} slide={slide} />
-                    })}
+                <div className="slider-wrapper">
+                    <div className="slide-list" style={listStyle}>
+                        {slides.map(function(slide) {
+                            return <SliderShowSlide key={'slide-' + slide.id} presentation={presentation.id} slide={slide} />
+                        })}
+                    </div>
                 </div>
 
                 <div className="slider-show-actions">
@@ -117,6 +134,8 @@ var SliderShow = React.createClass({
                         </button>
                     </If>
                 </div>
+                <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+                <span>{currentSlide}</span>
             </div>
         );
     }

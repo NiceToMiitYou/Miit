@@ -2,6 +2,7 @@
 .slider-app {
     
     .slider-list {
+
     	.slider-list-item {
     		margin-bottom: 25px;
 
@@ -65,11 +66,26 @@
     }
 
     .slider-show {
-    	.slide-list {
 
-    		.slider-show-slide {
-    			display: inline;
-    		}
-    	}
+        .slider-wrapper {
+            width: 600px;
+            overflow: hidden;
+            position: relative;
+            .slide-list {
+
+                position: relative;
+
+                .slider-show-slide {
+                    width: 600px;
+                    display: inline-block;
+                    float: left;
+
+                    & > img {
+                        width:100%;
+                    }
+                }
+            }   
+
+        }
     }
 }
