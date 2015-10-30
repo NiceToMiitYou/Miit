@@ -25,7 +25,7 @@ var welcomePage  = config['welcome'];
 var notFoundPage = config['404'];
 
 // All needed pages variables
-var CurrentMainPage, CurrentApplicationPage, Argument;
+var CurrentMainPage = defaultPage, CurrentApplicationPage, Argument;
 
 // Retrieve it from local storage
 var RightMenuLocked = 'true' === localStorage.getItem('rigth_menu_lock') || false;
