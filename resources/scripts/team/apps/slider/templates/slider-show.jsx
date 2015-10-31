@@ -111,8 +111,8 @@ var SliderShow = React.createClass({
         var slides = presentation.slides || [];
 
         var listStyle = {
-          left:  -currentSlide * 600,
-          width: slides.length * 600
+            left:  -currentSlide * 100 + '%',
+            width: slides.length * 100 + '%'
         };
 
         return (
@@ -128,7 +128,7 @@ var SliderShow = React.createClass({
                 <div className="slider-wrapper">
                     <div className="slide-list" style={listStyle}>
                         {slides.map(function(slide) {
-                            return <SliderShowSlide key={'slide-' + slide.id} presentation={presentation.id} slide={slide} />
+                            return <SliderShowSlide key={'slide-' + slide.id} presentation={presentation.id} slidesLength={slides.length} slide={slide} />
                         })}
                     </div>
                 </div>
@@ -159,6 +159,7 @@ var SliderShow = React.createClass({
                     <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
                 </If>
                 <span>{currentSlide}</span>
+                <script>alert("test");</script>
             </div>
         );
     }

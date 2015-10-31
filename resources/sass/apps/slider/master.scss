@@ -68,12 +68,17 @@
     .slider-show {
 
         .slider-wrapper {
-            width: 600px;
+            width: 100%;
             overflow: hidden;
             position: relative;
             .slide-list {
 
                 position: relative;
+                -webkit-transition: left 500ms ease;
+                -moz-transition: left 500ms ease;
+                -o-transition: left 500ms ease;
+                transition: left 500ms ease;
+
 
                 .slider-show-slide {
                     width: 600px;
