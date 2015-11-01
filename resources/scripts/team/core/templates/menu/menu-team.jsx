@@ -45,7 +45,7 @@ var MenuTeam = React.createClass({
                         <If test={UserStore.isAdmin()}>
                             <li className="settings">
                                 <Link href="#/team/settings">
-                                    <i className="fa fa-cog"></i>{this.props.text.settings}
+                                    <i className="fa fa-cog"></i><span className="sl-app-label">{this.props.text.settings}</span>
                                 </Link>
                             </li>
                         </If>

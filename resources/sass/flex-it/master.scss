@@ -422,7 +422,7 @@ a {
                   margin-top: 15px;
                 }
 
-                & > span:not(.notification) {
+                & > span.sl-app-label {
                   display: block;
                   font-size: 12px;
                   font-weight: 400;
@@ -904,7 +904,7 @@ label.checkbox-field {
   cursor: pointer;
 }
 
-.checkbox-field {
+html:not(.ie8) .checkbox-field {
 
    label {
     cursor: pointer;

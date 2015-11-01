@@ -57,7 +57,7 @@ var MenuTeamItem = React.createClass({
         return (
             <li>
                 <Link href={link} activeGroup={this.props.activeGroup} activeName={activeName}>
-                    <i className={appClasses}></i>{label}
+                    <i className={appClasses}></i><span className="sl-app-label">{label}</span>
                     <If test={unread > 0}>
                         <span className="notification">{unread}</span>
                     </If>
