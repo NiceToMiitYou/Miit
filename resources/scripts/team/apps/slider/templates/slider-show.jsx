@@ -29,7 +29,8 @@ var SliderShow = React.createClass({
     getInitialState: function () {
         return {
             presentation: this.props.presentation,
-            currentSlide: 0
+            currentSlide: 0,
+            sticky:       true
         };
     },
 
@@ -60,12 +61,21 @@ var SliderShow = React.createClass({
     },
 
     _onSlideChange: function(presentationId, current) {
-        var presentation = this.state.presentation;
+        var presentation = this.state.presentation,
+            currentSlide = this.state.currentSlide,
+            sticky       = this.state.sticky;
 
-        if(presentationId === presentation.id) {
+        if(
+            presentationId === presentation.id &&
+            (
+                true    === sticky ||
+                current === currentSlide
+            )
+        ) {
 
             this.setState({
-                currentSlide: current
+                currentSlide: current,
+                sticky:       true
             });
         }
     },
@@ -90,24 +100,50 @@ var SliderShow = React.createClass({
 
     onClickNextSlide: function() {
         var presentation = this.state.presentation,
-            currentSlide = this.state.currentSlide
+            currentSlide = this.state.currentSlide;
 
-        if(currentSlide >= presentation.slides.length - 1) {
+        // Check limitation
+        if(currentSlide >= presentation.slides.length - 1)
+        {
             return;
         }
 
-        SliderActions.next(presentation.id);
+        // If is Admin, apply to all else, local change
+        if(true === UserStore.isAdmin())
+        {
+            SliderActions.next(presentation.id);
+        }
+        else if(currentSlide < presentation.current)
+        {
+            this.setState({
+                currentSlide: currentSlide + 1,
+                sticky:       currentSlide + 1 === presentation.current
+            });
+        }
     },
 
     onClickPreviousSlide: function() {
         var presentation = this.state.presentation,
             currentSlide = this.state.currentSlide
 
-        if(currentSlide <= 0) {
+        // Check limitation
+        if(currentSlide <= 0)
+        {
             return;
         }
 
-        SliderActions.previous(presentation.id);
+        // If is Admin, apply to all else, local change
+        if(true === UserStore.isAdmin())
+        {
+            SliderActions.previous(presentation.id);
+        }
+        else
+        {
+            this.setState({
+                currentSlide: currentSlide - 1,
+                sticky:       false
+            });
+        }
     },
 
     render: function() {
@@ -162,12 +198,10 @@ var SliderShow = React.createClass({
                         </button>
                     </If>
                 </div>
-                <If test={UserStore.isAdmin()}>
-                    <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
-                </If>
-                <If test={UserStore.isAdmin()}>
-                    <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
-                </If>
+
+                <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>             
+                <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+           
                 <span>{currentSlide}</span>
                 <script>alert("test");</script>
             </div>
