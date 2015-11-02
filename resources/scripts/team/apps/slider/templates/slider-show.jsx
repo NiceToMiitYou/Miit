@@ -37,12 +37,56 @@ var SliderShow = React.createClass({
     componentDidMount: function() {
         SliderStore.addPresentationsRefreshedListener(this._onChange);
         SliderStore.addSlideChangedListener(this._onSlideChange);
+        this.attachEventListener();
         this._onChange();
     },
 
     componentWillUnmount: function() {
         SliderStore.removePresentationsRefreshedListener(this._onChange);
         SliderStore.removeSlideChangedListener(this._onSlideChange);
+        this.detachEventListener();
+    },
+
+    attachEventListener: function() {
+        if(window.addEventListener)
+        {
+            window.addEventListener('keydown', this.onKeyDown, false); 
+        }
+        else if(window.attachEvent)
+        {
+            window.attachEvent('onkeydown', this.onKeyDown);
+        }
+    },
+
+    detachEventListener: function () {
+        if(window.removeEventListener)
+        {
+            window.removeEventListener('keydown', this.onKeyDown, false); 
+        }
+        else if(window.detachEvent)
+        {
+            window.detachEvent('onkeydown', this.onKeyDown);
+        }
+    },
+
+    onKeyDown: function(e) {
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+
+        switch(keyCode) {
+            case 27:
+                this.setState({
+                    fullscreen: false
+                });
+                break;
+
+            case 37:
+                this.onClickPreviousSlide();
+                break;
+
+            case 39:
+                this.onClickNextSlide();
+                break;
+        }
     },
 
     _onChange: function() {
