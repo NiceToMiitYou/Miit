@@ -136,7 +136,7 @@ var TeamApp = React.createClass({
             (true === LeftMenuOpened)  ? 'left-menu-open'  : 'menu-close',
             (true === RightMenuOpened) ? 'right-menu-open' : '',
             (true === RightMenuLocked) ? 'right-menu-lock' : '',
-            (height <= width) ? 'window-portrait' : 'window-landscape'
+            (height >= width) ? 'window-portrait' : 'window-landscape'
         );
 
         return (
