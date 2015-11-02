@@ -28,7 +28,7 @@ var SliderShowSlide = React.createClass({
         var url = window.MiitUrl + presentation + '/' + slide.id + '.png';
 
         return (
-            <div className="miit-component slider-show-slide container-fluid" style={slideStyle}>
+            <div className="miit-component slider-show-slide" style={slideStyle}>
                 <img src={url} />
             </div>
         );
