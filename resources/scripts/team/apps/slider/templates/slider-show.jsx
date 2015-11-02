@@ -125,8 +125,10 @@ var SliderShow = React.createClass({
             width: slides.length * 100 + '%'
         };
 
+        var SliderShowClasses = classNames('miit-component', 'slider-show');
+
         return (
-            <div className="miit-component slider-show">
+            <div className={SliderShowClasses}>
                 <div className="page-title mb20">
                     <h2>
                         {this.props.text.title + ' - ' + presentation.name}
@@ -161,15 +163,18 @@ var SliderShow = React.createClass({
                             <i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}
                         </button>
                     </If>
+
+                    <If test={UserStore.isAdmin()}>
+                        <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
+                    </If>
+                    <If test={UserStore.isAdmin()}>
+                        <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+                    </If>
+                    <a className="mt20" onClick={this.onClickFullscreen}>Plein ecran</a>
+                    <span>{currentSlide}</span>
                 </div>
-                <If test={UserStore.isAdmin()}>
-                    <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
-                </If>
-                <If test={UserStore.isAdmin()}>
-                    <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
-                </If>
-                <span>{currentSlide}</span>
-                <script>alert("test");</script>
+
+
             </div>
         );
     }
