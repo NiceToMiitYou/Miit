@@ -23,7 +23,8 @@ var QuizCreate = React.createClass({
                 name:        'Nom',
                 description: 'Description',
                 loading:     'Loading',
-                submit:      'Créer'
+                submit:      'Créer',
+                cancel:      'Annuler'
             }  
         };
     },
@@ -99,6 +100,12 @@ var QuizCreate = React.createClass({
         ModalActions.close('quiz-create-new');
     },
 
+    _onCancel: function() {
+
+        // Close the modal
+        ModalActions.close('quiz-create-new');
+    },
+
     render: function() {
         if(false === UserStore.isAdmin()) {
             return null;
@@ -126,7 +133,11 @@ var QuizCreate = React.createClass({
                         <textarea name="description" onChange={this.handleChange} defaultValue={value_description}></textarea>
                     </label>
                     <div className="modal-footer right">
-                         <button type="submit" className="btn-info btn btn-lg">{this.props.text.submit}</button>
+                        <button type="submit" className="btn btn-success mr15">{this.props.text.submit}</button>
+                        
+                        <button className="btn btn-danger" onClick={this._onCancel} type="button">
+                            <i className="fa fa-times mr5"></i> {this.props.text.cancel}
+                        </button>
                     </div>
                 </form>
                 <If test={processing}>

@@ -17,7 +17,7 @@ var Dashboard = React.createClass({
         return {
             text: {
                 title:    'Bienvenue sur le Miit',
-                subtitle: 'De nombreuses posssibilités d\'interaction qui s\'offrent à vous.'
+                subtitle: 'De nombreuses possibilités d\'interaction s\'offrent à vous.'
             }
         };
     },

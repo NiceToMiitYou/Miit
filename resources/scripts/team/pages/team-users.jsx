@@ -24,7 +24,7 @@ var TeamUsers = React.createClass({
                 informations: 'Informations',
                 userlist:     'Liste des utilisateurs',
                 title:        'Configuration',
-                subtitle:     'Gérer les utilisateurs de votre Miit',
+                subtitle:     'Gérez les utilisateurs de votre Miit',
                 users:        'Utilisateurs',
                 menu: {
                     settings: 'Informations',

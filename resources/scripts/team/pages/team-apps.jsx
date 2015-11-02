@@ -26,7 +26,7 @@ var TeamApps = React.createClass({
                 appstore:     'Ajouter une application', 
                 applist:      'Liste des applications', 
                 title:        'Configuration', 
-                subtitle:     'Configurer les applications présentes sur votre Miit',
+                subtitle:     'Configurez les applications présentes sur votre Miit',
                 menu: {
                     settings: 'Informations',
                     apps:     'Applications',

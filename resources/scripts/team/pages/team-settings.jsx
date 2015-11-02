@@ -24,7 +24,7 @@ var TeamSettings = React.createClass({
                 applications: 'Applications',
                 informations: 'Informations',
                 title:        'Configuration', 
-                subtitle:     'Configurer les informations et la confidentialité de votre Miit',
+                subtitle:     'Configurez les informations et la confidentialité de votre Miit',
                 menu: {
                     settings: 'Informations',
                     apps:     'Applications',

@@ -24,7 +24,6 @@ var AlertPopin = React.createClass({
         if(typeof onClick === 'function') {
             setTimeout(onClick);
         }
-
     },
 
     _onAgree: function() {
