@@ -90,7 +90,7 @@ var WallAddQuestion = React.createClass({
                                 <textarea ref="question-textarea" type="text" className="mt10" defaultValue={value_question} placeholder={this.props.placeholder.question} onChange={this.handleChange}></textarea>
                             </label>
 
-                            <div className="wall-list-item-actions">
+                            <div className="mt10">
                                 <label className="checkbox-field mt20 mb20">
                                     <input className="option-input checkbox" type="checkbox" name="required" checked={value_allow} onChange={this.handleAllow} />
                                     {this.props.text.comments}
