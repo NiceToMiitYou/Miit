@@ -19,7 +19,7 @@ var WelcomePage = React.createClass({
         return {
             text: {
                 title:     'Bienvenue sur Miit',
-                subtitle:  'Découvrez les nombreuses posssibilités de personnalisation qui s\'offrent à vous.',
+                subtitle:  'Découvrez les nombreuses possibilités de personnalisation qui s\'offrent à vous.',
                 templates: 'Pour commencer rapidement à communiquer vous pouvez choisir un modèle de Miit.',
                 customs:   'Créer un espace pesonnalisé en ajoutant vous même des applications.',
                 or:        'Ou'
@@ -30,6 +30,7 @@ var WelcomePage = React.createClass({
                     title:       'Conférences',
                     description: 'Construisez un espace de communication pour les conférences avec un chat, des questionnaires et mur de questions.',
                     apps: [
+                        'APP_SLIDER',
                         'APP_CHAT',
                         'APP_QUIZ',
                         'APP_WALL'
@@ -40,6 +41,7 @@ var WelcomePage = React.createClass({
                     title:       'Réunion',
                     description: 'Construisez un espace pour simplifier vos réunions grace à un chat, un partage de documents et un mur de questions.',
                     apps: [
+                        'APP_SLIDER',
                         'APP_CHAT',
                         'APP_DOCUMENTS',
                         'APP_WALL'
