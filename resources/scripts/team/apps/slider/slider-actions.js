@@ -57,6 +57,24 @@ module.exports = {
         refreshPresentations();
     },
 
+    update: function(id, name, description) {
+        if(false === UserStore.isAdmin()) {
+            return;
+        }
+
+        if(!id || !name) {
+            return false;
+        }
+
+        Realtime.send('slider:update', {
+            id:          id,
+            name:        name,
+            description: description
+        });
+
+        return true;
+    },
+
     close: function(id) {
         if(false === UserStore.isAdmin()) {
             return;

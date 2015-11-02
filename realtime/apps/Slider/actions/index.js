@@ -58,9 +58,7 @@ module.exports = function SliderActions(app) {
     }
 
     Dispatcher.load(app.identifier(), {
-        writes: [
-            // 'documents:remove'
-        ]
+        writes: []
     });
 
     // List presentations
@@ -161,7 +159,7 @@ module.exports = function SliderActions(app) {
     });
 
     // Update a presentation
-    Dispatcher.register('quiz:update', 'ADMIN', function onUpdatePresentation(spark, data, team, user) {
+    Dispatcher.register('slider:update', 'ADMIN', function onUpdatePresentation(spark, data, team, user) {
         var presentationId = data.id,
             name           = data.name || '',
             description    = data.description || '';
