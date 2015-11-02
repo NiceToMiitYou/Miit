@@ -89,20 +89,30 @@ var SliderShow = React.createClass({
     },
 
     onClickNextSlide: function() {
-        var presentation = this.state.presentation;
+        var presentation = this.state.presentation,
+            currentSlide = this.state.currentSlide
+
+        if(currentSlide >= presentation.slides.length - 1) {
+            return;
+        }
 
         SliderActions.next(presentation.id);
     },
 
     onClickPreviousSlide: function() {
-        var presentation = this.state.presentation;
+        var presentation = this.state.presentation,
+            currentSlide = this.state.currentSlide
+
+        if(currentSlide <= 0) {
+            return;
+        }
 
         SliderActions.previous(presentation.id);
     },
 
     render: function() {
-        var presentation = this.state.presentation;
-        var currentSlide = this.state.currentSlide;
+        var presentation = this.state.presentation,
+            currentSlide = this.state.currentSlide;
 
         if(!presentation) {
             return null;

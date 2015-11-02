@@ -18,6 +18,8 @@ var MenuTeam              = require('core/templates/menu/menu-team.jsx'),
     NotificationContainer = require('core/templates/notifications/notification-container.jsx');
 
 var TeamApp = React.createClass({
+    resizeListenerDebounce: null,
+
     getInitialState: function() {
         return {
             page:              PageStore.getCurrentMainPage(),
@@ -28,12 +30,24 @@ var TeamApp = React.createClass({
     },
 
     componentDidMount: function() {
+        this.resizeListenerDebounce = Debounce(this.resizeListener, 75);
+
         UserStore.addLoggedInListener(this._onLoggedIn);
         TeamStore.addTeamUpdatedListener(this._onChange);
         PageStore.addPageChangedListener(this._onChange);
         PageStore.addLeftMenuToggledListener(this._onToggleLeft);
         PageStore.addRightMenuToggledListener(this._onToggleRight);
         PageStore.addRightMenuLockToggledListener(this._onToggleRightLock);
+
+        if(window.addEventListener)
+        {
+            window.addEventListener('resize', this.resizeListenerDebounce, false); 
+        }
+        else if(window.attachEvent)
+        {
+            window.attachEvent('onresize', this.resizeListenerDebounce);
+        }
+
         this._onLoggedIn();
     },
 
@@ -44,6 +58,15 @@ var TeamApp = React.createClass({
         PageStore.removeLeftMenuToggledListener(this._onToggleLeft);
         PageStore.removeRightMenuToggledListener(this._onToggleRight);
         PageStore.removeRightMenuLockToggledListener(this._onToggleRightLock);
+
+        if(window.removeEventListener)
+        {
+            window.removeEventListener('resize', this.resizeListenerDebounce, false); 
+        }
+        else if(window.detachEvent)
+        {
+            window.detachEvent('onresize', this.resizeListenerDebounce);
+        }
     },
 
     _onLoggedIn: function() {
@@ -57,6 +80,10 @@ var TeamApp = React.createClass({
 
         // Finally call onChange to refresh the page
         this._onChange();
+    },
+
+    resizeListener: function() {
+        this.forceUpdate();
     },
 
     _onChange: function() {
@@ -101,10 +128,15 @@ var TeamApp = React.createClass({
             RightMenuOpened = this.state.right_menu_opened,
             RightMenuLocked = this.state.right_menu_locked;
 
+        // Window information
+        var height = window.innerHeight,
+            width  = window.innerWidth;
+
         var classes = classNames('team-app page', 
             (true === LeftMenuOpened)  ? 'left-menu-open'  : 'menu-close',
             (true === RightMenuOpened) ? 'right-menu-open' : '',
-            (true === RightMenuLocked) ? 'right-menu-lock' : ''
+            (true === RightMenuLocked) ? 'right-menu-lock' : '',
+            (height <= width) ? 'window-portrait' : 'window-landscape'
         );
 
         return (

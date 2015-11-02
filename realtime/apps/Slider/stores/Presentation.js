@@ -237,7 +237,7 @@ var store = miitoo.resolve(['PresentationModel', 'Mongoose'], function(Presentat
             var conditions = {
                 _id:     presentationId,
                 team:    teamId,
-                $where: 'this.slides.length > (this.current - 1)'
+                $where: 'this.slides.length >= (this.current - 1)'
             };
 
             var update = {

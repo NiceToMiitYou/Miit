@@ -127,6 +127,10 @@ module.exports = function SliderActions(app) {
         }
 
         PresentationStore.next(presentationId, team, function(err, slider) {
+            if(!slider) {
+                return;
+            }
+            
             primus.in(team.id + ':' + app.identifier()).write({
                 event:        'slider:next',
                 presentation: presentationId,
@@ -144,6 +148,10 @@ module.exports = function SliderActions(app) {
         }
 
         PresentationStore.previous(presentationId, team, function(err, slider) {
+            if(!slider) {
+                return;
+            }
+
             primus.in(team.id + ':' + app.identifier()).write({
                 event:        'slider:previous',
                 presentation: presentationId,
