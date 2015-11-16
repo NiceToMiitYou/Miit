@@ -247,7 +247,7 @@ var SliderShow = React.createClass({
                     <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
                     <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
                     <a className="mt20" onClick={this.onClickFullscreen}>Plein ecran</a>
-                    <span>{currentSlide}</span>
+                    <span>{currentSlide+1}</span>
                 </div>
             </div>
         );

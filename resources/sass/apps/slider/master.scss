@@ -72,12 +72,13 @@
         .slider-wrapper {
             width: auto;
             height: auto;
-            max-width: 750px;
-            margin: auto;
+            max-width: 60%;
+            margin-right: 20px;
             overflow: hidden;
             position: relative;
             text-align: center;
-            
+            float: left;
+
             .slide-list {
 
                 position: relative;
