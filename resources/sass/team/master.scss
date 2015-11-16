@@ -513,16 +513,18 @@ textarea {
 	}
 
 	.app-description {
-		display: flex;
 		margin: auto;
 		margin-top: 20px;
 		background-color: #fff;
 		border: solid 1px #E8E8E8;
 		max-width: 800px;
+		position: relative;
+		min-height: 120px;
 
 
 		&.even .app-content {
 			padding-right: 10px;
+			padding-left:120px;
 
 			h4, p {
 				text-align: left;
@@ -531,15 +533,25 @@ textarea {
 
 		&.odd .app-content {
 			padding-left: 10px;
+			padding-right: 120px;
 
 			h4, p {
 				text-align: right;
 			}
 		}
 
+
+		&.odd .app-icon {
+			left: inherit;
+			right: 0;
+		}
+
 		.app-icon {
 			display: inline-block;
 		    padding: 20px;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
 
 		    .miit-app-icon i {
 		    	width: 80px;
@@ -550,7 +562,6 @@ textarea {
 		}
 
 		.app-content {
-			display: inline-block;
 			padding-bottom: 20px;
 
 			h4 {
@@ -575,13 +586,14 @@ textarea {
 		background-color: #FFF;
 		text-align: center;
 		padding: 18px 0;
+		border-right: 1px solid #E8E8E8;
 
 		&:hover {
-			background-color: #EFEFEF;
+			background-color: #F2F2F2;
 		}
 
 		&.active {
-			background-color: #E8E8E8;
+			background-color: #F5F5F5;
 		}
 	}
 }
