@@ -168,7 +168,7 @@ var SliderShow = React.createClass({
 
     onClickPreviousSlide: function() {
         var presentation = this.state.presentation,
-            currentSlide = this.state.currentSlide
+            currentSlide = this.state.currentSlide;
 
         // Check limitation
         if(currentSlide <= 0)
