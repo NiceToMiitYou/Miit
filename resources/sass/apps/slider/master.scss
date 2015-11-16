@@ -18,7 +18,9 @@
     			    font-size: 1.2em;
     			    padding: 15px;
     			    position: relative;
-    			    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
     			}
 
     			p {
