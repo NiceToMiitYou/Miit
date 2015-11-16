@@ -2,7 +2,7 @@
 
 var Router = require('director').Router;
 
-var router, routes = new DataStore('routes');
+var router, routes = new DataStore('routes'), routing = false;
 
 module.exports = {
     init: function() {
@@ -20,10 +20,18 @@ module.exports = {
     routes: routes,
 
     setRoute: function(path) {
-        var delay = (typeof window.onpopstate !== 'function') ? 600: 0;
 
-        setTimeout(function() {
-            router.setRoute(path);
-        }, delay);
+        // Prevent multiple routing
+        if(false === routing) {
+            routing = true;
+
+            var delay = (typeof window.onpopstate !== 'function') ? 600: 0;
+
+            setTimeout(function() {
+                router.setRoute(path);
+
+                routing = false;
+            }, delay);
+        }
     }
 };
