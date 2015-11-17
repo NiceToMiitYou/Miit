@@ -21,8 +21,9 @@ var SliderShow = React.createClass({
                 title:   'Présentation',
                 publish: 'Publier',
                 close:   'Cloturer',
-                close_sentence:   'Votre Présentation n\'est pas synchronisé avec le public',
-                open_sentence:   'Cloturer',
+                close_sentence:   'Votre présentation n\'est pas synchronisé avec le public.',
+                open_sentence:   'Votre présentation est synchronisé avec le public.',
+                publish_sentence:   'Votre présentation n\'est pas publié. Les slides ne changeront que sur votre écran.',
                 reopen:  'Ré-ouvrir'
             }
         };
@@ -32,7 +33,8 @@ var SliderShow = React.createClass({
         return {
             presentation: this.props.presentation,
             currentSlide: 0,
-            sticky:       true
+            sticky:       true,
+            fullscreen:   false
         };
     },
 
@@ -144,6 +146,12 @@ var SliderShow = React.createClass({
         SliderActions.publish(presentation.id);
     },
 
+    onClickFullscreen: function() {
+        this.setState({
+            fullscreen: !this.state.fullscreen
+        });
+    },
+
     onClickNextSlide: function() {
         var presentation = this.state.presentation,
             currentSlide = this.state.currentSlide;
@@ -211,7 +219,7 @@ var SliderShow = React.createClass({
             width: (currentSlide*100)/(slides.length-1)  + '%'
         }
 
-        var SliderShowClasses = classNames('miit-component', 'slider-show');
+        var SliderShowClasses = classNames('miit-component', 'slider-show', this.state.fullscreen==true ? 'fullscreen ' : '');
 
         return (
             <div className={SliderShowClasses}>
@@ -233,41 +241,44 @@ var SliderShow = React.createClass({
 
                 <div className="slider-show-actions">
                     <If test={UserStore.isAdmin() && !presentation.published}>
-                        <div>
-                            <span>{this.props.text.close_sentence}</span>
-                            <button className="btn btn-info mr20" onClick={this.onPublish} type="button">
+                        <div className="slide-show-stat">
+                            <span> <i className="fa fa-circle stat-config mr5"></i> {this.props.text.publish_sentence}</span>
+                            <a onClick={this.onPublish}>
                                 <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}
-                            </button>
+                            </a>
                         </div>
                     </If>
 
                     <If test={UserStore.isAdmin() && presentation.published && !presentation.closed}>
-                        <button className="btn btn-danger mr20" onClick={this.onClose} type="button">
-                            <i className="fa fa-lock mr5"></i> {this.props.text.close}
-                        </button>
+                        <div className="slide-show-stat">
+                            <span> <i className="fa fa-circle stat-open mr5"></i> {this.props.text.open_sentence}</span>
+                            <a onClick={this.onClose}>
+                                <i className="fa fa-lock mr5"></i> {this.props.text.close}
+                            </a>
+                        </div>
                     </If>
 
                     <If test={UserStore.isAdmin() && presentation.published && presentation.closed}>
-                        <div>
-                            <span>{this.props.text.close_sentence}</span>
-                            <button className="btn btn-warning mr20" onClick={this.onReopen} type="button">
+                        <div className="slide-show-stat">
+                            <span> <i className="fa fa-circle stat-ready mr5"></i> {this.props.text.close_sentence}</span>
+                            <a onClick={this.onReopen}>
                                 <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.reopen}
-                            </button>
+                            </a>
                         </div>
                     </If>
-
-                    <div className="slider-show-progress">
-                        <div className="progress-bar">
-                            <div className="progress-bar-inner bg-blue" style={progressStyle}></div>
+                    <div className="sliders-show-commands">
+                        <div className="slider-show-progress">
+                            <div className="progress-bar">
+                                <div className="progress-bar-inner bg-blue" style={progressStyle}></div>
+                            </div>
+                            <span className="progress-page">{currentSlide+1}/{slides.length}</span>
                         </div>
-                        <span className="progress-page">{currentSlide+1}/{slides.length+1}</span>
+                        <div className="slider-show-controlers">
+                            <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>Previous</a>
+                            <a className="btn-next-slide" onClick={this.onClickNextSlide}>Next</a>
+                        </div>
+                        <a className="slider-show-fullscreen" onClick={this.onClickFullscreen}>{this.state.fullscreen==true ? 'Quitter le plein écran ' : 'Plein écran'}</a>
                     </div>
-                    <div className="slider-show-controlers">
-                        <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>Previous</a>
-                        <a className="btn-next-slide" onClick={this.onClickNextSlide}>Next</a>
-                    </div>
-                    <a className="mt20" onClick={this.onClickFullscreen}>Plein ecran</a>
-                    
                 </div>
             </div>
         );
