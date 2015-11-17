@@ -138,6 +138,10 @@
                         float: left; 
                     }
 
+                    &.btn-next-slide {
+                        float: right; 
+                    }
+
                     &:hover {
                         background-color:#2B3C4C;
                     }
