@@ -275,7 +275,7 @@ var SliderShow = React.createClass({
                             <div className="progress-bar">
                                 <div className="progress-bar-inner bg-blue" style={progressStyle}></div>
                             </div>
-                            <span className="progress-page">{currentSlide+1} / {slides.length || 0}</span>
+                            <span className="progress-page">{currentSlide+1}/{slides.length || 0}</span>
                         </div>
                         <div className="slider-show-controlers">
                             <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>
