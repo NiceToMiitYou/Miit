@@ -28,7 +28,7 @@ var SliderShow = React.createClass({
                 next:             'Suivant',
                 previous:         'Précédent',
                 fullscreen:       'Plein-écran',
-                leave_fullscreen: 'Quitter le plein écran'
+                leave_fullscreen: 'Quitter le plein-écran'
             }
         };
     },
