@@ -46,8 +46,6 @@ var SliderList = React.createClass({
             // Get the first id
             var presentationId = presentations[0].id || '';
 
-            var delay = (typeof window.onpopstate !== 'function') ? 600: 0;
-
             Router.setRoute('/slider/show/' + presentationId);
 
             return null;

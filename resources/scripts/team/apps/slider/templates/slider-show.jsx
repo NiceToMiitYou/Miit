@@ -220,7 +220,7 @@ var SliderShow = React.createClass({
         };
 
         var progressStyle = {
-            width: (currentSlide*100)/(slides.length-1)  + '%'
+            width: (currentSlide*100)/(slides.length-1) + '%'
         }
 
         var SliderShowClasses = classNames('miit-component', 'slider-show', this.state.fullscreen==true ? 'fullscreen ' : '');
