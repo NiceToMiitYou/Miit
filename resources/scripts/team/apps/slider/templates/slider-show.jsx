@@ -18,13 +18,17 @@ var SliderShow = React.createClass({
     getDefaultProps: function () {
         return {
             text: {
-                title:   'Présentation',
-                publish: 'Publier',
-                close:   'Cloturer',
+                title:            'Présentation',
+                publish:          'Publier',
+                close:            'Cloturer',
                 close_sentence:   'Votre présentation n\'est pas synchronisé avec le public.',
-                open_sentence:   'Votre présentation est synchronisé avec le public.',
-                publish_sentence:   'Votre présentation n\'est pas publié. Les slides ne changeront que sur votre écran.',
-                reopen:  'Ré-ouvrir'
+                open_sentence:    'Votre présentation est synchronisé avec le public.',
+                publish_sentence: 'Votre présentation n\'est pas publié. Les slides ne changeront que sur votre écran.',
+                reopen:           'Ré-ouvrir',
+                next:             'Suivant',
+                previous:         'Précédent',
+                fullscreen:       'Plein-écran',
+                leave_fullscreen: 'Quitter le plein écran'
             }
         };
     },
@@ -271,13 +275,22 @@ var SliderShow = React.createClass({
                             <div className="progress-bar">
                                 <div className="progress-bar-inner bg-blue" style={progressStyle}></div>
                             </div>
-                            <span className="progress-page">{currentSlide+1}/{slides.length}</span>
+                            <span className="progress-page">{currentSlide+1} / {slides.length || 0}</span>
                         </div>
                         <div className="slider-show-controlers">
-                            <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>Previous</a>
-                            <a className="btn-next-slide" onClick={this.onClickNextSlide}>Next</a>
+                            <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>
+                                {this.props.text.previous}
+                            </a>
+                            <a className="btn-next-slide" onClick={this.onClickNextSlide}>
+                                {this.props.text.next}
+                            </a>
                         </div>
-                        <a className="slider-show-fullscreen" onClick={this.onClickFullscreen}>{this.state.fullscreen==true ? 'Quitter le plein écran ' : 'Plein écran'}</a>
+                        <a className="slider-show-fullscreen" onClick={this.onClickFullscreen}>
+                            {this.state.fullscreen==true ? 
+                                this.props.text.leave_fullscreen : 
+                                this.props.text.fullscreen
+                            }
+                        </a>
                     </div>
                 </div>
             </div>
