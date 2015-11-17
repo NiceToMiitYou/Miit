@@ -21,6 +21,8 @@ var SliderShow = React.createClass({
                 title:   'Présentation',
                 publish: 'Publier',
                 close:   'Cloturer',
+                close_sentence:   'Votre Présentation n\'est pas synchronisé avec le public',
+                open_sentence:   'Cloturer',
                 reopen:  'Ré-ouvrir'
             }
         };
@@ -205,6 +207,10 @@ var SliderShow = React.createClass({
             width: slides.length * 100 + '%'
         };
 
+        var progressStyle = {
+            width: (currentSlide*100)/(slides.length-1)  + '%'
+        }
+
         var SliderShowClasses = classNames('miit-component', 'slider-show');
 
         return (
@@ -227,27 +233,41 @@ var SliderShow = React.createClass({
 
                 <div className="slider-show-actions">
                     <If test={UserStore.isAdmin() && !presentation.published}>
-                        <button className="btn btn-info mr20" onClick={this.onPublish} type="button">
-                            <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}
-                        </button>
+                        <div>
+                            <span>{this.props.text.close_sentence}</span>
+                            <button className="btn btn-info mr20" onClick={this.onPublish} type="button">
+                                <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.publish}
+                            </button>
+                        </div>
                     </If>
 
                     <If test={UserStore.isAdmin() && presentation.published && !presentation.closed}>
                         <button className="btn btn-danger mr20" onClick={this.onClose} type="button">
-                            <i className="fa fa-lock-o mr5"></i> {this.props.text.close}
+                            <i className="fa fa-lock mr5"></i> {this.props.text.close}
                         </button>
                     </If>
 
                     <If test={UserStore.isAdmin() && presentation.published && presentation.closed}>
-                        <button className="btn btn-warning mr20" onClick={this.onReopen} type="button">
-                            <i className="fa fa-lock-o mr5"></i> {this.props.text.reopen}
-                        </button>
+                        <div>
+                            <span>{this.props.text.close_sentence}</span>
+                            <button className="btn btn-warning mr20" onClick={this.onReopen} type="button">
+                                <i className="fa fa-paper-plane-o mr5"></i> {this.props.text.reopen}
+                            </button>
+                        </div>
                     </If>
 
-                    <a className="btn btn-info mt20" onClick={this.onClickPreviousSlide}>Previous</a>
-                    <a className="btn btn-info mt20" onClick={this.onClickNextSlide}>Next</a>
+                    <div className="slider-show-progress">
+                        <div className="progress-bar">
+                            <div className="progress-bar-inner bg-blue" style={progressStyle}></div>
+                        </div>
+                        <span className="progress-page">{currentSlide+1}/{slides.length+1}</span>
+                    </div>
+                    <div className="slider-show-controlers">
+                        <a className="btn-previous-slide" onClick={this.onClickPreviousSlide}>Previous</a>
+                        <a className="btn-next-slide" onClick={this.onClickNextSlide}>Next</a>
+                    </div>
                     <a className="mt20" onClick={this.onClickFullscreen}>Plein ecran</a>
-                    <span>{currentSlide+1}</span>
+                    
                 </div>
             </div>
         );

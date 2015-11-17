@@ -71,6 +71,60 @@
 
         height: 100%;
 
+        .slider-show-actions {
+
+            display: inline-block;
+            width: 37%;
+
+            .slider-show-progress {
+                background-color:#1e2d3a;
+                .progress-bar {
+                    background-color: #2B3C4C;
+                    height: 36px;
+                    padding: 16px;
+                    display: inline-block;
+                    width: 80%;
+
+                    .progress-bar-inner {
+                        height: 8px;
+                    }
+                }
+
+                .progress-page {
+                   color: #FFF;
+                   float: right;
+                   padding: 0 10px;
+                   line-height: 38px;
+                   width: 20%;
+                   text-align: center;
+                }
+            }
+
+            .slider-show-controlers {
+
+                & > a {
+                    background-color: #1e2d3a;
+                    line-height: 30px;
+                    padding: 10px;
+                    color: #FFF;
+                    width: 50%;
+                    display: inline-block;
+                    text-align: center;
+                    border-top: 2px solid #EDEEEE;
+
+                    &.btn-previous-slide {
+                        border-right: 2px solid #EDEEEE;
+                    }
+
+                    &:hover {
+                        background-color:#2B3C4C;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+        }
+
         .slider-wrapper {
             width: auto;
             height: auto;
